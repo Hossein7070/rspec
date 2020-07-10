@@ -1,0 +1,28 @@
+<p>A field marked &lt;code&gt;readonly&lt;/code&gt; can only be assigned as part of its declaration or in a constructor. While &lt;code&gt;readonly&lt;/code&gt; reference types (e.g. classes) can still have their state changed subsequently, the same is not true of value types such as &lt;code&gt;struct&lt;/code&gt; s. Thus, calling a method that updates object state on a &lt;code&gt;readonly&lt;/code&gt; value type field simply has no effect (but runs without error!). The result is code that probably doesn’t do what you thought it did.</p>
+<p>This rule raises an issue when a method that is not marked &lt;code&gt;[Pure]&lt;/code&gt; is invoked on a &lt;code&gt;readonly&lt;/code&gt; value type field.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+public struct S1
+{
+    public int value;
+
+    public void SetValue()
+    {
+        value = 10;
+    }
+}
+
+class Test
+{
+    static readonly S1 first;
+    static S1 second;
+
+    static void Main()
+    {
+        first.SetValue();  // Noncompliant
+        second.SetValue();
+        Console.WriteLine(first.value);  // Surprise! This writes 0
+        Console.WriteLine(second.value); // This writes 10
+    }
+}
+</pre>

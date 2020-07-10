@@ -1,0 +1,13 @@
+<p>When using &lt;code&gt;CICS XCTL&lt;/code&gt; or &lt;code&gt;CICS LINK&lt;/code&gt;, it is a bad practice not to specify the length of the communication area.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+  EXEC CICS LINK PROGRAM ('SPI2TCV') COMMAREA (SPI-PARMCICS)  RESP (WS-RESP)  *&gt; Noncompliant
+
+  EXEC CICS XCTL PROGRAM ('P4DERROR') COMMAREA (Y4DERROR)  *&gt; Noncompliant
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+  EXEC CICS LINK PROGRAM ('SPI2TCV') COMMAREA (SPI-PARMCICS) LENGTH (SPI-LONG) RESP (WS-RESP)
+
+  EXEC CICS XCTL PROGRAM ('P4DERROR') COMMAREA (Y4DERROR) LENGTH (Y4FLFIC-Y4DERROR)
+</pre>

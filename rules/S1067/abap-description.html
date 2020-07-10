@@ -1,0 +1,9 @@
+<p>The complexity of an expression is defined by the number of &lt;code&gt;AND&lt;/code&gt;, &lt;code&gt;OR&lt;/code&gt;, &lt;code&gt;XOR&lt;/code&gt; and &lt;code&gt;EQUIV&lt;/code&gt; operators it contains.
+A single expression’s complexity should not become too high to keep the code readable.</p>
+<h2>Noncompliant Code Example</h2>
+<p>With the default threshold value of 3</p>
+<pre>
+IF ((condition1 AND condition2) OR (condition3 AND condition4)) AND condition5.
+  ...
+ENDIF.
+</pre>

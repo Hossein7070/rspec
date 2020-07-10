@@ -1,0 +1,17 @@
+<p>While a C-style &lt;code&gt;enum&lt;/code&gt; will work in Objective-C, the newer &lt;code&gt;NS_ENUM&lt;/code&gt; and &lt;code&gt;NS_OPTIONS&lt;/code&gt; macros offer a simple way to define enumerations and options, specifying the type and size for each, and improving code completion in Xcode.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+typedef enum Letter {  // Noncompliant
+  A,
+  B,
+  C
+} Letter;
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+typedef NS_ENUM (NSInteger, Letter) {
+  A,
+  B,
+  C
+} Letter;
+</pre>

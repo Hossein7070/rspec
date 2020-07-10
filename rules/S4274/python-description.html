@@ -1,0 +1,23 @@
+<p>An assert is inappropriate for parameter validation because assertions are disabled globally at the interpreter level when the application runs as optimize bytecode (-O and -OO command line switches). It means that the optimize version of the application would completely eliminate the intended checks.</p>
+<p>This rule raises an issue when a &lt;code&gt;public&lt;/code&gt; method uses one or more of its parameters with &lt;code&gt;assert&lt;/code&gt;s.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+class Shop:
+
+  def setPrice(self, price):
+    assert(price &gt;= 0 and price &lt;= MAX_PRICE) # Noncompliant
+    // Set the price
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+class Shop:
+
+  def setPrice(self, price):
+    if(price &lt; 0 or price &gt; MAX_PRICE):
+      raise ValueError("Invalid price: " + price)
+    // Set the price
+</pre>
+<h2>See</h2>
+<ul>
+<li><a href="https://wiki.python.org/moin/UsingAssertionsEffectively">The Python Wiki, UsingAssertionsEffectively</a></li>
+</ul>

@@ -1,0 +1,24 @@
+{
+  "title": "\"break\" should be the only statement in a \"case\"",
+  "type": "CODE_SMELL",
+  "status": "ready",
+  "remediation": {
+    "func": "Constant/Issue",
+    "constantCost": "2min"
+  },
+  "tags": [
+    "unused",
+    "clumsy"
+  ],
+  "defaultSeverity": "Minor",
+  "ruleSpecification": "RSPEC-2951",
+  "sqKey": "S2951",
+  "scope": "Main",
+  "all_languages": [
+    "swift",
+    "vbnet"
+  ],
+  "allKeys": [
+    "S2951"
+  ]
+}

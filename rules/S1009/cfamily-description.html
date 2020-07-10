@@ -1,0 +1,20 @@
+<p>The use of &lt;code&gt;enum&lt;/code&gt; as a bit-field type is prohibited because ISO/IEC 14882:2003 does not explicitly define the underlying representation as &lt;code&gt;signed&lt;/code&gt; or &lt;code&gt;unsigned&lt;/code&gt;. It is therefore not possible to determine the exact number of bits required to represent all values in the enumeration.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+struct S
+{
+  AnEnumType n : 2; // Noncompliant
+};
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+struct S
+{
+ unsigned short n : 2; // Compliant
+};
+</pre>
+<h2>See</h2>
+<ul>
+<li>MISRA C++:2008, 9-6-3 - Bit-fields shall not have enum type.</li>
+<li>ISO/IEC 14882:2003</li>
+</ul>

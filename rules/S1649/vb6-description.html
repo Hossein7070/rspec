@@ -1,0 +1,11 @@
+<p>Variant functions are inefficient by nature, and should not be used with strings when string-specific versions, denoted by a &lt;code&gt;$&lt;/code&gt; at the end of the name, are available.</p>
+<p>This rule flags instances of these functions:
+&lt;code&gt;Left()&lt;/code&gt;, &lt;code&gt;Mid()&lt;/code&gt;, &lt;code&gt;Right()&lt;/code&gt;, &lt;code&gt;Chr()&lt;/code&gt;, &lt;code&gt;ChrW()&lt;/code&gt;, &lt;code&gt;UCase()&lt;/code&gt;, &lt;code&gt;LCase()&lt;/code&gt;, &lt;code&gt;LTrim()&lt;/code&gt;, &lt;code&gt;RTrim()&lt;/code&gt;, &lt;code&gt;Trim()&lt;/code&gt;, &lt;code&gt;Space()&lt;/code&gt;, &lt;code&gt;String()&lt;/code&gt;, &lt;code&gt;Format()&lt;/code&gt;, &lt;code&gt;Hex()&lt;/code&gt;, &lt;code&gt;Oct(),&lt;/code&gt; &lt;code&gt;Str()&lt;/code&gt;, &lt;code&gt;Error&lt;/code&gt;</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+TrimString = Trim(TestString)
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+TrimString = Trim$(TestString)
+</pre>

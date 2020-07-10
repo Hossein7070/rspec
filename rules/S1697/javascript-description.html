@@ -1,0 +1,37 @@
+<p>When either the equality operator in a test for &lt;code&gt;null&lt;/code&gt; or &lt;code&gt;undefined&lt;/code&gt;, or the logical operator that follows it is reversed, the code has the appearance of safely null-testing the object before dereferencing it. Unfortunately the effect is just the opposite - the object is null-tested and then dereferenced only if it is &lt;code&gt;null&lt;/code&gt;/&lt;code&gt;undefined&lt;/code&gt;, leading to a guaranteed &lt;code&gt;TypeError&lt;/code&gt;.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+if (str == null &amp;&amp; str.length == 0) {
+  console.log("String is empty");
+}
+
+if (str == undefined &amp;&amp; str.length == 0) {
+  console.log("String is empty");
+}
+
+if (str != null || str.length &gt; 0) {
+  console.log("String is not empty");
+}
+
+if (str != undefined || str.length &gt; 0) {
+  console.log("String is not empty");
+}
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+if (str != null &amp;&amp; str.length == 0) {
+  console.log("String is empty");
+}
+
+if (str != undefined &amp;&amp; str.length == 0) {
+  console.log("String is empty");
+}
+
+if (str == null || str.length &gt; 0) {
+  console.log("String is not empty");
+}
+
+if (str == undefined || str.length &gt; 0) {
+  console.log("String is not empty");
+}
+</pre>

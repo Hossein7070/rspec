@@ -1,0 +1,9 @@
+<p>In Java 8, underscore (&lt;code&gt;_&lt;/code&gt;) cannot be used as a parameter to a lambda, and by Java 9, it’s a keyword. To ensure future portability (not to mention current readability), it should not be used now as an identifier.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+private String _;  // Noncompliant
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+private String foo;
+</pre>

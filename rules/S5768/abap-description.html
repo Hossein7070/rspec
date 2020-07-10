@@ -1,0 +1,29 @@
+<p>SAP recommends to keep the result set of any request as small as possible for performance reasons.</p>
+<p>A &lt;code&gt;SELECT…​ENDSELECT&lt;/code&gt; request will retrieve multiple records at the same time. Stopping immediately such a request with a &lt;code&gt;CHECK&lt;/code&gt;, &lt;code&gt;RETURN&lt;/code&gt; or &lt;code&gt;EXIT&lt;/code&gt; statement will not reduce the number of retrieved records. If the goal is to retrieve a single record, or check that at least one record exists, it is recommended to add &lt;code&gt;UP TO 1 ROWS&lt;/code&gt; or to use &lt;code&gt;SELECT SINGLE&lt;/code&gt;.</p>
+<p>Even if the request already retrieved only one record, adding &lt;code&gt;UP TO 1 ROWS&lt;/code&gt; or to using &lt;code&gt;SELECT SINGLE&lt;/code&gt; will make the code easier to read.</p>
+<p>This rule raises an issue when a &lt;code&gt;SELECT…​ENDSELECT&lt;/code&gt; which has neither &lt;code&gt;SINGLE&lt;/code&gt; nor &lt;code&gt;UP TO 1 ROWS&lt;/code&gt; and:</p>
+<ul>
+<li>contains only one statement and it is a &lt;code&gt;CHECK&lt;/code&gt;, &lt;code&gt;RETURN&lt;/code&gt; or &lt;code&gt;EXIT&lt;/code&gt;</li>
+<li>or when it is completely empty.</li>
+</ul>
+<h2>Noncompliant Code Example:</h2>
+<pre>
+SELECT * FROM sbook INTO ls_book WHERE carrid EQ l_carrid.
+    EXIT.
+ENDSELECT.
+IF sy-subrc NE 0.
+    WRITE:/ 'NO RECORD FOUND'.
+ENDIF.
+</pre>
+<h2>Compliant Solution:</h2>
+<pre>
+SELECT SINGLE * sbook INTO ls_book WHERE carrid EQ l_carrid.
+IF sy-subrc NE 0.
+    WRITE:/ 'NO RECORD FOUND'.
+ENDIF.
+</pre>
+<h2>See</h2>
+<ul>
+<li><a href="https://archive.sap.com/documents/docs/DOC-46714">Best Practice Guide - Considerations for Custom ABAP Code During a Migration to SAP HANA</a></li>
+<li><a href="https://help.sap.com/doc/saphelp_nw70/7.0.31/en-US/aa/4734940f1c11d295380000e8353423/content.htm?no_cache=true">SAP documentation - Keep the Result Set Small</a></li>
+</ul>

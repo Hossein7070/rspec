@@ -1,0 +1,28 @@
+<p>&lt;code&gt;UNION&lt;/code&gt; is a convenient syntax to combine the results of two or more SQL statements because it helps you cut a complex problem into multiple simple SQL statements. But when it comes to execution, using &lt;code&gt;UNION&lt;/code&gt; is debatable.</p>
+<p>First, it may be possible to fuse two simple SQL statements into a bigger one that will run faster. Second, &lt;code&gt;UNION&lt;/code&gt; is significantly less performant compared to &lt;code&gt;UNION ALL&lt;/code&gt; because it removes duplicated entries and runS an internal &lt;code&gt;DISTINCT&lt;/code&gt; to achieve this.</p>
+<p>&lt;code&gt;UNION ALL&lt;/code&gt; does not remove duplicates and returns all the results from the queries. It performs faster in most cases compared to &lt;code&gt;UNION&lt;/code&gt;. Nevertheless, the quantity of data returned by &lt;code&gt;UNION ALL&lt;/code&gt; can be significantly larger than with &lt;code&gt;UNION&lt;/code&gt;. On a slow network, the performance gain of using &lt;code&gt;UNION ALL&lt;/code&gt; instead of &lt;code&gt;UNION&lt;/code&gt; can be negated by the time lost in the larger data transfer.</p>
+<p>This rule raises an issue on each &lt;code&gt;UNION&lt;/code&gt;. It’s up to the developer to challenge its use and see if there is a better way to rewrite without &lt;code&gt;UNION&lt;/code&gt;.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+-- case #1
+SELECT EMAIL FROM EMPLOYEES WHERE COUNTRY = 'FR'
+UNION                           -- Noncompliant
+SELECT EMAIL FROM EMPLOYEES WHERE COUNTRY = 'CH'
+
+-- case #2
+-- if you care about not having duplicated entries, then UNION is the good choice
+SELECT EMAIL FROM EMPLOYEES
+UNION                           -- Noncompliant
+SELECT EMAIL FROM CUSTOMERS
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+-- case #1
+SELECT EMAIL FROM EMPLOYEES WHERE COUNTRY = 'FR' OR COUNTRY = 'CH'
+
+-- case #2
+-- if you don't care about duplicated entries in the results of this UNION, then UNION ALL should be preferred
+SELECT EMAIL FROM EMPLOYEES
+UNION ALL
+SELECT EMAIL FROM CUSTOMERS
+</pre>

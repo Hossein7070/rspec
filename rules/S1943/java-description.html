@@ -1,0 +1,68 @@
+<p>Using classes and methods that rely on the default system encoding can result in code that works fine in its "home" environment. But that code may break for customers who use different encodings in ways that are extremely difficult to diagnose and nearly, if not completely, impossible to reproduce when it’s time to fix them.</p>
+<p>This rule detects uses of the following classes and methods:</p>
+<ul>
+<li>&lt;code&gt;FileReader&lt;/code&gt;</li>
+<li>&lt;code&gt;FileWriter&lt;/code&gt;</li>
+<li><p>String constructors with a &lt;code&gt;byte[]&lt;/code&gt; argument but no &lt;code&gt;Charset&lt;/code&gt; argument</p>
+<ul>
+<li>&lt;code&gt;String(byte[] bytes)&lt;/code&gt;</li>
+<li>&lt;code&gt;String(byte[] bytes, int offset, int length)&lt;/code&gt;</li>
+</ul></li>
+<li>&lt;code&gt;String.getBytes()&lt;/code&gt;</li>
+<li>&lt;code&gt;String.getBytes(int srcBegin, int srcEnd, byte[] dst, int dstBegin)&lt;/code&gt;</li>
+<li>&lt;code&gt;InputStreamReader(InputStream in)&lt;/code&gt;</li>
+<li>&lt;code&gt;OutputStreamWriter(OutputStream out)&lt;/code&gt;</li>
+<li>&lt;code&gt;ByteArrayOutputStream.toString()&lt;/code&gt;</li>
+<li><p>Some &lt;code&gt;Formatter&lt;/code&gt; constructors</p>
+<ul>
+<li>&lt;code&gt;Formatter(String fileName)&lt;/code&gt;</li>
+<li>&lt;code&gt;Formatter(File file)&lt;/code&gt;</li>
+<li>&lt;code&gt;Formatter(OutputStream os)&lt;/code&gt;</li>
+</ul></li>
+<li><p>Some &lt;code&gt;Scanner&lt;/code&gt; constructors</p>
+<ul>
+<li>&lt;code&gt;Scanner(File source)&lt;/code&gt;</li>
+<li>&lt;code&gt;Scanner(Path source)&lt;/code&gt;</li>
+<li>&lt;code&gt;Scanner(InputStream source)&lt;/code&gt;</li>
+</ul></li>
+<li><p>Some &lt;code&gt;PrintStream&lt;/code&gt; constructors</p>
+<ul>
+<li>&lt;code&gt;PrintStream(File file)&lt;/code&gt;</li>
+<li>&lt;code&gt;PrintStream(OutputStream out)&lt;/code&gt;</li>
+<li>&lt;code&gt;PrintStream(OutputStream out, boolean autoFlush)&lt;/code&gt;</li>
+<li>&lt;code&gt;PrintStream(String fileName)&lt;/code&gt;</li>
+</ul></li>
+<li><p>Some &lt;code&gt;PrintWriter&lt;/code&gt; constructors</p>
+<ul>
+<li>&lt;code&gt;PrintWriter(File file)&lt;/code&gt;</li>
+<li>&lt;code&gt;PrintWriter(OutputStream out)&lt;/code&gt;</li>
+<li>&lt;code&gt;PrintWriter(OutputStream out, boolean autoFlush)&lt;/code&gt;</li>
+<li>&lt;code&gt;PrintWriter(String fileName)&lt;/code&gt;</li>
+</ul></li>
+<li><p>methods from Apache commons-io library which accept an encoding argument when that argument is null, and overloads of those methods that omit the encoding argument</p>
+<ul>
+<li>&lt;code&gt;IOUtils.copy(InputStream, Writer)&lt;/code&gt;</li>
+<li>&lt;code&gt;IOUtils.copy(Reader, OutputStream)&lt;/code&gt;</li>
+<li>&lt;code&gt;IOUtils.readLines(InputStream)&lt;/code&gt;</li>
+<li>&lt;code&gt;IOUtils.toByteArray(Reader)&lt;/code&gt;</li>
+<li>&lt;code&gt;IOUtils.toByteArray(String)&lt;/code&gt;</li>
+<li>&lt;code&gt;IOUtils.toCharArray(InputStream)&lt;/code&gt;</li>
+<li>&lt;code&gt;IOUtils.toInputStream(TypeCriteria.subtypeOf(CharSequence))&lt;/code&gt;</li>
+<li>&lt;code&gt;IOUtils.toString(byte[])&lt;/code&gt;</li>
+<li>&lt;code&gt;IOUtils.toString(URI)&lt;/code&gt;</li>
+<li>&lt;code&gt;IOUtils.toString(URL)&lt;/code&gt;</li>
+<li>&lt;code&gt;IOUtils.write(char[], OutputStream)&lt;/code&gt;</li>
+<li>&lt;code&gt;IOUtils.write(CharSequence, OutputStream)&lt;/code&gt;</li>
+<li>&lt;code&gt;IOUtils.writeLines(Collection, String, OutputStream)&lt;/code&gt;</li>
+<li>&lt;code&gt;FileUtils.readFileToString(File)&lt;/code&gt;</li>
+<li>&lt;code&gt;FileUtils.readLines(File)&lt;/code&gt;</li>
+<li>&lt;code&gt;FileUtils.write(File, CharSequence)&lt;/code&gt;</li>
+<li>&lt;code&gt;FileUtils.write(File, CharSequence, boolean)&lt;/code&gt;</li>
+<li>&lt;code&gt;FileUtils.writeStringToFile(File, String)&lt;/code&gt;</li>
+</ul></li>
+</ul>
+<h2>See</h2>
+<ul>
+<li><a href="https://www.securecoding.cert.org/confluence/x/FoL5AQ">CERT, STR04-J.</a> - Use compatible character encodings when communicating string data between JVMs</li>
+<li><a href="https://www.securecoding.cert.org/confluence/x/JgAWCQ">CERT, STR50-J.</a> - Use the appropriate method for counting characters in a string</li>
+</ul>

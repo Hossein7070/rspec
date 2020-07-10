@@ -1,0 +1,15 @@
+<p>The use of a result data structure with file I/O improves performance because it moves the data in one large block from file to data structure (or vice versa) rather than field by field.</p>
+<p>Additionally using a data structure can limit the problems caused by having bad data in a file. Without a data structure, the entire &lt;code&gt;READ&lt;/code&gt; operation will fail at the first bad value. With one, the error comes only when the bad field is used.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+     F MyFile   IF   E             Disk
+       * Noncompliant
+     C                   READ      Record1
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+     F MyFile   IF   E             Disk
+
+     D InputData       DS                  LikeRec(Record1)
+     C                   READ      Record1       InputData
+</pre>

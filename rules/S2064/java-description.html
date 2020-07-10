@@ -1,0 +1,49 @@
+<p>&lt;code&gt;transient&lt;/code&gt; fields are ignored by Java’s automatic serizalization mechanisms, which means that when a object is deserialized, those fields will be set to their default values.</p>
+<p>&lt;code&gt;transient&lt;/code&gt; fields that are referenced in multiple places in a class seem to play a significant role in that class. Allowing such significant fields to be left in a default state after deserialization may not be the best course, so they should probably be set in either a &lt;code&gt;readObject()&lt;/code&gt; or &lt;code&gt;readResolve()&lt;/code&gt; method.</p>
+<h2>Noncompliant Code Example</h2>
+<p>Using the default threshold of 3:</p>
+<pre>
+class Fruit implements Serializable {
+  private transient Seed seed;
+
+  public Fruit (Seed seed) {
+    this.seed = seed;  // 1st set
+  }
+  public void setSeed (Seed seed) {
+    this.seed = seed;  // 2nd set
+  }
+  public Seed getSeed() {
+    return seed; // not counted; read, not write.
+  }
+
+  public void sprout () {
+    this.seed = new GerminatedSeed();  // Noncompliant; 3rd write
+    //...
+  }
+}
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+class Fruit implements Serializable {
+  private transient Seed seed;
+
+  public Fruit (Seed seed) {
+    this.seed = seed;  // 1st reference
+  }
+  public void setSeed (Seed seed)
+    this.seed = seed;  // 2nd reference
+  }
+  public Seed getSeed() {
+    return seed; // not counted; read, not write.
+  }
+
+  public void sprout () {
+    this.seed = new GerminatedSeed();  // Noncompliant; 3rd write
+    //...
+  }
+
+  protected Object readResolve() throws ObjectStreamException {
+    // ...
+  }
+}
+</pre>

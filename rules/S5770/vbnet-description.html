@@ -1,0 +1,36 @@
+<p>ViewBag and ViewData dictionaries enable controllers to pass data to their views as weakly typed collections. Reading the provided values is dynamically resolved at runtime without any compile-time checking. This can lead to unexpected behavior, since reading a missing value does not produce an exception.</p>
+<p>Controllers should pass data to their views via a strongly typed view model class.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+Public Class HomeController
+    Inherits Controller
+
+    Public Function Article() As ActionResult
+        ViewBag.Title = "Title" ' Noncompliant, model should be used
+        ViewData("Text") = "Text" ' Noncompliant, model should be used
+        Return View()
+    End Function
+
+End Class
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+Public Class ArticleModel
+
+    Public Property Title As String
+    Public Property Text As String
+
+End Class
+
+Public Class HomeController
+    Inherits Controller
+
+    Public Function Article() As ActionResult
+        Dim Model As New ArticleModel With {.Title = "Title", .Text = "Text"}
+        Return View(Model)
+    End Function
+
+End Class
+</pre>
+<h2>See</h2>
+<p><a href="https://docs.microsoft.com/en-us/aspnet/core/mvc/views/overview?view=aspnetcore-3.0#weakly-typed-data-viewdata-viewdata-attribute-and-viewbag">Views in ASP.NET Core MVC - Weakly typed data</a></p>

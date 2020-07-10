@@ -1,0 +1,29 @@
+<p>The use of &lt;code&gt;self&lt;/code&gt; is optional except when in closure expressions, and when it’s needed to distinguish between property names and arguments. For the sake of brevity, &lt;code&gt;self&lt;/code&gt; should be omitted when it’s not strictly required.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+class Car {
+  var color: Int
+
+  init(color: Int) {
+    self.color = color
+  }
+
+  func fade() {
+    self.color--  // Noncompliant
+  }
+}
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+class Car {
+  var color: Int
+
+  init(color: Int) {
+    self.color = color
+  }
+
+  func fade() {
+    color--
+  }
+}
+</pre>

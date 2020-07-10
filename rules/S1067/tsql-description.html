@@ -1,0 +1,8 @@
+<p>The complexity of an expression is defined by the number of &lt;code&gt;AND&lt;/code&gt; and &lt;code&gt;OR&lt;/code&gt; operators it contains.
+A single expression’s complexity should not become too high to keep the code readable.</p>
+<h2>Noncompliant Code Example</h2>
+<p>With the default threshold value of 3</p>
+<pre>
+IF ((@a = 1 AND @b &gt; 2) OR (@c &lt;&gt; 3 AND @d &lt;= 4)) AND @e IS NULL
+  ...
+</pre>

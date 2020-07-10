@@ -1,0 +1,9 @@
+<p>When only the condition expression is defined in a &lt;code&gt;for&lt;/code&gt; loop, and the initialization and increment expressions are missing, a &lt;code&gt;while&lt;/code&gt; loop should be used instead to increase readability.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+for (;condition;) { /*...*/ }
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+while (condition) { /*...*/ }
+</pre>

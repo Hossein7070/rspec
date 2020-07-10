@@ -1,0 +1,26 @@
+<p>Functions that accept random numbers of arguments use a rest argument (&lt;code&gt;…​ argname&lt;/code&gt;). This allows you to pass the function each relevant parameter individually. At runtime, those parameters are automatically wrapped in an array. If you pass an array to such a function, it will automatically be re-wrapped in another array, and this double-layering won’t be expected by the called function. To avoid that double-layering, use the spread operator (&lt;code&gt;…​&lt;/code&gt;arrayToBeExpanded) in the call to expand the array.</p>
+<p>This applies both to manually created arrays, and to arguments that were accepted as rest parameters.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+collect(new Book(), new Book());
+
+function collect(...books: Book[]) {
+  buy(books);   // Noncompliant
+}
+
+function buy(...things: any[]) {
+  console.log(things); // outputs "[ [ Book {}, Book {} ] ]"
+}
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+collect(new Book(), new Book());
+
+function collect(...books: Book[]) {
+  buy(...books);
+}
+
+function buy(...things: any[]) {
+  console.log(things); // outputs "[ Book {}, Book {} ]"
+}
+</pre>

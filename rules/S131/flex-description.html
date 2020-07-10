@@ -1,0 +1,37 @@
+<p>The requirement for a final &lt;code&gt;default&lt;/code&gt; clause is defensive programming. The clause should either take appropriate action, or contain a suitable comment as to why no action is taken.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+switch (param) { // Noncompliant - default clause is missing
+  case 0:
+    doSomething();
+    break;
+  case 1:
+    doSomethingElse();
+    break;
+}
+
+switch (param) {
+  default: // Noncompliant - default clause should be the last one
+    doSomething();
+    break;
+  case 0:
+    doSomethingElse();
+    break;
+}
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+switch (param) {
+  case 0:
+    doSomethingElse();
+    break;
+  default:
+    doSomethingElse();
+    break;
+}
+</pre>
+<h2>See</h2>
+<ul>
+<li><a href="http://cwe.mitre.org/data/definitions/478.html">MITRE, CWE-478</a> - Missing Default Case in Switch Statement</li>
+<li><a href="https://www.securecoding.cert.org/confluence/x/YgE">CERT, MSC01-C.</a> - Strive for logical completeness</li>
+</ul>

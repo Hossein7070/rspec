@@ -1,0 +1,16 @@
+<p>Shared coding conventions allow teams to collaborate efficiently. This rule checks that all local, &lt;code&gt;final&lt;/code&gt;, initialized, primitive variables, have names that match a provided regular expression.</p>
+<h2>Noncompliant Code Example</h2>
+<p>With the default regular expression &lt;code&gt;^[A-Z]<strong>(_[A-Z0-9]+)</strong>$&lt;/code&gt;:</p>
+<pre>
+public void doSomething() {
+  final int local = 42;
+  ...
+}
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+public void doSomething() {
+  final int LOCAL = 42;
+  ...
+}
+</pre>

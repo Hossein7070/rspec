@@ -1,0 +1,15 @@
+<p>&lt;code&gt;fixed bin(31)&lt;/code&gt; type has been optimized to run faster than &lt;code&gt;int&lt;/code&gt; especially when used in loops. For this reason, &lt;code&gt;fixed bin(31)&lt;/code&gt; should be preferred to &lt;code&gt;int&lt;/code&gt;.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+dcl i int(2) init (0);
+do-loop i to 20 by 1;
+...
+end-loop;
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+dcl i fixed bin(31) init (0);
+do-loop i to 20 by 1;
+...
+end-loop;
+</pre>

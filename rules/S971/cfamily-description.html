@@ -1,0 +1,18 @@
+<p>C++ provides safer ways of achieving what is often done using the pre-processor, by way of inline functions and constant declarations.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+#ifndef HDR // Compliant
+#define HDR // Compliant
+#define X(Y) (Y) // Noncompliant
+#define PI 3.141592 // Noncompliant
+#endif
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+template&lt;typename T&gt; inline T function(T t) { return t; } // Compliant
+double const PI = 3.141592; // Compliant
+</pre>
+<h2>See</h2>
+<ul>
+<li>MISRA C++:2008, 16-2-1</li>
+</ul>

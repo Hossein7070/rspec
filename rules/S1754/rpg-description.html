@@ -1,0 +1,15 @@
+<p>&lt;code&gt;SELECT&lt;/code&gt; and &lt;code&gt;OMIT&lt;/code&gt; allow you to choose records from a logical file based on the values of specific fields. SQL views allow you to make the same distinctions, but their use is more efficient, and easier to read and understand. Therefore views are preferred over &lt;code&gt;SELECT&lt;/code&gt; and &lt;code&gt;OMIT&lt;/code&gt; statements.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+Index: SKCOU03
+
+ *************** Beginning of data *************************************
+      A          R SKCOU                     TEXT('Coupon Rate Details')
+      A                                      PFILE(SKCOUP)
+      A          K COUASS
+      A          K COUEFF                    DESCEND
+      A          S COUSTS                    COMP(EQ 'L')
+      A          S COUSTS                    COMP(EQ 'X')
+
+****************** End of data ***************************************
+</pre>

@@ -1,0 +1,24 @@
+<p>It is fairly normal for COBOL development teams to decide to work either with sections or with paragraphs and to make this choice a standard.
+When sections are used, it is also normal to define another standard: "End every section definition with an empty paragraph definition, or a paragraph containing only a terminating statement".
+This empty paragraph can then be jumped to with a &lt;code&gt;GO TO&lt;/code&gt; statement to stop the execution of a section.
+Accepted terminating statements in the otherwise-empty ending paragraph are: &lt;code&gt;EXIT&lt;/code&gt;, &lt;code&gt;EXIT PROGRAM&lt;/code&gt;, &lt;code&gt;STOP RUN&lt;/code&gt;, and &lt;code&gt;GO BACK&lt;/code&gt;.</p>
+<h2>Noncompliant Code Example</h2>
+<p>In this example, an empty paragraph is missing at the end of the first section definition.</p>
+<pre>
+FIRST_SECTION SECTION.
+  ...
+
+SECOND_SECTION SECTION.
+  ...
+SECOND_SECTION_END.
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+FIRST_SECTION SECTION.
+  ...
+FIRST_SECTION_END.
+
+SECOND_SECTION SECTION.
+  ...
+SECOND_SECTION_END.
+</pre>

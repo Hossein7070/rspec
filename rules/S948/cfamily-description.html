@@ -1,0 +1,29 @@
+<p>In C++, the literal 0 is both an integer type and the null-pointer-constant. To meet developer expectations, &lt;code&gt;NULL&lt;/code&gt; should be used as the null-pointer-constant, and 0 for the integer zero.
+Note: as a result of this rule, &lt;code&gt;NULL&lt;/code&gt; is considered to have pointer type.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+#include &lt;cstddef&gt;
+
+void f1 ( int32_t );
+void f2 ( int32_t * );
+void f3 ( )
+{
+  f1 ( NULL ); // Noncompliant, "NULL" used as an integer
+  f2 ( NULL ); // Compliant, pointer expected
+}
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+#include &lt;cstddef&gt;
+
+void f1 ( int32_t );
+void f2 ( int32_t * );
+void f3 ( )
+{
+  f1 ( 0 ); // Compliant, integer expected
+}
+</pre>
+<h2>See</h2>
+<ul>
+<li>MISRA C++:2008, 4-10-1</li>
+</ul>

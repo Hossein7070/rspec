@@ -1,0 +1,16 @@
+<p>Using a unique &lt;code&gt;KLIST&lt;/code&gt; to access files ensures that the correct key is used at all times and creates a standard method of accessing the data throughout the code, simplifying maintenance and improving readability.</p>
+<p>This rule flags non-compliant instances of &lt;code&gt;CHAIN&lt;/code&gt;, &lt;code&gt;DELETE&lt;/code&gt;, &lt;code&gt;READE&lt;/code&gt;, &lt;code&gt;READPE&lt;/code&gt;, &lt;code&gt;SETGT&lt;/code&gt;, and &lt;code&gt;SETLL&lt;/code&gt; operations.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+C     'D001 B'      CHAIN     KYCUSTN                            20
+...
+C     DEPT          CHAIN     KYCUSTN                            20
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+C     DEPTKY        KLIST
+C                   KFLD                    DEPT
+C                   KFLD                    SHIFT
+
+C     DEPTKY        CHAIN     KYCUSTN                            20
+</pre>

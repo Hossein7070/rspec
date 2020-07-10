@@ -1,0 +1,26 @@
+<p>To ensure future code portability, obsolete keywords should not be used. The following keywords were declared obsolete in the COBOL ANSI-85 standard and removed in the ISO/IEC 1989:2002 standard:</p>
+<ul>
+<li>Paragraphs: &lt;code&gt;AUTHOR&lt;/code&gt;, &lt;code&gt;INSTALLATION&lt;/code&gt;, &lt;code&gt;DATE-WRITTEN&lt;/code&gt;, &lt;code&gt;DATE-COMPILED&lt;/code&gt;, &lt;code&gt;SECURITY&lt;/code&gt;</li>
+<li>Clauses: &lt;code&gt;DATA RECORD(S)&lt;/code&gt;, &lt;code&gt;LABEL RECORD(S)&lt;/code&gt;, &lt;code&gt;MEMORY SIZE&lt;/code&gt;, &lt;code&gt;MULTIPLE FILE (TAPE)&lt;/code&gt;, &lt;code&gt;RERUN&lt;/code&gt;, &lt;code&gt;VALUE OF&lt;/code&gt;, &lt;code&gt;CODE SEGMENT-LIMIT&lt;/code&gt;</li>
+<li>Statements: &lt;code&gt;ALTER&lt;/code&gt;, &lt;code&gt;ENTER&lt;/code&gt;, &lt;code&gt;STOP&lt;/code&gt; <em>literal</em>, &lt;code&gt;GO TO&lt;/code&gt; without an argument</li>
+<li>Phrases: &lt;code&gt;REVERSED&lt;/code&gt; phrase of the &lt;code&gt;OPEN&lt;/code&gt; statement</li>
+<li>Special registers: &lt;code&gt;DEBUG-ITEM&lt;/code&gt;</li>
+<li>Sections: Debugging sections</li>
+<li>Declarative: &lt;code&gt;USE FOR DEBUGGING&lt;/code&gt;</li>
+</ul>
+<p>The following keywords were declared obsolete in the ISO/IEC 1989:2002 standard:</p>
+<ul>
+<li>Phrase: &lt;code&gt;DEBUGGING MODE&lt;/code&gt;</li>
+<li>Clause: &lt;code&gt;PADDING CHARACTER&lt;/code&gt;</li>
+</ul>
+<h2>Noncompliant Code Example</h2>
+<pre>
+IDENTIFICATION DIVISION.
+PROGRAM-ID.  AcceptAndDisplay.
+AUTHOR.  Michael Coughlan.  *&gt; Noncompliant
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+IDENTIFICATION DIVISION.
+PROGRAM-ID.  AcceptAndDisplay.
+</pre>

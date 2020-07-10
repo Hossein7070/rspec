@@ -1,0 +1,21 @@
+<p>Reading a non-existent property on an object always returns &lt;code&gt;undefined&lt;/code&gt;. Doing so is usually an error; either in the name of the property or the type of the variable being accessed.</p>
+<p>If an attempt is made to access properties of a primitive, the primitive is automatically encased in a primitive-wrapper object for the operation. But being "promoted" to an object doesn’t mean that the primitive will actually have properties to access. The wrapper object still won’t have the non-existent property and &lt;code&gt;undefined&lt;/code&gt; will be returned instead.</p>
+<p>This rule raises an issue when an attempt is made to access properties of a primitive. Thus this rule should only be activated when you don’t use monkey patching for standard objects, like &lt;code&gt;Number&lt;/code&gt;, &lt;code&gt;Boolean&lt;/code&gt; and &lt;code&gt;String&lt;/code&gt;.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+x = 42;
+y = x.length;   // Noncompliant, Number type doesn't have "length" property
+</pre>
+<h2>Exceptions</h2>
+<p>The Ember framework introduces a few extensions to &lt;code&gt;String&lt;/code&gt;. Since it is a widely used package, the following &lt;code&gt;String&lt;/code&gt; properties will not trigger this rule even though they are not built-in:</p>
+<ul>
+<li>&lt;code&gt;camelize&lt;/code&gt;</li>
+<li>&lt;code&gt;capitalize&lt;/code&gt;</li>
+<li>&lt;code&gt;classify&lt;/code&gt;</li>
+<li>&lt;code&gt;dasherize&lt;/code&gt;</li>
+<li>&lt;code&gt;decamelize&lt;/code&gt;</li>
+<li>&lt;code&gt;fmt&lt;/code&gt;</li>
+<li>&lt;code&gt;loc&lt;/code&gt;</li>
+<li>&lt;code&gt;underscore&lt;/code&gt;</li>
+<li>&lt;code&gt;w&lt;/code&gt;</li>
+</ul>

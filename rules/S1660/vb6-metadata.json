@@ -1,0 +1,22 @@
+{
+  "title": "The bang (\"!\") operator should not be used",
+  "type": "CODE_SMELL",
+  "status": "ready",
+  "remediation": {
+    "func": "Constant/Issue",
+    "constantCost": "3min"
+  },
+  "tags": [
+    "performance"
+  ],
+  "defaultSeverity": "Major",
+  "ruleSpecification": "RSPEC-1660",
+  "sqKey": "S1660",
+  "scope": "Main",
+  "all_languages": [
+    "vb6"
+  ],
+  "allKeys": [
+    "S1660"
+  ]
+}

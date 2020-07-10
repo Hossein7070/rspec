@@ -1,0 +1,11 @@
+<p>It is very common to pass a collection constructor reference as an argument, for example &lt;code&gt;Collectors.toCollection(ArrayList::new)&lt;/code&gt; takes the &lt;code&gt;ArrayList::new&lt;/code&gt; constructor. When the method expects a &lt;code&gt;java.util.function.Supplier&lt;/code&gt; it is perfectly fine. However when the me argument type is &lt;code&gt;java.util.function.Function&lt;/code&gt; it means that an argument will be passed to the constructor.</p>
+<p>The first argument of Collections constructors is usually an integer representing its "initial capacity". This is generally not what the developer expects, but the memory allocation is not visible at first glance.</p>
+<p>This rule raises an issue when a collection constructor is passed by reference as a &lt;code&gt;java.util.function.Function&lt;/code&gt; argument.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+Arrays.asList(1, 2, 54000).stream().collect(Collectors.toMap(Function.identity(), ArrayList::new));
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+Arrays.asList(1, 2, 54000).stream().collect(Collectors.toMap(Function.identity(), id -&gt; new ArrayList&lt;&gt;()));
+</pre>

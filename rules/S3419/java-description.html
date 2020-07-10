@@ -1,0 +1,18 @@
+<p>Shared naming conventions allow teams to collaborate effectively. This rule raises an issue when the a pom’s &lt;code&gt;groupId&lt;/code&gt; does not match the provided regular expression.</p>
+<h2>Noncompliant Code Example</h2>
+<p>With the default regular expression: &lt;code&gt;(com|org)(\.[a-z][a-z-0-9]*)+&lt;/code&gt;</p>
+<pre>
+&lt;project ...&gt;
+  &lt;groupId&gt;myCo&lt;/groupId&gt;  &lt;!-- Noncompliant --&gt;
+
+  &lt;!-- ... --&gt;
+&lt;/project&gt;
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+&lt;project ...&gt;
+  &lt;groupId&gt;com.myco&lt;/groupId&gt;
+
+  &lt;!-- ... --&gt;
+&lt;/project&gt;
+</pre>

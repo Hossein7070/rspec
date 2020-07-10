@@ -1,0 +1,12 @@
+<p>When several lines must be inserted/updated into an internal table, instead of doing those changes line by line, mass operations should be used because they offer better performance  by design.</p>
+<p>This rule raises an issue when a single line operation like &lt;code&gt;APPEND&lt;/code&gt;, &lt;code&gt;CONCATENATE&lt;/code&gt;, and &lt;code&gt;INSERT&lt;/code&gt; is performed on an internal table in a loop.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+LOOP AT ITAB1 INTO WA.
+  APPEND WA TO ITAB2.
+ENDLOOP.
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+APPEND LINES OF ITAB1 TO ITAB2.
+</pre>

@@ -1,0 +1,18 @@
+<p>If the &lt;code&gt;suite&lt;/code&gt; method in a JUnit 3 &lt;code&gt;TestCase&lt;/code&gt; is not declared correctly, it will not be used. Such a method must be named "suite", have no arguments, be &lt;code&gt;public static&lt;/code&gt;, and must return either a &lt;code&gt;junit.framework.Test&lt;/code&gt; or a &lt;code&gt;junit.framework.TestSuite&lt;/code&gt;.</p>
+<p>Similarly, &lt;code&gt;setUp&lt;/code&gt; and &lt;code&gt;tearDown&lt;/code&gt; methods that aren’t properly capitalized will also be ignored.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+Test suite() { ... } // Noncompliant; must be public static
+public static boolean suite() { ... } // Noncompliant; wrong return type
+public static Test suit() { ... } // Noncompliant; typo in method name
+public static Test suite(int count) { ... } // Noncompliant; must be no-arg
+
+public void setup() { ... } // Noncompliant; should be setUp
+public void tearDwon() { ... } // Noncompliant; should be tearDown
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+public static Test suite() { ... }
+public void setUp() { ... }
+public void tearDown() { ... }
+</pre>

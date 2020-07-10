@@ -1,0 +1,27 @@
+<p>Not using a &lt;code&gt;DO …​ END&lt;/code&gt; compound statement can be error-prone.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+foo: proc options(main);
+  declare i fixed decimal init (0);
+
+  if i = 42 then
+    put list ('The answer is... '); /* Noncompliant; should be enclosed in DO ... END*/
+    put list ('42!'); /* Always unconditionally be executed! Indentation level is misleading. */
+end;
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+foo: proc options(main);
+  declare i fixed decimal init (0);
+
+  if i = 42 then do;
+    put list ('The answer is... '); /* Compliant */
+    put list ('42!');
+  end;
+end;
+</pre>
+<h2>See</h2>
+<ul>
+<li><a href="https://www.securecoding.cert.org/confluence/x/1QGMAg">CERT, EXP19-C.</a> - Use braces for the body of an if, for, or while statement</li>
+<li><a href="https://www.securecoding.cert.org/confluence/x/3wHEAw">CERT, EXP52-J.</a> - Use braces for the body of an if, for, or while statement</li>
+</ul>

@@ -1,0 +1,39 @@
+<p>Using &lt;code&gt;free(…​)&lt;/code&gt; or &lt;code&gt;delete&lt;/code&gt; releases the reservation on a memory location, making it immediately available for another purpose. So releasing the same memory location twice can lead to corrupting the program’s memory.</p>
+<p>A best practice to avoid this bug calls for setting just-freed pointers to &lt;code&gt;NULL&lt;/code&gt;, and always null-testing before a &lt;code&gt;free&lt;/code&gt; or &lt;code&gt;delete&lt;/code&gt;.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+void doSomething(int size) {
+  char *cp = (char *) malloc(sizeof(char) * size);
+
+  // ...
+  if (condition) {
+    free(cp);
+  }
+
+  free(cp);  // Noncompliant
+}
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+void doSomething(int size) {
+  char *cp = (char *) malloc(sizeof(char) * size);
+
+  // ...
+  if (condition) {
+    if (cp != NULL) {
+      free(cp);
+      cp = NULL;
+    }
+  }
+
+  if (cp) {  // This is a common, short-hand null test
+    free(cp);
+    cp = NULL;
+  }
+}
+</pre>
+<h2>See</h2>
+<ul>
+<li><a href="https://cwe.mitre.org/data/definitions/415.html">MITRE, CWE-415</a> - Double Free</li>
+<li><a href="https://www.owasp.org/index.php/Double_Free">OWASP, Double Free</a></li>
+</ul>

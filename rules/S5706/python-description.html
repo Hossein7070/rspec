@@ -1,0 +1,48 @@
+<p>The special method <a href="https://docs.python.org/3/reference/datamodel.html?highlight=">https://docs.python.org/3/reference/datamodel.html?highlight=</a><em>exit</em>%20special#object.<em>exit</em>[&lt;code&gt;_\_exit\_\_&lt;/code&gt;] should only raise an exception when it fails. It should never raise the provided exception, it is the caller’s responsibility.
+ Raising this exception will make the stack trace difficult to understand.</p>
+<p>The &lt;code&gt;_\_exit\_\_&lt;/code&gt; method can filter passed-in exceptions by simply returning True or False.</p>
+<p>This rule raises an issue when:</p>
+<ul>
+<li>an &lt;code&gt;_\_exit\_\_&lt;/code&gt; method has a bare &lt;code&gt;raise&lt;/code&gt; outside of an &lt;code&gt;except&lt;/code&gt; block.</li>
+<li>an &lt;code&gt;_\_exit\_\_&lt;/code&gt; method raises the exception provided as parameter.</li>
+</ul>
+<h2>Noncompliant Code Example</h2>
+<pre>
+class MyContextManager:
+    def __enter__(self):
+        return self
+    def __exit__(self, *args):
+        raise  # Noncompliant
+        raise args[2]  # Noncompliant
+
+class MyContextManager:
+    def __enter__(self):
+        return self
+    def __exit__(self, exc_type, exc_value, traceback):
+        raise exc_value # Noncompliant
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+class MyContextManager:
+    def __enter__(self):
+        return self
+    def __exit__(self, exc_type, exc_value, traceback):
+        # by default the function will return None, which is always False, and the exc_value will naturally raise.
+        pass
+
+class MyContextManager:
+    def __enter__(self, stop_exceptions):
+        return self
+    def __exit__(self, *args):
+        try:
+            print("42")
+        except:
+            print("exception")
+            raise  # No issue when raising another exception. The __exit__ method can fail and raise an exception
+        raise MemoryError("No more memory")  # This is ok too.
+</pre>
+<h2>See</h2>
+<ul>
+<li>Python documentation – <a href="https://docs.python.org/3/reference/datamodel.html?highlight=">https://docs.python.org/3/reference/datamodel.html?highlight=</a><em>exit</em>%20special#object.<em>exit</em>[The &lt;code&gt;_\_exit\_\_&lt;/code&gt; special method]</li>
+<li>PEP 343 – <a href="https://www.python.org/dev/peps/pep-0343/">The "with" Statement</a></li>
+</ul>

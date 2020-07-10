@@ -1,0 +1,12 @@
+<p>Shared naming conventions allow teams to collaborate efficiently. This rule checks that all &lt;code&gt;enum&lt;/code&gt; names match a provided regular expression.</p>
+<h2>Noncompliant Code Example</h2>
+<p>With default provided regular expression &lt;code&gt;^[A-Z][a-zA-Z0-9]*$&lt;/code&gt;:</p>
+<pre>
+enum someEnumeration { // Noncompliant
+};
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+enum SomeEnumeration {
+};
+</pre>

@@ -1,0 +1,64 @@
+<p>"Time Of Check to Time Of Use" (TOCTOU) vulnerabilities occur when an application:</p>
+<ul>
+<li>First, checks permissions or attributes of a file: for instance, is a file a symbolic link?</li>
+<li>Next, performs some operations such as writing data to this file.</li>
+</ul>
+<p>The application cannot assume the state of the file is unchanged between these two steps, there is a race condition (ie: two different processes can access and modify the same shared object/file at the same time, which can lead to privilege escalation, denial of service and other unexpected results).</p>
+<p>For instance, an attacker can benefit from this situation by creating, just after the first step, a symbolic link to a sensitive file (eg in Unix: &lt;code&gt;/etc/password&lt;/code&gt;) and try to elevate his privileges (eg: if the written data has the correct &lt;code&gt;/etc/password&lt;/code&gt; file format).</p>
+<h2>Noncompliant Code Examples</h2>
+<p>A "check function" (for instance &lt;code&gt;access&lt;/code&gt;, &lt;code&gt;stat&lt;/code&gt; …​ in this case &lt;code&gt;fopen&lt;/code&gt; to verify the existence of a file) is used, followed by a "use function" (&lt;code&gt;open&lt;/code&gt;, &lt;code&gt;fopen&lt;/code&gt; …​) to write data inside a non existing file. These two consecutive calls create a TOCTOU race condition:</p>
+<pre>
+#include &lt;stdio.h&gt;
+
+void open_with_toctou(const char *file) {
+  FILE *f = fopen(file, "r");
+  if (NULL == f) {
+    // the file doesn't exist
+
+    if (fclose(f) == EOF) {
+      /* Handle error */
+    }
+
+    // it is now created in order to write some data inside
+    f = fopen(file, "w"); // Noncompliant: a race condition window exist between these two calls
+    if (NULL == f) {
+      /* Handle error */
+    }
+
+    if (fclose(f) == EOF) {
+      /* Handle error */
+    }
+  }
+}
+</pre>
+<h2>Compliant Solution</h2>
+<p>If the file already exists on the disk, &lt;code&gt;fopen&lt;/code&gt; with &lt;code&gt;x&lt;/code&gt; mode will fail:</p>
+<pre>
+#include &lt;stdio.h&gt;
+
+void open_without_toctou(const char *file) {
+  FILE *f = fopen(file, "wx"); // Compliant
+  if (NULL == f) {
+    /* Handle error */
+  }
+  /* Write to file */
+  if (fclose(f) == EOF) {
+    /* Handle error */
+  }
+}
+</pre>
+<p>A more generic solution is to use "file descriptors":</p>
+<pre>
+void open_without_toctou(const char *file) {
+  int fd = open(file, O_CREAT | O_EXCL | O_WRONLY);
+  if (-1 != fd) {
+    FILE *f = fdopen(fd, "w");  // Compliant
+  }
+}
+</pre>
+<h2>See</h2>
+<ul>
+<li><a href="https://www.owasp.org/index.php/Top_10-2017_A5-Broken_Access_Control">OWASP Top 10 2017 Category A5</a> - Boken Access Control</li>
+<li><a href="https://cwe.mitre.org/data/definitions/367.html">MITRE, CWE-367</a> - Time-of-check Time-of-use (TOCTOU) Race Condition</li>
+<li><a href="https://wiki.sei.cmu.edu/confluence/display/c/FIO45-C.+Avoid+TOCTOU+race+conditions+while+accessing+files">CERT, FIO45-C.</a> - Avoid TOCTOU race conditions while accessing files</li>
+</ul>

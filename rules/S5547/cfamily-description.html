@@ -1,0 +1,53 @@
+<p><a href="https://en.wikipedia.org/wiki/Strong_cryptography">Strong cipher algorithms</a> are cryptographic systems resistant to cryptanalysis, they are not vulnerable to well-known attacks like brute force attacks for example.</p>
+<p>It is recommended to use only cipher algorithms intensively tested and promoted by the cryptographic community.</p>
+<h2>Noncompliant Code Examples</h2>
+<p><a href="https://github.com/randombit/botan">botan</a> library:</p>
+<pre>
+std::unique_ptr&lt;Botan::BlockCipher&gt; cipher1(Botan::BlockCipher::create("Blowfish")); // Noncompliant: Blowfish use a 64-bit block size makes it vulnerable to birthday attacks
+cipher1-&gt;set_key(key);
+cipher1-&gt;encrypt(block);
+
+std::unique_ptr&lt;Botan::BlockCipher&gt; cipher2(Botan::BlockCipher::create("DES")); // Noncompliant: DES works with 56-bit keys allow attacks via exhaustive search
+cipher2-&gt;set_key(key);
+cipher2-&gt;encrypt(block);
+
+std::unique_ptr&lt;Botan::BlockCipher&gt; cipher3(Botan::BlockCipher::create("3DES")); // Noncompliant: Triple DES is vulnerable to meet-in-the-middle attack
+cipher3-&gt;set_key(key);
+cipher3-&gt;encrypt(block);
+
+std::unique_ptr&lt;Botan::BlockCipher&gt; cipher4(Botan::BlockCipher::create("DESX")); // Noncompliant: Triple DES is vulnerable to meet-in-the-middle attack
+cipher4-&gt;set_key(key);
+cipher4-&gt;encrypt(block);
+</pre>
+<p><a href="https://software.opensuse.org/package/libcryptopp">crypto++</a> library:</p>
+<pre>
+CryptoPP::CBC_Mode&lt;CryptoPP::Blowfish&gt;::Encryption Encryptor1( key, sizeof(key), iv ); // Noncompliant: Blowfish use a 64-bit block size makes it vulnerable to birthday attacks
+
+CryptoPP::CBC_Mode&lt;CryptoPP::DES&gt;::Encryption Encryptor2( key, sizeof(key), iv ); // Noncompliant: DES works with 56-bit keys allow attacks via exhaustive search
+
+CryptoPP::CBC_Mode&lt;CryptoPP::DES_EDE2&gt;::Encryption Encryptor3( key, sizeof(key), iv ); // Noncompliant: Triple DES is vulnerable to meet-in-the-middle attack
+
+CryptoPP::CBC_Mode&lt;CryptoPP::DES_EDE3&gt;::Encryption Encryptor4( key, sizeof(key), iv ); // Noncompliant: Triple DES is vulnerable to meet-in-the-middle attack
+
+CryptoPP::CBC_Mode&lt;CryptoPP::DES_XEX3&gt;::Encryption Encryptor5( key, sizeof(key), iv ); // Noncompliant: Triple DES is vulnerable to meet-in-the-middle attack
+
+CryptoPP::CBC_Mode&lt;CryptoPP::RC2&gt;::Encryption Encryptor6( key, sizeof(key), iv ); // Noncompliant: RC2 is vulnerable to a related-key attack
+</pre>
+<h2>Compliant Solution</h2>
+<p><a href="https://github.com/randombit/botan">botan</a> library:</p>
+<pre>
+std::unique_ptr&lt;Botan::BlockCipher&gt; cipher(Botan::BlockCipher::create("AES-256")); // Compliant
+cipher-&gt;set_key(key);
+cipher-&gt;encrypt(block);
+</pre>
+<p><a href="https://software.opensuse.org/package/libcryptopp">crypto++</a> library:</p>
+<pre>
+CryptoPP::CBC_Mode&lt;CryptoPP::AES&gt;::Encryption Encryptor( key, sizeof(key), iv ); // Compliant
+</pre>
+<h2>See</h2>
+<ul>
+<li><a href="https://www.owasp.org/index.php/Top_10-2017_A3-Sensitive_Data_Exposure">OWASP Top 10 2017 Category A3</a> - Sensitive Data Exposure</li>
+<li><a href="http://cwe.mitre.org/data/definitions/327.html">MITRE, CWE-327</a> - Use of a Broken or Risky Cryptographic Algorithm</li>
+<li><a href="https://www.securecoding.cert.org/confluence/x/VwAZAg">CERT, MSC61-J.</a> - Do not use insecure or weak cryptographic algorithms</li>
+<li><a href="https://www.sans.org/top25-software-errors/#cat3">SANS Top 25</a> - Porous Defenses</li>
+</ul>

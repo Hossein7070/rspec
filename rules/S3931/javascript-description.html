@@ -1,0 +1,5 @@
+<p>Using the output of a non-boolean assignment as a condition is highly suspicious. Either it was done accidentally, and the assignment operator &lt;code&gt;=&lt;/code&gt; was used in place of the equality operator &lt;code&gt;==&lt;/code&gt;, or it was done with the intent to rely on the automatic conversion of the non-boolean value to a boolean, which could be confusing for maintainers.</p>
+<h2>See</h2>
+<ul>
+<li>MISRA C:2004, 13.1 - Assignment operators shall not be used in expressions that yield a Boolean value</li>
+</ul>

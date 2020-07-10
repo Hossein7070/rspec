@@ -1,0 +1,16 @@
+<p>Nested &lt;code&gt;IF&lt;/code&gt;, &lt;code&gt;CASE&lt;/code&gt;, &lt;code&gt;DO&lt;/code&gt;, &lt;code&gt;LOOP&lt;/code&gt;, &lt;code&gt;SELECT&lt;/code&gt;, &lt;code&gt;WHILE&lt;/code&gt; and &lt;code&gt;PROVIDE&lt;/code&gt; statements is a key ingredient for making what’s known as "Spaghetti code".</p>
+<p>Such code is hard to read, refactor and therefore maintain.</p>
+<h2>Noncompliant Code Example</h2>
+<p>With the default threshold of 3:</p>
+<pre>
+IF param1 = 2.
+  IF param2 = 4.
+    DO 3 TIMES.    "Compliant - depth = 3, not exceeding the limit
+      IF sy-index = 2.   "Noncompliant - depth = 4
+        CONTINUE.
+      ENDIF.
+      WRITE sy-index.
+    ENDDO.
+  ENDIF.
+ENDIF.
+</pre>

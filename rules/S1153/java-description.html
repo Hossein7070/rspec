@@ -1,0 +1,14 @@
+<p>Appending &lt;code&gt;String.valueOf()&lt;/code&gt; to a &lt;code&gt;String&lt;/code&gt; decreases the code readability.
+The argument passed to &lt;code&gt;String.valueOf()&lt;/code&gt; should be directly appended instead.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+public void display(int i){
+  System.out.println("Output is " + String.valueOf(i));    // Noncompliant
+}
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+public void display(int i){
+  System.out.println("Output is " + i);                    // Compliant
+}
+</pre>

@@ -1,0 +1,15 @@
+<p>&lt;code&gt;void*&lt;/code&gt; is a pointer to memory of unknown type, and therefore works outside of the safety net provided by the type system. While it can be useful in a function body to interface with external code, there is no good reason to step out of the robust C++ type system when defining a function, either for the function parameters, or for the function return type.</p>
+<p>If you want to work with raw memory buffer, use &lt;code&gt;unsigned char *&lt;/code&gt; (or &lt;code&gt;byte *&lt;/code&gt; if your compiler supports it).</p>
+<p>If you want to work with different types of data, define a function template and use typed pointers, instead of &lt;code&gt;void *&lt;/code&gt;.</p>
+<p>If you want to provide to users of an API an opaque type, declare a type and don’t provide its definition (like with &lt;code&gt;FILE*&lt;/code&gt;).</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+void saveBuffer(void *buffer, size_t size); // Noncompliant
+void duplicate(void* destination, size_t count, void *source, size_t size); // Noncompliant
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+void saveBuffer(unsigned char *buffer, size_t size);
+template&lt;class T&gt;
+void duplicate(T* destination, size_t count, T *source);
+</pre>

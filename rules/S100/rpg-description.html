@@ -1,0 +1,26 @@
+<p>Sharing some naming conventions is a key point to make it possible for a team to efficiently collaborate. This rule allows to check that all subroutine names match a provided regular expression.</p>
+<h2>Noncompliant Code Example</h2>
+<p>With default provided regular expression &lt;code&gt;^SR[a-zA-Z0-9]*$&lt;/code&gt;:</p>
+<pre>
+C     XXXXX         BEGSR
+...
+C                   ENDSR
+</pre>
+<pre>
+ /free
+   begsr yyyy;
+   endsr;
+ /end-free{code}
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+C     SR102         BEGSR
+...
+C                   ENDSR
+</pre>
+<pre>
+ /free
+   begsr SR103;
+   endsr;
+ /end-free
+</pre>

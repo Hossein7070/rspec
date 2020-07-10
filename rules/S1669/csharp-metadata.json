@@ -1,0 +1,25 @@
+{
+  "title": "Keywords should not be used as names",
+  "type": "CODE_SMELL",
+  "status": "ready",
+  "remediation": {
+    "func": "Constant/Issue",
+    "constantCost": "10min"
+  },
+  "tags": [
+    "pitfall"
+  ],
+  "defaultSeverity": "Blocker",
+  "ruleSpecification": "RSPEC-1669",
+  "sqKey": "S1669",
+  "scope": "Main",
+  "all_languages": [
+    "abap",
+    "cfamily",
+    "csharp",
+    "pli"
+  ],
+  "allKeys": [
+    "S1669"
+  ]
+}

@@ -1,0 +1,34 @@
+<p>When implementing the &lt;code&gt;Comparable&lt;T&gt;.compareTo&lt;/code&gt; method, the parameter’s type has to match the type used in the &lt;code&gt;Comparable&lt;/code&gt; declaration. When a different type is used this creates an overload instead of an override, which is unlikely to be the intent.</p>
+<p>This rule raises an issue when the parameter of the &lt;code&gt;compareTo&lt;/code&gt; method of a class implementing &lt;code&gt;Comparable&lt;T&gt;&lt;/code&gt; is not same as the one used in the &lt;code&gt;Comparable&lt;/code&gt; declaration.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+public class Foo {
+  static class Bar implements Comparable&lt;Bar&gt; {
+    public int compareTo(Bar rhs) {
+      return -1;
+    }
+  }
+
+  static class FooBar extends Bar {
+    public int compareTo(FooBar rhs) {  // Noncompliant: Parameter should be of type Bar
+      return 0;
+    }
+  }
+}
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+public class Foo {
+  static class Bar implements Comparable&lt;Bar&gt; {
+    public int compareTo(Bar rhs) {
+      return -1;
+    }
+  }
+
+  static class FooBar extends Bar {
+    public int compareTo(Bar rhs) {
+      return 0;
+    }
+  }
+}
+</pre>

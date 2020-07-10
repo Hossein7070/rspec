@@ -1,0 +1,19 @@
+<p>Nested comments are confusing and can lead maintainers to misunderstand which code is active.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+/*
+  This is a comment block.
+  It may be difficult to figure out that the following line of code is actually commented
+
+
+variable = function_call();
+/* variable contains the result. Noncompliant; inner comment */
+*/
+</pre>
+<h2>See</h2>
+<ul>
+<li>MISRA C:2004, 2.3 - The character sequence /* shall not be used within a comment.</li>
+<li>MISRA C++:2008, 2-7-1 - The character sequence /* shall not be used within a C-style comment.</li>
+<li>MISRA C:2012, 3.1 - The character sequences /* and // shall not be used within a comment</li>
+<li><a href="https://www.securecoding.cert.org/confluence/x/KgQ">CERT, MSC04-C.</a> - Use comments consistently and in a readable fashion</li>
+</ul>

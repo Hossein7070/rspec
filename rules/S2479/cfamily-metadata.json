@@ -1,0 +1,26 @@
+{
+  "title": "Control characters should not be used in literals",
+  "type": "CODE_SMELL",
+  "status": "ready",
+  "remediation": {
+    "func": "Constant/Issue",
+    "constantCost": "1min"
+  },
+  "tags": [
+    "pitfall"
+  ],
+  "defaultSeverity": "Critical",
+  "ruleSpecification": "RSPEC-2479",
+  "sqKey": "S2479",
+  "scope": "Main",
+  "all_languages": [
+    "cfamily",
+    "csharp",
+    "java",
+    "plsql"
+  ],
+  "allKeys": [
+    "S2479",
+    "LiteralsNonPrintableCharactersCheck"
+  ]
+}

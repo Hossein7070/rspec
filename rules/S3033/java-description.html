@@ -1,0 +1,17 @@
+<p>Assembling a &lt;code&gt;StringBuilder&lt;/code&gt; or &lt;code&gt;StringBuffer&lt;/code&gt; into a &lt;code&gt;String&lt;/code&gt; merely to see if it’s empty is a waste of cycles. Instead, jump right to the heart of the matter and get its &lt;code&gt;.length()&lt;/code&gt; instead.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+StringBuilder sb = new StringBuilder();
+// ...
+if ("".equals(sb.toString()) { // Noncompliant
+  // ...
+}
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+StringBuilder sb = new StringBuilder();
+// ...
+if (sb.length() == 0) {
+  // ...
+}
+</pre>

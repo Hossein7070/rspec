@@ -1,0 +1,28 @@
+{
+  "title": "\"WHEN OTHERS\" clauses should be last",
+  "type": "CODE_SMELL",
+  "status": "ready",
+  "remediation": {
+    "func": "Constant/Issue",
+    "constantCost": "5min"
+  },
+  "tags": [],
+  "defaultSeverity": "Critical",
+  "ruleSpecification": "RSPEC-4524",
+  "sqKey": "S4524",
+  "scope": "All",
+  "all_languages": [
+    "abap",
+    "cfamily",
+    "csharp",
+    "flex",
+    "go",
+    "java",
+    "javascript",
+    "php",
+    "pli"
+  ],
+  "allKeys": [
+    "S4524"
+  ]
+}

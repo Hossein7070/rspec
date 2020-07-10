@@ -1,0 +1,29 @@
+<p>As soon as a &lt;code&gt;WHEN&lt;/code&gt; clause contains too much logic this highly decreases the readability of the overall expression. In such case, the content of the &lt;code&gt;WHEN&lt;/code&gt; clause may be extracted into a dedicated function.</p>
+<h2>Noncompliant Code Example</h2>
+<p>With a threshold of 5:</p>
+<pre>
+SELECT CASE column1
+  WHEN 1 THEN
+    CASE column2
+      WHEN 'a' THEN -- Noncompliant, 7 lines till ELSE
+        'x'
+      ELSE
+        'y'
+      END
+  ELSE
+    42
+  END
+FROM table1;
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+SELECT CASE
+  WHEN column1 = 1 AND column2 = 'a' THEN
+    'x'
+  WHEN column1 = 1 THEN
+    'y'
+  ELSE
+    42
+  END
+FROM table1;
+</pre>

@@ -1,0 +1,11 @@
+<p>The methods &lt;code&gt;wait(…​)&lt;/code&gt;, &lt;code&gt;notify()&lt;/code&gt; and &lt;code&gt;notifyAll()&lt;/code&gt; are available on a &lt;code&gt;Thread&lt;/code&gt; instance, but only because all classes in Java extend &lt;code&gt;Object&lt;/code&gt; and therefore automatically inherit those methods. But there are two very good reasons for not calling them on a &lt;code&gt;Thread&lt;/code&gt;:</p>
+<ul>
+<li>Internally, the JVM relies on these methods to change the state of the Thread (&lt;code&gt;BLOCKED&lt;/code&gt;, &lt;code&gt;WAITING&lt;/code&gt;, …​), so calling them will corrupt the behavior of the JVM.</li>
+<li>It is not clear (perhaps even to the original coder) what is really expected. For instance, it is waiting for the execution of the Thread to suspended, or is it the acquisition of the object monitor that is waited for?</li>
+</ul>
+<h2>Noncompliant Code Example</h2>
+<pre>
+Thread myThread = new Thread(new RunnableJob());
+...
+myThread.wait(2000);
+</pre>

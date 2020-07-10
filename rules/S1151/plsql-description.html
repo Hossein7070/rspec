@@ -1,0 +1,35 @@
+<p>The &lt;code&gt;CASE&lt;/code&gt; statement should be used only to clearly define some new branches in the control flow. As soon as a &lt;code&gt;WHEN&lt;/code&gt; clause contains too many statements this highly decreases the readability of the overall control flow statement. In such case, the content of &lt;code&gt;WHEN&lt;/code&gt; clause should be extracted in a dedicated function.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+CASE my_variable
+  WHEN 0 THEN -- 6 lines till next WHEN
+    procedure1;
+    procedure2;
+    procedure3;
+    procedure4;
+    procedure5;
+  WHEN 1 THEN
+-- ...
+END CASE;
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+DECLARE
+  PROCEDURE do_something AS
+  BEGIN
+    procedure1;
+    procedure2;
+    procedure3;
+    procedure4;
+    procedure5;
+  END;
+BEGIN
+  CASE my_variable
+    WHEN 0 THEN
+      do_something;
+    WHEN 1 THEN
+-- ...
+  END CASE;
+END;
+/
+</pre>

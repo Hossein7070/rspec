@@ -1,0 +1,42 @@
+<p>The time complexity of method calls on collections is not always obvious. For instance, for most collections the &lt;code&gt;size()&lt;/code&gt; method takes constant time, but the time required to execute &lt;code&gt;ConcurrentLinkedQueue.size()&lt;/code&gt; is O(n), i.e. directly proportional to the number of elements in the collection. When the collection is large, this could therefore be an expensive operation.</p>
+<p>This rule raises an issue when the following O(n) methods are called outside of constructors on class fields:</p>
+<ul>
+<li><p>&lt;code&gt;ArrayList&lt;/code&gt;</p>
+<ul>
+<li>&lt;code&gt;contains&lt;/code&gt;</li>
+<li>&lt;code&gt;remove&lt;/code&gt;</li>
+</ul></li>
+<li><p>&lt;code&gt;LinkedList&lt;/code&gt;</p>
+<ul>
+<li>&lt;code&gt;get&lt;/code&gt;</li>
+<li>&lt;code&gt;contains&lt;/code&gt;</li>
+</ul></li>
+<li><p>&lt;code&gt;ConcurrentLinkedQueue&lt;/code&gt;</p>
+<ul>
+<li>&lt;code&gt;size&lt;/code&gt;</li>
+<li>&lt;code&gt;contains&lt;/code&gt;</li>
+</ul></li>
+<li><p>&lt;code&gt;ConcurrentLinkedDeque&lt;/code&gt;</p>
+<ul>
+<li>&lt;code&gt;size&lt;/code&gt;</li>
+<li>&lt;code&gt;contains&lt;/code&gt;</li>
+</ul></li>
+<li><p>&lt;code&gt;CopyOnWriteArrayList&lt;/code&gt;</p>
+<ul>
+<li>&lt;code&gt;add&lt;/code&gt;</li>
+<li>&lt;code&gt;contains&lt;/code&gt;</li>
+<li>&lt;code&gt;remove&lt;/code&gt;</li>
+</ul></li>
+<li><p>&lt;code&gt;CopyOnWriteArraySet&lt;/code&gt;</p>
+<ul>
+<li>&lt;code&gt;add&lt;/code&gt;</li>
+<li>&lt;code&gt;contains&lt;/code&gt;</li>
+<li>&lt;code&gt;remove&lt;/code&gt;</li>
+</ul></li>
+</ul>
+<h2>Noncompliant Code Example</h2>
+<pre>
+ConcurrentLinkedQueue queue = new ConcurrentLinkedQueue();
+//...
+log.info("Queue contains " + queue.size() + " elements");  // Noncompliant
+</pre>

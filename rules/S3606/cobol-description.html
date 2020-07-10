@@ -1,0 +1,13 @@
+<p>Program/file names offer only very limited space for indicating program function, which is why you should take advantage of the ability to specify a program &lt;code&gt;TITLE&lt;/code&gt;. Omitting the &lt;code&gt;TITLE&lt;/code&gt; statement will result in a default, uncommunicative &lt;code&gt;TITLE&lt;/code&gt; value being printed at the top of each page of the source listing. Instead, you should write an expressive title that gives a clear impression of the program’s function.</p>
+<p>This rule raises an issue when a there is no &lt;code&gt;TITLE&lt;/code&gt; before the &lt;code&gt;IDENTIFICATION DIVISION&lt;/code&gt;. Ideally, &lt;code&gt;TITLE&lt;/code&gt; will be the first line of a program, but it cannot be placed before compiler options.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+      * Copyright (c) 2012 MyCo. All rights reserved.  *&gt; Noncompliant
+       IDENTIFICATION DIVISION.
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+       TITLE 'IntradayPosition.ExecutePostProcessing'
+      * Copyright (c) 2012 MyCo. All rights reserved.
+       IDENTIFICATION DIVISION.
+</pre>

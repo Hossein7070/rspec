@@ -1,0 +1,17 @@
+<p>The return type &lt;code&gt;any&lt;/code&gt; should be avoided because it prevents the type safety checks normally done by the compiler. When a function returns a primitive type (i.e. number, string or boolean) it is safe to replace &lt;code&gt;any&lt;/code&gt; with &lt;code&gt;number&lt;/code&gt;, &lt;code&gt;string&lt;/code&gt; or &lt;code&gt;boolean&lt;/code&gt; type respectively, or remove the return type completely and let compiler infer it.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+function foo() : any { // Noncompliant
+  return 1;
+}
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+function foo() {
+  return 1;
+}
+// or
+function foo(): number {
+  return 1;
+}
+</pre>

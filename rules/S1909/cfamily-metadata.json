@@ -1,0 +1,24 @@
+{
+  "title": "\"goto\" statements should not be used to jump into blocks",
+  "type": "CODE_SMELL",
+  "status": "ready",
+  "remediation": {
+    "func": "Constant/Issue",
+    "constantCost": "1h"
+  },
+  "tags": [
+    "based-on-misra",
+    "brain-overload",
+    "pitfall"
+  ],
+  "defaultSeverity": "Blocker",
+  "ruleSpecification": "RSPEC-1909",
+  "sqKey": "GotoLabelInNestedBlock",
+  "scope": "Main",
+  "all_languages": [
+    "cfamily"
+  ],
+  "allKeys": [
+    "GotoLabelInNestedBlock"
+  ]
+}

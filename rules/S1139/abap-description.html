@@ -1,0 +1,9 @@
+<p>&lt;code&gt;DELETE FROM dbtab&lt;/code&gt; without a &lt;code&gt;WHERE&lt;/code&gt; condition deletes all the entries of the table. Check whether dataset to be deleted can be limited by a suitable WHERE condition.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+DELETE FROM COUNTRIES.
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+DELETE FROM COUNTRIES WHERE CODE = country_code.
+</pre>

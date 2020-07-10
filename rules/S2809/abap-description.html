@@ -1,0 +1,56 @@
+<p>Using "CALL TRANSACTION" statements without an authority check is security sensitive. Its access should be restricted to specific users.</p>
+<p>This rule raises when a &lt;code&gt;CALL TRANSACTION&lt;/code&gt; has no explicit authorization check, i.e. when:</p>
+<ul>
+<li>the &lt;code&gt;CALL TRANSACTION&lt;/code&gt; statement is not followed by &lt;code&gt;WITH AUTHORITY-CHECK&lt;/code&gt;.</li>
+<li>the &lt;code&gt;CALL TRANSACTION&lt;/code&gt; statement is not following an &lt;code&gt;AUTHORITY-CHECK&lt;/code&gt; statement.</li>
+<li>the &lt;code&gt;CALL TRANSACTION&lt;/code&gt; statement is not following a call to the &lt;code&gt;AUTHORITY_CHECK_TCODE&lt;/code&gt; function.</li>
+</ul>
+<h2>Ask Yourself Whether</h2>
+<ul>
+<li>the &lt;code&gt;CALL TRANSACTION&lt;/code&gt; statement is restricted to the right users.</li>
+</ul>
+<p>There is a risk if you answered no to this question.</p>
+<h2>Recommended Secure Coding Practices</h2>
+<p>Check current user’s authorization before every &lt;code&gt;CALL TRANSACTION&lt;/code&gt; statement. Since ABAP 7.4 this should be done by appending &lt;code&gt;WITH AUTHORITY-CHECK&lt;/code&gt; to &lt;code&gt;CALL TRANSACTION&lt;/code&gt; statements. In earlier versions the &lt;code&gt;AUTHORITY-CHECK&lt;/code&gt; statement or a call to the &lt;code&gt;AUTHORITY_CHECK_TCODE&lt;/code&gt; function can be used.</p>
+<p>Note that since ABAP 7.4 any &lt;code&gt;CALL TRANSACTION&lt;/code&gt; statement not followed by &lt;code&gt;WITH AUTHORITY-CHECK&lt;/code&gt; or &lt;code&gt;WITHOUT AUTHORITY-CHECK&lt;/code&gt; <a href="https://help.sap.com/doc/abapdocu_751_index_htm/7.51/en-US/abapcall_transaction_authority.htm">is obsolete</a>.</p>
+<h2>Sensitive Code Example</h2>
+<pre>
+CALL TRANSACTION 'MY_DIALOG'.  " Sensitive as there is no apparent authorization check. It is also obsolete since ABAP 7.4.
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+AUTHORITY-CHECK OBJECT 'S_DIAGID'
+                  ID 'ACTVT' FIELD '03'.
+IF sy-subrc &lt;&gt; 0.
+  " show an error message...
+ENDIF.
+
+CALL TRANSACTION 'MY_DIALOG'. " Ok but obsolete since ABAP 7.4.
+</pre>
+<p>or</p>
+<pre>
+CALL FUNCTION 'AUTHORITY_CHECK_TCODE'
+  exporting
+    tcode  = up_fdta
+  exceptions
+    ok     = 0
+    others = 4.
+IF sy-subrc &lt;&gt; 0.
+  " show an error message...
+ENDIF.
+
+CALL TRANSACTION up_fdta USING up_bdc mode 'E'. " Ok but obsolete since ABAP 7.4.
+</pre>
+<p>or</p>
+<pre>
+CALL TRANSACTION 'MY_DIALOG' WITH AUTHORITY-CHECK. " Recommended way since ABAP 7.4.
+</pre>
+<h2>Exceptions</h2>
+<p>No issue will be raised when &lt;code&gt;CALL TRANSACTION&lt;/code&gt; is followed by &lt;code&gt;WITHOUT AUTHORITY-CHECK&lt;/code&gt; as it explicitly says that the TRANSACTION does not require an authorization check.</p>
+<h2>See</h2>
+<ul>
+<li><a href="https://www.owasp.org/index.php/Top_10-2017_A2-Broken_Authentication">OWASP Top 10 2017 Category A2</a> - Broken Authentication</li>
+<li><a href="http://cwe.mitre.org/data/definitions/285">MITRE, CWE-285</a> - Improper Authorization</li>
+<li><a href="http://cwe.mitre.org/data/definitions/862">MITRE, CWE-862</a> - Missing Authorization</li>
+<li><a href="https://www.sans.org/top25-software-errors/#cat3">SANS Top 25</a> - Porous Defenses</li>
+</ul>

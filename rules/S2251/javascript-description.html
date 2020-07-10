@@ -1,0 +1,17 @@
+<p>A &lt;code&gt;for&lt;/code&gt; loop with a stop condition that can never be reached, such as one with a counter that moves in the wrong direction, will run infinitely. While there are occasions when an infinite loop is intended, the convention is to construct such loops as &lt;code&gt;while&lt;/code&gt; loops. More typically, an infinite &lt;code&gt;for&lt;/code&gt; loop is a bug.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+for (var i = 0; i &lt; strings.length; i--) { // Noncompliant;
+  //...
+}
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+for (var i = 0; i &lt; strings.length; i++) {
+  //...
+}
+</pre>
+<h2>See</h2>
+<ul>
+<li><a href="https://www.securecoding.cert.org/confluence/x/zYEzAg">CERT, MSC54-J.</a> - Avoid inadvertent wrapping of loop counters</li>
+</ul>

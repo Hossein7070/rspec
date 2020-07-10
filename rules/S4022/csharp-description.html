@@ -1,0 +1,27 @@
+<p>By default the storage type of an &lt;code&gt;enum&lt;/code&gt; is &lt;code&gt;Int32&lt;/code&gt;. In most cases it is not necessary to change this. In particular you will not achieve any performance gain by using a smaller data type (e.g. &lt;code&gt;Byte&lt;/code&gt;) and may limit future uses.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+using System;
+
+namespace MyLibrary
+{
+    public enum Visibility : sbyte // Noncompliant
+    {
+        Visible = 0,
+        Invisible = 1,
+    }
+}
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+using System;
+
+namespace MyLibrary
+{
+    public enum Visibility
+    {
+        Visible = 0,
+        Invisible = 1,
+    }
+}
+</pre>

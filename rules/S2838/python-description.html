@@ -1,0 +1,17 @@
+<p>The &lt;code&gt;raise a, b&lt;/code&gt; syntax is deprecated in Python 3, and should no longer be used.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+try:
+  if not is_okay:
+    raise Exception, 'It\'s not okay'  # Noncompliant
+except Exception as e:
+  # ...
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+try:
+  if not is_okay:
+    raise Exception('It\'s not okay')
+except Exception as e:
+  # ...
+</pre>

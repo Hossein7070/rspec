@@ -1,0 +1,22 @@
+{
+  "title": "\"END;\" statements should be labeled",
+  "type": "CODE_SMELL",
+  "status": "ready",
+  "remediation": {
+    "func": "Constant/Issue",
+    "constantCost": "5min"
+  },
+  "tags": [
+    "style"
+  ],
+  "defaultSeverity": "Major",
+  "ruleSpecification": "RSPEC-4532",
+  "sqKey": "S4532",
+  "scope": "Main",
+  "all_languages": [
+    "plsql"
+  ],
+  "allKeys": [
+    "S4532"
+  ]
+}

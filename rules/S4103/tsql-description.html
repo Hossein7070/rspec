@@ -1,0 +1,13 @@
+<p>A &lt;code&gt;FETCH&lt;/code&gt; statement fails when the number of variables does not match the number of columns selected in the CURSOR definition.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+DECLARE c1 cursor FOR SELECT FirstName, LastName FROM customer;
+OPEN c1;
+FETCH NEXT FROM c1 INTO @Name; -- Noncompliant
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+DECLARE c1 cursor FOR SELECT FirstName, LastName FROM customer;
+OPEN c1;
+FETCH NEXT FROM c1 INTO @FirstName, @LastName;
+</pre>

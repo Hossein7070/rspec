@@ -1,0 +1,23 @@
+<p>Initializing a variable to zero or &lt;code&gt;nil&lt;/code&gt; in an &lt;code&gt;init&lt;/code&gt; method is completely redundant; the compiler takes care of that for you. Therefore initializing class instance variables to 0 or &lt;code&gt;nil&lt;/code&gt; is simply wasted keystrokes.</p>
+<p>This rule applies to methods that return an &lt;code&gt;id&lt;/code&gt; and have names that begin with "init".</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+- (id)initWithBlah:(NSString *)blah {
+    self = [super init];
+    if (self) {
+      _count = 0;  // Noncompliant;
+      _blah = [blah copy];
+    }
+    return self;
+}
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+- (id)initWithBlah:(NSString *)blah {
+    self = [super init];
+    if (self) {
+      _blah = [blah copy];
+    }
+    return self;
+}
+</pre>

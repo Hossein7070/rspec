@@ -1,0 +1,19 @@
+<p>Using a type parameter when you don’t have to simply obfuscates the code. Inserting an unnecessary type parameter in an unparameterized method call will compile, but confuse maintainers.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+void doTheThing() {
+  // ...
+}
+
+//...
+this.&lt;String&gt;doTheThing();  // Noncompliant
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+void doTheThing() {
+  // ...
+}
+
+//...
+this.doTheThing();
+</pre>

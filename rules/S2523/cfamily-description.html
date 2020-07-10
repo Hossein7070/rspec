@@ -1,0 +1,18 @@
+<p>C++ does not support the nesting of C-style comments even though some compilers support this as a non-portable language extension.
+A comment beginning with &lt;code&gt;/<strong>&lt;/code&gt; continues until the first &lt;code&gt;</strong>/&lt;/code&gt; is encountered.
+Any &lt;code&gt;/*&lt;/code&gt; occurring inside a comment is a violation of this rule.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+/* some comment, end comment marker accidentally omitted
+Perform_Critical_Safety_Function(X);
+/* this "comment" is Noncompliant */
+</pre>
+<p>In reviewing the code containing the call to the function, the assumption is that it is executed code.
+Because of the accidental omission of the end comment marker, the call to Perform_Critical_ Safety_Function will not be executed.</p>
+<h2>See</h2>
+<ul>
+<li>MISRA C:2004, 2.3 - The character sequence /* shall not be used within a comment.</li>
+<li>MISRA C++:2008, 2-7-1 - The character sequence /* shall not be used within a C-style comment.</li>
+<li>MISRA C:2012, 3.1 - The character sequences /* and // shall not be used within a comment</li>
+<li><a href="https://www.securecoding.cert.org/confluence/x/KgQ">CERT, MSC04-C.</a> - Use comments consistently and in a readable fashion</li>
+</ul>

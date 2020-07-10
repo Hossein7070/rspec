@@ -1,0 +1,9 @@
+<p>While both &lt;code&gt;new&lt;/code&gt; and &lt;code&gt;Create&lt;/code&gt; will yield the same &lt;code&gt;Tuple&lt;/code&gt;, the &lt;code&gt;Create&lt;/code&gt; method automatically infers the argument types, yielding sleeker, more readable code.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+var fastAnimal = new Tuple&lt;string, int&gt;("Cheetah", 93);  // Noncompliant
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+var fastAnimal = Tuple.Create("Cheetah", 93);
+</pre>

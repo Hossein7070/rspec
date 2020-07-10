@@ -1,0 +1,24 @@
+<p>Some signed to unsigned conversions may lead to implementation-defined behaviour. This behaviour may not be consistent with developer expectations.</p>
+<p>If you need to mix signed and unsigned types, you should used explicit casts to clarify your intent.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+void f(int a) {
+  unsigned int b = a; // Noncompliant
+  int c = (a &gt; 0) ? a : b; // Noncompliant
+
+  if (a &gt; b) { // Noncompliant
+    // ...
+  }
+}
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+void f(int a) {
+  unsigned int b = static_cast&lt;unsigned int&gt;(a); // Compliant
+}
+</pre>
+<h2>See</h2>
+<ul>
+<li>MISRA C++ 2008, 5-0-4</li>
+<li><a href="https://www.securecoding.cert.org/confluence/x/RQE">CERT, INT31-C.</a> - Ensure that integer conversions do not result in lost or misinterpreted data</li>
+</ul>

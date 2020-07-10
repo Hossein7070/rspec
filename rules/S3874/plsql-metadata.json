@@ -1,0 +1,25 @@
+{
+  "title": "\"FUNCTIONS\" should not have \"OUT\" parameters",
+  "type": "CODE_SMELL",
+  "status": "ready",
+  "remediation": {
+    "func": "Constant/Issue",
+    "constantCost": "1h"
+  },
+  "tags": [
+    "suspicious",
+    "pitfall"
+  ],
+  "defaultSeverity": "Major",
+  "ruleSpecification": "RSPEC-3874",
+  "sqKey": "FunctionOutParametersCheck",
+  "scope": "All",
+  "all_languages": [
+    "csharp",
+    "plsql"
+  ],
+  "allKeys": [
+    "S3874",
+    "FunctionOutParametersCheck"
+  ]
+}

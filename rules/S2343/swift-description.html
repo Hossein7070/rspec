@@ -1,0 +1,14 @@
+<p>Shared coding conventions allow teams to collaborate efficiently. This rule checks that all enumeration member names match a provided regular expression.</p>
+<h2>Noncompliant Code Example</h2>
+<p>With default provided regular expression: &lt;code&gt;^[a-z][a-zA-Z0-9]*$&lt;/code&gt;</p>
+<pre>
+enum SomeEnumeration {
+    case SomeMember  // Non-Compliant
+}
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+enum SomeEnumeration {
+    case someMember
+}
+</pre>

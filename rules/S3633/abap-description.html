@@ -1,0 +1,7 @@
+<p>Queries with contradictory &lt;code&gt;WHERE&lt;/code&gt; clauses will always return empty result sets. This is clearly a bug.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+SELECT *
+FROM fruit
+WHERE type='apple' AND type='orange'  -- Noncompliant
+</pre>

@@ -1,0 +1,20 @@
+<p>Some COBOL compilers such as IBM one will assume that the minimum value of &lt;code&gt;OCCURS DEPENDING ON&lt;/code&gt; is 1 but nothing is enforcing that and this behaviour can change or be different when using another compiler.
+Setting the minimum value of &lt;code&gt;OCCURS DEPENDING ON&lt;/code&gt; makes the code more readable, and less dependent on compiler.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+01 MY-TABLE-COUNT PIC S9(4) BINARY.
+01 MY-TABLE.
+   03 MY-ITEM OCCURS 500 TIMES          *&gt; Noncompliant
+       DEPENDING ON MY-TABLE-COUNT.
+      05 MY-FIELD-01 PIC X(08).
+      05 MY-FIELD-02 PIC 9(05).
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+01 MY-TABLE-COUNT PIC S9(4) BINARY.
+01 MY-TABLE.
+   03 MY-ITEM OCCURS 1 TO 500 TIMES          *&gt; Compliant; minimum value is 1
+       DEPENDING ON MY-TABLE-COUNT.
+      05 MY-FIELD-01 PIC X(08).
+      05 MY-FIELD-02 PIC 9(05).
+</pre>

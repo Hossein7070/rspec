@@ -1,0 +1,35 @@
+<p>The &lt;code&gt;switch&lt;/code&gt; statement should be used only to clearly define some new branches in the control flow. As soon as a &lt;code&gt;when&lt;/code&gt; clause contains too many statements this highly decreases the readability of the overall control flow statement. In such case, the content of the &lt;code&gt;when&lt;/code&gt; clause should be extracted into a dedicated function.</p>
+<h2>Noncompliant Code Example</h2>
+<p>With the threshold set at &lt;code&gt;5&lt;/code&gt;:</p>
+<pre>
+public void foo(Integer value) {
+  switch on value {
+    when 1 {
+      methodCall1('');
+      methodCall2('');
+      methodCall3('');
+      methodCall4('');
+      methodCall5('');
+    }
+    when 2 { /* ... */ }
+  }
+}
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+public void foo(Integer value) {
+  switch on value {
+    when 1 { doSomething(); }
+    when 2 { /* ... */ }
+    }
+  }
+}
+
+private void doSomething() {
+  methodCall1('');
+  methodCall2('');
+  methodCall3('');
+  methodCall4('');
+  methodCall5('');
+}
+</pre>

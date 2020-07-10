@@ -1,0 +1,8 @@
+<p>Calling &lt;code&gt;System.gc()&lt;/code&gt; or &lt;code&gt;Runtime.getRuntime().gc()&lt;/code&gt; is a bad idea for a simple reason: there is no way to know exactly what will be done under the hood by the JVM because the behavior will depend on its vendor, version and options:</p>
+<ul>
+<li>Will the whole application be frozen during the call?</li>
+<li>Is the &lt;code&gt;-XX:DisableExplicitGC&lt;/code&gt; option activated?</li>
+<li>Will the JVM simply ignore the call?</li>
+<li>…​</li>
+</ul>
+<p>An application relying on these unpredictable methods is also unpredictable and therefore broken. The task of running the garbage collector should be left exclusively to the JVM.</p>

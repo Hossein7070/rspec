@@ -1,0 +1,17 @@
+<p>The &lt;code&gt;yield&lt;/code&gt; keyword is used in a generator function to return an &lt;code&gt;IteratorResult&lt;/code&gt; to the caller. It has no other purpose, and if found outside such a function will raise a &lt;code&gt;ReferenceError&lt;/code&gt; because it is then treated as an identifier.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+function foo() {
+  for (var i = 0; i &lt; 5; i++) {
+    yield i * 2;
+  }
+}
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+function * foo() {
+  for (var i = 0; i &lt; 5; i++) {
+    yield i * 2;
+  }
+}
+</pre>

@@ -1,0 +1,25 @@
+<p>Sharing some naming conventions is a key point to make it possible for a team to efficiently collaborate.
+This rule allows to check that all class names (along with Objective-C interface, protocol and implementation names) match a provided regular expression.</p>
+<h2>Noncompliant Code Example</h2>
+<p>With default provided regular expression &lt;code&gt;^[A-Z][a-zA-Z0-9]*$&lt;/code&gt;:</p>
+<pre>
+// C++
+class foo // Noncompliant
+{
+};
+
+// Objective-C
+@interface nonCompliant : NSObject
+@end
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+// C++
+class Foo // Compliant
+{
+};
+
+// Objective-C
+@interface Compliant : NSObject
+@end
+</pre>

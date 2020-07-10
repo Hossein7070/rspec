@@ -1,0 +1,19 @@
+<p>String data types, such as &lt;code&gt;VARCHAR2&lt;/code&gt; or &lt;code&gt;NVARCHAR2&lt;/code&gt; require a size constraint. Omitting the size results in the exception &lt;code&gt;PLS-00215: String length constraints must be in range (1 .. 32767)&lt;/code&gt; being raised.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+DECLARE
+  foo VARCHAR2; -- Noncompliant - raises PLS-00215
+BEGIN
+  NULL;
+END;
+/
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+DECLARE
+  foo VARCHAR2(42); -- Compliant
+BEGIN
+  NULL;
+END;
+/
+</pre>

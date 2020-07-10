@@ -1,0 +1,48 @@
+<p>&lt;code&gt;Dispose&lt;/code&gt; as a method name should be used exclusively to implement &lt;code&gt;IDisposable.Dispose&lt;/code&gt; to prevent any confusion.</p>
+<p>It may be tempting to create a &lt;code&gt;Dispose&lt;/code&gt; method for other purposes, but doing so will result in confusion and likely lead to problems in production.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+public class GarbageDisposal
+{
+  private int Dispose()  // Noncompliant
+  {
+    // ...
+  }
+}
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+public class GarbageDisposal : IDisposable
+{
+  public void Dispose()
+  {
+    // ...
+  }
+}
+</pre>
+<p>or</p>
+<pre>
+public class GarbageDisposal
+{
+  private int Grind()
+  {
+    // ...
+  }
+}
+</pre>
+<h2>Exceptions</h2>
+<p>Methods named &lt;code&gt;Dispose&lt;/code&gt; and invoked from the &lt;code&gt;IDisposable.Dispose&lt;/code&gt; implementation are not reported.</p>
+<pre>
+public class GarbageDisposal  :  IDisposable
+{
+  protected virtual void Dispose(bool disposing)
+  {
+    //...
+  }
+  public void Dispose()
+  {
+    Dispose(true);
+    GC.SuppressFinalize(this);
+  }
+}
+</pre>

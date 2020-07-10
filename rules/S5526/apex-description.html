@@ -1,0 +1,54 @@
+<p>There are three limits related to methods annotated with the &lt;code&gt;@future&lt;/code&gt; keyword:</p>
+<ul>
+<li>There is a maximum number of &lt;code&gt;@future&lt;/code&gt; calls allowed per transaction.</li>
+<li>There is a maximum number of &lt;code&gt;@future&lt;/code&gt; calls allowed per organization and per a 24-hour period.</li>
+<li>Salesforce protects its infrastructure from organizations calling too many &lt;code&gt;@future&lt;/code&gt; methods: if more than 2000 &lt;code&gt;@future&lt;/code&gt; requests are queued, any additional request [will be delayed]|https://developer.salesforce.com/docs/atlas.en-us.apexcode.meta/apexcode/apex_invoking_future_methods.htm.</li>
+</ul>
+<p>Thus it is a best practice to avoid calling &lt;code&gt;@future&lt;/code&gt; methods in loops and instead call it once with all the necessary data.</p>
+<p>See <a href="https://developer.salesforce.com/docs/atlas.en-us.222.0.apexcode.meta/apexcode/apex_gov_limits.htm">Execution Governors and Limits</a> for the exact number of &lt;code&gt;@future&lt;/code&gt; calls allowed in each context.</p>
+<p>This rule raises an issue when a method annotated with the &lt;code&gt;@future&lt;/code&gt; keyword is called in a loop.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+public class FutureClass {
+    @future
+    public static void processTaskFuture(ID taskId) {
+        Task task = [SELECT Id, Subject FROM Task WHERE Task.Id = :taskId];
+        task.Subject = 'new task subject';
+        update task;
+    }
+
+    public static void updateUserTasks(ID ownerID) {
+        List&lt;Task&gt; tasks = [SELECT Id, Subject FROM Task WHERE Task.ownerid = :ownerID];
+        for (Task task: tasks) {
+            processTaskFuture(task.Id);  // Noncompliant
+        }
+    }
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+public class FutureClass {
+    @future
+    public static void processTasksFuture(List&lt;ID&gt; taskIds) {
+        List&lt;Task&gt; tasks = [SELECT Id, Subject FROM Task WHERE Task.Id IN :taskIds];
+        for (Task task : tasks) {
+            task.Subject = 'new task subject';
+        }
+        update tasks;
+    }
+
+    public static void updateUserTasks(ID ownerID) {
+        List&lt;Task&gt; tasks = [SELECT Id, Subject FROM Task WHERE Task.ownerid = :ownerID];
+        List&lt;Id&gt; ids = new List&lt;ID&gt;();
+        for (Task task: tasks) {
+            ids.add(task.Id);
+        }
+        processTasksFuture(ids);
+    }
+</pre>
+<h2>See</h2>
+<ul>
+<li><a href="https://developer.salesforce.com/page/Apex_Code_Best_Practices">Apex Code Best Practices</a></li>
+<li><a href="https://developer.salesforce.com/docs/atlas.en-us.222.0.apexcode.meta/apexcode/apex_gov_limits.htm">Execution Governors and Limits</a></li>
+<li><a href="https://developer.salesforce.com/docs/atlas.en-us.apexcode.meta/apexcode/apex_invoking_future_methods.htm">Future Methods</a></li>
+<li><a href="https://trailhead.salesforce.com/content/learn/modules/asynchronous_apex/async_apex_future_methods">Use Future Methods</a></li>
+</ul>

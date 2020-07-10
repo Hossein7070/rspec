@@ -1,0 +1,11 @@
+<p>The use of a &lt;code&gt;StringBuilder&lt;/code&gt; or &lt;code&gt;StringBuffer&lt;/code&gt; is supposed to make &lt;code&gt;String&lt;/code&gt; assembly more efficient than plain concatenation. So don’t ruin the effect by concatenating the arguments to &lt;code&gt;append&lt;/code&gt;.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+StringBuilder sb = new StringBuilder();
+sb.append("foo is: " + getFoo()); // Noncompliant
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+StringBuilder sb = new StringBuilder();
+sb.append("foo is: ").append(getFoo());
+</pre>

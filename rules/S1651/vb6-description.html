@@ -1,0 +1,22 @@
+<p>It is more efficient to skip the function invocation and use the predefined string constants rather than calling &lt;code&gt;Chr$()&lt;/code&gt; or &lt;code&gt;ChrW$()&lt;/code&gt; for the following numbers:</p>
+<ul>
+<li>0 - &lt;code&gt;vbNullChar&lt;/code&gt;</li>
+<li>8 - &lt;code&gt;vbBack&lt;/code&gt;</li>
+<li>9 - &lt;code&gt;vbTab&lt;/code&gt;</li>
+<li>10 - &lt;code&gt;vbLf&lt;/code&gt;</li>
+<li>11 - &lt;code&gt;vbVerticalTab&lt;/code&gt;</li>
+<li>12 - &lt;code&gt;vbFormFeed&lt;/code&gt;</li>
+<li>13 - &lt;code&gt;vbCr&lt;/code&gt;</li>
+<li>13+10 - &lt;code&gt;vbCrLf&lt;/code&gt; | &lt;code&gt;vbNewLine&lt;/code&gt;</li>
+<li>34 - &lt;code&gt;""&lt;/code&gt;</li>
+</ul>
+<h2>Noncompliant Code Example</h2>
+<pre>
+Dim myChar As Char
+myChar = Chr$(0)
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+Dim myChar As Char
+myChar = vbNullChar
+</pre>

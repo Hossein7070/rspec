@@ -1,0 +1,33 @@
+<p>The use of a comparison operator outside of a boolean context is an error. At best it is meaningless code, and should be eliminated. However the far more likely scenario is that it is an assignment gone wrong, and should be corrected.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+private void called(int foo) {
+  foo==1; // Noncompliant
+  if (foo==1) {
+    System.out.println("foo\n");
+  }
+}
+
+public void caller(String [ ] args {
+  called(2);
+  return 0;
+}
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+private void called(int foo) {
+  foo=1;
+  if (foo==1) {
+    System.out.println("foo\n");
+  }
+}
+
+public void caller(String [ ] args {
+  called(2);
+  return 0;
+}
+</pre>
+<h2>See</h2>
+<ul>
+<li><a href="http://cwe.mitre.org/data/definitions/482.html">MITRE, CWE-482</a> - Comparing instead of Assigning</li>
+</ul>

@@ -1,0 +1,21 @@
+{
+  "title": "Handling files is security-sensitive",
+  "type": "SECURITY_HOTSPOT",
+  "status": "deprecated",
+  "tags": [],
+  "defaultSeverity": "Critical",
+  "ruleSpecification": "RSPEC-4797",
+  "sqKey": "S4797",
+  "scope": "Main",
+  "all_languages": [
+    "csharp",
+    "java",
+    "javascript",
+    "php",
+    "python",
+    "vbnet"
+  ],
+  "allKeys": [
+    "S4797"
+  ]
+}

@@ -1,0 +1,16 @@
+<p>&lt;code&gt;SeeAllData=true&lt;/code&gt; should not be used because it gives your tests access to all data in your organization. Activating this option makes your test dependent on existing data and more difficult to maintain. Tests should create their own data.</p>
+<p>This rule raises an issue when it sees &lt;code&gt;@isTest(SeeAllData=true)}.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+@isTest(SeeAllData=true) // Noncompliant
+public class MyTestClass {
+    @isTest(SeeAllData=true) // Noncompliant
+    static void myTestMethod() {
+        // Can access all data in the organization.
+    }
+}
+</pre>
+<h2>See</h2>
+<ul>
+<li><a href="https://laceysnr.com/seealldata-why-i-think-you-shouldnt-use/">https://laceysnr.com/seealldata-why-i-think-you-shouldnt-use/</a></li>
+</ul>

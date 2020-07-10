@@ -1,0 +1,10 @@
+<p>&lt;code&gt;xs:any&lt;/code&gt; and &lt;code&gt;xs:anyAttribute&lt;/code&gt; are wildcards; they allow the XML document author to use any element or attribute. By specifying &lt;code&gt;nameSpace&lt;/code&gt;s for them, you can restrict what’s used to elements in the specified name spaces. By default, what’s used for &lt;code&gt;xs:any&lt;/code&gt; and &lt;code&gt;xs:anyAttribute&lt;/code&gt; will be validated in a strict manner (&lt;code&gt;processContents="strict"&lt;/code&gt;). That is, validation will fail if the element used isn’t recognized. That makes sense if you’ve provided a namespace, but not if you haven’t. Conversely, &lt;code&gt;processContents="lax"&lt;/code&gt; allows unrecognized elements to pass validation even if they’re not recognized. That makes sense if no namespace has been specified, but not if one has been specified.</p>
+<p>This rule raises an issue when &lt;code&gt;strict&lt;/code&gt; processing is used (either explicitly or implicitly) when no namespace is provided, and conversely when &lt;code&gt;lax&lt;/code&gt; processing is used with a namespace.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+ToDo
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+ToDo
+</pre>

@@ -1,0 +1,48 @@
+<p>A writable collection property can be replaced by a completely different collection. Making it &lt;code&gt;readonly&lt;/code&gt; prevents that while still allowing individual members to be set. If you want to allow the replacement of the whole collection the recommended pattern is to implement a method to remove all the elements (e.g. &lt;code&gt;System.Collections.List&lt;T&gt;.Clear&lt;/code&gt;) and a method to populate the collection (e.g. &lt;code&gt;System.Collections.List&lt;T&gt;.AddRange&lt;/code&gt;).</p>
+<p>This rule raises an issue when an externally visible writable property is of a type that implements &lt;code&gt;System.Collections.ICollection&lt;/code&gt; or &lt;code&gt;System.Collections.Generic.ICollection&lt;T&gt;&lt;/code&gt;.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+using System;
+using System.Collections;
+
+namespace MyLibrary
+{
+  public class Foo
+  {
+    List&lt;string&gt; strings;
+
+    public List&lt;string&gt; SomeStrings
+    {
+      get { return strings; }
+      set { strings = value; } // Noncompliant
+    }
+  }
+}
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+using System;
+using System.Collections;
+
+namespace MyLibrary
+{
+  public class Foo
+  {
+    List&lt;string&gt; strings;
+
+    public readonly List&lt;string&gt; SomeStrings
+    {
+      get { return strings; }
+    }
+  }
+}
+</pre>
+<h2>Exceptions</h2>
+<p>This rule does not raise issues for</p>
+<ul>
+<li>&lt;code&gt;string&lt;/code&gt;, &lt;code&gt;Array&lt;/code&gt; and &lt;code&gt;PermissionSet,&lt;/code&gt;</li>
+<li>properties marked as &lt;code&gt;DataMemberAttribute&lt;/code&gt;</li>
+<li>classes marked as &lt;code&gt;Serializable&lt;/code&gt;</li>
+<li>properties overriding a base class member</li>
+<li>properties implementing interface</li>
+</ul>

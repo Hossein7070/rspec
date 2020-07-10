@@ -1,0 +1,13 @@
+<p>Given no arguments, the &lt;code&gt;Collections.toArray&lt;/code&gt; method returns an &lt;code&gt;Object []&lt;/code&gt;, which will cause a &lt;code&gt;ClassCastException&lt;/code&gt; at runtime if you try to cast it to an array of the proper class. Instead, pass an array of the correct type in to the call.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+public String [] getStringArray(List&lt;String&gt; strings) {
+  return (String []) strings.toArray();  // Noncompliant; ClassCastException thrown
+}
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+public String [] getStringArray(List&lt;String&gt; strings) {
+  return strings.toArray(new String[0]);
+}
+</pre>

@@ -1,0 +1,23 @@
+{
+  "title": "String formatting should not lead to runtime errors",
+  "type": "BUG",
+  "status": "ready",
+  "remediation": {
+    "func": "Constant/Issue",
+    "constantCost": "10min"
+  },
+  "tags": [],
+  "defaultSeverity": "Blocker",
+  "ruleSpecification": "RSPEC-2275",
+  "sqKey": "S2275",
+  "scope": "All",
+  "all_languages": [
+    "cfamily",
+    "csharp",
+    "java",
+    "python"
+  ],
+  "allKeys": [
+    "S2275"
+  ]
+}

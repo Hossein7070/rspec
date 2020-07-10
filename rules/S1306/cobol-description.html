@@ -1,0 +1,20 @@
+<p>Call stacks containing lot of &lt;code&gt;PERFORM&lt;/code&gt; statements is a key ingredient for making what’s known as "Spaghetti code".
+Such code is hard to read, refactor and therefore maintain.</p>
+<p>This rule supports both sections and paragraphs.</p>
+<h2>Noncompliant Code Example</h2>
+<p>With a threshold of 3:</p>
+<pre>
+PERFORM FIRST.
+
+FIRST.
+  PERFORM SECOND.
+
+SECOND.
+  PERFORM THIRD.
+
+THIRD.
+  PERFORM FOURTH.  *&gt; Noncompliant
+
+FOURTH.
+  DISPLAY something.
+</pre>

@@ -1,0 +1,39 @@
+<p>When directly subclassing &lt;code&gt;java.io.InputStream&lt;/code&gt; or &lt;code&gt;java.io.FilterInputStream&lt;/code&gt;, the only requirement is that you implement the method &lt;code&gt;read()&lt;/code&gt;. However most uses for such streams don’t read a single byte at a time and the default implementation for &lt;code&gt;read(byte[],int,int)&lt;/code&gt; will call &lt;code&gt;read(int)&lt;/code&gt; for every single byte in the array which can create a lot of overhead and is utterly inefficient. It is therefore strongly recommended that subclasses provide an efficient implementation of &lt;code&gt;read(byte[],int,int)&lt;/code&gt;.</p>
+<p>This rule raises an issue when a direct subclass of &lt;code&gt;java.io.InputStream&lt;/code&gt; or &lt;code&gt;java.io.FilterInputStream&lt;/code&gt; doesn’t provide an override of &lt;code&gt;read(byte[],int,int)&lt;/code&gt;.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+public class MyInputStream extends java.io.InputStream {
+  private FileInputStream fin;
+
+  public MyInputStream(File file) throws IOException {
+    fin = new FileInputStream(file);
+  }
+
+  @Override
+  public int read() throws IOException {
+    return fin.read();
+  }
+}
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+public class MyInputStream extends java.io.InputStream {
+  private FileInputStream fin;
+
+  public MyInputStream(File file) throws IOException {
+    fin = new FileInputStream(file);
+  }
+
+  @Override
+  public int read() throws IOException {
+    return fin.read();
+  }
+
+  @Override
+  public int read(byte[] b, int off, int len) throws IOException {
+    return fin.read(b, off, len);
+  }
+}
+</pre>
+<h2>Exceptions</h2>
+<p>This rule doesn’t raise an issue when the class is declared &lt;code&gt;abstract&lt;/code&gt;.</p>

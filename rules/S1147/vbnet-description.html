@@ -1,0 +1,15 @@
+<p>&lt;code&gt;End&lt;/code&gt; statements exit the control flow of the program in an unstructured way. This statement stops code execution immediately without executing &lt;code&gt;Dispose&lt;/code&gt; or &lt;code&gt;Finalize&lt;/code&gt; methods, or executing &lt;code&gt;Finally&lt;/code&gt; blocks. Therefore, it should be avoided.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+Module Module1
+    Sub Print(ByVal str As String)
+       Try
+            ...
+            End       ' Noncompliant
+        Finally
+            ' do something important here
+            ...
+        End Try
+    End Sub
+End Module
+</pre>

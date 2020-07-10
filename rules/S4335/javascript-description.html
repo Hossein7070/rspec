@@ -1,0 +1,25 @@
+<p>An intersection type combines multiple types into one. This allows you to add together existing types to get a single type that has all the features you need. However an intersection with a type without members doesn’t change the resulting type. In the opposite the usage of &lt;code&gt;any&lt;/code&gt; or &lt;code&gt;never&lt;/code&gt; as part of an intersection will always results in &lt;code&gt;any&lt;/code&gt; or &lt;code&gt;never&lt;/code&gt; respectively. This is almost certainly an error.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+function foo(p: MyType &amp; null) { // Noncompliant
+ // ...
+}
+
+function bar(p: MyType &amp; any) { // Noncompliant
+ // ...
+}
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+function foo(p: MyType | null) {
+ // ...
+}
+// or
+function foo(p: MyType &amp; AnotherType) {
+ // ...
+}
+
+function bar(p: any) {
+ // ...
+}
+</pre>

@@ -1,0 +1,34 @@
+<p>Having two branches in an &lt;code&gt;IF&lt;/code&gt;/&lt;code&gt;ELSIF&lt;/code&gt; chain with the same implementation is at best duplicate code, and at worst a coding error.
+ If the same logic is truly needed for both instances, then in an &lt;code&gt;IF&lt;/code&gt; chain they should be combined.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+IF param = 1 THEN
+    sort_order := 0;
+    column := 'LastName';
+ELSIF param = 2 THEN
+    sort_order := 0;
+    column := 'LastName'; -- Noncompliant
+ELSE
+    sort_order := 1;
+    column := 'FirstName';
+END IF;
+</pre>
+<h2>Exceptions</h2>
+<p>Branches in an &lt;code&gt;IF&lt;/code&gt;/&lt;code&gt;ELSIF&lt;/code&gt; chain with implementation that contains a single line of code are ignored.</p>
+<pre>
+IF param = 1 THEN
+    sort_order := 0;
+ELSIF param = 2 THEN
+    sort_order := 1;
+ELSE
+    sort_order := 0; -- No issue, usually this is done on purpose to increase the readability
+END IF;
+</pre>
+<p>But this exception does not apply to &lt;code&gt;IF&lt;/code&gt; chains without &lt;code&gt;ELSE&lt;/code&gt;-s when all branches have the same single line of code. In case of &lt;code&gt;IF&lt;/code&gt; chains with &lt;code&gt;ELSE&lt;/code&gt;-s rule S3923 raises a bug.</p>
+<pre>
+IF param = 1 THEN  -- Noncompliant, this might have been done on purpose but probably not
+    sort_order := 0;
+ELSIF param = 2 THEN
+    sort_order := 0;
+END IF;
+</pre>

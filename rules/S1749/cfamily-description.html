@@ -1,0 +1,28 @@
+<p>Shared coding conventions allow teams to collaborate efficiently. This rule checks that type specifiers always appear in the following order:</p>
+<ol>
+<li>&lt;code&gt;typedef&lt;/code&gt;</li>
+<li>type name, spelling of built-in types with more than one type-specifier:
+<mark> signedness - &lt;code&gt;signed&lt;/code&gt; or &lt;code&gt;unsigned&lt;/code&gt;
+</mark> last single type-specifier or
+<mark>* &lt;code&gt;short int&lt;/code&gt;
+</mark>* &lt;code&gt;long int&lt;/code&gt;
+<mark>* &lt;code&gt;long long int&lt;/code&gt;
+</mark>* &lt;code&gt;long double&lt;/code&gt;</li>
+</ol>
+<p>Since the positioning of the &lt;code&gt;const&lt;/code&gt; keyword is controversial, this rule does not check it.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+int typedef T;
+
+double long d;
+char unsigned ch;
+long signed int i;
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+typedef int T;
+
+long double d;
+unsigned char ch;
+signed long int i;
+</pre>

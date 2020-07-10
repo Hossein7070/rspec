@@ -1,0 +1,11 @@
+<p>"equals" has a special place as a method name: it is expected to override &lt;code&gt;boolean Object.equals(Object)&lt;/code&gt;. Using the name for a method with some other signature is a recipe for confusion.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+public void equals(MyObject o) {  // Noncompliant
+  //...
+}
+
+public bool equals(MyObject left, MyObject right) {  // Noncompliant
+  // ...
+}
+</pre>

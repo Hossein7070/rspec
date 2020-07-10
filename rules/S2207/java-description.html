@@ -1,0 +1,44 @@
+<p>Including any logic other than a simple return of the field in a persistence-annotated method can result in odd behavior, including for example, the default construction of empty members which are annotated to be &lt;code&gt;lazy&lt;/code&gt;.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+private Double price;
+
+@Columm(name="price")
+public Double getPrice() {
+  if(buyer.isLoaltyMember()) {  // Noncompliant
+    return price - getLoyaltyDiscount();
+  } else {
+    return price;
+  }
+}
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+@Columm(name="price")
+private Double price;
+
+public Double getPrice() {
+  if(buyer.isLoaltyMember()) {
+    return price - getLoyaltyDiscount();
+  } else {
+    return price;
+  }
+}
+</pre>
+<p>or</p>
+<pre>
+private Double price;
+
+@Columm(name="price")
+public Double getPrice() {
+  return price;
+}
+
+public Double calculatePrice() {
+  if(buyer.isLoaltyMember()) {  // Noncompliant
+    return getPrice() - getLoyaltyDiscount();
+  } else {
+    return getPrice();
+  }
+}
+</pre>

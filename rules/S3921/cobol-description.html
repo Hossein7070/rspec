@@ -1,0 +1,23 @@
+<p>Moving a large string into a small field will result in data truncation with data lost from the right side of the string.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+01 ALPHA   PIC X(4).
+*&gt; ...
+
+    MOVE "Now is the time" TO ALPHA *&gt; Noncompliant. Becomes "Now "
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+01 ALPHA   PIC X(15).
+*&gt; ...
+
+    MOVE "Now is the time" TO ALPHA
+</pre>
+<h2>See</h2>
+<ul>
+<li><a href="http://cwe.mitre.org/data/definitions/704">MITRE, CWE-704</a> - Incorrect Type Conversion or Cast</li>
+</ul>
+<h3>See Also</h3>
+<ul>
+<li>S1967 - for truncation of numeric values</li>
+</ul>

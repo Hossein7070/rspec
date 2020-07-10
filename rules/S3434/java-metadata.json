@@ -1,0 +1,19 @@
+{
+  "title": "\"static\" parent class methods should not be shadowed",
+  "type": "BUG",
+  "status": "ready",
+  "tags": [
+    "api-design",
+    "pitfall"
+  ],
+  "defaultSeverity": "Minor",
+  "ruleSpecification": "RSPEC-3434",
+  "sqKey": "S3434",
+  "scope": "Main",
+  "all_languages": [
+    "java"
+  ],
+  "allKeys": [
+    "S3434"
+  ]
+}

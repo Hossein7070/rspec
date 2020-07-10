@@ -1,0 +1,38 @@
+{
+  "title": "Conditionally executed code should be reachable",
+  "type": "BUG",
+  "status": "ready",
+  "remediation": {
+    "func": "Constant/Issue",
+    "constantCost": "15min"
+  },
+  "tags": [
+    "cwe",
+    "based-on-misra",
+    "unused",
+    "suspicious",
+    "pitfall"
+  ],
+  "defaultSeverity": "Major",
+  "ruleSpecification": "RSPEC-2583",
+  "sqKey": "S2583",
+  "scope": "All",
+  "securityStandards": {
+    "CWE": [
+      489,
+      571,
+      570
+    ]
+  },
+  "all_languages": [
+    "cfamily",
+    "cobol",
+    "csharp",
+    "java",
+    "javascript",
+    "python"
+  ],
+  "allKeys": [
+    "S2583"
+  ]
+}

@@ -1,0 +1,26 @@
+<p>Redirecting standard in and standard out to/from files is bad practice because it contravenes the standard expectation that &lt;code&gt;cin&lt;/code&gt; and &lt;code&gt;cout&lt;/code&gt; do not relate to files. Additionally, it is less efficient than using file streams such as &lt;code&gt;ifstream&lt;/code&gt; and &lt;code&gt;ofstream&lt;/code&gt;. For both of these reasons, this practice should be avoided.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+  ifstream in("in.txt");
+  cin.rdbuf(in.rdbuf()); // Noncompliant; redirects cin to in.txt
+
+  ofstream out("out.txt");
+  cout.rdbuf(out.rdbuf()); //Noncompliant; redirects cout to out.txt
+
+  std::string line;
+  while(getline(cin, line))
+  {
+      cout &lt;&lt; line &lt;&lt; endl;
+  }
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+  ifstream in("in.txt");
+
+  ofstream out("out.txt");
+  std::string line;
+  while (inf &amp;&amp; in &gt;&gt; line)
+  {
+    out &lt;&lt; line &lt;&lt; endl;
+  }
+</pre>

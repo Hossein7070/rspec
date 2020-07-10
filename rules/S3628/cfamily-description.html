@@ -1,0 +1,25 @@
+<p>Since C++11, raw string literals can be used to avoid the need to escape characters in a string. Such character string literals are easier to read.</p>
+<p>This rule raises an issue when a non-raw string contains one of the following escaped characters: &lt;code&gt;\'&lt;/code&gt; &lt;code&gt;\\&lt;/code&gt; &lt;code&gt;\"&lt;/code&gt; &lt;code&gt;\?&lt;/code&gt;.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+const char* Path = "C:\\Program Files\\Microsoft Office\\Office16\\";  // Noncompliant, contains \\
+const char* RegEx = "\\\\(\\\\.\\\\)"; // Noncompliant, contains \\
+const char* QuestionMark = "a\?b"; // Noncompliant, contains \?
+const char* TwoLines = "one\r\ntwo"; // Compliant, contains \r \n
+const char* OneChar = "\\"; // Compliant, only one character
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+const char* Path = R"(C:\Program Files\Microsoft Office\Office16\)";
+const char* RegEx = R"(\(\.\))";
+const char* QuestionMark = R"(a?b)";
+const char* TwoLines = "one\r\ntwo";
+const char* OneChar = "\\";
+</pre>
+<h2>Exceptions</h2>
+<p>To preserve readability, this rule ignores strings containing only one character and strings with escaped whitespace or non-printable characters:</p>
+<ul>
+<li>Non-printable characters: &lt;code&gt;\a&lt;/code&gt; &lt;code&gt;\b&lt;/code&gt; &lt;code&gt;\f&lt;/code&gt; &lt;code&gt;\v&lt;/code&gt; &lt;code&gt;\nnn&lt;/code&gt; &lt;code&gt;\xnn&lt;/code&gt; &lt;code&gt;\unnnn&lt;/code&gt; &lt;code&gt;\Unnnnnnnn&lt;/code&gt;</li>
+<li>Tab: &lt;code&gt;\t&lt;/code&gt;</li>
+<li>New line: &lt;code&gt;\r&lt;/code&gt; &lt;code&gt;\n&lt;/code&gt;</li>
+</ul>

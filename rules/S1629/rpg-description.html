@@ -1,0 +1,36 @@
+<p>While &lt;code&gt;END&lt;/code&gt; will adequately close a statement, it is less clear than the use of the relevant, statement-specific &lt;code&gt;ENDxx&lt;/code&gt;. Thus, the statement-specific version is preferred to facilitate code maintenance and enhance clarity.</p>
+<p>This rule is applied to the following operations: &lt;code&gt;CASxx&lt;/code&gt;, &lt;code&gt;DO&lt;/code&gt;, &lt;code&gt;DOU&lt;/code&gt;, &lt;code&gt;DOUxx&lt;/code&gt;, &lt;code&gt;DOW&lt;/code&gt;, &lt;code&gt;DOWxx&lt;/code&gt;, &lt;code&gt;FOR&lt;/code&gt;, &lt;code&gt;IF&lt;/code&gt;, &lt;code&gt;IFxx&lt;/code&gt; and &lt;code&gt;SELECT&lt;/code&gt; groups.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+C     W0PKEX        DOUEQ     W0ON
+...
+C                   END
+
+C     W0PKEX        IFEQ      W0ON
+...
+C                   END
+</pre>
+<pre>
+ /free
+  if x = 1;
+    ...
+  end;
+ /end-free
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+C     W0PKEX        DOUEQ     W0ON
+...
+C                   ENDDO
+
+C     W0PKEX        IFEQ      W0ON
+...
+C                   ENDIF
+</pre>
+<pre>
+ /free
+  if x = 1;
+    ...
+  endif;
+ /end-free
+</pre>

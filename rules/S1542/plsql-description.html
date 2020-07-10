@@ -1,0 +1,17 @@
+<p>Shared coding conventions allow teams to collaborate efficiently. This rule checks that all function names match a provided regular expression.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+CREATE FUNCTION my_function_ RETURN PLS_INTEGER AS -- Noncompliant
+BEGIN
+  RETURN 42;
+END;
+/
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+CREATE FUNCTION my_function RETURN PLS_INTEGER AS
+BEGIN
+  RETURN 42;
+END;
+/
+</pre>

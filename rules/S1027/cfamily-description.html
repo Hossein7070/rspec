@@ -1,0 +1,63 @@
+<p>Using a qualified-id or prefixing the identifier with &lt;code&gt;this→&lt;/code&gt; ensures that the entity chosen is consistent with developer expectations.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+typedef int32_t TYPE;
+void g ( );
+
+template &lt;typename T&gt;
+class B;
+
+template &lt;typename T&gt;
+class A : public B&lt;T&gt;
+{
+  void f1 ( )
+  {
+    TYPE t = 0; // Noncompliant, a conforming compiler will choose ::TYPE
+    g ( ); // Noncompliant, a conforming compiler will choose ::g
+  }
+};
+
+template &lt;typename T&gt;
+class B
+{
+public:
+  typedef T TYPE;
+  void g ( );
+};
+
+template class A&lt;int32_t&gt;;
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+typedef int32_t TYPE;
+void g ( );
+
+template &lt;typename T&gt;
+class B;
+
+template &lt;typename T&gt;
+class A : public B&lt;T&gt;
+{
+  void f1 ( )
+  {
+    ::TYPE t1 = 0; // Compliant, explicit use global TYPE
+    ::g ( ); // Compliant, explicit use global func
+    typename B&lt;T&gt;::TYPE t2 = 0; // Compliant, explicit use base TYPE
+    this-&gt;g ( ); // Compliant, explicit use base "g"
+  }
+};
+
+template &lt;typename T&gt;
+class B
+{
+public:
+  typedef T TYPE;
+  void g ( );
+};
+
+template class A&lt;int32_t&gt;;
+</pre>
+<h2>See</h2>
+<ul>
+<li>MISRA C++:2008, 14-6-1</li>
+</ul>

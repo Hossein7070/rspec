@@ -1,0 +1,32 @@
+<p>Nested &lt;code&gt;match&lt;/code&gt; structures are difficult to understand because you can easily confuse the cases of an inner &lt;code&gt;match&lt;/code&gt; as belonging to an outer statement. Therefore nested &lt;code&gt;match&lt;/code&gt; statements should be avoided.</p>
+<p>Specifically, you should structure your code to avoid the need for nested &lt;code&gt;match&lt;/code&gt; statements, but if you cannot, then consider moving the inner &lt;code&gt;match&lt;/code&gt; to another function.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+def foo(n: Int, m: Int): Unit = {
+  n match {
+    case 0 =&gt; m match {
+        case 0 =&gt;
+        // ...
+      }
+    case 1 =&gt;
+    // ...
+  }
+}
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+def foo(n: Int, m: Int): Unit = {
+  n match {
+    case 0 =&gt; bar(m)
+    case 1 =&gt;
+    // ...
+  }
+}
+
+def bar(m: Int): Unit = {
+  m match {
+    case 0 =&gt;
+    // ...
+  }
+}
+</pre>

@@ -1,0 +1,40 @@
+<p>It is unspecified behaviour if the evaluation of an expression with &lt;code&gt;enum&lt;/code&gt; underlying type yields a value which does not correspond to one of the enumerators of the enumeration.</p>
+<p>Additionally, other rules in this standard assume that objects of &lt;code&gt;enum&lt;/code&gt; type only contain values corresponding to the enumerators. This rule ensures the validity of these assumptions.</p>
+<p>One way of ensuring compliance when converting to an enumeration is to use a switch statement.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+enum Numbers {
+  ONE, TWO
+};
+
+int function() {
+        enum Numbers c = (enum Numbers)(TWO + TWO); // Noncompliant, operation might yield an invalid value.
+}
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+enum Numbers {
+  ONE, TWO
+};
+
+enum Numbers convert ( int16_t v )
+{
+  switch ( v )
+  {
+  case 0:
+    return ONE;
+  case 1:
+    return TWO;
+  default:
+    throw ENUM_ERROR;
+  }
+}
+
+int function() {
+  enum Numbers c = convert(ONE + TWO); // Compliant
+}
+</pre>
+<h2>See</h2>
+<ul>
+<li>MISRA C++:2008, 7-2-1</li>
+</ul>

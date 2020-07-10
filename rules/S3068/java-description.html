@@ -1,0 +1,19 @@
+<p>The use of factory methods lets you abstract the job you need to do from the specific tool implementations needed to do it with, and helps insulate you from changes.</p>
+<p>This rule raises an issue when instances of these are instantiated directly:</p>
+<ul>
+<li>&lt;code&gt;javax.xml.parsers.DocumentBuilder&lt;/code&gt;</li>
+<li>&lt;code&gt;javax.xml.parsers.SAXParser&lt;/code&gt;</li>
+<li>&lt;code&gt;javax.xml.transform.Transformer&lt;/code&gt;</li>
+<li>&lt;code&gt;org.xml.sax.XMLReader&lt;/code&gt;</li>
+<li>&lt;code&gt;org.xml.sax.XMLFilter&lt;/code&gt;</li>
+<li>&lt;code&gt;org.w3c.dom.*&lt;/code&gt;</li>
+</ul>
+<h2>Noncompliant Code Example</h2>
+<pre>
+DocumentBuilder builder = new DocumentBuilderImpl();  // Noncompliant
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+DocumentBuilder builder = factory.newDocumentBuilder();
+</pre>

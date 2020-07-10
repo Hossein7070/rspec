@@ -1,0 +1,27 @@
+<p>Delegate event handlers (i.e. delegates used as type of an event) should have a very specific signature:</p>
+<ul>
+<li>Return type &lt;code&gt;void&lt;/code&gt;.</li>
+<li>First argument of type &lt;code&gt;System.Object&lt;/code&gt; and named 'sender'.</li>
+<li>Second argument of type &lt;code&gt;System.EventArgs&lt;/code&gt; (or any derived type) and is named 'e'.</li>
+</ul>
+<p>This rule raises an issue whenever a &lt;code&gt;delegate&lt;/code&gt; declaration doesn’t match that signature.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+public delegate void AlarmEventHandler(object s);
+
+public class Foo
+{
+    public event AlarmEventHandler AlarmEvent; // Noncompliant
+}
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+public delegate void AlarmEventHandler(object sender, AlarmEventArgs e);
+
+public class Foo
+{
+    public event AlarmEventHandler AlarmEvent; // Compliant
+}
+</pre>
+<h2>See</h2>
+<p><a href="https://msdn.microsoft.com/en-us/library/edzehd2t.aspx">Handling and Raising Events</a></p>

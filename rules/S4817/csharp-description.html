@@ -1,0 +1,49 @@
+<p>Executing XPATH expressions is security-sensitive. It has led in the past to the following vulnerabilities:</p>
+<ul>
+<li><a href="http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2016-6272">CVE-2016-6272</a></li>
+<li><a href="http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2016-9149">CVE-2016-9149</a></li>
+<li><a href="http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2012-4837">CVE-2012-4837</a></li>
+</ul>
+<p>User provided data such as URL parameters should always be considered as untrusted and tainted. Constructing XPath expressions directly from tainted data enables attackers to inject specially crafted values that changes the initial meaning of the expression itself. Successful XPath injections attacks can read sensitive information from the XML document.</p>
+<p>This rule will create issues when the following methods are called with a string XPath which is subject to injection (non-hardcoded string):</p>
+<ul>
+<li>&lt;code&gt;System.Xml.XmlNode.SelectNodes(string)&lt;/code&gt;</li>
+<li>&lt;code&gt;System.Xml.XmlNode.SelectNodes(string, System.Xml.XmlNamespaceManager)&lt;/code&gt;</li>
+<li>&lt;code&gt;System.Xml.XmlNode.SelectSingleNode(string)&lt;/code&gt;</li>
+<li>&lt;code&gt;System.Xml.XmlNode.SelectSingleNode(string, System.Xml.XmlNamespaceManager)&lt;/code&gt;</li>
+<li>&lt;code&gt;System.Xml.XPath.XPathNavigator.Compile(string)&lt;/code&gt;</li>
+<li>&lt;code&gt;System.Xml.XPath.XPathNavigator.Evaluate(string)&lt;/code&gt;</li>
+<li>&lt;code&gt;System.Xml.XPath.XPathNavigator.Evaluate(string, System.Xml.IXmlNamespaceResolver)&lt;/code&gt;</li>
+<li>&lt;code&gt;System.Xml.XPath.XPathNavigator.Matches(string)&lt;/code&gt;</li>
+<li>&lt;code&gt;System.Xml.XPath.XPathNavigator.Select(string)&lt;/code&gt;</li>
+<li>&lt;code&gt;System.Xml.XPath.XPathNavigator.Select(string, System.Xml.IXmlNamespaceResolver)&lt;/code&gt;</li>
+<li>&lt;code&gt;System.Xml.XPath.XPathNavigator.SelectSingleNode(string)&lt;/code&gt;</li>
+<li>&lt;code&gt;System.Xml.XPath.XPathNavigator.SelectSingleNode(string, System.Xml.IXmlNamespaceResolver)&lt;/code&gt;</li>
+<li>&lt;code&gt;System.Xml.XPath.XPathExpression.Compile(string)&lt;/code&gt;</li>
+<li>&lt;code&gt;System.Xml.XPath.XPathExpression.Compile(string, System.Xml.IXmlNamespaceResolver)&lt;/code&gt;</li>
+</ul>
+<p>Calling these methods on subclasses of &lt;code&gt;XmlNode&lt;/code&gt; and &lt;code&gt;XPathNavigator&lt;/code&gt; will also raise an issue.
+Methods receiving the XPath as an &lt;code&gt;XPathExpression&lt;/code&gt; instead of a string will not raise an exception. The goal is to highlight the place where the XPath string is compiled.</p>
+<h2>Ask Yourself Whether</h2>
+<ul>
+<li>the XPATH expression might contain some unsafe input coming from a user.</li>
+</ul>
+<p>You are at risk if you answered yes to this question.</p>
+<h2>Recommended Secure Coding Practices</h2>
+<p>Sanitize any user input before using it in an XPATH expression.</p>
+<h2>Sensitive Code Example</h2>
+<pre>
+String expression = "/users/user[@name='" + user + "' and @pass='" + pass + "']";
+xpathNavigator.Evaluate(expression);  // Sensitive. Check if the XPATH expression is safe.
+</pre>
+<h2>Exceptions</h2>
+<p>Hard-coded XPath strings will not raise an issue.</p>
+<pre>
+xpathNavigator.Evaluate("/users/user[@name='alice']");
+</pre>
+<h2>See</h2>
+<ul>
+<li><a href="https://www.owasp.org/index.php/Top_10-2017_A1-Injection">OWASP Top 10 2017 Category A1</a> - Injection</li>
+<li><a href="http://cwe.mitre.org/data/definitions/643">MITRE, CWE-643</a> - Improper Neutralization of Data within XPath Expressions</li>
+<li><a href="https://www.securecoding.cert.org/confluence/x/BwLEAw">CERT, IDS53-J.</a> - Prevent XPath Injection</li>
+</ul>

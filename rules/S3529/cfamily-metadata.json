@@ -1,0 +1,27 @@
+{
+  "title": "Freed memory should not be used",
+  "type": "BUG",
+  "status": "ready",
+  "remediation": {
+    "func": "Constant/Issue",
+    "constantCost": "20min"
+  },
+  "tags": [
+    "cwe"
+  ],
+  "defaultSeverity": "Blocker",
+  "ruleSpecification": "RSPEC-3529",
+  "sqKey": "S3529",
+  "scope": "Main",
+  "securityStandards": {
+    "CWE": [
+      416
+    ]
+  },
+  "all_languages": [
+    "cfamily"
+  ],
+  "allKeys": [
+    "S3529"
+  ]
+}

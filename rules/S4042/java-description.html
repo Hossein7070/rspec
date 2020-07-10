@@ -1,0 +1,16 @@
+<p>When &lt;code&gt;java.io.File#delete&lt;/code&gt; fails, this &lt;code&gt;boolean&lt;/code&gt; method simply returns &lt;code&gt;false&lt;/code&gt; with no indication of the cause. On the other hand, when &lt;code&gt;java.nio.file.Files#delete&lt;/code&gt; fails, this &lt;code&gt;void&lt;/code&gt; method returns one of a series of exception types to better indicate the cause of the failure. And since more information is generally better in a debugging situation, &lt;code&gt;java.nio.file.Files#delete&lt;/code&gt; is the preferred option.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+public void cleanUp(Path path) {
+  File file = new File(path);
+  if (!file.delete()) {  // Noncompliant
+    //...
+  }
+}
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+public void cleanUp(Path path) throws NoSuchFileException, DirectoryNotEmptyException, IOException {
+  Files.delete(path);
+}
+</pre>

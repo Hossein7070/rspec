@@ -1,0 +1,36 @@
+{
+  "title": "Functions, procedures and properties should not be too complex",
+  "type": "CODE_SMELL",
+  "status": "ready",
+  "remediation": {
+    "func": "Constant/Issue",
+    "constantCost": "10min"
+  },
+  "tags": [
+    "brain-overload"
+  ],
+  "defaultSeverity": "Critical",
+  "ruleSpecification": "RSPEC-1541",
+  "sqKey": "S1541",
+  "scope": "Main",
+  "all_languages": [
+    "abap",
+    "cfamily",
+    "csharp",
+    "flex",
+    "java",
+    "javascript",
+    "php",
+    "plsql",
+    "python",
+    "rpg",
+    "swift",
+    "vb6",
+    "vbnet"
+  ],
+  "allKeys": [
+    "S1541",
+    "FunctionComplexity",
+    "PlSql.FunctionAndProcedureComplexity"
+  ]
+}

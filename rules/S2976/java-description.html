@@ -1,0 +1,24 @@
+<p>Using &lt;code&gt;File.createTempFile&lt;/code&gt; as the first step in creating a temporary directory causes a race condition and is inherently unreliable and insecure. Instead, &lt;code&gt;Files.createTempDirectory&lt;/code&gt; (Java 7+) or a library function such as Guava’s similarly-named &lt;code&gt;Files.createTempDir&lt;/code&gt; should be used.</p>
+<p>This rule raises an issue when the following steps are taken in immediate sequence:</p>
+<ul>
+<li>call to &lt;code&gt;File.createTempFile&lt;/code&gt;</li>
+<li>delete resulting file</li>
+<li>call &lt;code&gt;mkdir&lt;/code&gt; on the File object</li>
+</ul>
+<p><strong>Note</strong> that this rule is automatically disabled when the project’s &lt;code&gt;sonar.java.source&lt;/code&gt; is lower than &lt;code&gt;7&lt;/code&gt;.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+File tempDir;
+tempDir = File.createTempFile("", ".");
+tempDir.delete();
+tempDir.mkdir();  // Noncompliant
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+Path tempPath = Files.createTempDirectory("");
+File tempDir = tempPath.toFile();
+</pre>
+<h2>See</h2>
+<ul>
+<li><a href="https://www.owasp.org/index.php/Top_10-2017_A9-Using_Components_with_Known_Vulnerabilities">OWASP Top 10 2017 Category A9</a> - Using Components with Known Vulnerabilities</li>
+</ul>

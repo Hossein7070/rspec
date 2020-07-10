@@ -1,0 +1,16 @@
+<p>&lt;code&gt;OCCURS DEPENDING ON&lt;/code&gt; clauses are complicated to use correctly and do not provide any benefits with regard to memory consumption. It is best to avoid them.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+01&nbsp; MYTABLEACCOUNT PIC S9(4) BINARY.
+01&nbsp; MYTABLE.
+  05&nbsp; MYITEM OCCURS 1 to 1000 DEPENDING ON MYTABLEACCOUNT.
+&nbsp;&nbsp;  10&nbsp; MYFIELD1 PIC X(8).
+&nbsp;&nbsp;&nbsp;&nbsp;10&nbsp; MYFIELD2 PIC S9(4) BINARY.
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+01&nbsp; MYTABLE.
+  05&nbsp; MYITEM OCCURS 1000.
+&nbsp;&nbsp;  10&nbsp; MYFIELD1 X(8).
+&nbsp;&nbsp;&nbsp;&nbsp;10&nbsp; MYFIELD2 PIC S9(4) BINARY.
+</pre>

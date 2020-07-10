@@ -1,0 +1,27 @@
+<p>When accessing a non-input-only file with a &lt;code&gt;CHAIN&lt;/code&gt;/&lt;code&gt;READx&lt;/code&gt; operation, the record is locked and becomes inaccessible to the system, and unreadable other programs. This is fine if you are about to update the record immediately, but if you have data processing to do following the read, it can leave the record unavailable for too long. Therefore, non-input files using the &lt;code&gt;CHAIN&lt;/code&gt;, &lt;code&gt;READ&lt;/code&gt;, &lt;code&gt;READE&lt;/code&gt;, &lt;code&gt;READP&lt;/code&gt;, and &lt;code&gt;READPE&lt;/code&gt; operation codes should always be accessed with the no lock option, &lt;code&gt;(N)&lt;/code&gt;.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+FDDDLJNL7  UF   E           K DISK    INFSR(*PSSR)
+...
+C                   READ      DDDLJNL7
+</pre>
+<pre>
+FDDDLJNL7  UF   E           K DISK    INFSR(*PSSR)
+...
+ /free
+    read DDDLJNL7;
+ /end-free
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+FDDDLJNL7  UF   E           K DISK    INFSR(*PSSR)
+...
+C                   READ(N)   DDDLJNL7
+</pre>
+<pre>
+FDDDLJNL7  UF   E           K DISK    INFSR(*PSSR)
+...
+ /free
+    read(n) DDDLJNL7;
+ /end-free
+</pre>

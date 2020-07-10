@@ -1,0 +1,18 @@
+<p>Overriding a parent class' method implementation with an &lt;code&gt;abstract&lt;/code&gt; method is a terrible practice for a number of reasons:</p>
+<ul>
+<li>it blocks invocation of the original class' method by children of the &lt;code&gt;abstract&lt;/code&gt; class.</li>
+<li>it requires the &lt;code&gt;abstract&lt;/code&gt; class' children to re-implement (copy/paste?) the original class' logic.</li>
+<li>it violates the inherited contract.</li>
+</ul>
+<h2>Noncompliant Code Example</h2>
+<pre>
+public class Parent {
+  public int getNumber() {
+    return 1;
+  }
+}
+
+public abstract class AbstractChild {
+  abstract public int getNumber();  // Noncompliant
+}
+</pre>

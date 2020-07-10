@@ -1,0 +1,14 @@
+<p>The &lt;code&gt;Monitor.Pulse&lt;/code&gt; call releases the object on which it was called and wakes up the first thread waiting for the lock on that object. Significantly, it only releases <em>one</em> lock, and if multiple locks are held when it is called deadlocks could result.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+public void doSomething(Object obj)
+{
+  lock (this) //first lock
+  {
+    lock (obj) {  // second lock
+      // ...
+      Monitor.Pulse(obj); // Noncompliant; only the second lock is released
+    }
+  }
+}
+</pre>

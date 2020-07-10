@@ -1,0 +1,23 @@
+<p>Every subroutine(&lt;code&gt;FORM&lt;/code&gt;) should be commented to explain its goal and how it works. This comment can be located just before or after the form definition.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+FORM my_form.
+  ...
+ENDFORM
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+* here is
+* my comment
+FORM my_form.
+  ...
+ENDFORM
+</pre>
+<p>or</p>
+<pre>
+FORM my_form.
+* here is
+* my comment
+  ...
+ENDFORM
+</pre>

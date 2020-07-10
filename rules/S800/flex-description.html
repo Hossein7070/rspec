@@ -1,0 +1,36 @@
+<p>Ideally, identifiers (names of classes, variables, methods, structures, macros, labeles, &amp;etc.) are all easily distinguished from one another. Unfortunately, some characters or combinations of characters look enough alike that that’s not always the case.</p>
+<p>Therefore, identifiers that differ from each other only by one of these problematic characters (or character combinations) should be renamed.</p>
+<p>The problem pairs are:</p>
+<ul>
+<li>capital 'O' and digit 0</li>
+<li>capital 'I' (eye) and digit 1</li>
+<li>capital 'I' (eye) and lowercase 'l' (el)</li>
+<li>lowercase 'l' (el) and digit 1</li>
+<li>capital 'S' and digit 5</li>
+<li>capital 'Z' and digit 2</li>
+<li>lowercase 'n' and lowercase 'h'</li>
+<li>capital 'B' and digit 8</li>
+<li>lowercase 'm' and the combination "rn" ('r' followed by 'n')</li>
+<li>any lowercase letter and its uppercase variant</li>
+<li>the presence or absence of an underscore</li>
+</ul>
+<h2>Noncompliant Code Example</h2>
+<pre>
+int myl;
+int myI;
+int my1;
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+int my_el;
+int my_upper_i;
+int my_one;
+</pre>
+<h2>See</h2>
+<ul>
+<li>MISRA C++:2008, 2-10-1</li>
+<li>MISRA C:2012, Dir 4.5</li>
+<li><a href="https://www.securecoding.cert.org/confluence/x/hYClBg">CERT, DCL50-J.</a> - Use visually distinct identifiers</li>
+<li><a href="https://www.securecoding.cert.org/confluence/x/SQU">CERT, DCL02-C.</a> - Use visually distinct identifiers</li>
+<li><a href="https://www.securecoding.cert.org/confluence/x/koAtAQ">CERT, DCL16-C.</a> - Use "L," not "l," to indicate a long value</li>
+</ul>

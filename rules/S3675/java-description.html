@@ -1,0 +1,19 @@
+<p>Two "hash" classes, &lt;code&gt;Hashtable&lt;/code&gt;, and &lt;code&gt;ConcurrentHashMap&lt;/code&gt; offer &lt;code&gt;contains&lt;/code&gt; methods. One might naively assume that the &lt;code&gt;contains&lt;/code&gt; method searches both keys and values for its argument. And one would be wrong. Because these legacy methods search only values, they are likely to mislead maintainers even if the original coder understood precisely what’s going on.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+Hashtable&lt;String,Object&gt; ht = new Hashtable&lt;&gt;();
+// ...
+
+if (ht.contains(foo)) {  // Noncompliant
+  // ...
+}
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+Hashtable&lt;String,Object&gt; ht = new Hashtable&lt;&gt;();
+// ...
+
+if (ht.containsValue(foo)) {
+  // ...
+}
+</pre>

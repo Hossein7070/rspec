@@ -1,0 +1,36 @@
+<p>Using the same value on either side of a binary operator is almost always a mistake. In the case of logical operators, it is either a copy/paste error and therefore a bug, or it is simply wasted code, and should be simplified. In the case of arithmetic operators, having the same value on both sides of an operator yields predictable results, and should be simplified.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+* always true
+  IF X = X
+    PERFORM SECTION1.
+  END-IF.
+
+* always false
+  IF X &lt;&gt; X
+    PERFORM SECTION2.
+  END-IF.
+
+* if the first one is true, the second one is too
+  IF X = Y AND X = Y
+    PERFORM SECTION3.
+  END-IF.
+
+* if the first one is true, the second one is too
+  IF X = Y OR X = Y
+    PERFORM SECTION4.
+  END-IF.
+
+* always 1
+  COMPUTE X = Y / Y.
+
+* always 0
+  COMPUTE X = Y - Y.
+</pre>
+<h2>Exceptions</h2>
+<p>This rule ignores &lt;code&gt;*&lt;/code&gt; and &lt;code&gt;+&lt;/code&gt;.</p>
+<h2>See</h2>
+<ul>
+<li><a href="https://www.securecoding.cert.org/confluence/x/NYA5">CERT, MSC12-C.</a> - Detect and remove code that has no effect or is never executed</li>
+<li>S1656 - Implements a check on &lt;code&gt;=&lt;/code&gt;.</li>
+</ul>

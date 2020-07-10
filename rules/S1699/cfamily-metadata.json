@@ -1,0 +1,24 @@
+{
+  "title": "Constructors and destructors should only use defined methods and fields",
+  "type": "CODE_SMELL",
+  "status": "ready",
+  "remediation": {
+    "func": "Constant/Issue",
+    "constantCost": "10min"
+  },
+  "tags": [
+    "pitfall"
+  ],
+  "defaultSeverity": "Critical",
+  "ruleSpecification": "RSPEC-1699",
+  "sqKey": "S1699",
+  "scope": "Main",
+  "all_languages": [
+    "cfamily",
+    "csharp",
+    "java"
+  ],
+  "allKeys": [
+    "S1699"
+  ]
+}

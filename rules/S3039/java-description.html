@@ -1,0 +1,18 @@
+<p>Just as you can’t cut something into three halves, you can’t grab a &lt;code&gt;substring&lt;/code&gt; that starts or ends outside the original &lt;code&gt;String&lt;/code&gt;'s bounds, you can’t use &lt;code&gt;substring&lt;/code&gt; to get a reversed portion of a &lt;code&gt;String&lt;/code&gt;, and you can’t get the &lt;code&gt;charAt&lt;/code&gt; a value that’s before the &lt;code&gt;String&lt;/code&gt; starts or after it ends.</p>
+<p>This rule detects when negative literal or &lt;code&gt;String::length&lt;/code&gt; is passed as an argument to the &lt;code&gt;String::substring&lt;/code&gt;, &lt;code&gt;String::charAt&lt;/code&gt; and related methods.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+String speech = "Now is the time for all good people to come to the aid of their country.";
+
+String substr1 = speech.substring(-1, speech.length());  // Noncompliant; start and end values both bad
+String substr2 = speech.substring(speech.length(), 0); // Noncompliant, start value must be &lt; end value
+char ch = speech.charAt(speech.length());  // Noncompliant
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+String speech = "Now is the time for all good people to come to the aid of their country.";
+
+String substr1 = speech; // Closest correct values to original code yield whole string
+String substr2 = new StringBuilder(speech).reverse().toString()
+char ch = speech.charAt(speech.length()-1);
+</pre>

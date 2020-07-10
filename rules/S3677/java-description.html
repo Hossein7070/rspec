@@ -1,0 +1,13 @@
+<p>Using a type parameter when you don’t have to simply obfuscates the code. Qualifying an inner type with a type parameter will compile, but confuse maintainers.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+&lt;T extends Map&gt; T doTheThing(T.Entry type) {  // Noncompliant
+  //...
+}
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+&lt;T extends Map&gt; T doTheThing(Map.Entry type) {
+  //...
+}
+</pre>

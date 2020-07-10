@@ -1,0 +1,12 @@
+<p>Because statically-called programs must be relinked before they reflect changes in the code, it makes sense to prefer dynamic calls instead. Further, since statically-called programs are included in the caller’s load module, those modules could require more main storage than if the calls were dynamic, and the called programs could reside in memory multiple times - one for each caller.</p>
+<p>While static calls are faster, their other disadvantages make dynamic calls the preferred method. Thus, this rule raises an issue when the program to &lt;code&gt;CALL&lt;/code&gt; is hard-coded, rather than specified in a variable.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+CALL 'MYPRGM01' USING PARAM1.  *&gt; Noncompliant
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+77 PRGM-NAME      PIC X(8) VALUE 'MYPRGM01'.
+[...]
+CALL PRGM-NAME USING PARAM1.
+</pre>

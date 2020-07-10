@@ -1,0 +1,9 @@
+<p>Use of the bang (&lt;code&gt;!&lt;/code&gt;) operator leads to late binding and results in inefficient code. Use the slightly more verbose dot (&lt;code&gt;.&lt;/code&gt;) notation instead.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+MsgBox ObjectWithDefaultProperty!Param
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+MsgBox ObjectWithDefaultProperty.DefaultProperty("Param")
+</pre>

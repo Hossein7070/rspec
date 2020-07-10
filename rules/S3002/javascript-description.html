@@ -1,0 +1,31 @@
+<p>The unary operators &lt;code&gt;+&lt;/code&gt; and &lt;code&gt;-&lt;/code&gt; can be used to convert some value types to numeric values. But not every value can be converted to a &lt;code&gt;Number&lt;/code&gt; type; use it with an object, and result will be &lt;code&gt;NaN&lt;/code&gt; (Not A Number). This can be confusing to maintainers.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+var obj = {x : 1};
+doSomethingWithNumber(+obj);    // Noncompliant
+
+function foo(){
+  return 1;
+}
+doSomethingWithNumber(-foo);    // Noncompliant
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+var obj = {x : 1};
+doSomethingWithNumber(+obj.x);
+
+function foo(){
+  return 1;
+}
+doSomethingWithNumber(-foo());
+
+var str = '42';
+doSomethingWithNumber(+str);
+</pre>
+<h2>Exceptions</h2>
+<p>Unary &lt;code&gt;+&lt;/code&gt; and &lt;code&gt;-&lt;/code&gt; can be used with objects corresponding to primitive types, and &lt;code&gt;\+&lt;/code&gt; can be used with &lt;code&gt;Date&lt;/code&gt;.</p>
+<pre>
+var b = new Boolean(true);
+doSomethingWithNumber(-b);  // Compliant
+var timestamp = +new Date();  // Compliant
+</pre>

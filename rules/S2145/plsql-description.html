@@ -1,0 +1,32 @@
+<p>When a single primitive is tested against three or more values in an &lt;code&gt;IF&lt;/code&gt;, &lt;code&gt;ELSIF&lt;/code&gt; chain, it should be converted to a &lt;code&gt;CASE&lt;/code&gt; instead for greater readability.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+DECLARE
+  x PLS_INTEGER := 0;
+BEGIN
+  IF x = 0 THEN                     -- Noncompliant
+    DBMS_OUTPUT.PUT_LINE('x = 0');
+  ELSIF x = 1 THEN
+    DBMS_OUTPUT.PUT_LINE('x = 1');
+  ELSE
+    DBMS_OUTPUT.PUT_LINE('x &gt; 1');
+  END IF;
+END;
+/
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+DECLARE
+  x PLS_INTEGER := 0;
+BEGIN
+  CASE x
+    WHEN 0 THEN
+      DBMS_OUTPUT.PUT_LINE('x = 0');
+    WHEN 1 THEN
+      DBMS_OUTPUT.PUT_LINE('x = 1');
+    ELSE
+      DBMS_OUTPUT.PUT_LINE('x &gt; 1');
+  END CASE;
+END;
+/
+</pre>

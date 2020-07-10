@@ -1,0 +1,19 @@
+<p>After calling CICS commands with the &lt;code&gt;RESP&lt;/code&gt; or &lt;code&gt;NOHANDLE&lt;/code&gt; options, the return code should be tested.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+  EXEC CICS DELETEQ TS        *&gt; Noncompliant; WS-STATUS should have been tested before the MOVE
+    QNAME(WS-TS5FTARF-NAME)
+    RESP(WS-STATUS)
+  END-EXEC.
+  MOVE WS-EIBTASKN (4:4) TO WS-TS5FTAR1-NAME-TSKID.
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+  EXEC CICS DELETEQ TS
+    QNAME(WS-TS5FTARF-NAME)
+    RESP(WS-STATUS)
+  END-EXEC.
+  IF WS-STATUS ...
+
+  MOVE WS-EIBTASKN (4:4) TO WS-TS5FTAR1-NAME-TSKID.
+</pre>

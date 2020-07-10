@@ -1,0 +1,42 @@
+<p>Browsers best support the &lt;code&gt;window&lt;/code&gt; mode for the &lt;code&gt;wmode&lt;/code&gt; parameter, also in terms of accessibility.
+As it is the default mode, it is acceptable to either not specify a &lt;code&gt;wmode&lt;/code&gt; parameter altogether, or to set it explicitly to &lt;code&gt;window&lt;/code&gt;.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+&lt;object classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000" width="550" height="400"&gt;
+  &lt;param name="movie" value="movie_name.swf" /&gt;
+  &lt;param name="wmode" value="direct" /&gt;                              &lt;!-- Non-Compliant --&gt;
+&lt;/object&gt;
+
+&lt;embed src="movie_name.swf"
+       width="550"
+       height="400"
+       wmode="direct"                                                                 &lt;!-- Non-Compliant --&gt;
+       type="application/x-shockwave-flash"
+       pluginspage="http://www.macromedia.com/go/getflashplayer" /&gt;
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+&lt;object classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000" width="550" height="400"&gt;
+  &lt;param name="movie" value="movie_name.swf" /&gt;
+&lt;/object&gt;
+
+&lt;embed src="movie_name.swf"
+       width="550"
+       height="400"
+       type="application/x-shockwave-flash"
+       pluginspage="http://www.macromedia.com/go/getflashplayer" /&gt;
+</pre>
+<p>or</p>
+<pre>
+&lt;object classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000" width="550" height="400"&gt;
+  &lt;param name="movie" value="movie_name.swf" /&gt;
+  &lt;param name="wmode" value="window" /&gt;
+&lt;/object&gt;
+
+&lt;embed src="movie_name.swf"
+       width="550"
+       height="400"
+       wmode="window"
+       type="application/x-shockwave-flash"
+       pluginspage="http://www.macromedia.com/go/getflashplayer" /&gt;
+</pre>

@@ -1,0 +1,12 @@
+<p>This rule raises an issue when required properties are not included in a project’s pom.</p>
+<h2>Compliant Solution</h2>
+<p>With a properties value of: division, division/name</p>
+<pre>
+&lt;project //...&gt;
+  &lt;division&gt;
+    &lt;name&gt;Manufacturing&lt;/name&gt;
+  &lt;/division&gt;
+
+  &lt;!-- ... --&gt;
+&lt;/project&gt;
+</pre>

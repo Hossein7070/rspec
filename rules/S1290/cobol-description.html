@@ -1,0 +1,11 @@
+<p>An unused paragraph is never called explicitly with help of the &lt;code&gt;GO TO&lt;/code&gt; or &lt;code&gt;PERFORM&lt;/code&gt; statements.
+There are only two reasons for such a paragraph:</p>
+<ul>
+<li>It is really unused, and should be removed</li>
+<li>It is used as a kind of comment to clearly delimit a block of code, which is bad practice</li>
+</ul>
+<p>The remediation action should be:</p>
+<ul>
+<li>Replace the paragraph by a comment line</li>
+<li>Refactor the code to make an explicit call to this paragraph instead of letting the execution flow going through it implicitly</li>
+</ul>

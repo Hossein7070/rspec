@@ -1,0 +1,25 @@
+{
+  "title": "Track comments matching a regular expression",
+  "type": "CODE_SMELL",
+  "status": "ready",
+  "tags": [],
+  "defaultSeverity": "Major",
+  "ruleSpecification": "RSPEC-124",
+  "sqKey": "CommentRegularExpression",
+  "scope": "Main",
+  "all_languages": [
+    "cfamily",
+    "cobol",
+    "flex",
+    "java",
+    "javascript",
+    "plsql",
+    "python",
+    "rpg"
+  ],
+  "allKeys": [
+    "CommentRegularExpression",
+    "S124",
+    "CommentRegularExpressionCheckPlSql"
+  ]
+}

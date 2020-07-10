@@ -1,0 +1,44 @@
+<p>There are two classes in the Java standard library that deal with iterations: &lt;code&gt;Iterable&lt;T&gt;&lt;/code&gt; and &lt;code&gt;Iterator&lt;T&gt;&lt;/code&gt;. An &lt;code&gt;Iterable&lt;T&gt;&lt;/code&gt; represents a data structure that can be the target of the "for-each loop" statement, and an &lt;code&gt;Iterator&lt;T&gt;&lt;/code&gt; represents the state of an ongoing traversal. An &lt;code&gt;Iterable&lt;T&gt;&lt;/code&gt; is generally expected to support multiple traversals.
+An &lt;code&gt;Iterator&lt;T&gt;&lt;/code&gt; that also implements &lt;code&gt;Iterable&lt;t&gt;&lt;/code&gt; by returning itself as its &lt;code&gt;iterator()&lt;/code&gt; will not support multiple traversals since its state will be carried over.</p>
+<p>This rule raises an issue when the &lt;code&gt;iterator()&lt;/code&gt; method of a class implementing both &lt;code&gt;Iterable&lt;T&gt;&lt;/code&gt; and &lt;code&gt;Iterator&lt;t&gt;&lt;/code&gt; returns &lt;code&gt;this&lt;/code&gt;.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+class FooIterator implements Iterator&lt;Foo&gt;, Iterable&lt;Foo&gt; {
+  private Foo[] seq;
+  private int idx = 0;
+
+  public boolean hasNext() {
+    return idx &lt; seq.length;
+  }
+
+  public Foo next() {
+    return seq[idx++];
+  }
+
+  public Iterator&lt;Foo&gt; iterator() {
+    return this; // Noncompliant
+  }
+  // ...
+}
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+class FooSequence implements Iterable&lt;Foo&gt; {
+  private Foo[] seq;
+
+  public Iterator&lt;Foo&gt; iterator() {
+    return new Iterator&lt;Foo&gt;() {
+      private int idx = 0;
+
+      public boolean hasNext() {
+        return idx &lt; seq.length;
+      }
+
+      public Foo next() {
+        return seq[idx++];
+      }
+    };
+  }
+  // ...
+}
+</pre>

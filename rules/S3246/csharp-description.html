@@ -1,0 +1,17 @@
+<p>In the interests of making code as usable as possible, interfaces and delegates with generic parameters should use the &lt;code&gt;out&lt;/code&gt; and &lt;code&gt;in&lt;/code&gt; modifiers when possible to make the interfaces and delegates covariant and contravariant, respectively.</p>
+<p>The &lt;code&gt;out&lt;/code&gt; keyword can be used when the type parameter is used only as a return type in the interface or delegate. Doing so makes the parameter covariant, and allows interface and delegate instances created with a sub-type to be used as instances created with a base type. The most notable example of this is &lt;code&gt;IEnumerable&lt;out T&gt;&lt;/code&gt;, which allows the assignment of an &lt;code&gt;IEnumerable&lt;string&gt;&lt;/code&gt; instance to an &lt;code&gt;IEnumerable&lt;object&gt;&lt;/code&gt; variable, for instance.</p>
+<p>The &lt;code&gt;in&lt;/code&gt; keyword can be used when the type parameter is used only as a method parameter in the interface or a parameter in the delegate. Doing so makes the parameter contravariant, and allows interface and delegate instances created with a base type to be used as instances created with a sub-type. I.e. this is the inversion of covariance. The most notable example of this is the &lt;code&gt;Action&lt;in T&gt;&lt;/code&gt; delegate, which allows the assignment of an &lt;code&gt;Action&lt;object&gt;&lt;/code&gt; instance to a &lt;code&gt;Action&lt;string&gt;&lt;/code&gt; variable, for instance.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+interface IConsumer&lt;T&gt;  // Noncompliant
+{
+    bool Eat(T fruit);
+}
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+interface IConsumer&lt;in T&gt;
+{
+    bool Eat(T fruit);
+}
+</pre>

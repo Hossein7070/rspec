@@ -1,0 +1,16 @@
+<p>Java 8 introduced &lt;code&gt;ThreadLocal.withInitial&lt;/code&gt; which is a simpler alternative to creating an anonymous inner class to initialise a &lt;code&gt;ThreadLocal&lt;/code&gt; instance.</p>
+<p>This rule raises an issue when a &lt;code&gt;ThreadLocal&lt;/code&gt; anonymous inner class can be replaced by a call to &lt;code&gt;ThreadLocal.withInitial&lt;/code&gt;.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+ThreadLocal&lt;List&lt;String&gt;&gt; myThreadLocal =
+    new ThreadLocal&lt;List&lt;String&gt;&gt;() { // Noncompliant
+        @Override
+        protected List&lt;String&gt; initialValue() {
+            return new ArrayList&lt;String&gt;();
+        }
+    };
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+ThreadLocal&lt;List&lt;String&gt;&gt; myThreadLocal = ThreadLocal.withInitial(ArrayList::new);
+</pre>

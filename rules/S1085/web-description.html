@@ -1,0 +1,55 @@
+<p>In order to be accessible to visually impaired users, it is important that tables provides a description of its content before the data is accessed.</p>
+<p>The simplest way to do it, and also the one <a href="https://www.w3.org/TR/WCAG20-TECHS/H39">recommended by WCAG2</a> is to add a &lt;code&gt;&lt;caption&gt;&lt;/code&gt; element inside the &lt;code&gt;&lt;table&gt;&lt;/code&gt;.</p>
+<p>Other technics this rule accepts are:</p>
+<ul>
+<li>adding a concise description via <a href="https://www.w3.org/TR/wai-aria/#aria-label">&lt;code&gt;aria-label&lt;/code&gt;</a> or <a href="https://www.w3.org/TR/wai-aria/#aria-labelledby">&lt;code&gt;aria-labelledby&lt;/code&gt;</a> attributes in the &lt;code&gt;&lt;table&gt;&lt;/code&gt;.</li>
+<li>referencing a description element with an <a href="https://www.w3.org/TR/wai-aria/#aria-describedby">&lt;code&gt;aria-describedby&lt;/code&gt;</a> attribute in the &lt;code&gt;&lt;table&gt;&lt;/code&gt;.</li>
+<li>embedding the &lt;code&gt;&lt;table&gt;&lt;/code&gt; inside a &lt;code&gt;&lt;figure&gt;&lt;/code&gt; which also contains a &lt;code&gt;&lt;figcaption&gt;&lt;/code&gt;.</li>
+<li>adding a &lt;code&gt;summary&lt;/code&gt; attribute to the &lt;code&gt;&lt;table&gt;&lt;/code&gt; tag. However note that this attribute has been deprecated in HTML5.</li>
+</ul>
+<p>See&nbsp;https://www.w3.org/WAI/tutorials/tables/tips/[W3C WAI&nbsp;Web Accessibility Tutorials]&nbsp;for more information.</p>
+<p>This rule raises an issue when a &lt;code&gt;&lt;table&gt;&lt;/code&gt; has neither of the previously mentioned description mechanisms.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+&lt;table&gt; &lt;!-- Noncompliant --&gt;
+  ...
+&lt;table&gt;
+</pre>
+<h2>Compliant Solution</h2>
+<p>Adding a &lt;code&gt;&lt;caption&gt;&lt;/code&gt; element.</p>
+<pre>
+&lt;table&gt;
+  &lt;caption&gt;New York City Marathon Results 2013&lt;/caption&gt;
+  ...
+&lt;/table&gt;
+</pre>
+<p>Adding an &lt;code&gt;aria-describedby&lt;/code&gt; attribute.</p>
+<pre>
+&lt;p id="mydesc"&gt;New York City Marathon Results 2013&lt;/p&gt;
+&lt;table aria-describedby="mydesc"&gt;
+  ...
+&lt;/table&gt;
+</pre>
+<p>Embedding the table in a &lt;code&gt;&lt;figure&gt;&lt;/code&gt; which also contains a &lt;code&gt;&lt;figcaption&gt;&lt;/code&gt;.</p>
+<pre>
+&lt;figure&gt;
+  &lt;figcaption&gt;New York City Marathon Results 2013&lt;/figcaption&gt;
+  &lt;table&gt;
+    ...
+  &lt;/table&gt;
+&lt;/figure&gt;
+</pre>
+<p>Adding a &lt;code&gt;summary&lt;/code&gt; attribute.</p>
+<pre>
+&lt;table summary="New York City Marathon Results 2013"&gt;
+  ...
+&lt;/table&gt;
+</pre>
+<h2>Exceptions</h2>
+<p>No issue will be raised on &lt;code&gt;&lt;table&gt;&lt;/code&gt; used for layout purpose, i.e. when it contains a &lt;code&gt;role&lt;/code&gt; attribute set to &lt;code&gt;"presentation"&lt;/code&gt; or &lt;code&gt;"none"&lt;/code&gt;. Note that using &lt;code&gt;&lt;table&gt;&lt;/code&gt; for layout purpose is a bad practice.</p>
+<p>No issue will be raised either on &lt;code&gt;&lt;table&gt;&lt;/code&gt; containing an &lt;code&gt;aria-hidden&lt;/code&gt; attribute set to &lt;code&gt;"true"&lt;/code&gt;.</p>
+<h2>See</h2>
+<ul>
+<li><a href="https://www.w3.org/WAI/WCAG21/quickref/?versions=2.0#qr-content-structure-separation-programmatic">WCAG2, 1.3.1</a>&nbsp;-&nbsp;Info and Relationships</li>
+<li><a href="https://www.w3.org/TR/WCAG20-TECHS/H39">WCAG2,&nbsp;H39</a> - Using caption elements to associate data table captions with data tables</li>
+</ul>

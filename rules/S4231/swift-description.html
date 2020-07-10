@@ -1,0 +1,13 @@
+<p>Some global constants can be replaced by struct scoped constants which are preferred.</p>
+<p>This rules raises an issue when any of the following substitutions can be made:</p>
+<p>||Legacy Constant||Preferred replacement||
+|&lt;code&gt;CGRectInfinite&lt;/code&gt;|&lt;code&gt;CGRect.infinite&lt;/code&gt;|
+|&lt;code&gt;CGPointZero&lt;/code&gt;|&lt;code&gt;CGPoint.zero&lt;/code&gt;|
+|&lt;code&gt;CGRectZero&lt;/code&gt;|&lt;code&gt;CGRect.zero&lt;/code&gt;|
+|&lt;code&gt;CGSizeZero&lt;/code&gt;|&lt;code&gt;CGSize.zero&lt;/code&gt;|
+|&lt;code&gt;NSZeroPoint&lt;/code&gt;|&lt;code&gt;NSPoint.zero&lt;/code&gt;|
+|&lt;code&gt;NSZeroRect&lt;/code&gt;|&lt;code&gt;NSRect.zero&lt;/code&gt;|
+|&lt;code&gt;NSZeroSize&lt;/code&gt;|&lt;code&gt;NSSize.zero&lt;/code&gt;|
+|&lt;code&gt;CGRectNull&lt;/code&gt;|&lt;code&gt;CGRect.null&lt;/code&gt;|
+|&lt;code&gt;CGFloat(M_PI)&lt;/code&gt;|&lt;code&gt;CGFloat.pi&lt;/code&gt;|
+|&lt;code&gt;Float(M_PI)&lt;/code&gt;|&lt;code&gt;Float.pi&lt;/code&gt;|</p>

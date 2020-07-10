@@ -1,0 +1,66 @@
+<p>Extend a class that overrides &lt;code&gt;equals&lt;/code&gt; and add fields without overriding &lt;code&gt;equals&lt;/code&gt; in the subclass, and you run the risk of non-equivalent instances of your subclass being seen as equal, because only the superclass fields will be considered in the equality test.</p>
+<p>This rule looks for classes that do all of the following:</p>
+<ul>
+<li>extend classes that override &lt;code&gt;equals&lt;/code&gt;.</li>
+<li>do not themselves override &lt;code&gt;equals&lt;/code&gt;.</li>
+<li>add fields.</li>
+</ul>
+<h2>Noncompliant Code Example</h2>
+<pre>
+public class Fruit {
+  private Season ripe;
+
+  public boolean equals(Object obj) {
+    if (obj == this) {
+      return true;
+    }
+    if (this.class != obj.class) {
+      return false;
+    }
+    Fruit fobj = (Fruit) obj;
+    if (ripe.equals(fobj.getRipe()) {
+      return true;
+    }
+    return false;
+  }
+}
+
+public class Raspberry extends Fruit {  // Noncompliant; instances will use Fruit's equals method
+  private Color ripeColor;
+}
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+public class Fruit {
+  private Season ripe;
+
+  public boolean equals(Object obj) {
+    if (obj == this) {
+      return true;
+    }
+    if (this.class != obj.class) {
+      return false;
+    }
+    Fruit fobj = (Fruit) obj;
+    if (ripe.equals(fobj.getRipe()) {
+      return true;
+    }
+    return false;
+  }
+}
+
+public class Raspberry extends Fruit {
+  private Color ripeColor;
+
+  public boolean equals(Object obj) {
+    if (! super.equals(obj)) {
+      return false;
+    }
+    Raspberry fobj = (Raspberry) obj;
+    if (ripeColor.equals(fobj.getRipeColor()) {  // added fields are tested
+      return true;
+    }
+    return false;
+  }
+}
+</pre>

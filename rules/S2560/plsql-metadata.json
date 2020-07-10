@@ -1,0 +1,20 @@
+{
+  "title": "DML events clauses should not include multiple \"OF\" clauses",
+  "type": "BUG",
+  "status": "ready",
+  "remediation": {
+    "func": "Constant/Issue",
+    "constantCost": "1h"
+  },
+  "tags": [],
+  "defaultSeverity": "Major",
+  "ruleSpecification": "RSPEC-2560",
+  "sqKey": "TriggerOfConditionsCheck",
+  "scope": "Main",
+  "all_languages": [
+    "plsql"
+  ],
+  "allKeys": [
+    "TriggerOfConditionsCheck"
+  ]
+}

@@ -1,0 +1,15 @@
+<p>Unnecessarily verbose type declarations make it harder to read the code, and should be simplified to auto-property declarations when the getters and setters contain no logic other than a simple get/set.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+private int myVar;
+
+public int MyProperty
+{
+  get { return myVar; }
+  set { myVar = value; }
+}
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+public int MyProperty { get;  set; }
+</pre>

@@ -1,0 +1,9 @@
+<p>COBOL programs that include &lt;code&gt;EXEC SQL INCLUDE&lt;/code&gt; statements must be pre-processed with an IBM DB2 precompiler or coprocessor before compilation. The precompiler does not require a period after the closing &lt;code&gt;END-EXEC&lt;/code&gt;, but the coprocessor does. For portability, a period should always be used.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+EXEC SQL INCLUDE ... END-EXEC  *&gt; Noncompliant; '.' missing
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+EXEC SQL INCLUDE ... END-EXEC.
+</pre>

@@ -1,0 +1,20 @@
+{
+  "title": "Track lack of required parent elements",
+  "type": "CODE_SMELL",
+  "status": "ready",
+  "remediation": {
+    "func": "Constant/Issue",
+    "constantCost": "5min"
+  },
+  "tags": [],
+  "defaultSeverity": "Major",
+  "ruleSpecification": "RSPEC-1923",
+  "sqKey": "ParentElementRequiredCheck",
+  "scope": "Main",
+  "all_languages": [
+    "web"
+  ],
+  "allKeys": [
+    "ParentElementRequiredCheck"
+  ]
+}

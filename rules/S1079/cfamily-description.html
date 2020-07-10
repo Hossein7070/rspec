@@ -1,0 +1,22 @@
+<p>The &lt;code&gt;%s&lt;/code&gt; placeholder is used to read a word into a string.
+By default, there is no restriction on the length of that word, and the developer is required to pass a sufficiently large buffer for storing it.
+No matter how large the buffer is, there will always be a longer word.
+Therefore, programs relying on &lt;code&gt;%s&lt;/code&gt; are vulnerable to buffer overflows.</p>
+<p>A field width specifier can be used together with the &lt;code&gt;%s&lt;/code&gt; placeholder to limit the number of bytes which will by written to the buffer.
+Note that an additional byte is required to store the null terminator.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+char buffer[10];
+scanf("%s", buffer);      // Noncompliant - will overflow when a word longer than 9 characters is entered
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+char buffer[10];
+scanf("%9s", buffer);     // Compliant - will not overflow
+</pre>
+<h2>See</h2>
+<ul>
+<li><a href="http://cwe.mitre.org/data/definitions/120">MITRE, CWE-120</a> - Buffer Copy without Checking Size of Input ('Classic Buffer Overflow')</li>
+<li><a href="http://cwe.mitre.org/data/definitions/676">MITRE, CWE-676</a> - Use of Potentially Dangerous Function</li>
+<li><a href="https://www.sans.org/top25-software-errors/#cat2">SANS Top 25</a> - Risky Resource Management</li>
+</ul>

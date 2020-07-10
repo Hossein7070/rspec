@@ -1,0 +1,14 @@
+<p>Classes should only hold &lt;code&gt;weak&lt;/code&gt; references to delegate fields with &lt;code&gt;class&lt;/code&gt; type. Otherwise, the owning class will have a &lt;code&gt;strong&lt;/code&gt; reference to its delegate, and vice versa, and the OS won’t be able to deallocate either of them..</p>
+<p>Note that this only applies to non-computed delegate fields in classes, and not to fields in &lt;code&gt;struct&lt;/code&gt;s and &lt;code&gt;enum&lt;/code&gt;s.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+class MyClass {
+  var delegate: ConventionDelegate?  // Noncompliant
+}
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+class MyClass {
+  weak var delegate: ConventionDelegate?
+}
+</pre>

@@ -1,0 +1,29 @@
+<p>Offering the same experience with the mouse and the keyboard allow users to pick their preferred devices.
+ Additionally, users of assistive technology will also be able to browse the site even if they cannot use the mouse.</p>
+<p>This rule raises an issue when:</p>
+<ul>
+<li>an HTML element with an &lt;code&gt;onMouseover&lt;/code&gt; attribute doesn’t also have an&nbsp;&lt;code&gt;onFocus&nbsp;attribute.&lt;/code&gt;</li>
+<li>an HTML element with an &lt;code&gt;onMouseout&lt;/code&gt; attribute doesn’t also have an&nbsp;&lt;code&gt;onBlur&nbsp;attribute.&lt;/code&gt;</li>
+<li>an HTML element with an &lt;code&gt;onClick&lt;/code&gt; attribute doesn’t also have one of the following attributes: &lt;code&gt;onKeyDown&lt;/code&gt;, &lt;code&gt;onKeyUp&lt;/code&gt;, &lt;code&gt;onKeyPress&lt;/code&gt;.</li>
+</ul>
+<p>Note that in the case of&nbsp;&lt;code&gt;onClick&lt;/code&gt;, the equivalent keyboard handler should support both the "Enter" and "Space" keys as these are usually used by screen-readers.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+&lt;div onClick="doSomething();" ...&gt;                                &lt;!-- Noncompliant - 'onKeyDown/onKeyUp/onKeyPress' missing --&gt;
+&lt;a onMouseover="doSomething();" ...&gt;                            &lt;!-- Noncompliant - 'onFocus' missing --&gt;
+&lt;a onMouseout="doSomething();" ...&gt;                             &lt;!-- Noncompliant - 'onBlur' missing --&gt;
+</pre>
+<h2>Compliant Solution</h2>
+<p>Note that setting the &lt;code&gt;tabindex&lt;/code&gt; attribute is necessary to make the &lt;code&gt;&lt;div&gt;&lt;/code&gt; element focusable.</p>
+<pre>
+&lt;div onClick="doSomething();" onKeyDown="doSomething();" tabindex="0" ...&gt;    &lt;!-- Compliant --&gt;
+&lt;a onMouseover="doSomething();" onFocus="doSomething();" ...&gt;   &lt;!-- Compliant --&gt;
+&lt;a onMouseout="doSomething();" onBlur="doSomething();" ...&gt;     &lt;!-- Compliant --&gt;
+</pre>
+<h2>Exceptions</h2>
+<p>For the following elements, <a href="https://www.w3.org/TR/WCAG20-TECHS/SCR35.html">pressing a key will trigger the &lt;code&gt;onClick&lt;/code&gt; attribute</a>: &lt;code&gt;&lt;input type="button"&gt;&lt;/code&gt;, &lt;code&gt;&lt;input type="submit"&gt;&lt;/code&gt;, &lt;code&gt;&lt;button&gt;&lt;/code&gt;, &lt;code&gt;&lt;a&gt;&lt;/code&gt;. Thus no issue will be raised when an &lt;code&gt;onClick&lt;/code&gt; attribute is found in these elements without a &lt;code&gt;onKeyDown/onKeyUp/onKeyPress&lt;/code&gt;.</p>
+<p>An issue will still be raised for <a href="https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/button_role">elements with the &lt;code&gt;role="button"&lt;/code&gt; attribute</a> as they don’t behave the same way.</p>
+<h2>See</h2>
+<ul>
+<li><a href="https://www.w3.org/TR/WCAG20-TECHS/SCR2.html">SCR2: Using redundant keyboard and mouse event handlers</a></li>
+</ul>

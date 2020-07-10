@@ -1,0 +1,23 @@
+{
+  "title": "Links should not directly target images",
+  "type": "CODE_SMELL",
+  "status": "ready",
+  "remediation": {
+    "func": "Constant/Issue",
+    "constantCost": "15min"
+  },
+  "tags": [
+    "accessibility",
+    "user-experience"
+  ],
+  "defaultSeverity": "Major",
+  "ruleSpecification": "RSPEC-1092",
+  "sqKey": "LinkToImageCheck",
+  "scope": "Main",
+  "all_languages": [
+    "web"
+  ],
+  "allKeys": [
+    "LinkToImageCheck"
+  ]
+}

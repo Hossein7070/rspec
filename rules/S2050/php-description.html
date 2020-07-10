@@ -1,0 +1,30 @@
+<p>Certain functions exist in PHP only as aliases of other functions. These aliases have been made available for backward compatibility, but should really be removed from code.</p>
+<p>This rule looks for uses of the following aliases:
+||Alias||Replacement||
+|&lt;code&gt;chop&lt;/code&gt;|&lt;code&gt;rtrim&lt;/code&gt;|
+|&lt;code&gt;close&lt;/code&gt;|&lt;code&gt;closedir&lt;/code&gt;|
+|&lt;code&gt;doubleval&lt;/code&gt;|&lt;code&gt;floatval&lt;/code&gt;|
+|&lt;code&gt;fputs&lt;/code&gt;|&lt;code&gt;fwrite&lt;/code&gt;|
+|&lt;code&gt;ini_alter&lt;/code&gt;|&lt;code&gt;ini_set&lt;/code&gt;|
+|&lt;code&gt;is_double&lt;/code&gt;|&lt;code&gt;is_float&lt;/code&gt;|
+|&lt;code&gt;is_integer&lt;/code&gt;|&lt;code&gt;is_int&lt;/code&gt;|
+|&lt;code&gt;is_long&lt;/code&gt;|&lt;code&gt;is_int&lt;/code&gt;|
+|&lt;code&gt;is_real&lt;/code&gt;|&lt;code&gt;is_float&lt;/code&gt;|
+|&lt;code&gt;is_writeable&lt;/code&gt;|&lt;code&gt;is_writable&lt;/code&gt;|
+|&lt;code&gt;join&lt;/code&gt;|&lt;code&gt;implode&lt;/code&gt;|
+|&lt;code&gt;key_exists&lt;/code&gt;|&lt;code&gt;array_key_exists&lt;/code&gt;|
+|&lt;code&gt;magic_quotes_runtime&lt;/code&gt;|&lt;code&gt;set_magic_quotes_runtime&lt;/code&gt;|
+|&lt;code&gt;pos&lt;/code&gt;|&lt;code&gt;current&lt;/code&gt;|
+|&lt;code&gt;show_source&lt;/code&gt;|&lt;code&gt;highlight_file&lt;/code&gt;|
+|&lt;code&gt;sizeof&lt;/code&gt;|&lt;code&gt;count&lt;/code&gt;|
+|&lt;code&gt;strchr&lt;/code&gt;|&lt;code&gt;strstr&lt;/code&gt;|</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+$arr=array("apple", "pear","banana");
+echo sizeof($arr);  // Noncompliant
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+$arr=array("apple", "pear","banana");
+echo count($arr);
+</pre>

@@ -1,0 +1,30 @@
+{
+  "title": "Function exit paths should have appropriate return values",
+  "type": "BUG",
+  "status": "ready",
+  "remediation": {
+    "func": "Constant/Issue",
+    "constantCost": "5min"
+  },
+  "tags": [
+    "cwe",
+    "based-on-misra"
+  ],
+  "defaultSeverity": "Critical",
+  "ruleSpecification": "RSPEC-935",
+  "sqKey": "S935",
+  "scope": "Main",
+  "securityStandards": {
+    "CWE": [
+      394
+    ]
+  },
+  "all_languages": [
+    "cfamily",
+    "python",
+    "typescript"
+  ],
+  "allKeys": [
+    "S935"
+  ]
+}

@@ -1,0 +1,29 @@
+{
+  "title": "PL/I: \"IF / ELSE\" statements should use \"DO ... END\" structures",
+  "type": "CODE_SMELL",
+  "status": "ready",
+  "remediation": {
+    "func": "Constant/Issue",
+    "constantCost": "10min"
+  },
+  "tags": [
+    "pitfall"
+  ],
+  "defaultSeverity": "Critical",
+  "ruleSpecification": "RSPEC-121",
+  "sqKey": "S121",
+  "scope": "All",
+  "all_languages": [
+    "cfamily",
+    "csharp",
+    "java",
+    "javascript",
+    "kotlin",
+    "php",
+    "pli",
+    "tsql"
+  ],
+  "allKeys": [
+    "S121"
+  ]
+}

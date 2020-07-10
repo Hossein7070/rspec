@@ -1,0 +1,6 @@
+<p>&lt;code&gt;Double.longBitsToDouble&lt;/code&gt; expects a 64-bit, &lt;code&gt;long&lt;/code&gt; argument. Pass it a smaller value, such as an &lt;code&gt;int&lt;/code&gt; and the mathematical conversion into a &lt;code&gt;double&lt;/code&gt; simply won’t work as anticipated because the layout of the bits will be interpreted incorrectly, as if a child were trying to use an adult’s gloves.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+int i = 42;
+double d = Double.longBitsToDouble(i);  // Noncompliant
+</pre>

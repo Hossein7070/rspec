@@ -1,0 +1,22 @@
+<p>The underlying implementation of &lt;code&gt;String::replaceAll&lt;/code&gt; calls the &lt;code&gt;java.util.regex.Pattern.compile()&lt;/code&gt; method each time it is called even if the first argument is not a regular expression. This has a significant performance cost and therefore should be used with care.</p>
+<p>When &lt;code&gt;String::replaceAll&lt;/code&gt; is used, the first argument should be a real regular expression. If it’s not the case, &lt;code&gt;String::replace&lt;/code&gt; does exactly the same thing as &lt;code&gt;String::replaceAll&lt;/code&gt; without the performance drawback of the regex.</p>
+<p>This rule raises an issue for each &lt;code&gt;String::replaceAll&lt;/code&gt; used with a &lt;code&gt;String&lt;/code&gt; as first parameter which doesn’t contains special regex character or pattern.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+String init = "Bob is a Bird... Bob is a Plane... Bob is Superman!";
+String changed = init.replaceAll("Bob is", "It's"); // Noncompliant
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+String init = "Bob is a Bird... Bob is a Plane... Bob is Superman!";
+String changed = init.replace("Bob is", "It's");
+</pre>
+<p>Or, with a regex:</p>
+<pre>
+String init = "Bob is a Bird... Bob is a Plane... Bob is Superman!";
+String changed = init.replaceAll("\\w*\\sis", "It's");
+</pre>
+<h2>See</h2>
+<ul>
+<li>S4248 - Regex patterns should not be created needlessly</li>
+</ul>

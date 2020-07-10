@@ -1,0 +1,23 @@
+<p>Operator overloading is convenient but unfortunately not portable across languages. To be able to access the same functionality from another language you need to provide an alternate named method following the convention:
+||Operator||Method Name||
+||&lt;code&gt;&lt;/code&gt; (binary)||Add||
+||&lt;code&gt;&amp;&lt;/code&gt;||BitwiseAnd||
+||&lt;code&gt;\|&lt;/code&gt;||BitwiseOr||
+||&lt;code&gt;/&lt;/code&gt;||Divide||
+||&lt;code&gt;==&lt;/code&gt;||Equals||
+||&lt;code&gt;^&lt;/code&gt;||Xor||
+||&lt;code&gt;&gt;&lt;/code&gt;||Compare||
+||&lt;code&gt;&gt;=&lt;/code&gt;||Compare||
+||&lt;code&gt;!=&lt;/code&gt;||Equals||
+||&lt;code&gt;&lt;&lt;/code&gt;||Compare||
+||&lt;code&gt;&lt;=&lt;/code&gt;||Compare||
+||&lt;code&gt;!&lt;/code&gt;||LogicalNot||
+||&lt;code&gt;%&lt;/code&gt;||Mod||
+||&lt;code&gt;*&lt;/code&gt; (binary)||Multiply||
+||&lt;code&gt;~&lt;/code&gt;||OnesComplement||
+||&lt;code&gt;-&lt;/code&gt; (binary)||Subtract||
+||&lt;code&gt;-&lt;/code&gt; (unary)||Negate||
+||&lt;code&gt;&lt;/code&gt; (unary)||Plus||</p>
+<p>This rule raises an issue when there is an operator overload without the expected named alternative method.</p>
+<h2>Exceptions</h2>
+<p>This rule does not raise an issue when the class implementing the comparison operators &lt;code&gt;&gt;&lt;/code&gt;, &lt;code&gt;<a href="#/code>">&lt;code</a>=&lt;/code&gt; and &lt;code&gt;⇐&lt;/code&gt; contains a method named &lt;code&gt;CompareTo&lt;/code&gt;.</p>

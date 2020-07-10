@@ -1,0 +1,17 @@
+<p>Explicitly specifying a &lt;code&gt;void&lt;/code&gt; parameter list is required in C, but optional in C++. Using &lt;code&gt;void&lt;/code&gt; for a parameter-less function decreases its readability. The at-a-glance impression is that the function <em>does</em> take a parameter, and it takes a second look to ascertain that it does not. Therefore the more compact notation is preferred.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+int fun(void);
+
+int fun(void) {
+  ...
+}
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+int fun();
+
+int fun() {
+  ...
+}
+</pre>

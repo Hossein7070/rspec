@@ -1,0 +1,30 @@
+<p>The concept of &lt;code&gt;Optional&lt;/code&gt; is that it will be used when &lt;code&gt;null&lt;/code&gt; could cause errors. In a way, it replaces &lt;code&gt;null&lt;/code&gt;, and when &lt;code&gt;Optional&lt;/code&gt; is in use, there should never be a question of returning or receiving &lt;code&gt;null&lt;/code&gt; from a call.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+public void doSomething () {
+  Optional&lt;String&gt; optional = getOptional();
+  if (optional != null) {  // Noncompliant
+    // do something with optional...
+  }
+}
+
+@Nullable // Noncompliant
+public Optional&lt;String&gt; getOptional() {
+  // ...
+  return null;  // Noncompliant
+}
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+public void doSomething () {
+  Optional&lt;String&gt; optional = getOptional();
+  optional.ifPresent(
+    // do something with optional...
+  );
+}
+
+public Optional&lt;String&gt; getOptional() {
+  // ...
+  return Optional.empty();
+}
+</pre>

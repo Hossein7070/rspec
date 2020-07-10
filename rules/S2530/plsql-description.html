@@ -1,0 +1,27 @@
+<p>&lt;code&gt;ASC&lt;/code&gt; or &lt;code&gt;DESC&lt;/code&gt; should be specified for every column of an &lt;code&gt;ORDER BY&lt;/code&gt; clause to improve readability.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+BEGIN
+  SELECT col1, col2, col3
+  BULK COLLECT INTO result
+  FROM my_table
+  ORDER BY
+    col1 ASC,
+    col2,            -- Noncompliant - ASC or DESC should be specified
+    col3 DESC;
+END;
+/
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+BEGIN
+  SELECT col1, col2, col3
+  BULK COLLECT INTO result
+  FROM my_table
+  ORDER BY
+    col1 ASC,
+    col2 ASC,
+    col3 DESC;
+END;
+/
+</pre>

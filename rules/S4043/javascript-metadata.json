@@ -1,0 +1,20 @@
+{
+  "title": "Array-mutating methods should not be used misleadingly",
+  "type": "CODE_SMELL",
+  "status": "ready",
+  "remediation": {
+    "func": "Constant/Issue",
+    "constantCost": "5min"
+  },
+  "tags": [],
+  "defaultSeverity": "Major",
+  "ruleSpecification": "RSPEC-4043",
+  "sqKey": "S4043",
+  "scope": "All",
+  "all_languages": [
+    "javascript"
+  ],
+  "allKeys": [
+    "S4043"
+  ]
+}

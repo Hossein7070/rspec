@@ -1,0 +1,9 @@
+<p>&lt;code&gt;COPY …​ SUPPRESS&lt;/code&gt; suppresses the inclusion of the copybook contents from the source listing, making it very difficult to gain a complete understanding of what’s happening in the code. This could hinder both maintenance and debugging.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+COPY XX001234 SUPPRESS.  &lt;* Noncompliant
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+COPY XX001234.
+</pre>

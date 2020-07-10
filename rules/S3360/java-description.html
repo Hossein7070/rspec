@@ -1,0 +1,16 @@
+<p>By default, the Maven Surefire plugin only executes test classes with names that end in "Test" or "TestCase". Name your class "TestClassX.java", for instance, and it will be skipped.</p>
+<p>This rule raises an issue for each test class with a name not ending in "Test" or "TestCase".</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+public class TestClassX {  // Noncompliant
+  @Test
+  public void testDoTheThing() {
+    //...
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+public class ClassXTest {
+  @Test
+  public void testDoTheThing() {
+    //...
+</pre>

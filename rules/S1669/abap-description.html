@@ -1,0 +1,15 @@
+<p>Using keywords as variable names may yield incomprehensible code, and should be avoided.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+DATA:  wa_struct TYPE struct,
+       name       TYPE string,
+       dob          TYPE string,
+       aliases     TYPE string,    " ALIASES is a keyword
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+DATA:  wa_struct TYPE struct,
+       name         TYPE string,
+       dob            TYPE string,
+       alt_names  TYPE string,
+</pre>

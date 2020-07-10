@@ -1,0 +1,29 @@
+<p>Used correctly, the functions from the &lt;code&gt;&lt;cstring&gt;&lt;/code&gt; library are safe and reliable. Unfortunately, they are easily misused, and can read or write beyond the end of defined buffer, resulting in undefined behavior.</p>
+<p>Therefore this rule flags all uses of the following methods, which should be avoided, in favor of functions from C++'s new "safe string" library, &lt;code&gt;&lt;string&gt;&lt;/code&gt;: &lt;code&gt;strcpy&lt;/code&gt;, &lt;code&gt;strcmp&lt;/code&gt;, &lt;code&gt;strcat&lt;/code&gt;, &lt;code&gt;strchr&lt;/code&gt;, &lt;code&gt;strspn&lt;/code&gt;, &lt;code&gt;strcspn&lt;/code&gt;, &lt;code&gt;strpbrk&lt;/code&gt;, &lt;code&gt;strrchr&lt;/code&gt;, &lt;code&gt;strstr&lt;/code&gt;, &lt;code&gt;strtok&lt;/code&gt;, and &lt;code&gt;strlen&lt;/code&gt;.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+#include &lt;cstring&gt;
+
+void fn ( const char_t * pChar )
+{
+  char_t array [ 10 ];
+  strcpy ( array, pChar ); // Noncompliant
+}
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+#include &lt;string&gt;
+
+void fn ( std::string str )
+{
+  int len = 10;
+  char_t array [ len ];
+  str.copy(array, len, 0);
+}
+</pre>
+<h2>See</h2>
+<ul>
+<li>MISRA C++:2008, 18-0-5</li>
+<li><a href="http://cwe.mitre.org/data/definitions/120">MITRE, CWE-120</a> - Buffer Copy without Checking Size of Input ('Classic Buffer Overflow')</li>
+<li><a href="https://www.sans.org/top25-software-errors/#cat2">SANS Top 25</a> - Risky Resource Management</li>
+</ul>

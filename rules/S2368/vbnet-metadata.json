@@ -1,0 +1,23 @@
+{
+  "title": "Public methods should not have multidimensional array parameters",
+  "type": "CODE_SMELL",
+  "status": "ready",
+  "remediation": {
+    "func": "Constant/Issue",
+    "constantCost": "1h"
+  },
+  "tags": [
+    "pitfall"
+  ],
+  "defaultSeverity": "Blocker",
+  "ruleSpecification": "RSPEC-2368",
+  "sqKey": "S2368",
+  "scope": "Main",
+  "all_languages": [
+    "csharp",
+    "vbnet"
+  ],
+  "allKeys": [
+    "S2368"
+  ]
+}

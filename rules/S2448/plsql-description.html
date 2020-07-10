@@ -1,0 +1,19 @@
+<p>Anchored types, i.e. those specified using either &lt;code&gt;%TYPE&lt;/code&gt; or &lt;code&gt;%ROWTYPE&lt;/code&gt;, cannot be constrained. Trying to do so results in the exception &lt;code&gt;PLS-00573: cannot constrain scale, precision, or range of an anchored type being raised.&lt;/code&gt;</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+DECLARE
+  foo DUAL.DUMMY%TYPE(42); -- Non-Compliant - raises PLS-00573
+BEGIN
+  NULL;
+END;
+/
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+DECLARE
+  foo DUAL.DUMMY%TYPE; -- Compliant
+BEGIN
+  NULL;
+END;
+/
+</pre>

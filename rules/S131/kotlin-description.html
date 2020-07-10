@@ -1,0 +1,34 @@
+<p>The requirement for a final &lt;code&gt;default&lt;/code&gt; clause is defensive programming. The clause should either take appropriate action, or contain a suitable comment as to why no action is taken.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+when(param) { // missing else
+  1 -&gt; doSomething()
+  2 -&gt; doSomethingElse()
+}
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+when(param) {
+  1 -&gt; doSomething()
+  2 -&gt; doSomethingElse()
+  else -&gt; error("myMessage")
+}
+</pre>
+<h2>Exceptions</h2>
+<p>If the &lt;code&gt;when&lt;/code&gt; clause is used as an expression, Kotlin compiler already enforces that all possible cases are covered with branch conditions. So no issue will be raised in this case.</p>
+<p>Example:</p>
+<pre>
+enum class Day {
+    SUNDAY, MONDAY
+}
+...
+val myVal = when(day) {
+  MyEnum.SUNDAY -&gt; 1
+  MyEnum.MONDAY -&gt; 2
+}
+</pre>
+<h2>See</h2>
+<ul>
+<li><a href="http://cwe.mitre.org/data/definitions/478.html">MITRE, CWE-478</a> - Missing Default Case in Switch Statement</li>
+<li><a href="https://www.securecoding.cert.org/confluence/x/YgE">CERT, MSC01-C.</a> - Strive for logical completeness</li>
+</ul>

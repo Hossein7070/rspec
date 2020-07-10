@@ -1,0 +1,9 @@
+<p>There no point in using the &lt;code&gt;DISTINCT&lt;/code&gt; qualifier on columns with unique values; there can be no duplicates, so there’s nothing to eliminate. Further, using this keyword redundantly can slow performance because many optimizers don’t remove it, so an unnecessary de-duplication step is run anyway.</p>
+<p>This rule raises an issue when &lt;code&gt;DISTINCT&lt;/code&gt; is applied to non-compound key columns, and to columns with &lt;code&gt;UNIQUE&lt;/code&gt; constraints.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+SELECT DISTINCT id, -- Noncompliant
+  name
+FROM employee
+WHERE ...
+</pre>

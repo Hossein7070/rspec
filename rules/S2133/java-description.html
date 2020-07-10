@@ -1,0 +1,10 @@
+<p>Creating an object for the sole purpose of calling &lt;code&gt;getClass&lt;/code&gt; on it is a waste of memory and cycles. Instead, simply use the class' &lt;code&gt;.class&lt;/code&gt; property.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+MyObject myOb = new MyObject();  // Noncompliant
+Class c = myOb.getClass();
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+Class c = MyObject.class;
+</pre>

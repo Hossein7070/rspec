@@ -1,0 +1,39 @@
+<p>Unused parameters are misleading. Whatever the values passed to such parameters, the behavior will be the same.</p>
+<p>This rule raises an issue when a &lt;code&gt;private&lt;/code&gt; procedure of a &lt;code&gt;Class&lt;/code&gt;, &lt;code&gt;Module&lt;/code&gt; or &lt;code&gt;Structure&lt;/code&gt; takes a parameter without using it.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+Private Sub DoSomething(ByVal a As Integer, ByVal b as Integer) ' "b" is unused
+    Compute(a)
+End Sub
+
+Private Function DoSomething2(ByVal a As Integer, ByVal b As Integer) As Integer ' "a" is unused
+    Compute(b)
+    Return b
+End Function
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+Private Sub DoSomething(ByVal a As Integer)
+    Compute(a)
+End Sub
+
+Private Function DoSomething2(ByVal b As Integer) As Integer
+    Compute(b)
+    Return b
+End Function
+</pre>
+<h2>Exceptions</h2>
+<p>This rule doesn’t raise any issue in the following contexts:</p>
+<ul>
+<li>Procedures decorated with attributes.</li>
+<li>Empty procedures.</li>
+<li>Procedures which only throw &lt;code&gt;NotImplementedException&lt;/code&gt;.</li>
+<li>Main methods.</li>
+<li>&lt;code&gt;virtual&lt;/code&gt;, &lt;code&gt;override&lt;/code&gt; procedures.</li>
+<li>Interface implementations.</li>
+<li>Event handlers.</li>
+</ul>
+<h2>See</h2>
+<ul>
+<li><a href="https://www.securecoding.cert.org/confluence/x/NYA5">CERT, MSC12-C.</a> - Detect and remove code that has no effect or is never executed</li>
+</ul>

@@ -1,0 +1,28 @@
+{
+  "title": "A field should not duplicate the name of its containing class",
+  "type": "CODE_SMELL",
+  "status": "ready",
+  "remediation": {
+    "func": "Constant/Issue",
+    "constantCost": "10min"
+  },
+  "tags": [
+    "brain-overload"
+  ],
+  "defaultSeverity": "Major",
+  "ruleSpecification": "RSPEC-1700",
+  "sqKey": "S1700",
+  "scope": "All",
+  "all_languages": [
+    "cfamily",
+    "csharp",
+    "java",
+    "php",
+    "python",
+    "swift",
+    "vbnet"
+  ],
+  "allKeys": [
+    "S1700"
+  ]
+}

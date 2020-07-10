@@ -1,0 +1,29 @@
+<p>The &lt;code&gt;strerror&lt;/code&gt; function returns a pointer to a buffer that is only valid until the function is called again, including from another thread. Which means that in practice, for any multithread program, it’s not possible to use it properly.</p>
+<p>One safe alternative is &lt;code&gt;strerror_s&lt;/code&gt;, provided in annex K of C11. To have access to it, you need a standard library that supports it (this can be tested with the macro &lt;code&gt;<em>STDC_LIB_EXT1</em>&lt;/code&gt;), and you need to enable it by defining the macro &lt;code&gt;<em>STDC_WANT_LIB_EXT1</em>&lt;/code&gt; before including &lt;code&gt;&lt;string.h&gt;&lt;/code&gt;. &lt;code&gt;strerror_s&lt;/code&gt; takes as an argument a buffer that will store the error message. Iworks together with the &lt;code&gt;strerrorlen_s&lt;/code&gt; function, which can tell you the required buffer size to store the error.</p>
+<p>Some environment also provide the &lt;code&gt;strerror_r&lt;/code&gt; function, which works in a way similar to &lt;code&gt;strerror_s&lt;/code&gt;, except there is now function that can provide you with the needed buffer size (but the return value will tell you if the buffer was large enough): Either you accept to have a truncated message if the message is too long, or you should call this function in a loop with increasing buffer size until it succeeds.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+int f(char *path) {
+  FILE * fp = fopen(path,"r");
+  if (fp == NULL) {
+    // errno itself has thread storage duration
+    char *errorMsg = strerror(errno); // Noncompliant, might be changed by another thread
+    printf("Error: %s\n", errorMsg);
+  }
+}
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+int f(char *path) {
+  FILE * fp = fopen(path,"r");
+  if (fp == NULL) {
+    // errno itself has thread storage duration
+    int fileError = errno;
+    size_t errorLen = strerrorlen_s(fileError) +1; // For the final null character
+    char *errorMsg = malloc(errorLen);
+    strerror_s(errorMsg, errorLen, fileError)
+    printf("Error: %s\n", errorMsg);
+    free(errorMsg);
+  }
+}
+</pre>

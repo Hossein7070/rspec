@@ -1,0 +1,19 @@
+<p>The &lt;code&gt;&lt;xs:all&gt;&lt;/code&gt; group element isn’t supported universally among web service stacks. That means that if you use it, you may end up failing to transmit your data (in the resulting XML files) to systems that can’t process it. For that reason, &lt;code&gt;&lt;xs:sequence&gt;&lt;/code&gt; should be used instead. The only constraint imposed by the use of an &lt;code&gt;&lt;xs:sequence&gt;&lt;/code&gt; is the order it imposes, but that is usually a benefit for human readers.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+&lt;xs:complexType name="fruitType"&gt;
+  &lt;xs:all&gt;  &lt;!-- Noncompliant --&gt;
+    &lt;xs:element name="name" type="xs:string"/&gt;
+    &lt;xs:element name="color" type="xs:string"/&gt;
+  &lt;/xs:all&gt;
+&lt;/xs:complexType&gt;
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+&lt;xs:complexType name="fruitType"&gt;
+  &lt;xs:sequence&gt;
+    &lt;xs:element name="name" type="xs:string"/&gt;
+    &lt;xs:element name="color" type="xs:string"/&gt;
+  &lt;/xs:sequence&gt;
+&lt;/xs:complexType&gt;
+</pre>

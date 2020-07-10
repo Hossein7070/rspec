@@ -1,0 +1,9 @@
+<p>Arrow functions &lt;code&gt;⇒&lt;/code&gt; use a syntax similar to certain comparison operators (&lt;code&gt;⇐&lt;/code&gt;, &lt;code&gt;&gt;=&lt;/code&gt;). This can create confusion when used in certain contexts.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+let foo = (x) =&gt; x ? "Africa" : "Asia";   // Noncompliant
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+let foo = (x) =&gt; { return x ? "Africa" : "Asia"; };
+</pre>

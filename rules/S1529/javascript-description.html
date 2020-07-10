@@ -1,0 +1,12 @@
+<p>The bitwise operators &lt;code&gt;&amp;&lt;/code&gt;, &lt;code&gt;|&lt;/code&gt; can be mistaken for the boolean operators &lt;code&gt;&amp;&amp;&lt;/code&gt; and &lt;code&gt;||&lt;/code&gt;.</p>
+<p>This rule raises an issue when &lt;code&gt;&amp;&lt;/code&gt; or &lt;code&gt;|&lt;/code&gt; is used in a boolean context.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+if (a &amp; b) { ... } // Noncompliant; &amp; used in error
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+if (a &amp;&amp; b) { ... }
+</pre>
+<h2>Exceptions</h2>
+<p>When a file contains other bitwise operations, (&lt;code&gt;\^&lt;/code&gt;, &lt;code&gt;&lt;<a href="#/code>">&lt;code</a>&gt;&gt;&lt;/code&gt;, &lt;code&gt;&gt;&gt;&lt;/code&gt;, &lt;code&gt;~&lt;/code&gt;, &lt;code&gt;&amp;=&lt;/code&gt;, &lt;code&gt;^=&lt;/code&gt;, &lt;code&gt;|=&lt;/code&gt;, &lt;code&gt;&lt;⇐&lt;/code&gt;, &lt;code&gt;&gt;&gt;=&lt;/code&gt;, &lt;code&gt;&gt;&gt;&gt;=&lt;/code&gt; and &lt;code&gt;&amp;&lt;/code&gt; or &lt;code&gt;|&lt;/code&gt; used with a numeric literal as the right operand) all issues in the file are ignored, because it is evidence that bitwise operations are truly intended in the file.</p>

@@ -1,0 +1,28 @@
+<p>Where a set of operators is overloaded, it is important that the interactions between the operators meet developer expectations.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+class A
+{
+public:
+  A&amp; operator= ( A const &amp; rhs );
+};
+
+A &amp; operator += ( A const &amp; lhs, A const &amp; rhs );
+A const operator + ( A const &amp; lhs, A const &amp; rhs )  // Noncompliant
+{
+  return lht -= rhs;
+}
+void f ( A a1, A a2 )
+{
+  A x;
+  x = a1 + a2;
+  a1 += a2;
+  if ( x == a1 ) // This should be true, but it's not
+  {
+  }
+}
+</pre>
+<h2>See</h2>
+<ul>
+<li>MISRA C++:2008, 5-17-1</li>
+</ul>

@@ -1,0 +1,20 @@
+{
+  "title": "\"GO TO DEPENDING ON\" should not be used",
+  "type": "CODE_SMELL",
+  "status": "ready",
+  "remediation": {
+    "func": "Constant/Issue",
+    "constantCost": "5min"
+  },
+  "tags": [],
+  "defaultSeverity": "Critical",
+  "ruleSpecification": "RSPEC-4883",
+  "sqKey": "S4883",
+  "scope": "Main",
+  "all_languages": [
+    "cobol"
+  ],
+  "allKeys": [
+    "S4883"
+  ]
+}

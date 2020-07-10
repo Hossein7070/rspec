@@ -1,0 +1,26 @@
+{
+  "title": "Columns in subquery \"SELECT\" clauses should exist",
+  "type": "BUG",
+  "status": "ready",
+  "remediation": {
+    "func": "Constant/Issue",
+    "constantCost": "15min"
+  },
+  "tags": [
+    "sql"
+  ],
+  "defaultSeverity": "Critical",
+  "ruleSpecification": "RSPEC-3635",
+  "sqKey": "S3635",
+  "scope": "All",
+  "all_languages": [
+    "abap",
+    "cobol",
+    "pli",
+    "plsql",
+    "rpg"
+  ],
+  "allKeys": [
+    "S3635"
+  ]
+}

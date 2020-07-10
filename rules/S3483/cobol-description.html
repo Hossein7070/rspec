@@ -1,0 +1,8 @@
+<p>There can’t be any good reason to do a full table scan on large database tables due to the cost of such operation and the scalability issue that might raise. This rule raises an issue when a &lt;code&gt;SELECT&lt;/code&gt; statement doesn’t use at least one indexed column in its &lt;code&gt;WHERE&lt;/code&gt; clause.</p>
+<p><strong>Note</strong> That this rule raises issues only when a database catalog is provided during the SonarQube analysis.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+SELECT * FROM USERS WHERE NAME = :name  -- non compliant when NAME column is not indexed
+</pre>
+<h2>Exceptions</h2>
+<p>This rule ignores &lt;code&gt;SELECT&lt;/code&gt; statements not having any &lt;code&gt;WHERE&lt;/code&gt; clauses; they are covered by other rules: S1590, SQL.SelectWithNoWhereClauseCheck</p>

@@ -1,0 +1,11 @@
+<p>&lt;code&gt;Eval&lt;/code&gt; and &lt;code&gt;Callp&lt;/code&gt; are the only two exceptions to the rule that each free-format line must start with an operation code. Since you can leave these two opcodes out, you should for cleaner, more readable code.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+Eval Regpay = hours * perHour;
+Callp calcTax();
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+Regpay = hours * perHour;
+calcTax();
+</pre>

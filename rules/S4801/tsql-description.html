@@ -1,0 +1,21 @@
+<p>An "EXISTS" statement is generally used to select/update/delete some rows of a table based on the content of columns of other tables.
+If the "SELECT" statement used as argument of the "EXISTS" statement is always returning "true" for all rows of the main &lt;code&gt;SELECT&lt;/code&gt; statement, the &lt;code&gt;EXISTS&lt;/code&gt; statement is useless and has the same effect as if it was not there. Still, this is probably not the original intend of the developer to have an &lt;code&gt;EXISTS&lt;/code&gt; statement that is always true.
+As a consequence, the &lt;code&gt;SELECT&lt;/code&gt; statement of an &lt;code&gt;EXISTS&lt;/code&gt; statement should always contain a &lt;code&gt;WHERE&lt;/code&gt; clause.</p>
+<p>What is true for &lt;code&gt;EXISTS&lt;/code&gt; is also true for &lt;code&gt;NOT EXISTS&lt;/code&gt;.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+SELECT  *
+FROM    sys.[databases] AS [sd]
+WHERE EXISTS (SELECT  1
+              FROM    [sys].[master_files] AS [mf])
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+SELECT  *
+FROM    sys.[databases] AS [sd]
+WHERE EXISTS (SELECT  1
+              FROM    [sys].[master_files] AS [mf]
+              WHERE [mf].[database_id] = [sd].[database_id])
+</pre>
+<h2>Exceptions</h2>
+<p>This rule doesn’t raise an issue when &lt;code&gt;EXISTS&lt;/code&gt; is used in the context of a &lt;code&gt;WHILE&lt;/code&gt; or a &lt;code&gt;IF&lt;/code&gt; statement.</p>

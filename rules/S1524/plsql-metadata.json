@@ -1,0 +1,22 @@
+{
+  "title": "Variables should not be shadowed",
+  "type": "CODE_SMELL",
+  "status": "ready",
+  "remediation": {
+    "func": "Constant/Issue",
+    "constantCost": "30min"
+  },
+  "tags": [],
+  "defaultSeverity": "Critical",
+  "ruleSpecification": "RSPEC-1524",
+  "sqKey": "VariableHiding",
+  "scope": "Main",
+  "all_languages": [
+    "javascript",
+    "plsql"
+  ],
+  "allKeys": [
+    "VariableShadowing",
+    "VariableHiding"
+  ]
+}

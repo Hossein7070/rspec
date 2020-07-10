@@ -1,0 +1,26 @@
+<p>An &lt;code&gt;EXCEPTION WHEN …​ THEN&lt;/code&gt; clause that only rethrows the caught exception has the same effect as omitting the &lt;code&gt;EXCEPTION&lt;/code&gt; clause altogether and letting it bubble up automatically, but with more code and the additional detriment of leaving maintainers scratching their heads.</p>
+<p>Such clauses should either be eliminated or populated with the appropriate logic.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+BEGIN
+  SELECT 1/0;
+EXCEPTION
+  WHEN ZERO_DIVIDE THEN
+    RAISE; -- Noncompliant
+  WHEN OTHERS THEN
+    RAISE; -- Noncompliant
+END;
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+BEGIN
+  SELECT 1/0;
+EXCEPTION
+  WHEN ZERO_DIVIDE THEN  -- Compliant: handles 'division by zero' error
+    -- do something to manage the division by zero
+    COMMIT;
+
+  WHEN OTHERS THEN
+    ROLLBACK;
+END;
+</pre>

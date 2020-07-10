@@ -1,0 +1,25 @@
+{
+  "title": "Methods should not return constants",
+  "type": "CODE_SMELL",
+  "status": "ready",
+  "remediation": {
+    "func": "Constant/Issue",
+    "constantCost": "5min"
+  },
+  "tags": [
+    "confusing"
+  ],
+  "defaultSeverity": "Minor",
+  "ruleSpecification": "RSPEC-3400",
+  "sqKey": "S3400",
+  "scope": "Main",
+  "all_languages": [
+    "cfamily",
+    "csharp",
+    "java",
+    "swift"
+  ],
+  "allKeys": [
+    "S3400"
+  ]
+}

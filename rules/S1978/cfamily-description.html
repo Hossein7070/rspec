@@ -1,0 +1,15 @@
+<p>Shared coding conventions enable teams to collaborate more efficiently. While &lt;code&gt;+new&lt;/code&gt; and a combination of &lt;code&gt;+alloc -init&lt;/code&gt; are functionally equivalent, the latter is preferred. In addition to being more accepted in modern code, it also better represents a separation of concerns.</p>
+<p>If &lt;code&gt;+new&lt;/code&gt; is never invoked, then there is no need to override it, and any such methods become clutter in a class.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
++ (id) new  // Noncompliant
+{
+  return [[self alloc] init];
+}
+
+MyClass *myC = [MyClass new];  // Noncompliant
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+MyClass *myC = [[MyClass alloc] init];
+</pre>

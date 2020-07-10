@@ -1,0 +1,21 @@
+<p>Although filters are optional in XPath expressions, for performance and security reasons, a at least one filter should always be specified to prevent reading the whole table.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+/Employees/Employee/UserID |
+/Employees/Employee/FirstName |
+/Employees/Employee/LastName |
+/Employees/Employee/SSN |
+/Employees/Employee/Salary
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+/Employees/Employee[Managers/Manager/text() = Joe]/UserID |
+/Employees/Employee[Managers/Manager/text() = Joe]/FirstName |
+/Employees/Employee[Managers/Manager/text() = Joe]/LastName |
+/Employees/Employee[Managers/Manager/text() = Joe]/SSN |
+/Employees/Employee[Managers/Manager/text() = Joe]/Salary
+</pre>
+<h2>See</h2>
+<ul>
+<li><a href="https://www.owasp.org/index.php/Top_10-2017_A3-Sensitive_Data_Exposure">OWASP Top 10 2017 Category A3</a> - Sensitive Data Exposure</li>
+</ul>

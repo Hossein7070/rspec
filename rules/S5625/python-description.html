@@ -1,0 +1,79 @@
+<p>The <a href="https://www.python.org/dev/peps/pep-0234/#python-api-specification">iterator protocol</a> specifies that an iterator object should have</p>
+<ul>
+<li>a &lt;code&gt;_\_next\_\_&lt;/code&gt; method retrieving the next value or raising &lt;code&gt;StopIteration&lt;/code&gt; when there are no more values left.</li>
+<li>an &lt;code&gt;_\_iter\_\_&lt;/code&gt; method which should always return &lt;code&gt;self&lt;/code&gt;. This enables iterators to be used as sequences in for-loops and other places.</li>
+</ul>
+<p>This rule raises an issue when a class has a &lt;code&gt;_\_next\_\_&lt;/code&gt; method and either:</p>
+<ul>
+<li>it doesn’t have an &lt;code&gt;_\_iter\_\_&lt;/code&gt; method.</li>
+<li>or its &lt;code&gt;_\_iter\_\_&lt;/code&gt; method does not return "self".</li>
+</ul>
+<h2>Noncompliant Code Example</h2>
+<pre>
+class MyIterator:  # Noncompliant. Class has a __next__ method but no __iter__ method
+
+    def __init__(self, values):
+        self._values = values
+        self._index = 0
+
+    def __next__(self):
+        if self._index &gt;= len(self._values):
+            raise StopIteration()
+        value = self._values[self._index]
+        self._index += 1
+        return value
+
+
+class MyIterator:
+    def __init__(self, values):
+        self._values = values
+        self._index = 0
+
+    def __next__(self):
+        if self._index &gt;= len(self._values):
+            raise StopIteration()
+        value = self._values[self._index]
+        self._index += 1
+        return value
+
+    def __iter__(self):
+        return 42  # Noncompliant. This __iter__ method does not return self
+
+
+class MyIterable:  # Ok. This is an iterable, not an iterator, i.e. it has an __iter__ method but no __next__ method. Thus __iter__ doesn't have to return "self"
+
+    def __init__(self, values):
+        self._values = values
+
+    def __iter__(self):
+        return MyIterator(self._values)
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+class MyIterator:
+    def __init__(self, values):
+        self._values = values
+        self._index = 0
+
+    def __next__(self):
+        if self._index &gt;= len(self._values):
+            raise StopIteration()
+        value = self._values[self._index]
+        self._index += 1
+        return value
+
+    def __iter__(self):
+        return self
+
+class MyIterable:
+    def __init__(self, values):
+        self._values = values
+
+    def __iter__(self):
+        return MyIterator(self._values)
+</pre>
+<h2>See</h2>
+<ul>
+<li><a href="https://www.python.org/dev/peps/pep-0234/#python-api-specification">PEP 234 - Iterators</a></li>
+<li><a href="https://docs.python.org/3/library/stdtypes.html#iterator-types">Python documentation - Iterator Types</a></li>
+</ul>

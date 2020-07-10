@@ -1,0 +1,11 @@
+<p>This rule raised an issue when a component is used in the &lt;code&gt;render()&lt;/code&gt; method and not &lt;code&gt;import&lt;/code&gt;ed or defined.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+&lt;Rating value={this.props.measure.reliability_rating} /&gt;;
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+import Rating from './Rating'
+[...]
+&lt;Rating value={this.props.measure.reliability_rating} /&gt;
+</pre>

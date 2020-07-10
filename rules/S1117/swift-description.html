@@ -1,0 +1,17 @@
+<p>Shadowing fields or &lt;code&gt;enum&lt;/code&gt; &lt;code&gt;case&lt;/code&gt;s with a local variable is a bad practice that reduces code readability: It makes it confusing to know whether the field or the variable is being used.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+public class Foo {
+  public var myField:Int = 0
+
+  public func doSomething() {
+    var myField = 0
+    ...
+  }
+}
+</pre>
+<h2>See</h2>
+<ul>
+<li><a href="https://wiki.sei.cmu.edu/confluence/display/c/DCL01-C.+Do+not+reuse+variable+names+in+subscopes">CERT, DCL01-C.</a> - Do not reuse variable names in subscopes</li>
+<li><a href="https://wiki.sei.cmu.edu/confluence/display/java/DCL51-J.+Do+not+shadow+or+obscure+identifiers+in+subscopes">CERT, DCL51-J.</a> - Do not shadow or obscure identifiers in subscopes</li>
+</ul>

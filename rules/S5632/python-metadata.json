@@ -1,0 +1,18 @@
+{
+  "title": "Raised Exceptions must derive from BaseException",
+  "type": "BUG",
+  "status": "ready",
+  "tags": [
+    "python3"
+  ],
+  "defaultSeverity": "Blocker",
+  "ruleSpecification": "RSPEC-5632",
+  "sqKey": "S5632",
+  "scope": "All",
+  "all_languages": [
+    "python"
+  ],
+  "allKeys": [
+    "S5632"
+  ]
+}

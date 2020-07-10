@@ -1,0 +1,40 @@
+{
+  "title": "Dictionary's \"get(..., default)\" should be used instead of checking key existence",
+  "type": "CODE_SMELL",
+  "status": "ready",
+  "tags": [],
+  "defaultSeverity": "Minor",
+  "ruleSpecification": "RSPEC-5429",
+  "sqKey": "S5429",
+  "scope": "All",
+  "all_languages": [
+    "abap",
+    "apex",
+    "cfamily",
+    "cobol",
+    "csharp",
+    "css",
+    "flex",
+    "go",
+    "java",
+    "javascript",
+    "kotlin",
+    "php",
+    "pli",
+    "plsql",
+    "rpg",
+    "ruby",
+    "rust",
+    "scala",
+    "solidity",
+    "swift",
+    "tsql",
+    "vb6",
+    "vbnet",
+    "web",
+    "xml"
+  ],
+  "allKeys": [
+    "S5429"
+  ]
+}

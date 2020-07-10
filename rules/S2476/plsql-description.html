@@ -1,0 +1,58 @@
+<p>Labeled loops are useful, especially when the code is badly indented, to match the begin and end of each loop. This rule verifies that loop start and end labels match, when both are specified.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+BEGIN
+  LOOP
+    EXIT;
+  END LOOP; -- Compliant, this loop has no label at all
+
+  &lt;&lt;myLoopLabel1&gt;&gt;
+  LOOP
+    EXIT;
+  END LOOP; -- Compliant, this loop only has a start label
+
+  LOOP
+    EXIT;
+  END LOOP myLoopLabel2; -- Compliant, this loop only has an end label
+
+  &lt;&lt;myLoopLabel4&gt;&gt;
+  LOOP
+    EXIT;
+  END LOOP myLoopLabel5; -- Noncompliant, label mismatch
+
+  &lt;&lt;myLoopLabel6&gt;&gt;
+  &lt;&lt;myLoopLabel7&gt;&gt;
+  LOOP
+    EXIT;
+  END LOOP myLoopLabel7; -- Noncompliant, several start labels mismatch
+END;
+/
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+BEGIN
+  LOOP
+    EXIT;
+  END LOOP;
+
+  &lt;&lt;myLoopLabel1&gt;&gt;
+  LOOP
+    EXIT;
+  END LOOP;
+
+  LOOP
+    EXIT;
+  END LOOP myLoopLabel2;
+
+  &lt;&lt;myLoopLabel4&gt;&gt;
+  LOOP
+    EXIT;
+  END LOOP myLoopLabel4;
+
+  &lt;&lt;myLoopLabel7&gt;&gt;
+  LOOP
+    EXIT;
+  END LOOP myLoopLabel7;
+END;
+/
+</pre>

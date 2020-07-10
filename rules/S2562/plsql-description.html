@@ -1,0 +1,29 @@
+<p>For better readability, column aliases should be used with the &lt;code&gt;AS&lt;/code&gt; keyword. If it is missing, it could be misread as another column being selected.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+DECLARE
+  result DUAL.dummy%TYPE;
+BEGIN
+  SELECT
+    dummy d -- Non-Compliant - could be misread as selecting both "dummy" and a column "d"
+  INTO
+    result
+  FROM
+    DUAL;
+END;
+/
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+DECLARE
+  result DUAL.dummy%TYPE;
+BEGIN
+  SELECT
+    dummy AS d -- Compliant
+  INTO
+    result
+  FROM
+    DUAL;
+END;
+/
+</pre>

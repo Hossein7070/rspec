@@ -1,0 +1,24 @@
+<p>The contract and expectation of a &lt;code&gt;get&lt;/code&gt; function is that it will return something. Failing to return a value on all paths is surely an error.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+var x = {
+  _prop : "foo",
+  get prop(){  // Noncompliant
+    console.log("prop getter");
+  }
+}
+
+x.prop; // returns undefined
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+var x = {
+  _prop : "foo",
+  get prop(){
+    console.log("prop getter");
+    return _prop;
+  }
+}
+
+x.prop; // returns "foo"
+</pre>

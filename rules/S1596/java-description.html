@@ -1,0 +1,13 @@
+<p>Since the introduction of generics in Java 5, the use of generic types such as &lt;code&gt;List&lt;String&gt;&lt;/code&gt; is recommended over the use of raw ones such as &lt;code&gt;List&lt;/code&gt;. Assigning a raw type to a generic one is not type safe, and will generate a warning. The old &lt;code&gt;EMPTY_…​&lt;/code&gt; fields of the &lt;code&gt;Collections&lt;/code&gt; class return raw types, whereas the newer &lt;code&gt;empty…​()&lt;/code&gt; methods return generic ones.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+List&lt;String&gt; collection1 = Collections.EMPTY_LIST;  // Noncompliant
+Map&lt;String, String&gt; collection2 = Collections.EMPTY_MAP;  // Noncompliant
+Set&lt;String&gt; collection3 = Collections.EMPTY_SET;  // Noncompliant
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+List&lt;String&gt; collection1 = Collections.emptyList();
+Map&lt;String, String&gt; collection2 = Collections.emptyMap();
+Set&lt;String&gt; collection3 = Collections.emptySet();
+</pre>

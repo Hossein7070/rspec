@@ -1,0 +1,9 @@
+<p>When using some transaction managers like IBM IMS, each COBOL program is in fact considered a sub-program by the transaction manager. The &lt;code&gt;GOBACK&lt;/code&gt; statement returns control to the transaction manager, but using &lt;code&gt;STOP RUN&lt;/code&gt; might cause unpredictable results or abnormal termination.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+STOP RUN
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+GOBACK
+</pre>

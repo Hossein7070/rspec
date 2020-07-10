@@ -1,0 +1,11 @@
+<p>Having the import of the same file twice, makes one of them useless. Leaving them in reduces the code’s readability, since their presence can be confusing.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+@import 'a.css';
+@import 'a.css'; // Noncompliant
+
+@import url("a.css");
+@import url("a.css"); // Noncompliant
+</pre>
+<h2>Exceptions</h2>
+<p>This rule ignores &lt;code&gt;@import&lt;/code&gt; in &lt;code&gt;less&lt;/code&gt; files.</p>

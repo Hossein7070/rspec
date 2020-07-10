@@ -1,0 +1,22 @@
+<p>When using legacy C functions, it’s up to the developer to make sure the size of the buffer to be written to is large enough to avoid buffer overflows. Buffer overflows can cause the program to crash at a minimum. At worst, a carefully crafted overflow can cause malicious code to be executed.</p>
+<p>This rule reports use of the following insecure functions: &lt;code&gt;sprintf()&lt;/code&gt;, &lt;code&gt;gets()&lt;/code&gt; and &lt;code&gt;getpw()&lt;/code&gt;.</p>
+<p>In such cases, it’s better to use an alternate, secure function which allows you to define the maximum number of characters to be written to the buffer:</p>
+<ul>
+<li>&lt;code&gt;snprintf&lt;/code&gt;</li>
+<li>&lt;code&gt;fgets&lt;/code&gt;</li>
+<li>&lt;code&gt;getpwuid&lt;/code&gt;</li>
+</ul>
+<h2>Noncompliant Code Example</h2>
+<pre>
+sprintf(str, "%s", message);   // Noncompliant
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+snprintf(str, sizeof(str), "%s", message);
+</pre>
+<h2>See</h2>
+<ul>
+<li><a href="https://www.owasp.org/index.php/Top_10-2017_A9-Using_Components_with_Known_Vulnerabilities">OWASP Top 10 2017 Category A9</a> - Using Components with Known Vulnerabilities</li>
+<li><a href="http://cwe.mitre.org/data/definitions/676">MITRE, CWE-676</a> - Use of Potentially Dangerous Function</li>
+<li><a href="https://www.sans.org/top25-software-errors/#cat2">SANS Top 25</a> - Risky Resource Management</li>
+</ul>

@@ -1,0 +1,19 @@
+{
+  "title": "AssertJ methods setting the assertion context should come before an assertion",
+  "type": "BUG",
+  "status": "ready",
+  "tags": [
+    "tests",
+    "assertj"
+  ],
+  "defaultSeverity": "Major",
+  "ruleSpecification": "RSPEC-5833",
+  "sqKey": "S5833",
+  "scope": "Tests",
+  "all_languages": [
+    "java"
+  ],
+  "allKeys": [
+    "S5833"
+  ]
+}

@@ -1,0 +1,24 @@
+{
+  "title": "Default export names and file names should match",
+  "type": "CODE_SMELL",
+  "status": "ready",
+  "remediation": {
+    "func": "Constant/Issue",
+    "constantCost": "5min"
+  },
+  "tags": [
+    "convention",
+    "es2015",
+    "confusing"
+  ],
+  "defaultSeverity": "Minor",
+  "ruleSpecification": "RSPEC-3317",
+  "sqKey": "S3317",
+  "scope": "Main",
+  "all_languages": [
+    "javascript"
+  ],
+  "allKeys": [
+    "S3317"
+  ]
+}

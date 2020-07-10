@@ -1,0 +1,20 @@
+{
+  "title": "Extract datasets should not be used",
+  "type": "CODE_SMELL",
+  "status": "ready",
+  "remediation": {
+    "func": "Constant/Issue",
+    "constantCost": "45min"
+  },
+  "tags": [],
+  "defaultSeverity": "Critical",
+  "ruleSpecification": "RSPEC-1714",
+  "sqKey": "S1714",
+  "scope": "Main",
+  "all_languages": [
+    "abap"
+  ],
+  "allKeys": [
+    "S1714"
+  ]
+}

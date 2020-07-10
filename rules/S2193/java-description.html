@@ -1,0 +1,19 @@
+<p>When using a floating-point &lt;code&gt;for&lt;/code&gt; loop counter, an accumulation of rounding errors may result in a mismatch between the expected and actual number of iterations.
+Even if floating-point loop counters appears to behave correctly on one implementation, it may give a different number of iterations on another implementation.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+for (float counter = 0.0f; counter &lt; 1.0f; counter += 0.001f) {
+  ...
+}
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+for (int counter = 0; counter &lt; 1000; ++counter) {
+  ...
+}
+</pre>
+<h2>See</h2>
+<ul>
+<li><a href="https://www.securecoding.cert.org/confluence/x/uYIyAQ">CERT, NUM09-J.</a> - Do not use floating-point variables as loop counters</li>
+<li><a href="https://www.securecoding.cert.org/confluence/x/AoG_/">CERT, FLP30-C.</a> - Do not use floating-point variables as loop counters</li>
+</ul>

@@ -1,0 +1,22 @@
+<p>The &lt;code&gt;open_basedir&lt;/code&gt; configuration in <em>php.ini</em> limits the files the script can access using, for example, &lt;code&gt;include&lt;/code&gt; and &lt;code&gt;fopen()&lt;/code&gt;. Leave it out, and there is no default limit, meaning that any file can be accessed. Include it, and PHP will refuse to access files outside the allowed path.</p>
+<p>&lt;code&gt;open_basedir&lt;/code&gt; should be configured with a directory, which will then be accessible recursively. However, the use of &lt;code&gt;.&lt;/code&gt; (current directory) as an &lt;code&gt;open_basedir&lt;/code&gt; value should be avoided since it’s resolved dynamically during script execution, so a &lt;code&gt;chdir('/')&lt;/code&gt; command could lay the whole server open to the script.</p>
+<p>This is not a fool-proof configuration; it can be reset or overridden at the script level. But its use should be seen as a minimum due diligence step. This rule raises an issue when &lt;code&gt;open_basedir&lt;/code&gt; is not present in <em>php.ini</em>, and when &lt;code&gt;open_basedir&lt;/code&gt; contains root, or the current directory (&lt;code&gt;.&lt;/code&gt;) symbol.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+; php.ini try 1
+; open_basedir="${USER}/scripts/data"  Noncompliant; commented out
+
+; php.ini try 2
+open_basedir="/:${USER}/scripts/data"  ; Noncompliant; root directory in the list
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+; php.ini try 1
+open_basedir="${USER}/scripts/data"
+</pre>
+<h2>See</h2>
+<ul>
+<li><a href="https://www.owasp.org/index.php/Top_10-2017_A6-Security_Misconfiguration">OWASP Top 10 2017 Category A6</a> - Security Misconfiguration</li>
+<li><a href="https://cwe.mitre.org/data/definitions/23.html">MITRE, CWE-23</a> - Relative Path Traversal</li>
+<li><a href="https://cwe.mitre.org/data/definitions/36.html">MITRE, CWE-36</a> - Absolute Path Traversal</li>
+</ul>

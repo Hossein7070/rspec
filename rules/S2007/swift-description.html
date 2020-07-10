@@ -1,0 +1,44 @@
+<p>Defining and using global variables and global functions, when the convention dictates OOP can be confusing and difficult to use properly for multiple reasons:</p>
+<ul>
+<li>You run the risk of name clashes.</li>
+<li>Global functions must be stateless, or they can cause difficult-to-track bugs.</li>
+<li>Global variables can be updated from anywhere and may no longer hold the value you expect.</li>
+<li>It is difficult to properly test classes that use global functions.</li>
+</ul>
+<p>Instead of being declared globally, such variables and functions should be moved into a class, potentially marked &lt;code&gt;static&lt;/code&gt;, so they can be used without a class instance.</p>
+<p>This rule  checks that only object-oriented programming is used and that no functions or procedures are declared outside of a class.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+var name = "Bob"    // Noncompliant
+
+func doSomething() {   // Noncompliant
+  //...
+}
+
+class MyClass {
+    //...
+}
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+public class MyClass {
+  public static var name = "Bob"
+
+  public class func doSomething() {              // Compliant
+    //...
+  }
+  //...
+}
+</pre>
+<h2>Exceptions</h2>
+<p>The operator function is a function with a name that matches the operator to be overloaded. Because such functions can only be defined in a global scope, they are ignored by this rule.</p>
+<pre>
+public class Vector2D {
+    var x = 0.0, y = 0.0
+    // ...
+}
+
+func + (left: Vector2D, right: Vector2D) -&gt; Vector2D {
+    return Vector2D(x: left.x + right.x, y: left.y + right.y)
+}
+</pre>

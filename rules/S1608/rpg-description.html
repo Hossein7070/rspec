@@ -1,0 +1,19 @@
+<p>Initializing an alphanumeric field with the literal character &lt;code&gt;' '&lt;/code&gt;, &lt;code&gt;'1'&lt;/code&gt;, or &lt;code&gt;'0'&lt;/code&gt; has the same effect as using the equivalent figurative constant &lt;code&gt;*BLANK&lt;/code&gt;, &lt;code&gt;*ON&lt;/code&gt;, or &lt;code&gt;*OFF&lt;/code&gt;, but the constant version removes ambiguity and makes the code more readable.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+C                   MOVE      ' '           FLD1
+</pre>
+<pre>
+  /free
+    fld1 = ' ';
+  /end-free
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+C                   MOVE      *BLANK        FLD1
+</pre>
+<pre>
+  /free
+    fld1 = *BLANK;
+  /end-free
+</pre>

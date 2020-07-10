@@ -1,0 +1,16 @@
+<p>Performing math on variables that are declared - explicitly or implicitly - as &lt;code&gt;DISPLAY&lt;/code&gt; or &lt;code&gt;NATIONAL&lt;/code&gt; is much less efficient than on &lt;code&gt;COMPUTATIONAL&lt;/code&gt;, &lt;code&gt;COMP&lt;/code&gt;, or &lt;code&gt;BINARY&lt;/code&gt; variables. That’s because &lt;code&gt;COMP&lt;/code&gt; variables, for instance, are defined for binary storage, which makes math on them more efficient. That’s why values that are going to be used primarily for math should be declared with a math type. When math isn’t a primary use, it may not make sense to change the declared type, but &lt;code&gt;MOVE&lt;/code&gt;ing the value to a &lt;code&gt;COMP&lt;/code&gt; variable and performing the math on it instead would.</p>
+<p>It is important to note however, that &lt;code&gt;COMPUTATIONAL&lt;/code&gt;, &lt;code&gt;COMP&lt;/code&gt;, and &lt;code&gt;BINARY&lt;/code&gt; formats should be used with caution if the variable will be passed to other systems which may not use the same storage format.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+01 W-AMOUNT-VALUE PIC 9(17).
+01 W-AMOUNT-DECIMAL PIC 9.
+
+COMPUTE W-CONV-AMOUNT = W-AMOUNT-VALUE * 10 ** W-AMOUNT-DECIMAL  *&gt; Noncompliant
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+01 W-AMOUNT-VALUE PIC 9(17) COMP-5.
+01 W-AMOUNT-DECIMAL PIC 9 COMP-5.
+
+COMPUTE W-CONV-AMOUNT = W-AMOUNT-VALUE * 10 ** W-AMOUNT-DECIMAL
+</pre>

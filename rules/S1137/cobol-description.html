@@ -1,0 +1,23 @@
+<p>&lt;code&gt;GO TO&lt;/code&gt; should not be used to transfer control outside the current module, because any implied &lt;code&gt;EXIT&lt;/code&gt; points will then be ignored. A module is either a section, a paragraph, or a set of paragraphs called with the &lt;code&gt;PERFORM …​ THRU …​&lt;/code&gt; statement.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+         PERFORM PARAGRAPH1 THRU PARAGRAPH3.     &gt; code contained between PARAGRAPH1 and PARAGRAPH3 is now considered as a module
+         EXIT PROGRAM.
+
+        PARAGRAPH1.
+         MOVE A TO B.
+         IF SOMETHING
+           GO TO PARAGRAPH3     &gt;OK
+         END-IF.
+         IF SOMETHING-ELSE
+           GO TO PARAGRAPH4     &gt;NOK as we leave the module called with "PERFORM PARGRAPH1 THRU PARAGRAPH3" statement
+         END-IF.
+
+        PARAGRAPH2.
+         MOVE A TO B.
+
+        PARAGRAPH3.
+         EXIT.
+
+        PARAGRAPH4.
+</pre>

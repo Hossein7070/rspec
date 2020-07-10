@@ -1,0 +1,13 @@
+<p>The number of elements in a collection, an array or a string are always greater than or equal to zero. So testing that a size or length is greater than or equal to zero doesn’t make sense, since the result is always &lt;code&gt;true&lt;/code&gt;. Similarly testing that it is less than zero will always return &lt;code&gt;false&lt;/code&gt;. Perhaps the intent was to check the non-emptiness instead.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+if (myArray.count &gt;= 0) { ... }
+
+if (myString.characters.count &lt; 0) { ... }
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+if (myArray.isEmpty) { ... }
+
+if (myString.isEmpty) { ... }
+</pre>

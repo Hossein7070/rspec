@@ -1,0 +1,23 @@
+<p>Developers should use the &lt;code&gt;FROM …​ OUTER JOIN&lt;/code&gt; syntax rather than the Oracle join operator (&lt;code&gt;&lt;/code&gt;). The reason is that outer join queries that use &lt;code&gt;&lt;/code&gt; are subject to several restrictions which do not apply to the &lt;code&gt;FROM …​ OUTER JOIN&lt;/code&gt; syntax. For instance, a &lt;code&gt;WHERE&lt;/code&gt; condition containing the &lt;code&gt;+&lt;/code&gt; operator cannot be combined with another condition using the &lt;code&gt;OR&lt;/code&gt; logical operator.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+BEGIN
+  -- Noncompliant
+  SELECT *
+    INTO employeesArray
+    FROM employee, department
+    WHERE employee.DepartmentID = department.ID(+);
+END;
+/
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+BEGIN
+  -- Compliant
+  SELECT *
+    INTO employeesArray
+    FROM employee LEFT OUTER JOIN department
+    ON employee.DepartmentID = department.ID;
+END;
+/
+</pre>

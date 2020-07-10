@@ -1,0 +1,9 @@
+<p>If you only want one instance that matches certain criteria out of a collection, it’s far more efficient to grab the first matching item than it is to fully filter the collection for your criteria and then only use a single value.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+let one = arr.filter { $0.containsString("yo") }.first  // Noncompliant
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+let one = arr.first(where: { $0.containsString("yo") })
+</pre>

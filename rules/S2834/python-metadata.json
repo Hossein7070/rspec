@@ -1,0 +1,20 @@
+{
+  "title": "Dictionary definitions should not contain duplicate keys",
+  "type": "BUG",
+  "status": "ready",
+  "remediation": {
+    "func": "Constant/Issue",
+    "constantCost": "5min"
+  },
+  "tags": [],
+  "defaultSeverity": "Major",
+  "ruleSpecification": "RSPEC-2834",
+  "sqKey": "S2834",
+  "scope": "Main",
+  "all_languages": [
+    "python"
+  ],
+  "allKeys": [
+    "S2834"
+  ]
+}

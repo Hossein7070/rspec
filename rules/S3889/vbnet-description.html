@@ -1,0 +1,13 @@
+<p>&lt;code&gt;Thread.Suspend&lt;/code&gt; and &lt;code&gt;Thread.Resume&lt;/code&gt; can give unpredictable results, and both methods have been deprecated. Indeed, if &lt;code&gt;Thread.Suspend&lt;/code&gt; is not used very carefully, a thread can be suspended while holding a lock, thus leading to a deadlock. Other safer synchronization mechanisms should be used, such as &lt;code&gt;Monitor&lt;/code&gt;, &lt;code&gt;Mutex&lt;/code&gt;, and &lt;code&gt;Semaphore&lt;/code&gt;.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+Public Sub Foo()
+    Thread.CurrentThread.Suspend() ' Noncompliant
+    Thread.[Resume]() ' Noncompliant
+End Sub
+</pre>
+<h2>See</h2>
+<ul>
+<li><a href="https://msdn.microsoft.com/en-us/library/system.threading.thread.resume.aspx">Thread.Resume Method ()</a></li>
+<li><a href="https://msdn.microsoft.com/en-us/library/system.threading.thread.suspend(v=vs.110).aspx">Thread.Suspend Method ()</a></li>
+</ul>

@@ -1,0 +1,35 @@
+<p>In certain Android methods, calls to the &lt;code&gt;super&lt;/code&gt; version of the method should always come first. Otherwise, you risk leaving the job half-done.</p>
+<p>This rule raises an issue when the following &lt;code&gt;Activity&lt;/code&gt; methods do not begin with a call to &lt;code&gt;super&lt;/code&gt;:</p>
+<ul>
+<li>&lt;code&gt;onCreate&lt;/code&gt;</li>
+<li>&lt;code&gt;onConfigurationChanged&lt;/code&gt;</li>
+<li>&lt;code&gt;onPostCreate&lt;/code&gt;</li>
+<li>&lt;code&gt;onPostResume&lt;/code&gt;</li>
+<li>&lt;code&gt;onRestart&lt;/code&gt;</li>
+<li>&lt;code&gt;onRestoreInstanceState&lt;/code&gt;</li>
+<li>&lt;code&gt;onResume&lt;/code&gt;</li>
+<li>&lt;code&gt;onStart&lt;/code&gt;</li>
+</ul>
+<h2>Noncompliant Code Example</h2>
+<pre>
+public void onCreate(Bundle bundle) {  // Noncompliant; super call missing
+  doSomething();
+}
+
+public void onPostCreate(Bundle bundle) {
+  doSomethingElse();
+  super.onPostCreate(bundle);  // Noncompliant; should be first statement
+}
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+public void onCreate(Bundle bundle) {
+  super.onCreate(bundle);
+  doSomething();
+}
+
+public void onPostCreate(Bundle bundle) {
+  super.onPostCreate(bundle);
+  doSomethingElse();
+}
+</pre>

@@ -1,0 +1,46 @@
+<p>When you implement &lt;code&gt;IComparable&lt;/code&gt; or &lt;code&gt;IComparable&lt;T&gt;&lt;/code&gt; on a class you should also override &lt;code&gt;Equals(object)&lt;/code&gt; and overload the comparison operators (&lt;code&gt;==&lt;/code&gt;, &lt;code&gt;!=&lt;/code&gt;, &lt;code&gt;<a href="#/code>">&lt;code&gt;⇐&lt;/code&gt;, &lt;code</a>&lt;/code&gt;, &lt;code&gt;&gt;=&lt;/code&gt;). That’s because the CLR cannot automatically call your &lt;code&gt;CompareTo&lt;/code&gt; implementation from &lt;code&gt;Equals(object)&lt;/code&gt; or from the base comparison operator implementations. Additionally, it is best practice to override &lt;code&gt;GetHashCode&lt;/code&gt; along with &lt;code&gt;Equals&lt;/code&gt;.</p>
+<p>This rule raises an issue when a class implements &lt;code&gt;IComparable&lt;/code&gt; without also overriding &lt;code&gt;Equals(object)&lt;/code&gt; and the comparison operators.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+public class Foo: IComparable  // Noncompliant
+{
+  public int CompareTo(object obj) { /* ... */ }
+}
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+public class Foo: IComparable
+{
+  public int CompareTo(object obj) { /* ... */ }
+  public override bool Equals(object obj)
+  {
+    var other = obj as Foo;
+    if (object.ReferenceEquals(other, null))
+    {
+      return false;
+    }
+    return this.CompareTo(other) == 0;
+  }
+  public int GetHashCode() { /* ... */ }
+  public static bool operator == (Foo left, Foo right)
+  {
+    if (object.ReferenceEquals(left, null))
+    {
+      return object.ReferenceEquals(right, null);
+    }
+    return left.Equals(right);
+  }
+  public static bool operator &gt; (Foo left, Foo right)
+  {
+    return Compare(left, right) &gt; 0;
+  }
+  public static bool operator &lt; (Foo left, Foo right)
+  {
+    return Compare(left, right) &lt; 0;
+  }
+  public static bool operator != (Foo left, Foo right)
+  {
+    return !(left == right);
+  }
+}
+</pre>

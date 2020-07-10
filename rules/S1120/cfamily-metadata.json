@@ -1,0 +1,28 @@
+{
+  "title": "Source code should be indented consistently",
+  "type": "CODE_SMELL",
+  "status": "ready",
+  "remediation": {
+    "func": "Constant/Issue",
+    "constantCost": "1min"
+  },
+  "tags": [
+    "style"
+  ],
+  "defaultSeverity": "Minor",
+  "ruleSpecification": "RSPEC-1120",
+  "sqKey": "S1120",
+  "scope": "All",
+  "all_languages": [
+    "abap",
+    "cfamily",
+    "java",
+    "php",
+    "vb6",
+    "xml"
+  ],
+  "allKeys": [
+    "S1120",
+    "IndentCheck"
+  ]
+}

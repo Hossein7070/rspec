@@ -1,0 +1,22 @@
+{
+  "title": "All constructors of a class should explicitly call a constructor for all of its immediate base classes and all virtual base classes",
+  "type": "BUG",
+  "status": "ready",
+  "remediation": {
+    "func": "Constant/Issue",
+    "constantCost": "5min"
+  },
+  "tags": [
+    "based-on-misra"
+  ],
+  "defaultSeverity": "Major",
+  "ruleSpecification": "RSPEC-3018",
+  "sqKey": "S3018",
+  "scope": "Main",
+  "all_languages": [
+    "cfamily"
+  ],
+  "allKeys": [
+    "S3018"
+  ]
+}

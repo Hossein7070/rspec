@@ -1,0 +1,22 @@
+<p>Overriding a parent class method prevents that method from being called unless an explicit &lt;code&gt;super&lt;/code&gt; call is made in the overriding method. In some cases not calling the &lt;code&gt;super&lt;/code&gt; method is acceptable, but not with &lt;code&gt;setUp&lt;/code&gt; and &lt;code&gt;tearDown&lt;/code&gt; in a JUnit 3 &lt;code&gt;TestCase&lt;/code&gt;.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+public class MyClassTest extends MyAbstractTestCase {
+
+  private MyClass myClass;
+    @Override
+    protected void setUp() throws Exception {  // Noncompliant
+      myClass = new MyClass();
+    }
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+public class MyClassTest extends MyAbstractTestCase {
+
+  private MyClass myClass;
+    @Override
+    protected void setUp() throws Exception {
+      super.setUp();
+      myClass = new MyClass();
+    }
+</pre>

@@ -1,0 +1,33 @@
+<p>A class without an explicit extension of object (&lt;code&gt;class ClassName(object)&lt;/code&gt;) is considered an old-style class, and &lt;code&gt;<em>slots</em>&lt;/code&gt; declarations are ignored in old-style classes. Having such a declaration in an old-style class could be confusing for maintainers and lead them to make false assumptions about the class.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+class A:
+  __slots__ = ["id"]  # Noncompliant; this is ignored
+
+  def __init__(self):
+    self.id = id
+    self.name = "name"  # name wasn't declared in __slots__ but there's no error
+
+a = A()
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+class A(object):  # Converting to a new-style class is the preferred method of addressing this issue
+  __slots__ = ["id"]
+
+  def __init__(self):
+    self.id = id
+    self.name = "name"  # "name" is not listed in __slots__, so as expected there is an error in this line
+
+a = A()
+</pre>
+<p>or</p>
+<pre>
+class A:
+
+  def __init__(self):
+    self.id = id
+    self.name = "name"
+
+a = A()
+</pre>

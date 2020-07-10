@@ -1,0 +1,34 @@
+<p>The purpose of creating a jail directory with the chroot-type functions is to limit access to the file system by isolating the process inside this jail. However, many chroot function implementations don’t modify the current working directory, thus the process has still access to unauthorized resources outside of the  "jail".</p>
+<h2>Noncompliant Code Example</h2>
+<p>The current directory is not changed with the &lt;code&gt;chdir&lt;/code&gt; function before or after the creation of a jail with the &lt;code&gt;chroot&lt;/code&gt; function:</p>
+<pre>
+const char* root_dir = "/jail/";
+chroot(root_dir); // Noncompliant: no chdir before or after chroot, and missing check of return value
+</pre>
+<p>The &lt;code&gt;chroot&lt;/code&gt; or &lt;code&gt;chdir&lt;/code&gt; operations could fail and the process still have access to unauthorized resources, the return code should be checked:</p>
+<pre>
+const char* root_dir = "/jail/";
+chroot(root_dir); // Noncompliant: missing check of the return value
+const char* any_dir = "/any/";
+chdir(any_dir); // Noncompliant: missing check of the return value
+</pre>
+<h2>Compliant Solution</h2>
+<p>To correctly isolate the application into a jail, change the current directory with &lt;code&gt;chdir&lt;/code&gt; before the &lt;code&gt;chroot&lt;/code&gt; and check the return of the both functions:</p>
+<pre>
+const char* root_dir = "/jail/";
+
+if (chdir(root_dir) == -1) {
+  exit(-1);
+}
+
+if (chroot(root_dir) == -1) {  // compliant: the current dir is changed to the jail and the results of both functions are checked
+  exit(-1);
+}
+</pre>
+<h2>See</h2>
+<ul>
+<li><a href="https://owasp.org/www-project-top-ten/OWASP_Top_Ten_2017/Top_10-2017_A5-Broken_Access_Control">OWASP Top 10 2017 Category A5</a> - Broken Access Control</li>
+<li><a href="https://cwe.mitre.org/data/definitions/243.html">MITRE, CWE-243</a> - Creation of chroot Jail Without Changing Working Directory</li>
+<li><a href="http://man7.org/linux/man-pages/man2/chdir.2.html">man7.org</a> - chdir</li>
+<li><a href="http://man7.org/linux/man-pages/man2/chroot.2.html">man7.org</a> - chroot</li>
+</ul>

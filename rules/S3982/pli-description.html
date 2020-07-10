@@ -1,0 +1,9 @@
+<p>When multiple variables are &lt;code&gt;DECLARE&lt;/code&gt;d in a single statement, parentheses must be used around the variable list to ensure the variable attributes in the statement are applied to all the variables in the declaration. Without parentheses, the attributes are applied only to the last variable in the list.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+DECLARE X,Y FIXED BIN(15);
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+DECLARE (X,Y) FIXED BIN(15);
+</pre>

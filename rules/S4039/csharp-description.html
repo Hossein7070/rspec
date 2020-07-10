@@ -1,0 +1,62 @@
+<p>When a base type explicitly implements a public interface method, that method is only accessible in derived types through a reference to the current instance (namely &lt;code&gt;this&lt;/code&gt;). If the derived type explicitly overrides that interface method, the base implementation becomes inaccessible.</p>
+<p>This rule raises an issue when an unsealed, externally visible type provides an explicit method implementation of a &lt;code&gt;public interface&lt;/code&gt; and does not provide an alternate, externally visible method with the same name.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+public interface IMyInterface
+{
+    void MyMethod();
+}
+
+public class Foo : IMyInterface
+{
+    void IMyInterface.MyMethod() // Noncompliant
+    {
+        MyMethod();
+    }
+
+    void MyMethod()
+    {
+        // Do something ...
+    }
+}
+
+public class Bar : Foo, IMyInterface
+{
+    public void MyMethod()
+    {
+        // Can't access base.MyMethod()
+        // ((IMyInterface)this).MyMethod() would be a recursive call
+    }
+}
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+public interface IMyInterface
+{
+    void MyMethod();
+}
+
+public class Foo : IMyInterface
+{
+    void IMyInterface.MyMethod()
+    {
+        MyMethod();
+    }
+
+    protected void MyMethod() // or public
+    {
+        // Do something ...
+    }
+}
+
+public class Bar : Foo, IMyInterface
+{
+    public void MyMethod()
+    {
+        // Do something
+        base.MyMethod();
+    }
+}
+</pre>
+<h2>Exceptions</h2>
+<p>This rule does not report a violation for an explicit implementation of &lt;code&gt;IDisposable.Dispose&lt;/code&gt; when an externally visible &lt;code&gt;Close()&lt;/code&gt; or &lt;code&gt;System.IDisposable.Dispose(Boolean)&lt;/code&gt; method is provided.</p>

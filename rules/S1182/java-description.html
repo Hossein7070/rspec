@@ -1,0 +1,66 @@
+<p>&lt;code&gt;Cloneable&lt;/code&gt; is the marker &lt;code&gt;Interface&lt;/code&gt; that indicates that &lt;code&gt;clone()&lt;/code&gt; may be called on an object. Overriding &lt;code&gt;clone()&lt;/code&gt; without implementing &lt;code&gt;Cloneable&lt;/code&gt; can be useful if you want to control how subclasses clone themselves, but otherwise, it’s probably a mistake.</p>
+<p>The usual convention for &lt;code&gt;Object.clone()&lt;/code&gt; according to Oracle’s Javadoc is:</p>
+<ol>
+<li>&lt;code&gt;x.clone() != x&lt;/code&gt;</li>
+<li>&lt;code&gt;x.clone().getClass() == x.getClass()&lt;/code&gt;</li>
+<li>&lt;code&gt;x.clone().equals\(x\)&lt;/code&gt;</li>
+</ol>
+<p>Obtaining the object that will be returned by calling &lt;code&gt;super.clone()&lt;/code&gt; helps to satisfy those invariants:</p>
+<ol>
+<li>&lt;code&gt;super.clone()&lt;/code&gt; returns a new object instance</li>
+<li>&lt;code&gt;super.clone()&lt;/code&gt; returns an object of the same type as the one &lt;code&gt;clone()&lt;/code&gt; was called on</li>
+<li>&lt;code&gt;Object.clone()&lt;/code&gt; performs a shallow copy of the object’s state</li>
+</ol>
+<h2>Noncompliant Code Example</h2>
+<pre>
+class BaseClass {  // Noncompliant; should implement Cloneable
+  @Override
+  public Object clone() throws CloneNotSupportedException {    // Noncompliant; should return the super.clone() instance
+    return new BaseClass();
+  }
+}
+
+class DerivedClass extends BaseClass implements Cloneable {
+  /* Does not override clone() */
+
+  public void sayHello() {
+    System.out.println("Hello, world!");
+  }
+}
+
+class Application {
+  public static void main(String[] args) throws Exception {
+    DerivedClass instance = new DerivedClass();
+    ((DerivedClass) instance.clone()).sayHello();              // Throws a ClassCastException because invariant #2 is violated
+  }
+}
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+class BaseClass implements Cloneable {
+  @Override
+  public Object clone() throws CloneNotSupportedException {    // Compliant
+    return super.clone();
+  }
+}
+
+class DerivedClass extends BaseClass implements Cloneable {
+  /* Does not override clone() */
+
+  public void sayHello() {
+    System.out.println("Hello, world!");
+  }
+}
+
+class Application {
+  public static void main(String[] args) throws Exception {
+    DerivedClass instance = new DerivedClass();
+    ((DerivedClass) instance.clone()).sayHello();              // Displays "Hello, world!" as expected. Invariant #2 is satisfied
+  }
+}
+</pre>
+<h2>See</h2>
+<ul>
+<li><a href="http://cwe.mitre.org/data/definitions/580.html">MITRE, CWE-580</a> - clone() Method Without super.clone()</li>
+<li><a href="https://www.securecoding.cert.org/confluence/x/CQHEAw">CERT, MET53-J.</a> - Ensure that the clone() method calls super.clone()</li>
+</ul>

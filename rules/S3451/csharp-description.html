@@ -1,0 +1,31 @@
+<p>The use of &lt;code&gt;[DefaultValue]&lt;/code&gt; with &lt;code&gt;[Optional]&lt;/code&gt; has no more effect than &lt;code&gt;[Optional]&lt;/code&gt; alone. That’s because &lt;code&gt;[DefaultValue]&lt;/code&gt; doesn’t actually do anything; it merely indicates the intent for the value. More than likely, &lt;code&gt;[DefaultValue]&lt;/code&gt; was used in confusion instead of &lt;code&gt;[DefaultParameterValue]&lt;/code&gt;.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+class MyClass
+{
+    public void DoStuff([Optional][DefaultValue(4)]int i, int j = 5)  // Noncompliant
+    {
+        Console.WriteLine(i);
+    }
+
+    public static void Main()
+    {
+        new MyClass().DoStuff(); // prints 0
+    }
+}
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+class MyClass
+{
+    public void DoStuff([Optional][DefaultParameterValue(4)]int i, int j = 5)
+    {
+        Console.WriteLine(i);
+    }
+
+    public static void Main()
+    {
+        new MyClass().DoStuff(); // prints 4
+    }
+}
+</pre>

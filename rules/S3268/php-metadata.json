@@ -1,0 +1,22 @@
+{
+  "title": "Sensitive forms should include security tokens",
+  "type": "VULNERABILITY",
+  "status": "ready",
+  "remediation": {
+    "func": "Constant/Issue",
+    "constantCost": "1h"
+  },
+  "tags": [],
+  "defaultSeverity": "Critical",
+  "ruleSpecification": "RSPEC-3268",
+  "sqKey": "S3268",
+  "scope": "Main",
+  "all_languages": [
+    "php",
+    "python",
+    "web"
+  ],
+  "allKeys": [
+    "S3268"
+  ]
+}

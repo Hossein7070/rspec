@@ -1,0 +1,24 @@
+<p>Unused parameters are misleading. Whatever the values passed to such parameters, the behavior will be the same.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+func doSomething(a: Int, b: Int) {     // "b" is unused
+  compute(a)
+}
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+void doSomething(a: Int) {
+  compute(a)
+}
+</pre>
+<h2>Exceptions</h2>
+<p>Override methods are excluded.</p>
+<pre>
+override doSomething(a: Int, b: Int) {     // no issue reported on b
+  compute(a)
+}
+</pre>
+<h2>See</h2>
+<ul>
+<li><a href="https://www.securecoding.cert.org/confluence/x/NYA5">CERT, MSC12-C.</a> - Detect and remove code that has no effect or is never executed</li>
+</ul>

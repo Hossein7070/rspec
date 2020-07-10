@@ -1,0 +1,34 @@
+<p>The requirement for a final &lt;code&gt;default&lt;/code&gt; clause is defensive programming. The clause should either take appropriate action, or contain a suitable comment as to why no action is taken. Even when the &lt;code&gt;switch&lt;/code&gt; covers all current values of an &lt;code&gt;enum&lt;/code&gt;, a &lt;code&gt;default&lt;/code&gt; case should still be used because there is no guarantee that the &lt;code&gt;enum&lt;/code&gt; won’t be extended.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+int foo = 42;
+switch (foo) // Noncompliant
+{
+  case 0:
+    Console.WriteLine("foo = 0");
+    break;
+  case 42:
+    Console.WriteLine("foo = 42");
+    break;
+}
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+int foo = 42;
+switch (foo) // Compliant
+{
+  case 0:
+    Console.WriteLine("foo = 0");
+    break;
+  case 42:
+    Console.WriteLine("foo = 42");
+    break;
+  default:
+    throw new InvalidOperationException("Unexpected value foo = " + foo);
+}
+</pre>
+<h2>See</h2>
+<ul>
+<li><a href="http://cwe.mitre.org/data/definitions/478.html">MITRE, CWE-478</a> - Missing Default Case in Switch Statement</li>
+<li><a href="https://www.securecoding.cert.org/confluence/x/YgE">CERT, MSC01-C.</a> - Strive for logical completeness</li>
+</ul>

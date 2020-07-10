@@ -1,0 +1,28 @@
+<p>Argument-dependent lookup (ADL) adds additional associated namespaces to the set of scopes searched when lookup is performed for the names of called functions. A generic function found in one of these additional namespaces would be added to the overload set and chosen by overload resolution, which is inconsistent with developer expectation.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+template &lt;typename T&gt;
+class B
+{
+public:
+  B operator+ ( long &amp; rhs );
+  void f ( )
+  {
+    *this + 10; // calls NS::operator+ and not B&lt;NS::A&gt;::operator+ when B is instantiated with NS::A
+  }
+};
+
+namespace NS
+{
+  class A {
+  public:
+  };
+  template &lt;typename T&gt;
+  bool operator+ ( T, int32_t ); // Noncompliant, within associated namespace
+}
+template class B&lt;NS::A&gt;;
+</pre>
+<h2>See</h2>
+<ul>
+<li>MISRA C++:2008, 14-5-1</li>
+</ul>

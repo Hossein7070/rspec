@@ -1,0 +1,9 @@
+<p>&lt;code&gt;UPDATE dbtab SET …​&lt;/code&gt; without a &lt;code&gt;WHERE&lt;/code&gt; condition changes all the entries of the table. Check whether dataset to be changed can be limited by a suitable &lt;code&gt;WHERE&lt;/code&gt; condition.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+UPDATE COUNTRIES SET NAME=country_name.
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+UPDATE COUNTRIES SET NAME=country_name WHERE CODE=country_code.
+</pre>

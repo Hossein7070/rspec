@@ -1,0 +1,15 @@
+<p>While &lt;code&gt;hashCode&lt;/code&gt; and &lt;code&gt;toString&lt;/code&gt; are available on arrays, they are largely useless. &lt;code&gt;hashCode&lt;/code&gt; returns the array’s "identity hash code", and &lt;code&gt;toString&lt;/code&gt; returns nearly the same value. Neither method’s output actually reflects the array’s contents. Instead, you should pass the array to the relevant static &lt;code&gt;Arrays&lt;/code&gt; method.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+public static void main( String[] args )
+{
+    String argStr = args.toString(); // Noncompliant
+    int argHash = args.hashCode(); // Noncompliant
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+public static void main( String[] args )
+{
+    String argStr = Arrays.toString(args);
+    int argHash = Arrays.hashCode(args);
+</pre>

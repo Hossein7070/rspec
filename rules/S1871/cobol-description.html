@@ -1,0 +1,48 @@
+<p>Having two &lt;code&gt;WHEN&lt;/code&gt; clauses in the same &lt;code&gt;EVALUATE&lt;/code&gt; statement or two branches in the same &lt;code&gt;IF&lt;/code&gt; structure with the same implementation is at best duplicate code, and at worst a coding error. If the same logic is truly needed for both instances, then they should be combined, for an &lt;code&gt;IF&lt;/code&gt; structure or one should fall through to the other for an &lt;code&gt;EVALUATE&lt;/code&gt;.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+EVALUATE X
+  WHEN 1
+    MOVE A TO B.
+    PERFORM SECTION1
+  WHEN 2
+    MOVE A TO C.
+    PERFORM SECTION2
+  WHEN 3              *&gt; Noncompliant; duplicates WHEN 1's implementation
+    MOVE A TO B.
+    PERFORM SECTION1
+END-EVALUATE.
+
+IF X = 1
+  MOVE A TO B.
+  PERFORM SECTION1
+ELSE
+  IF X &gt; 10
+    PERFORM SECTION2
+  ELSE                *&gt; Noncompliant
+    MOVE A TO B.
+    PERFORM SECTION1
+  END-IF
+END-IF.
+</pre>
+<h2>Exceptions</h2>
+<p>Blocks in an &lt;code&gt;IF&lt;/code&gt; chain that contain a single line of code are ignored, as are blocks in a &lt;code&gt;EVALUATE&lt;/code&gt; statement that contain a single line of code.</p>
+<pre>
+EVALUATE X
+  WHEN 1
+    PERFORM SECTION1
+  WHEN 2
+    PERFORM SECTION2
+  WHEN 3              *&gt; no issue, usually this is done on purpose to increase the readability
+    PERFORM SECTION1
+END-EVALUATE.
+</pre>
+<p>But this exception does not apply to &lt;code&gt;IF&lt;/code&gt; chains without &lt;code&gt;ELSE&lt;/code&gt;-s, or to &lt;code&gt;EVALUATE&lt;/code&gt;-s without &lt;code&gt;WHEN OTHER&lt;/code&gt; clauses when all branches have the same single line of code. In case of &lt;code&gt;IF&lt;/code&gt; chains with &lt;code&gt;ELSE&lt;/code&gt;-s, or of &lt;code&gt;EVALUATE&lt;/code&gt;-es with &lt;code&gt;WHEN OTHER&lt;/code&gt; clauses, rule S3923 raises a bug.</p>
+<pre>
+EVALUATE X
+  WHEN 1
+    PERFORM SECTION1
+  WHEN 3              *&gt; Noncompliant, this might have been done on purpose but probably not
+    PERFORM SECTION1
+END-EVALUATE.
+</pre>

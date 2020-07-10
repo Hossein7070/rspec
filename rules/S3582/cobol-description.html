@@ -1,0 +1,25 @@
+<p>88-level variables, also known as "condition name" variables, each have a name, a value or set of values, and a "parent" variable. Those parent variables are called "conditional variables".</p>
+<p>Each 88-level variable can be seen as a short-cut conditional for testing the value of the parent: &lt;code&gt;IF MY-88&lt;/code&gt; will intrinsically return &lt;code&gt;true&lt;/code&gt; if the parent value matches &lt;code&gt;MY-88&lt;/code&gt;'s value, and &lt;code&gt;false&lt;/code&gt; if it does not.</p>
+<p>Thus, testing a conditional variable against a literal value is redundant and confusing. Just use the 88-levels instead.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+01 COLOR PIC X
+  88 YELLOW VALUE 'Y'
+  88 GREEN VALUE 'G'
+  88 RED VALUE 'R'
+...
+IF COLOR = 'G' *&gt; Noncompliant
+...
+END-IF
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+01 COLOR PIC X
+  88 YELLOW VALUE 'Y'
+  88 GREEN VALUE 'G'
+  88 RED VALUE 'R'
+...
+IF GREEN
+...
+END-IF
+</pre>

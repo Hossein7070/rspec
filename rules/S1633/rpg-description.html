@@ -1,0 +1,32 @@
+<p>Both the name and the field definitions of a parameter 2 data area used in an &lt;code&gt;IN&lt;/code&gt; should be coded in the &lt;code&gt;D&lt;/code&gt; specification. This ensures that all definition data is kept together, and the specific data is not manually extracted in the code, thus making the code easier to read and maintain.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+D WSFD08          S             30A 0
+
+C                   IN        WSFD08
+C                   MOVEL     WSFD08        VAR9S
+</pre>
+<pre>
+D WSFD08          S             30A 0
+
+ /free
+   in  WSFD08;
+ /end-free
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+D WSFD08          DS    30             DTAARA(HEPDTAR005)
+D  W3SPNO               123    124B 0
+D  W3LNCT               367    368B 0
+
+C                   IN        WSFD08
+</pre>
+<pre>
+D WSFD08          DS    30             DTAARA(HEPDTAR005)
+D  W3SPNO               123    124B 0
+D  W3LNCT               367    368B 0
+
+ /free
+   in  WSFD08;
+ /end-free
+</pre>

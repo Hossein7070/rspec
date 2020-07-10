@@ -1,0 +1,78 @@
+<p>&lt;code&gt;std::forward&lt;/code&gt; and &lt;code&gt;std::move&lt;/code&gt; have different purposes:</p>
+<ul>
+<li>&lt;code&gt;std::move&lt;/code&gt; takes an object and casts it as an &lt;code&gt;rvalue&lt;/code&gt; reference, which indicates that resources can be "stolen" from this object.</li>
+<li>&lt;code&gt;std::forward&lt;/code&gt; has a single use case: to cast a templated function parameter of type <em>forwarding reference</em> (&lt;code&gt;T&amp;&amp;&lt;/code&gt;) to the value category (&lt;code&gt;lvalue&lt;/code&gt; or &lt;code&gt;rvalue&lt;/code&gt;) the caller used to pass it. This allows &lt;code&gt;rvalue&lt;/code&gt; arguments to be passed on as &lt;code&gt;rvalues&lt;/code&gt;, and &lt;code&gt;lvalues&lt;/code&gt; to be passed on as &lt;code&gt;lvalues&lt;/code&gt;. This scheme is known as <em>perfect forwarding</em>.</li>
+</ul>
+<p>Since both rvalue references and forwarding references use the same notation (&lt;code&gt;&amp;&amp;&lt;/code&gt;), an unwary developer might confuse them. If that happens, and a parameter is moved instead of forwarded, the original object can be emptied, probably crashing the software if the user tries to use the original object normally after the function call. An error in the other direction has less dire consequences, and might even work as intended if the right template argument is used, but the code would be clumsy and not clearly express the intent.</p>
+<p>This rule raises an issue when &lt;code&gt;std::forward&lt;/code&gt; is used with a parameter not passed as a forwarding reference, or when &lt;code&gt;std::move&lt;/code&gt; is used on a parameter passed as a forwarding reference.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+#include &lt;utility&gt;
+
+class S {};
+
+template&lt;typename T&gt; void g(const T&amp; t);
+template&lt;typename T&gt; void g(T&amp;&amp; t);
+
+template&lt;typename T&gt; void gt(T&amp;&amp; t) {
+  g(std::move(t)); // Noncompliant : std::move applied to a forwarding reference
+}
+
+void use_g() {
+  S s;
+  g(s);
+  g(std::forward&lt;S&gt;(s)); // Noncompliant : S isn't a forwarding reference.
+}
+
+template &lt;typename T&gt;
+void foo(std::vector&lt;T&gt;&amp;&amp; t) {
+  std::forward&lt;T&gt;(t); // Noncompliant : std::vector&lt;T&gt;&amp;&amp; isn't a forwarding reference.
+}
+
+template&lt;typename T&gt;
+struct C {
+  // In class template argument deduction, template parameter of a class template is never a forwarding reference.
+  C(T&amp;&amp; t) {
+    g(std::forward&lt;T&gt;(t)); // Noncompliant : T&amp;&amp; isn't a forwarding reference. It is an r-value reference.
+  }
+};
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+#include &lt;utility&gt;
+
+class S {};
+
+template&lt;typename T&gt; void g(const T&amp; t);
+template&lt;typename T&gt; void g(T&amp;&amp; t);
+
+template&lt;typename T&gt; void gt(T&amp;&amp; t) {
+  g(std::forward(t));
+}
+
+void use_g() {
+  S s;
+  g(s);
+  g(std::move(s));
+}
+
+template &lt;typename T&gt;
+void (std::vector&lt;T&gt;&amp;&amp; t){
+  std::move(t);
+}
+
+template&lt;typename T&gt;
+struct C {
+  C(T&amp;&amp; t) {
+    g(std::move(t));
+  }
+};
+</pre>
+<h2>See</h2>
+<ul>
+<li><a href="https://en.cppreference.com/w/cpp/utility/move">std::move</a></li>
+<li><a href="https://en.cppreference.com/w/cpp/utility/forward">std::forward</a></li>
+<li><a href="https://en.cppreference.com/w/cpp/language/reference#Forwarding_references">Forwarding references</a></li>
+<li><a href="https://github.com/isocpp/CppCoreGuidelines/blob/036324/CppCoreGuidelines.md#f18-for-will-move-from-parameters-pass-by-x-and-stdmove-the-parameter">C++ Core Guidelines - F.18</a> - For “will-move-from” parameters, pass by &lt;code&gt;X&amp;&amp;&lt;/code&gt; and &lt;code&gt;std::move&lt;/code&gt; the parameter</li>
+<li><a href="https://github.com/isocpp/CppCoreGuidelines/blob/036324/CppCoreGuidelines.md#f19-for-forward-parameters-pass-by-tp-and-only-stdforward-the-parameter">C++ Core Guidelines - F.19</a> - For “forward” parameters, pass by &lt;code&gt;TP&amp;&amp;&lt;/code&gt; and only &lt;code&gt;std::forward&lt;/code&gt; the parameter</li>
+</ul>

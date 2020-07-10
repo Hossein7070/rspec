@@ -1,0 +1,29 @@
+<p>Labeled loops are useful, especially when the code is badly indented, to match the begin and end of each loop. Within a labeled loop, the code’s maintainability is increased by explicitly providing the loop’s label in every &lt;code&gt;EXIT&lt;/code&gt; statement. Indeed, if a nested loop is added afterwards, it is clear which loop has to be exited.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+BEGIN
+  &lt;&lt;myLoopLabel1&gt;&gt;
+  LOOP
+    EXIT; -- Noncompliant, the loop label is missing
+  END LOOP myLoopLabel1;
+
+  LOOP
+    EXIT; -- Compliant, this EXIT is not in a labeled loop
+  END LOOP;
+END;
+/
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+BEGIN
+ &lt;&lt;myLoopLabel1&gt;&gt;
+  LOOP
+    EXIT myLoopLabel1;
+  END LOOP myLoopLabel1;
+
+  LOOP
+    EXIT;
+  END LOOP;
+END;
+/
+</pre>

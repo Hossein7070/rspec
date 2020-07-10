@@ -1,0 +1,19 @@
+<p>There is no need to use the &lt;code&gt;final&lt;/code&gt; modifier inside a &lt;code&gt;final&lt;/code&gt; class. Everything in it is &lt;code&gt;final&lt;/code&gt; by default.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+final class MyClass {
+
+  public final String getName() {  // Noncompliant
+    return name;
+  }
+}
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+final class MyClass {
+
+  public String getName() {  // Compliant
+    return name;
+  }
+}
+</pre>

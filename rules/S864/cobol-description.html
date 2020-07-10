@@ -1,0 +1,19 @@
+<p>The rules of operator precedence are complicated and can lead to errors. For this reason, parentheses should be used for clarification in complex statements.</p>
+<p>This rule raises an issue when more than the allowed number of non-like operators are used in a statement without parentheses to make execution order explicit.</p>
+<h2>Noncompliant Code Example</h2>
+<p>With the default threshold of 2:</p>
+<pre>
+COMPUTE WSRESULT = WS1 + 5 * WS2 - WS3**2 END-COMPUTE  *&gt; Noncompliant
+COMPUTE WSRESULT2 = WS1 + 5 + WS2 + WS3 + WS4 END-COMPUTE
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+COMPUTE WSRESULT = WS1 + (5 * WS2) - (WS3**2) END-COMPUTE
+COMPUTE WSRESULT2 = WS1 + 5 + WS2 + WS3 + WS4 END-COMPUTE
+</pre>
+<h2>See</h2>
+<ul>
+<li><a href="https://www.securecoding.cert.org/confluence/x/_wI">CERT, EXP00-C.</a> - Use parentheses for precedence of operation</li>
+<li><a href="https://www.securecoding.cert.org/confluence/x/9wHEAw">CERT, EXP53-J.</a> - Use parentheses for precedence of operation</li>
+<li><a href="http://cwe.mitre.org/data/definitions/783.html">MITRE, CWE-783</a> - Operator Precedence Logic Error</li>
+</ul>

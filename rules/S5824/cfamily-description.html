@@ -1,0 +1,44 @@
+<p>The functions "tmpnam", "tmpnam_s" and "tmpnam_r" are all used to return a file name that does not matching an existing file, in order for the application to create a temporary file. However, even if the file did not exist at the time those functions were called, they may exist by the time the application tries to use the file name to create the files. This has been used by hackers to gain access to files that the application believed was trustworthy.</p>
+<p>There are alternative functions that, in addition to creating a suitable file name, create and open the file and return the file handler. Such functions are protected from this vector of attack, and should be preferred. About the only reason to use these functions would be to create a temporary folder, not a temporary file.</p>
+<p>Additionally, these functions might not be thread safe, and if you don’t provide them buffers of sufficient size, you will have a buffer overflow.</p>
+<h2>Ask Yourself Whether</h2>
+<ul>
+<li>There is a possibility that several thread call any of these functions simultaneously</li>
+<li>There is a possibility that the resulting file is opened without forcing its creation, meaning that it may have unexpected access rights</li>
+<li><p>The buffers passed to this functions are respectively smaller than</p>
+<ul>
+<li>&lt;code&gt;L_tmpnam&lt;/code&gt; for &lt;code&gt;tmpnam&lt;/code&gt;</li>
+<li>&lt;code&gt;L_tmpnam_s&lt;/code&gt; for &lt;code&gt;tmpnam_s&lt;/code&gt;</li>
+<li>&lt;code&gt;L_tmpnam&lt;/code&gt; for &lt;code&gt;tmpnam_r&lt;/code&gt;</li>
+</ul></li>
+</ul>
+<p>There is a risk if you answered yes to any of those questions.</p>
+<h2>Recommended Secure Coding Practices</h2>
+<ul>
+<li>Use a function that directly open the temporary file, such a &lt;code&gt;tmpfile&lt;/code&gt;, &lt;code&gt;tmpfile_s&lt;/code&gt;, &lt;code&gt;mkstemp&lt;/code&gt; or &lt;code&gt;mkstemps&lt;/code&gt; (the last two allow more accurate control of the file name)</li>
+<li>If you can’t get rid of those function, when using the name to open the file, use a function that forces the creation of the file, and fails if the file already exists</li>
+</ul>
+<h2>Sensitive Code Example</h2>
+<pre>
+int f(char *tempData) {
+  char *path = tmpnam(NULL); // Sensitive
+  FILE* f = fopen(tmpnam, "w");
+  fputs(tempData, f);
+  fclose(f);
+}
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+int f(char *tempData) {
+  // The file will be opened in "wb+" mode, and will be automatically removed on normal program exit
+  FILE* f = tmpfile(); // Compliant
+  fputs(tempData, f);
+  fclose(f);
+}
+</pre>
+<h2>See</h2>
+<ul>
+<li><a href="https://cwe.mitre.org/data/definitions/377.html">MITRE, CWE-377</a> - Insecure Temporary File</li>
+<li><a href="https://wiki.sei.cmu.edu/confluence/display/c/CON33-C.+Avoid+race+conditions+when+using+library+functions">CERT, CON33-C.</a> - Avoid race conditions when using library functions</li>
+<li><a href="https://wiki.sei.cmu.edu/confluence/display/c/FIO21-C.+Do+not+create+temporary+files+in+shared+directories">CERT, FIO21-C.</a> - Do not create temporary files in shared directories</li>
+</ul>

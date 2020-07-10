@@ -1,0 +1,14 @@
+<p>&lt;code&gt;ID&lt;/code&gt; and &lt;code&gt;IDREF&lt;/code&gt; are constructs inherited from DTDs, and they suffer from painful drawbacks, mainly:</p>
+<ul>
+<li>&lt;code&gt;ID&lt;/code&gt;s are too widely scoped: an &lt;code&gt;ID&lt;/code&gt; must be unique in the XML document. This means that if an XML document contains &lt;code&gt;&lt;Person&gt;&lt;/code&gt; elements and &lt;code&gt;&lt;Dog&gt;&lt;/code&gt; elements, both with a "name" attribute of &lt;code&gt;type="xs:ID"&lt;/code&gt;, then two people can’t have the same name. Neither can two dogs, or a person and a dog.</li>
+<li>IDs must comply with tight naming scheme. For example, "123" is not a valid value for an ID.</li>
+</ul>
+<p>Instead, &lt;code&gt;KEY&lt;/code&gt; and &lt;code&gt;KEYREF&lt;/code&gt; should be used. And if you really need to insure uniqueness, use &lt;code&gt;xs:unique&lt;/code&gt; to add a uniqueness constraint.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+ToDo
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+ToDo
+</pre>

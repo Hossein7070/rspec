@@ -1,0 +1,30 @@
+<p>The retrieval of technology fingerprints allows an attacker to gather information about the technologies used to develop the web application and to perform relevant security assessments more quickly (like the identification of known vulnerable components).</p>
+<p>It’s recommended to not disclose technologies used on a website, with &lt;code&gt;x-powered-by&lt;/code&gt; HTTP header for example.</p>
+<h2>Noncompliant Code Example</h2>
+<p><a href="https://www.npmjs.com/package/express">Express.js</a> name is disclosed by default into the &lt;code&gt;x-powered-by&lt;/code&gt;  HTTP header:</p>
+<pre>
+let express = require('express');
+let app = express(); // Noncompliant
+
+app.get('/', function (req, res) {
+  res.send('hello')
+});
+</pre>
+<h2>Compliant Solution</h2>
+<p>&lt;code&gt;x-powered-by&lt;/code&gt;  HTTP header should be disabled in <a href="https://www.npmjs.com/package/express">Express.js</a> with &lt;code&gt;app.disable&lt;/code&gt; or with <a href="https://www.npmjs.com/package/hide-powered-by">Hide X-Powered-By</a> middleware:</p>
+<pre>
+let express = require('express');
+let app1 = express();  // Compliant
+app1.disable("x-powered-by");
+
+let hidePoweredBy = require('hide-powered-by');
+let app2 = express(); // Compliant
+app2.use(hidePoweredBy());
+</pre>
+<h2>See</h2>
+<ul>
+<li><a href="https://www.owasp.org/index.php/Fingerprint_Web_Application_Framework_(OTG-INFO-008)">OWASP  Testing Guide - OTG-INFO-008</a> - Fingerprint Web Application Framework</li>
+<li><a href="https://www.owasp.org/index.php/Fingerprint_Web_Application_(OTG-INFO-009)">OWASP  Testing Guide - OTG-INFO-009</a> - Fingerprint Web Application</li>
+<li><a href="https://www.owasp.org/index.php/Top_10-2017_A6-Security_Misconfiguration">OWASP Top 10 2017 Category A6</a> - Security Misconfiguration</li>
+<li><a href="https://cwe.mitre.org/data/definitions/200.html">MITRE, CWE-200</a> - Information Exposure</li>
+</ul>

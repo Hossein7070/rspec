@@ -1,0 +1,14 @@
+<p>Using an &lt;code&gt;ORDER BY&lt;/code&gt; clause in a &lt;code&gt;SELECT&lt;/code&gt; helps ensure runtime reproducibility. Without one, <em>some</em> databases <em>may</em> return results in a consistent order, but it is likely to be one that appears random to users and is not optimal for processing the data.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+SELECT model   -- Noncompliant
+FROM car
+WHERE wheel_count = 4
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+SELECT model
+FROM car
+WHERE wheel_count = 4
+ORDER BY year, make
+</pre>

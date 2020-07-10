@@ -1,0 +1,17 @@
+<p>Methods that override parent class implementations should end with calls to the &lt;code&gt;super&lt;/code&gt; implementations. Otherwise, you risk leaving the job half done.</p>
+<p>This rule raises an issue when the following &lt;code&gt;Activity&lt;/code&gt; methods do not end with a call to &lt;code&gt;super&lt;/code&gt;:</p>
+<ul>
+<li>&lt;code&gt;onDestroy&lt;/code&gt;</li>
+<li>&lt;code&gt;onPause&lt;/code&gt;</li>
+<li>&lt;code&gt;onSaveInstanceState&lt;/code&gt;</li>
+<li>&lt;code&gt;onStop&lt;/code&gt;</li>
+<li>&lt;code&gt;onTerminate&lt;/code&gt;</li>
+</ul>
+<h2>Noncompliant Code Example</h2>
+<pre>
+//TODO
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+//TODO
+</pre>

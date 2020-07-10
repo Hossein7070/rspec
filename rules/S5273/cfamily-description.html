@@ -1,0 +1,19 @@
+<p>Size argument of &lt;code&gt;strncat&lt;/code&gt;, &lt;code&gt;strlcat&lt;/code&gt; and &lt;code&gt;strlcpy&lt;/code&gt; should define the size of the destination to prevent buffer overflow.</p>
+<p>Moreover, &lt;code&gt;strncat&lt;/code&gt; always adds a terminating null character at the end of the appended characters so the size argument should be smaller than the size of the destination to let enough space for it.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+void f(char* src) {
+  char dest[10];
+  strlcpy(dest, src, sizeof(src)); // Noncompliant; size argument is the size of the source instead of the size of the destination
+
+  strncat(dest, src, sizeof(src)); // Noncompliant; size of the source instead of the size of the destination
+  strncat(dest, src, sizeof(dest)); // Noncompliant; size argument is too large
+}
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+void f(char* src) {
+  char dest[10];
+  strncat(dest, src, sizeof(dest) - 1); // Compliant
+}
+</pre>

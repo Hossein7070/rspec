@@ -1,0 +1,29 @@
+<p>Error handling should be defined on file operations to ensure correct processing of program failures rather than defaulting to an abnormal program end. This rule checks two things:</p>
+<ul>
+<li>&lt;code&gt;INFSR&lt;/code&gt; error handling is defined on file operations.</li>
+<li>error handling is delegated to an appropriately named routine.</li>
+</ul>
+<h2>Noncompliant Code Example</h2>
+<p>Given the default parameter value, &lt;code&gt;^\*PSSR$&lt;/code&gt;:</p>
+<pre>
+     F* Noncompliant
+     FIPBDCCP   IF   E           K DISK
+
+     FEP210     CF   E             WORKSTN
+     F                                     SFILE(EP21003S:RELN03)
+
+     FEP471R1   O    E             PRINTER
+     F                                     USROPN
+     F                                     INFDS(W1SF01)
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+     FIPBDCCP   IF   E           K DISK    INFSR(*PSSR)
+
+     FEP210     CF   E             WORKSTN INFSR(*PSSR)
+     F                                     SFILE(EP21003S:RELN03)
+
+     FEP471R1   O    E             PRINTER INFSR(*PSSR)
+     F                                     USROPN
+     F                                     INFDS(W1SF01)
+</pre>

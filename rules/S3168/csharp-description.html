@@ -1,0 +1,47 @@
+<p>An &lt;code&gt;async&lt;/code&gt; method with a &lt;code&gt;void&lt;/code&gt; return type is a "fire and forget" method best reserved for event handlers because there’s no way to wait for the method’s execution to complete and respond accordingly. There’s also no way to &lt;code&gt;catch&lt;/code&gt; exceptions thrown from the method.</p>
+<p>Having an &lt;code&gt;async void&lt;/code&gt; method that is not an event handler could mean your program works some times and not others because of timing issues. Instead, &lt;code&gt;async&lt;/code&gt; methods should return &lt;code&gt;Task&lt;/code&gt;.</p>
+<p>This rule raises an issue when non-event handler methods are both &lt;code&gt;async&lt;/code&gt; and &lt;code&gt;void&lt;/code&gt;.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+class HttpPrinter
+{
+  private string content;
+
+  public async void CallNetwork(string url) //Noncompliant
+  {
+    var client = new HttpClient();
+    var response = await client.GetAsync(url);
+    content = await response.Content.ReadAsStringAsync();
+  }
+
+  public async Task PrintContent(string url)  // works correctly if web request finishes in under 1 second, otherwise content will be null
+  {
+    CallNetwork(url);
+    await Task.Delay(1000);
+    Console.Write(content);
+  }
+}
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+class HttpPrinter
+{
+  private string content;
+
+  public async Task CallNetwork(string url)
+  {
+    var client = new HttpClient();
+    var response = await client.GetAsync(url);
+    content = await response.Content.ReadAsStringAsync();
+  }
+
+  public async Task PrintContent(string url)
+  {
+    await CallNetwork(url); // &lt;----- call changed here. If await is not added warning CS4014 will be triggered
+    await Task.Delay(1000);
+    Console.Write(content);
+  }
+}
+</pre>
+<h2>Exceptions</h2>
+<p>Event handlers, i.e. methods with two arguments, first one matching &lt;code&gt;object sender&lt;/code&gt; and the second being or inheriting from &lt;code&gt;EventArgs&lt;/code&gt;, are ignored.</p>

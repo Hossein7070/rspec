@@ -1,0 +1,14 @@
+<p>There’s no need to end a &lt;code&gt;void&lt;/code&gt; method with a &lt;code&gt;return&lt;/code&gt; statement. Since nothing is actually being returned, the &lt;code&gt;return&lt;/code&gt; can be omitted; &lt;code&gt;void&lt;/code&gt; will be returned implicitly.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+public void incrementCount() {
+  this.count++;
+  return;  // Noncompliant
+}
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+public void incrementCount() {
+  this.count++;
+}
+</pre>

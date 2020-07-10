@@ -1,0 +1,24 @@
+<p>Adherence to the standard naming conventions makes your code not only more readable, but more usable. For instance, &lt;code&gt;class FirstAttribute : Attribute&lt;/code&gt; can be used simply with &lt;code&gt;First&lt;/code&gt;, but you must use the full name for &lt;code&gt;class AttributeOne : Attribute&lt;/code&gt;.</p>
+<p>This rule raises an issue when classes extending &lt;code&gt;Attribute&lt;/code&gt;, &lt;code&gt;EventArgs&lt;/code&gt;, or &lt;code&gt;Exception&lt;/code&gt;, do not end with their parent class names.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+class AttributeOne : Attribute  // Noncompliant
+{
+}
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+class FirstAttribute : Attribute
+{
+}
+</pre>
+<h2>Exceptions</h2>
+<p>If a class' direct base class doesn’t follow the convention, then no issue is reported on the class itself, regardless of whether or not it conforms to the convention.</p>
+<pre>
+class Timeout : Exception // Noncompliant
+{
+}
+class ExtendedTimeout : Timeout // Ignored; doesn't conform to convention, but the direct base doesn't conform either
+{
+}
+</pre>

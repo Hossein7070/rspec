@@ -1,0 +1,26 @@
+<p>The &lt;code&gt;equals&lt;/code&gt; and &lt;code&gt;hashCode&lt;/code&gt; methods of &lt;code&gt;java.net.URL&lt;/code&gt; both may trigger a name service (usually DNS) lookup to resolve the host name or IP address. Depending on the configuration, and network status, that can take a long time. &lt;code&gt;URI&lt;/code&gt; on the other hand makes no such calls and should be used instead unless the specific &lt;code&gt;URL&lt;/code&gt; functionality is required.</p>
+<p>In general it is better to use the &lt;code&gt;URI&lt;/code&gt; class until access to the resource is actually needed, at which point you can just convert the &lt;code&gt;URI&lt;/code&gt; to a &lt;code&gt;URL&lt;/code&gt; using &lt;code&gt;URI.toURL()&lt;/code&gt;.</p>
+<p>This rule checks for uses of &lt;code&gt;URL&lt;/code&gt; 's in &lt;code&gt;Map&lt;/code&gt; and &lt;code&gt;Set&lt;/code&gt; , and for explicit calls to the &lt;code&gt;equals&lt;/code&gt; and &lt;code&gt;hashCode&lt;/code&gt; methods.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+public void checkUrl(URL url) {
+  Set&lt;URL&gt; sites = new HashSet&lt;URL&gt;();  // Noncompliant
+
+  URL homepage = new URL("http://sonarsource.com");  // Compliant
+  if (homepage.equals(url)) { // Noncompliant
+    // ...
+  }
+}
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+public void checkUrl(URL url) {
+  Set&lt;URI&gt; sites = new HashSet&lt;URI&gt;();  // Compliant
+
+  URI homepage = new URI("http://sonarsource.com");  // Compliant
+  URI uri = url.toURI();
+  if (homepage.equals(uri)) {  // Compliant
+    // ...
+  }
+}
+</pre>

@@ -1,0 +1,14 @@
+<p>A Spring &lt;code&gt;singleton&lt;/code&gt; bean may be used by many threads at once, and the use of instance (non-&lt;code&gt;static&lt;/code&gt;) variables could cause concurrency issues.</p>
+<p>This rule applies to classes with the following annotations: &lt;code&gt;@Service&lt;/code&gt;, &lt;code&gt;@Component&lt;/code&gt;, &lt;code&gt;@Repository&lt;/code&gt;, &lt;code&gt;@Scope("singleton")&lt;/code&gt;</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+@Service("animalService")
+public class AnimalService {
+private int age = 1;              // Noncompliant
+private static int count = 0; // Compliant; static
+
+@Inject
+private AnimalDAO animalDAO;  // Compliant; managed by Spring
+...
+}
+</pre>

@@ -1,0 +1,38 @@
+<p>&lt;code&gt;private&lt;/code&gt; methods that don’t access instance data can be &lt;code&gt;static&lt;/code&gt; to prevent any misunderstanding about the contract of the method.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+class Utilities {
+  private static String magicWord = "magic";
+
+  private String getMagicWord() { // Noncompliant
+    return magicWord;
+  }
+
+  private void setMagicWord(String value) { // Noncompliant
+    magicWord = value;
+  }
+
+}
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+class Utilities {
+  private static String magicWord = "magic";
+
+  private static String getMagicWord() {
+    return magicWord;
+  }
+
+  private static void setMagicWord(String value) {
+    magicWord = value;
+  }
+
+}
+</pre>
+<h2>Exceptions</h2>
+<p>When &lt;code&gt;java.io.Serializable&lt;/code&gt; is implemented the following three methods are excluded by the rule:</p>
+<ul>
+<li>&lt;code&gt;private void writeObject(java.io.ObjectOutputStream out) throws IOException;&lt;/code&gt;</li>
+<li>&lt;code&gt;private void readObject(java.io.ObjectInputStream in) throws IOException, ClassNotFoundException;&lt;/code&gt;</li>
+<li>&lt;code&gt;private void readObjectNoData() throws ObjectStreamException;&lt;/code&gt;</li>
+</ul>

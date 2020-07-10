@@ -1,0 +1,21 @@
+<p>The &lt;code&gt;@Remote&lt;/code&gt; annotation indicates that an interface may be called from a remote client. Therefore the parameters and return types of methods in the interface must be &lt;code&gt;Serializable&lt;/code&gt;.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+public class Employee {  // Nonserializable
+}
+
+@Remote
+public interface EmployeeServiceRemote {
+  public Employee getEmployee(String id);  // Noncompliant
+}
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+public class Employee implements Serializable{
+}
+
+@Remote
+public interface EmployeeServiceRemote {
+  public Employee getEmployee(String id);  // Noncompliant
+}
+</pre>

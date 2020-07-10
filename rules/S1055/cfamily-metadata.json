@@ -1,0 +1,23 @@
+{
+  "title": "\"<cstdio>\" should not be used",
+  "type": "CODE_SMELL",
+  "status": "ready",
+  "remediation": {
+    "func": "Constant/Issue",
+    "constantCost": "4h"
+  },
+  "tags": [
+    "based-on-misra",
+    "lock-in"
+  ],
+  "defaultSeverity": "Critical",
+  "ruleSpecification": "RSPEC-1055",
+  "sqKey": "PPIncludeCstdio",
+  "scope": "Main",
+  "all_languages": [
+    "cfamily"
+  ],
+  "allKeys": [
+    "PPIncludeCstdio"
+  ]
+}

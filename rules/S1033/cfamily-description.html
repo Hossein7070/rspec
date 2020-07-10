@@ -1,0 +1,27 @@
+<p>If a function and a specialization of a function template are deemed equivalent after overload resolution, the non-specialized function will be chosen over the function specialization, which may be inconsistent with developer expectations.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+void f ( short ); // Example 1
+template &lt;typename T&gt; void f ( T ); // Example 2
+void b ( short s )
+{
+  f ( s ); // Noncompliant - Calls Example 1
+  f ( s + 1 ); // Noncompliant - Calls Example 2
+}
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+void f ( short ); // Example 1
+template &lt;typename T&gt; void f ( T ); // Example 2
+void b ( short s )
+{
+  f&lt;&gt;( s ); // Compliant - Explicitly calls Example 2
+  f&lt;&gt;( s + 1 ); // Compliant - Explicitly calls Example 2
+}
+</pre>
+<h2>Exceptions</h2>
+<p>This rule does not apply to copy constructors or copy assignment operators.</p>
+<h2>See</h2>
+<ul>
+<li>MISRA C++:2008, 14-8-2</li>
+</ul>

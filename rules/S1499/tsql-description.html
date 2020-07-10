@@ -1,0 +1,26 @@
+<p>&lt;code&gt;SELECT *&lt;/code&gt; should be avoided because it releases control of the returned columns and could therefore lead to errors and potentially to performance issues.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+SELECT *     -- Noncompliant
+       FROM persons
+       WHERE city = 'NEW YORK'
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+SELECT firstname, lastname
+       FROM persons
+       WHERE city = 'NEW YORK'
+</pre>
+<h2>Exceptions</h2>
+<p>The following cases are ignored by this rule:</p>
+<ul>
+<li>&lt;code&gt;SELECT&lt;/code&gt; from temporary tables: &lt;code&gt;SELECT * FROM #temp1&lt;/code&gt;</li>
+<li>&lt;code&gt;SELECT&lt;/code&gt; using common table expressions: &lt;code&gt;WITH A AS (SELECT C1 FROM T1) SELECT * FROM A;&lt;/code&gt;</li>
+<li>Inside another &lt;code&gt;SELECT&lt;/code&gt;: &lt;code&gt;SELECT C1 FROM T1 WHERE C2 IN (SELECT * FROM T2)&lt;/code&gt;</li>
+<li>Inside &lt;code&gt;INSERT&lt;/code&gt;: &lt;code&gt;INSERT INTO T1 SELECT * FROM T2&lt;/code&gt;</li>
+<li>Inside &lt;code&gt;CREATE TABLE&lt;/code&gt;: &lt;code&gt;CREATE TABLE T1 WITH (C1 = C2) AS SELECT * FROM T2&lt;/code&gt;</li>
+<li>&lt;code&gt;SELECT&lt;/code&gt; from rowset providers: &lt;code&gt;SELECT *  FROM OPENXML (@idoc, '/ROOT/Customer',1)&lt;/code&gt;</li>
+<li>&lt;code&gt;SELECT INTO&lt;/code&gt;: &lt;code&gt;SELECT * INTO NEW_TABLE FROM T1&lt;/code&gt;</li>
+<li>&lt;code&gt;SELECT&lt;/code&gt; from variable table: &lt;code&gt;SELECT * FROM @table1&lt;/code&gt;</li>
+<li>&lt;code&gt;SELECT&lt;/code&gt; from derived table: &lt;code&gt;SELECT A.* FROM (SELECT X FROM T1) A INNER JOIN B ON A.X = B.X&lt;/code&gt;</li>
+</ul>

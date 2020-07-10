@@ -1,0 +1,23 @@
+{
+  "title": "\"END\" statements of labeled loops should be labeled",
+  "type": "CODE_SMELL",
+  "status": "ready",
+  "remediation": {
+    "func": "Constant/Issue",
+    "constantCost": "5min"
+  },
+  "tags": [
+    "style",
+    "pitfall"
+  ],
+  "defaultSeverity": "Major",
+  "ruleSpecification": "RSPEC-2484",
+  "sqKey": "LoopUnlabeledEndCheck",
+  "scope": "Main",
+  "all_languages": [
+    "plsql"
+  ],
+  "allKeys": [
+    "LoopUnlabeledEndCheck"
+  ]
+}

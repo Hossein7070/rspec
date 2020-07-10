@@ -1,0 +1,42 @@
+<p>A bare &lt;code&gt;raise&lt;/code&gt; statement, i.e. a &lt;code&gt;raise&lt;/code&gt; with no exception provided, will re-raise the last active exception in the current scope. If no exception is active a &lt;code&gt;RuntimeError&lt;/code&gt; is raised instead.
+If the bare "raise" statement is in a &lt;code&gt;finally&lt;/code&gt; block, it will only have an active exception to re-raise when an exception from the &lt;code&gt;try&lt;/code&gt; block is not caught or when an exception is raised by an &lt;code&gt;except&lt;/code&gt; or &lt;code&gt;else&lt;/code&gt; block. Thus bare &lt;code&gt;raise&lt;/code&gt; statements should not be relied upon in &lt;code&gt;finally&lt;/code&gt; blocks. It is simpler to let the exception raise automatically.</p>
+<p>This rule raises an issue when a bare &lt;code&gt;raise&lt;/code&gt; statements is in a &lt;code&gt;finally&lt;/code&gt; block.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+def foo(param):
+    result = 0
+    try:
+        print("foo")
+    except ValueError as e:
+        pass
+    else:
+        if param:
+            raise ValueError()
+    finally:
+        if param:
+            raise  # Noncompliant. This will fail in some context.
+        else:
+            result = 1
+    return result
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+def foo(param):
+    result = 0
+    try:
+        print("foo")
+    except ValueError as e:
+        pass
+    else:
+        if param:
+            raise ValueError()
+    finally:
+        if not param:
+            result = 1
+        # the exception will raise automatically
+    return result
+</pre>
+<h2>See</h2>
+<ul>
+<li>Python Documentation - <a href="https://docs.python.org/3/reference/simple_stmts.html#raise">The &lt;code&gt;raise&lt;/code&gt; statement</a></li>
+</ul>

@@ -1,0 +1,25 @@
+<p>Batch Apex jobs should execute as fast as possible because other jobs wait in the queue. They will execute faster when their &lt;code&gt;start&lt;/code&gt; method returns a QueryLocator object or an iterable which does not use subqueries to include related records. It is more efficient to execute these subqueries separately inside the &lt;code&gt;execute&lt;/code&gt; method of the Batch class.</p>
+<p>This rule raises an issue when, in the context of a Batch class' &lt;code&gt;start&lt;/code&gt; method, the  &lt;code&gt;Database.getQueryLocator(query)&lt;/code&gt; method is called with a query containing one or more subqueries</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+global class MyBatch implements Database.Batchable&lt;sObject&gt; {
+    global MyBatch(){
+    }
+
+    global Database.QueryLocator start(Database.BatchableContext BC){
+        return Database.getQueryLocator([SELECT Id, (SELECT id FROM Contacts) FROM Account]);  // Noncompliant
+    }
+
+    global void execute(Database.BatchableContext BC, List&lt;sObject&gt; scope){
+        // ...
+    }
+
+    global void finish(Database.BatchableContext BC){
+        // ...
+    }
+}
+</pre>
+<h2>See</h2>
+<ul>
+<li><a href="https://developer.salesforce.com/docs/atlas.en-us.apexcode.meta/apexcode/apex_batch_interface.htm">Using Batch Apex</a> (See the "Batch Apex Best Practices" section)</li>
+</ul>

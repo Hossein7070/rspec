@@ -1,0 +1,36 @@
+<p>During construction and destruction of an object, its final type may be different from that of the completely constructed object. The result of using an object’s dynamic type in a constructor or destructor may not be consistent with developer expectations.
+The dynamic type of an object is used in the following constructs:</p>
+<ul>
+<li>&lt;code&gt;typeid&lt;/code&gt; on a class with a virtual function or a virtual function in a base class.</li>
+<li>&lt;code&gt;dynamic_cast&lt;/code&gt;</li>
+<li>A virtual call to a virtual function.</li>
+</ul>
+<p>This rule also prohibits a call being made to a pure virtual function from within a constructor or destructor. Such calls lead to undefined behaviour.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+class B1
+{
+public:
+  B1 ( )
+  {
+   typeid ( B1 ); // Compliant, B1 not polymorphic
+  }
+};
+class B2
+{
+public:
+  virtual ~B2 ( );
+  virtual void foo ( );
+  B2 ( )
+  {
+    typeid ( B2 ); // Noncompliant
+    B2::foo ( ); // Compliant, not a virtual call
+    foo ( ); // Noncompliant
+    dynamic_cast&lt; B2* &gt; ( this ); // Noncompliant
+  }
+};
+</pre>
+<h2>See</h2>
+<ul>
+<li>MISRA C++:2008, 12-1-1 - An object’s dynamic type shall not be used from the body of its constructor or destructor.</li>
+</ul>

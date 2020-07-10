@@ -1,0 +1,23 @@
+<p>According to the Java API documentation:
+{quote}
+There are two ways to create a new thread of execution. One is to declare a class to be a subclass of Thread. This subclass should override the run method of class Thread. An instance of the subclass can then be allocated and started…​
+The other way to create a thread is to declare a class that implements the Runnable interface. That class then implements the run method. An instance of the class can then be allocated, passed as an argument when creating Thread, and started.
+{quote}</p>
+<p>By definition, extending the Thread class without overriding the &lt;code&gt;run&lt;/code&gt; method doesn’t make sense, and implies that the contract of the &lt;code&gt;Thread&lt;/code&gt; class is not well understood.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+public class MyRunner extends Thread { // Noncompliant; run method not overridden
+
+  public void doSometing() {...}
+}
+</pre>
+<h2>Exceptions</h2>
+<p>If &lt;code&gt;run()&lt;/code&gt; is not overridden in a class extending &lt;code&gt;Thread&lt;/code&gt;, it means that starting the thread will actually call &lt;code&gt;Thread.run()&lt;/code&gt;. However, &lt;code&gt;Thread.run()&lt;/code&gt; does nothing if it has not been fed with a target &lt;code&gt;Runnable&lt;/code&gt;. The rule consequently ignore classes extending &lt;code&gt;Thread&lt;/code&gt; if they are calling, in their constructors, the &lt;code&gt;super(…​)&lt;/code&gt; constructor with a proper &lt;code&gt;Runnable&lt;/code&gt; target.</p>
+<pre>
+class MyThread extends Thread { // Compliant - calling super constructor with a Runnable
+  MyThread(Runnable target) {
+    super(target); // calling super constructor with a Runnable, which will be used for when Thread.run() is executed
+    // ...
+  }
+}
+</pre>

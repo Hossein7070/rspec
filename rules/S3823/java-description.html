@@ -1,0 +1,9 @@
+<p>The use of a "RESOURCE_LOCAL" &lt;code&gt;persistence-unit&lt;/code&gt; makes you responsible for your own entity management, which involves a lot of extra boilerplate code to get right. Instead, set this to "JPA" in a JavaSE environment or omit it altogether in a JavaEE environment, where "JPA" is the default.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+&lt;persistence-unit transaction-type="RESOURCE_LOCAL"&gt;  &lt;!-- Noncompliant --&gt;
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+&lt;persistence-unit transaction-type="JTA"&gt;
+</pre>

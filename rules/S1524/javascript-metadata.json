@@ -1,0 +1,22 @@
+{
+  "title": "Variables should not be shadowed",
+  "type": "CODE_SMELL",
+  "status": "deprecated",
+  "remediation": {
+    "func": "Constant/Issue",
+    "constantCost": "10min"
+  },
+  "tags": [],
+  "defaultSeverity": "Critical",
+  "ruleSpecification": "RSPEC-1524",
+  "sqKey": "VariableShadowing",
+  "scope": "Main",
+  "all_languages": [
+    "javascript",
+    "plsql"
+  ],
+  "allKeys": [
+    "VariableShadowing",
+    "VariableHiding"
+  ]
+}

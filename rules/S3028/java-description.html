@@ -1,0 +1,11 @@
+<p>According to the specification:
+bq. Nonfinal &lt;code&gt;static&lt;/code&gt; class fields are disallowed in EJBs because such fields make an enterprise bean difficult or impossible to distribute.</p>
+<p>Therefore, all &lt;code&gt;static&lt;/code&gt; fields in an EJB should also be &lt;code&gt;final&lt;/code&gt;.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+@Stateless
+public class MyEjb
+{
+  private static String message;  // Noncompliant
+}
+</pre>

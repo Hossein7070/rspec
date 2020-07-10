@@ -1,0 +1,20 @@
+<p>If a local variable is declared but not used, it is dead code and should be removed. Doing so will improve maintainability because developers will not wonder what the variable is used for.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+FUNCTION f.
+  DATA: LOCAL_1 LIKE BAR.
+  DATA: LOCAL_2 LIKE BAR. "Noncompliant
+
+  SELECT * FROM LOCAL_1.
+
+ENDFUNCTION.
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+FUNCTION f.
+  DATA: LOCAL_1 LIKE BAR.
+
+  SELECT * FROM LOCAL_1.
+
+ENDFUNCTION.
+</pre>

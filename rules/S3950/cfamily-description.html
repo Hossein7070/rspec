@@ -1,0 +1,11 @@
+<p>Comparing two identical strings will always yield the same result and doesn’t achieve anything. This is likely to be made in error.</p>
+<p>This rule raises an issue when &lt;code&gt;strcmp&lt;/code&gt; or &lt;code&gt;strncmp&lt;/code&gt; is called with two identical literal strings or twice the same variable.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+if (strcmp("F00", "F00")) { // Noncompliant
+  doSomething();
+}
+if (strncmp(s1, s1, 10)) { // Noncompliant
+  doSomethingElse();
+}
+</pre>

@@ -1,0 +1,18 @@
+<p>Return of boolean literal statements wrapped into &lt;code&gt;if-then-else&lt;/code&gt; ones should be simplified.</p>
+<p>Note that if the result of the expression is not a boolean but for instance an integer, then double negation should be used for proper conversion.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+if (expression) {
+  return true;
+} else {
+  return false;
+}
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+return expression;
+</pre>
+<p>or</p>
+<pre>
+return !!expression;
+</pre>

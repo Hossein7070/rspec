@@ -1,0 +1,39 @@
+<p>When a method doesn’t match it’s &lt;code&gt;super&lt;/code&gt; method in visibility (&lt;code&gt;public&lt;/code&gt;, &lt;code&gt;protected&lt;/code&gt;, …​), malicious callers could take advantage of the over-broad access offered by the child class to undermine the application.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+public class Parent {
+
+  protected void foo() {
+    //...
+  }
+}
+
+public class Child extends Parent {
+
+  public void foo() {  // Noncompliant
+    // ...
+    super.foo();
+  }
+}
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+public class Parent {
+
+  protected void foo() {
+    //...
+  }
+}
+
+public class Child extends Parent {
+
+  protected void foo() {
+    // ...
+    super.foo();
+  }
+}
+</pre>
+<h2>See</h2>
+<ul>
+<li><a href="https://www.securecoding.cert.org/confluence/x/LIYbAQ">CERT, MET04-J.</a> - Do not increase the accessibility of overridden or hidden methods</li>
+</ul>

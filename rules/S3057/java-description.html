@@ -1,0 +1,7 @@
+<p>A serialVersionUID field is required in a &lt;code&gt;Serializable&lt;/code&gt; class. In a non-&lt;code&gt;Serializable&lt;/code&gt;, it’s just confusing.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+public class MyClass {
+  private static final long serialVersionUID = -1L;  // Noncompliant
+}
+</pre>

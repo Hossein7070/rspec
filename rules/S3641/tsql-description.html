@@ -1,0 +1,19 @@
+<p>A &lt;code&gt;WHERE&lt;/code&gt; clause condition that uses &lt;code&gt;NOT IN&lt;/code&gt; with a subquery will have unexpected results if that subquery returns &lt;code&gt;NULL&lt;/code&gt;. On the other hand,&nbsp;&lt;code&gt;NOT EXISTS&lt;/code&gt; subqueries work reliably under the same conditions.</p>
+<p>This rule raises an issue when &lt;code&gt;NOT IN&lt;/code&gt; is used with a subquery. This rule doesn’t check if the selected column is a nullable column because the rules engine has no information about the table definition. It’s up to the developer to review manually if the column is nullable.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+SELECT *
+FROM my_table
+WHERE my_column NOT IN (SELECT nullable_column FROM another_table)  -- Noncompliant; "nullable_column" may contain 'NULL' value and the whole SELECT query will return nothing
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+SELECT *
+FROM my_table
+WHERE NOT EXISTS (SELECT 1 FROM another_table WHERE nullable_column = my_table.my_column)
+</pre>
+<pre>
+SELECT *
+FROM my_table
+WHERE my_column NOT IN (SELECT nullable_column FROM another_table WHERE nullable_column IS NOT NULL)
+</pre>

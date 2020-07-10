@@ -1,0 +1,24 @@
+{
+  "title": "GOTO should not be used to jump backwards",
+  "type": "CODE_SMELL",
+  "status": "ready",
+  "remediation": {
+    "func": "Constant/Issue",
+    "constantCost": "1h"
+  },
+  "tags": [
+    "pitfall"
+  ],
+  "defaultSeverity": "Blocker",
+  "ruleSpecification": "RSPEC-999",
+  "sqKey": "BackwardsGoto",
+  "scope": "Main",
+  "all_languages": [
+    "cfamily",
+    "plsql"
+  ],
+  "allKeys": [
+    "BackJumpWithGoto",
+    "BackwardsGoto"
+  ]
+}

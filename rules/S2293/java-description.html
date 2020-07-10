@@ -1,0 +1,12 @@
+<p>Java 7 introduced the diamond operator (&lt;code&gt;&lt;&gt;&lt;/code&gt;) to reduce the verbosity of generics code. For instance, instead of having to declare a &lt;code&gt;List&lt;/code&gt;'s type in both its declaration and its constructor, you can now simplify the constructor declaration with &lt;code&gt;&lt;&gt;&lt;/code&gt;, and the compiler will infer the type.</p>
+<p><strong>Note</strong> that this rule is automatically disabled when the project’s &lt;code&gt;sonar.java.source&lt;/code&gt; is lower than &lt;code&gt;7&lt;/code&gt;.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+List&lt;String&gt; strings = new ArrayList&lt;String&gt;();  // Noncompliant
+Map&lt;String,List&lt;Integer&gt;&gt; map = new HashMap&lt;String,List&lt;Integer&gt;&gt;();  // Noncompliant
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+List&lt;String&gt; strings = new ArrayList&lt;&gt;();
+Map&lt;String,List&lt;Integer&gt;&gt; map = new HashMap&lt;&gt;();
+</pre>

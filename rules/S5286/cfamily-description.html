@@ -1,0 +1,21 @@
+<p>Implicit casts which do not make sense are likely to be programming errors.</p>
+<p>The rule reports an issue for the following implicit casts:</p>
+<ul>
+<li>Boolean to pointer</li>
+<li>Float to boolean</li>
+<li>&lt;code&gt;nullptr&lt;/code&gt; constant to integer</li>
+</ul>
+<h2>Noncompliant Code Example</h2>
+<pre>
+float f();
+
+bool test() {
+  int* j = false; // Noncompliant
+  bool b = f(); // Noncompliant
+  if (b) {
+    return j; // Compliant, pointer to bool
+  } else {
+    return nullptr; // Noncompliant, just return false
+  }
+}
+</pre>

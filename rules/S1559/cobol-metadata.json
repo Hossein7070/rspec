@@ -1,0 +1,26 @@
+{
+  "title": "\"GROUP BY\" should not be used in SQL \"SELECT\" statements",
+  "type": "CODE_SMELL",
+  "status": "ready",
+  "remediation": {
+    "func": "Constant/Issue",
+    "constantCost": "1h"
+  },
+  "tags": [
+    "performance",
+    "brain-overload",
+    "sql"
+  ],
+  "defaultSeverity": "Major",
+  "ruleSpecification": "RSPEC-1559",
+  "sqKey": "SQL.GroupByUsageCheck",
+  "scope": "Main",
+  "all_languages": [
+    "cobol",
+    "plsql"
+  ],
+  "allKeys": [
+    "SQL.GroupByUsageCheck",
+    "AvoidGroupByClauseCheck"
+  ]
+}

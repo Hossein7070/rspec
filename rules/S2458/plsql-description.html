@@ -1,0 +1,48 @@
+<p>Centralizing the definitions of custom exceptions comes with two major benefits:</p>
+<ul>
+<li>The duplication of the exceptions declarations and &lt;code&gt;PRAGMA EXCEPTION_INIT&lt;/code&gt; is avoided</li>
+<li>The risk of associating multiple different exceptions to the same number is reduced</li>
+</ul>
+<h2>Noncompliant Code Example</h2>
+<pre>
+SET SERVEROUTPUT ON
+
+DECLARE
+  user_not_found EXCEPTION;
+  PRAGMA EXCEPTION_INIT(user_not_found, -20000); -- Noncompliant, user_not_found is bound to -20000
+BEGIN
+  NULL;
+END;
+/
+
+DECLARE
+  user_not_found EXCEPTION;
+  PRAGMA EXCEPTION_INIT(user_not_found, -20000); -- Noncompliant, user_not_found is again bound to -20000, duplication
+BEGIN
+  NULL;
+END;
+/
+
+DECLARE
+  wrong_password EXCEPTION;
+  PRAGMA EXCEPTION_INIT(wrong_password, -20000); -- Noncompliant, wrong_password is bound to -20000, conflicting with user_not_found
+BEGIN
+  NULL;
+END;
+/
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+SET SERVEROUTPUT ON
+
+CREATE PACKAGE exceptions AS
+ user_not_found EXCEPTION;
+ wrong_password EXCEPTION;
+
+ PRAGMA EXCEPTION_INIT(user_not_found, -20000); -- Non-Compliant (flag as false-positive)
+ PRAGMA EXCEPTION_INIT(wrong_password, -20001); -- Non-Compliant (flag as false-positive), conflicts are easier to avoid
+END;
+/
+
+DROP PACKAGE exceptions;
+</pre>

@@ -1,0 +1,22 @@
+<p>PHP lets you make static calls to non-static methods, ex: &lt;code&gt;A::f();&lt;/code&gt;. But the fact that you can doesn’t mean you <em>should</em>. While such calls will work when there’s no &lt;code&gt;$this&lt;/code&gt; reference in the called method, a fatal error will occur when there is. Furthermore, such calls have been deprecated in PHP 7, and their support may be removed from future releases.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+class A {
+  function f() {
+    // ...
+  }
+}
+
+A::f();      // Noncompliant, "f" is non-static
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+class A {
+  function f() {
+    // ...
+  }
+}
+
+$a = new A();
+$a-&gt;f();
+</pre>

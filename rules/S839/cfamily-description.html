@@ -1,0 +1,24 @@
+<p>It is implementation-defined behaviour whether the reference parameter is a temporary object or a reference to the parameter. If the implementation uses a local copy (temporary object), this will be destroyed when the function returns. Any attempt to use such an object after its destruction will lead to undefined behaviour.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+int32_t * fn1 ( int32_t &amp; x )
+{
+  return &amp;x ; // Noncompliant
+}
+const int32_t * fn3 ( const int32_t &amp; x )
+{
+  return &amp;x ; // Noncompliant
+}
+int32_t &amp; fn4 ( int32_t &amp; x )
+{
+  return x ; // Noncompliant
+}
+const int32_t &amp; fn5 ( const int32_t &amp; x )
+{
+  return x ; // Noncompliant
+}
+</pre>
+<h2>See</h2>
+<ul>
+<li>MISRA C++:2008, 7-5-3</li>
+</ul>

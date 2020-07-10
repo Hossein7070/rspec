@@ -1,0 +1,25 @@
+<p>Continuing to execute code after sending a redirect could have a number of dire consequences. Among them:</p>
+<ul>
+<li>Exposure of sensitive data</li>
+<li>Denial-of-service vulnerability</li>
+<li>Remote file execution and path traversal</li>
+<li>Remote attacker access to administrator functionality</li>
+<li>Injection of malicious code</li>
+</ul>
+<h2>Noncompliant Code Example</h2>
+<pre>
+if (!isAuthorized($user)) {
+  http_redirect($deniedUrl);
+}
+echo $_ENV("DOCUMENT_ROOT");  // Noncompliant
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+if (!isAuthorized($user)) {
+  http_redirect($deniedUrl);
+}
+</pre>
+<h2>See</h2>
+<ul>
+<li><a href="http://cwe.mitre.org/data/definitions/698.html">MITRE, CWE-698</a> - Execution After Redirect (EAR)</li>
+</ul>

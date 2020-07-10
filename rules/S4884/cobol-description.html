@@ -1,0 +1,42 @@
+<p>&lt;code&gt;PERFORM&lt;/code&gt; is used to execute a paragraph located somewhere in the program and then, once executed, the execution flow will continue on the line following the PERFORM statement. This is the expected behaviour that can be broken if a &lt;code&gt;GO TO&lt;/code&gt; is added in the called paragraph. When mixing &lt;code&gt;PERFORM&lt;/code&gt; and &lt;code&gt;GO TO&lt;/code&gt; you can quickly be lost on the execution flow and finally don’t get the one you expect. For this reason, calling &lt;code&gt;PERFORM&lt;/code&gt; with paragraphs that used &lt;code&gt;GO TO&lt;/code&gt; should be avoided.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+PROCEDURE DIVISION.
+DISPLAY-9-LETTERS.
+    PERFORM ABC.
+    DISPLAY "END OF DISPLAY-9-LETTERS".
+    STOP RUN.
+
+    ABC.
+        DISPLAY "ABC".
+        GO TO XYZ.
+
+    DEF.
+        DISPLAY "DEF".
+
+    XYZ.
+        DISPLAY "XYZ".
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+PROCEDURE DIVISION.
+DISPLAY-9-LETTERS.
+    PERFORM ABC.
+    PERFORM DEF.
+    PERFORM XYZ.
+    DISPLAY "END OF DISPLAY-9-LETTERS".
+    STOP RUN.
+
+    ABC.
+        DISPLAY "ABC".
+
+    DEF.
+        DISPLAY "DEF".
+
+    XYZ.
+        DISPLAY "XYZ".
+</pre>
+<h2>See</h2>
+<ul>
+<li><a href="http://queenofcobol.com/perform-vs-go-to/">Queen of COBOL</a> - Perform vs Go To</li>
+</ul>

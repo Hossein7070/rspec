@@ -1,0 +1,23 @@
+<p>Its a best practice to avoid hardcoding of text strings in Apex. Ideally those text should be stored in a Custom Label and referenced via those in the code. This enables administrators and translators to update the messages without modifying the code. It also enables the translation of those text in international organizations.</p>
+<p>This rule raises an issue when a call to the &lt;code&gt;sObject.addError&lt;/code&gt; method is given a hardcoded string.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+public class MyClass{
+    public static myMethod(Case mycase) {
+        mycase.addError('This is a hardcoded error');
+    }
+}
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+public class MyClass{
+    public static myMethod(Case case) {
+        mycase.addError(System.Label.caseErrorMessage);
+    }
+}
+</pre>
+<h2>See</h2>
+<ul>
+<li><a href="https://help.salesforce.com/articleView?id=cl_about.htm&amp;type=5">Custom Labels</a></li>
+<li><a href="https://developer.salesforce.com/docs/atlas.en-us.198.0.apexcode.meta/apexcode/apex_methods_system_sobject.htm">sObject Class</a></li>
+</ul>

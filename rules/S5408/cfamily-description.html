@@ -1,0 +1,10 @@
+<p>Declaring a function &lt;code&gt;constexpr&lt;/code&gt; makes it implicitly inline.</p>
+<p>In that situation, explicitly using the &lt;code&gt;inline&lt;/code&gt; keyword would be redundant, and might lead to confusion if it’s used in some cases but not others. It’s better to simply omit it.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+inline constexpr int addOne(int n) { return n+1; }
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+constexpr int addOne(int n) { return n+1; }
+</pre>

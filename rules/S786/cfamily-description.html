@@ -1,0 +1,22 @@
+<p>The &lt;code&gt;asm&lt;/code&gt; declaration is available to all C++ implementations, allowing a consistent mechanism to be used.</p>
+<p>However, the parameters to &lt;code&gt;asm&lt;/code&gt; are still implementation-defined.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+void Delay ( void )
+{
+#pragma asm
+  "NOP" // Noncompliant
+#pragma endasm
+}
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+void Delay ( void )
+{
+  asm ( "NOP" ); // Compliant
+}
+</pre>
+<h2>See</h2>
+<ul>
+<li>MISRA C++ 2008, 7-4-2</li>
+</ul>

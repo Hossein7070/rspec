@@ -1,0 +1,28 @@
+<p>When reading bytes in order to build other primitive values such as &lt;code&gt;int&lt;/code&gt;s or &lt;code&gt;long&lt;/code&gt;s, the &lt;code&gt;byte&lt;/code&gt; values are automatically promoted, but that promotion can have unexpected results.</p>
+<p>For instance, the binary representation of the integer 640 is &lt;code&gt;0b0000_0010_1000_0000&lt;/code&gt;, which can also be written with the array of (unsigned) bytes &lt;code&gt;[2, 128]&lt;/code&gt;. However, since Java uses two’s complement, the representation of the integer in signed bytes will be &lt;code&gt;[2, -128]&lt;/code&gt;  (because the &lt;code&gt;byte&lt;/code&gt; &lt;code&gt;0b1000_0000&lt;/code&gt; is promoted to the &lt;code&gt;int&lt;/code&gt; &lt;code&gt;0b1111_1111_1111_1111_1111_1111_1000_0000&lt;/code&gt;). Consequently, trying to reconstruct the initial integer by shifting and adding the values of the bytes without taking care of the sign will not produce the expected result.</p>
+<p>To prevent such accidental value conversion, use bitwise and (&lt;code&gt;&amp;&lt;/code&gt;) to combine the &lt;code&gt;byte&lt;/code&gt; value with &lt;code&gt;0xff&lt;/code&gt; (255) and turn all the higher bits back off.</p>
+<p>This rule raises an issue any time a &lt;code&gt;byte&lt;/code&gt; value is used as an operand without &lt;code&gt;&amp; 0xff&lt;/code&gt;, when combined with shifts.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+  int intFromBuffer() {
+    int result = 0;
+    for (int i = 0; i &lt; 4; i++) {
+      result = (result &lt;&lt; 8) | readByte(); // Noncompliant
+    }
+    return result;
+  }
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+  int intFromBuffer() {
+    int result = 0;
+    for (int i = 0; i &lt; 4; i++) {
+      result = (result &lt;&lt; 8) | (readByte() &amp; 0xff);
+    }
+    return result;
+  }
+</pre>
+<h2>See</h2>
+<ul>
+<li><a href="https://www.securecoding.cert.org/confluence/x/SAHEAw">CERT, NUM52-J.</a> - Be aware of numeric promotion behavior</li>
+</ul>

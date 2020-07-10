@@ -1,0 +1,19 @@
+<p>Because &lt;code&gt;reinterpret_cast&lt;/code&gt; ignores the type system, it is capable of performing dangerous conversions between unrelated types which can lead to undefined behavior.</p>
+<p>This rule reports an issue for two problematic uses of &lt;code&gt;reinterpret_cast&lt;/code&gt;:</p>
+<ul>
+<li>when it is used to make the compiler believes that an object in memory is from a different type from its real type (for instance, casting a &lt;code&gt;long*&lt;/code&gt; to &lt;code&gt;double*&lt;/code&gt;, because accessing a &lt;code&gt;long&lt;/code&gt; as if it was a &lt;code&gt;double&lt;/code&gt; is undefined behavior (even if &lt;code&gt;sizeof(long) == sizeof(double)&lt;/code&gt;),</li>
+<li>when it is used to cast between different levels of a complex inheritance hierarchy (a &lt;code&gt;static_cast&lt;/code&gt; would apply pointer offsets to take into account multiple inheritance, for instance, but &lt;code&gt;reinterpret_cast&lt;/code&gt; does not)</li>
+</ul>
+<h2>Noncompliant Code Example</h2>
+<pre>
+class X {};
+class Y : virtual X {};
+
+void test() {
+  long l;
+  auto a = reinterpret_cast&lt;double&amp;&gt;(l); // Noncompliant: undefined behavior
+
+  Y* y;
+  auto x = reinterpret_cast&lt;X*&gt;(y); // Noncompliant
+}
+</pre>

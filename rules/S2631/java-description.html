@@ -1,0 +1,35 @@
+<p>Regular expressions can have an <a href="https://en.wikipedia.org/wiki/Regular_expression#Implementations_and_running_times">exponential execution time</a> depending on the pattern and the length of the input string. The example below, for instance,  can lead to a denial of service of the application:</p>
+<ul>
+<li>Pattern: &lt;code&gt;/(a+)+b/&lt;/code&gt;</li>
+<li>Input string: &lt;code&gt;aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaacb&lt;/code&gt;</li>
+</ul>
+<p>It is recommended:</p>
+<ul>
+<li>to fix the hard-coded regex patterns that use CPU intensive features (avoid if possible captures, possessive quantifiers and back-references, for instance replace the above pattern with (/a+b/)).</li>
+<li>when the regex pattern is defined with an user-controlled input, this last should be sanitized in order to escape characters which are part of the <a href="https://en.wikipedia.org/wiki/Regular_expression#Syntax">regular expression syntax</a>.</li>
+</ul>
+<p>Java runtimes like OpenJDK 9+ are mitigating this problem by having additional protections in their implementation of regular expression evaluation to limit the CPU consumption but it is still recommended to validate/escape input strings.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+public boolean validate(javax.servlet.http.HttpServletRequest request) {
+  String regex = request.getParameter("regex");
+  String input = request.getParameter("input");
+
+  input.matches(regex);  // Noncompliant
+}
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+public boolean validate(javax.servlet.http.HttpServletRequest request) {
+  String regex = request.getParameter("regex");
+  String input = request.getParameter("input");
+
+  input.matches(Pattern.quote(regex));  // Compliant
+}
+</pre>
+<h2>See</h2>
+<ul>
+<li><a href="https://www.owasp.org/index.php/Top_10-2017_A1-Injection">OWASP Top 10 2017 Category A1</a> - Injection</li>
+<li><a href="http://cwe.mitre.org/data/definitions/400">MITRE, CWE-400</a> - Uncontrolled Resource Consumption</li>
+<li><a href="https://www.owasp.org/index.php/Regular_expression_Denial_of_Service_-_ReDoS">OWASP Regular expression Denial of Service - ReDoS</a></li>
+</ul>

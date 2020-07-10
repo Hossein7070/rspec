@@ -1,0 +1,21 @@
+<p>Applications that execute code dynamically should neutralize any externally-provided values used to construct the code. Failure to do so could allow an attacker to execute arbitrary code. This could enable a wide range of serious attacks like accessing/modifying sensitive information or gain full system access.</p>
+<p>The mitigation strategy should be based on whitelisting of allowed values or casting to safe types.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+$data = $_GET["data"];
+eval("echo \$data;");
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+$data = $_GET["data"];
+if (in_array($data, $whitelist)) {
+  eval("echo \$data;");
+}
+</pre>
+<h2>See</h2>
+<ul>
+<li><a href="https://www.owasp.org/index.php/Top_10-2017_A1-Injection">OWASP Top 10 2017 Category A1</a> - Injection</li>
+<li><a href="https://cwe.mitre.org/data/definitions/94.html">MITRE, CWE-94</a> - Improper Control of Generation of Code ('Code Injection')</li>
+<li><a href="https://cwe.mitre.org/data/definitions/95.html">MITRE, CWE-95</a> - Improper Neutralization of Directives in Dynamically Evaluated Code ('Eval Injection')</li>
+<li><a href="https://www.sans.org/top25-software-errors/#cat2">SANS Top 25</a> - Risky Resource Management</li>
+</ul>

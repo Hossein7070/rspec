@@ -1,0 +1,17 @@
+{
+  "title": "Sending emails is security-sensitive",
+  "type": "SECURITY_HOTSPOT",
+  "status": "deprecated",
+  "tags": [],
+  "defaultSeverity": "Critical",
+  "ruleSpecification": "RSPEC-5300",
+  "sqKey": "S5300",
+  "scope": "Main",
+  "all_languages": [
+    "java",
+    "python"
+  ],
+  "allKeys": [
+    "S5300"
+  ]
+}

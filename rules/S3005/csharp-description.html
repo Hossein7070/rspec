@@ -1,0 +1,34 @@
+<p>When a non-&lt;code&gt;static&lt;/code&gt; class field is annotated with &lt;code&gt;ThreadStatic&lt;/code&gt;, the code seems to show that the field can have different values for different calling threads, but that’s not the case, since the &lt;code&gt;ThreadStatic&lt;/code&gt; attribute is simply ignored on non-&lt;code&gt;static&lt;/code&gt; fields.</p>
+<p>So &lt;code&gt;ThreadStatic&lt;/code&gt; should either be removed or replaced with a use of the &lt;code&gt;ThreadLocal&lt;T&gt;&lt;/code&gt; class, which gives a similar behavior for non-&lt;code&gt;static&lt;/code&gt; fields.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+public class MyClass
+{
+  [ThreadStatic]  // Noncompliant
+  private int count = 0;
+
+  // ...
+}
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+public class MyClass
+{
+  private int count = 0;
+
+  // ...
+}
+</pre>
+<p>or</p>
+<pre>
+public class MyClass
+{
+  private readonly ThreadLocal&lt;int&gt; count = new ThreadLocal&lt;int&gt;();
+  public int Count
+  {
+    get { return count.Value; }
+    set { count.Value = value; }
+  }
+  // ...
+}
+</pre>

@@ -1,0 +1,19 @@
+<p>&lt;code&gt;UPDATE&lt;/code&gt; and &lt;code&gt;DELETE&lt;/code&gt; statements should contain &lt;code&gt;WHERE&lt;/code&gt; clauses to keep the modification of records under control. Otherwise unexpected data loss could result.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+DECLARE
+  maxAge PLS_INTEGER := 60;
+BEGIN
+  UPDATE employee SET status = 'retired'; -- Noncompliant - the WHERE was forgotten
+END;
+/
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+DECLARE
+  maxAge PLS_INTEGER := 60;
+BEGIN
+  UPDATE employee SET status = 'retired' WHERE age &gt; maxAge;
+END;
+/
+</pre>

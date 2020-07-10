@@ -1,0 +1,13 @@
+<p>The &lt;code&gt;SystemModStamp&lt;/code&gt; and &lt;code&gt;LastModifiedDate&lt;/code&gt; are similar in that they store last modification dates of a record. The main difference is that &lt;code&gt;LastModifiedDate&lt;/code&gt; is only updated when users update a record, not when automated system do it.</p>
+<p>This means that 'LastModifiedDate ⇐ SystemModStamp' but it is not possible to have 'LastModifiedDate &gt; SystemModStamp'</p>
+<p>The &lt;code&gt;SystemModStamp&lt;/code&gt; field is indexed, whereas &lt;code&gt;LastModifiedDate&lt;/code&gt; is not. In most case when an SOQL query filters on &lt;code&gt;LastModifiedDate&lt;/code&gt;, the index of &lt;code&gt;SystemModStamp&lt;/code&gt; will be used instead. This however does not apply when the filter is of the form &lt;code&gt;where LastModifiedDate &lt; :mydate&lt;/code&gt; because &lt;code&gt;SystemModStamp&lt;/code&gt; can be greater than &lt;code&gt;LastModifiedDate&lt;/code&gt;.</p>
+<p>This rule raises an issue when an SOQL query has a &lt;code&gt;where&lt;/code&gt; filter with a condition of the form &lt;code&gt;LastModifiedDate &lt; :mydate&lt;/code&gt; or &lt;code&gt;LastModifiedDate ⇐ :mydate&lt;/code&gt;.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+[Select Id from Case where LastModifiedDate &lt; :mydate]; // Noncompliant
+[Select Id from Case where LastModifiedDate &lt;= :mydate]; // Noncompliant
+</pre>
+<h2>See</h2>
+<ul>
+<li><a href="https://developer.salesforce.com/blogs/engineering/2014/11/force-com-soql-performance-tips-systemmodstamp-vs-lastmodifieddate-2.html">Force.com SOQL Performance Tips: LastModifiedDate vs SystemModStamp</a></li>
+</ul>

@@ -1,0 +1,22 @@
+<p>It can be tempting to set &lt;code&gt;elementFormDefault&lt;/code&gt; to &lt;code&gt;unqualified&lt;/code&gt;, because it allows XML document authors to remove a few prefixes in their files. However this is not a good practice for several reasons:</p>
+<ul>
+<li>The &lt;code&gt;unqualified&lt;/code&gt; form doesn’t convey any functionality.</li>
+<li>Most XML schemas are &lt;code&gt;qualified&lt;/code&gt;, so defining a few &lt;code&gt;unqualified&lt;/code&gt; schemas requires the author of an XML document to fully master both cases with no added value.</li>
+<li>The &lt;code&gt;unqualified&lt;/code&gt; form implies that in the XML document, all global elements from the schema must be qualified, and all local elements must be unqualified. So the author must be very cautious regarding the local vs. global nature of each element.</li>
+<li>The &lt;code&gt;unqualified&lt;/code&gt; form implies that in an XML document, the default namespace cannot be used. This stems from the fact that a document’s default namespace qualifies all prefix-less elements, and an element cannot be both qualified and unqualified. For the XML document author, being prevented from using the default namespace is a real nuisance.</li>
+<li>In some cases, the &lt;code&gt;unqualified&lt;/code&gt; form degrades performance, by requiring the processing tool to look up the &lt;code&gt;unqualified&lt;/code&gt; elements in the schema file.</li>
+</ul>
+<h2>Noncompliant Code Example</h2>
+<pre>
+&lt;xs:schema targetNamespace="http://www.codeSamples.com/fruit"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           version="1"&gt;                                 &lt;!-- Noncompliant --&gt;
+...
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+&lt;xs:schema targetNamespace="http://www.codeSamples.com/fruit"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           elementFormDefault="qualified" version="1"&gt;
+...
+</pre>

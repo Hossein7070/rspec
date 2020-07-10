@@ -1,0 +1,14 @@
+<p>Importing a feature from the &lt;code&gt;<em>future</em>&lt;/code&gt; module turns on that feature from a future version of Python in your module. The purpose is to allow you to gradually transition to the new features or incompatible changes in future language versions, rather than having to make the entire jump at once.</p>
+<p>Because such changes must be applied to the entirety of a module to work, putting such imports anywhere but in the beginning of the module doesn’t make sense. It would mean applying those restrictions to only part of your code. Because that would lead to inconsistencies and massive confusion, it’s not allowed.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+name = "John"
+
+from __future__ import division # Noncompliant
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+from __future__ import division
+
+name = "John"
+</pre>

@@ -1,0 +1,18 @@
+<p>The &lt;code&gt;void&lt;/code&gt; operator evaluates its argument and unconditionally returns &lt;code&gt;undefined&lt;/code&gt;. It can be useful in pre-ECMAScript 5 environments, where &lt;code&gt;undefined&lt;/code&gt; could be reassigned, but generally, its use makes code harder to understand.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+void (function() {
+   ...
+}());
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+(function() {
+   ...
+}());
+</pre>
+<h2>Exceptions</h2>
+<p>No issue is raised when &lt;code&gt;void 0&lt;/code&gt; is used in place of &lt;code&gt;undefined&lt;/code&gt;.</p>
+<pre>
+if (parameter === void 0) {...}
+</pre>

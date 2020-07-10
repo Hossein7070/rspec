@@ -1,0 +1,26 @@
+<p>In order to be callable, a python class should implement the <a href="https://docs.python.org/3/reference/datamodel.html#object">https://docs.python.org/3/reference/datamodel.html#object</a>.<em>call</em>[&lt;code&gt;_\_call\_\_&lt;/code&gt;] method.</p>
+<p>This rule raises an issue when a non-callable object is called.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+class MyClass:
+    pass
+
+myvar = MyClass()
+myvar()  # Noncompliant
+
+none_var = None
+none_var()  # Noncompliant
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+class MyClass:
+    def __call__(self):
+        print("called")
+
+myvar = MyClass()
+myvar()
+</pre>
+<h2>See</h2>
+<ul>
+<li><a href="https://docs.python.org/3/reference/datamodel.html#object">https://docs.python.org/3/reference/datamodel.html#object</a>.<em>call</em>[Python documentation - _\_call\_\_ method]</li>
+</ul>

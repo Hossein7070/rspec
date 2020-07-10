@@ -1,0 +1,13 @@
+<p>If a &lt;code&gt;for&lt;/code&gt; loop’s condition is false before the first loop iteration, the loop will never be executed. Such loops are almost always bugs, particularly when the initial value and stop conditions are hard-coded.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+For index As Integer = 6 To 5  // Noncompliant
+    // ...
+Next
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+For index As Integer = 0 To 5
+    // ...
+Next
+</pre>

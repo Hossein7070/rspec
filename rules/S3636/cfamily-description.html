@@ -1,0 +1,28 @@
+<p>Since C++11, it’s possible to declare the underlying type of an &lt;code&gt;enum&lt;/code&gt;, and like any type declration, &lt;code&gt;enum&lt;/code&gt; declarations can contain the &lt;code&gt;const&lt;/code&gt; or &lt;code&gt;volatile&lt;/code&gt; specifier. But because &lt;code&gt;enum&lt;/code&gt; values are named constants and cannot be re-assigned, those specifiers are ignored by the compiler, and are therefore useless.</p>
+<p>This rule raises an issue if &lt;code&gt;const&lt;/code&gt; or &lt;code&gt;volatile&lt;/code&gt; is present in the declaration of the underlying type of an &lt;code&gt;enum&lt;/code&gt;.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+enum class Color : const long int {  // Noncompliant; Remove this "const" specifier.
+  Red   = 0xff0000,
+  Green = 0x00ff00,
+  Blue  = 0x0000ff
+};
+
+enum class Size : volatile char {  // Noncompliant; Remove this "volatile" specifier.
+  Small   = 's',
+  Big     = 'b'
+};
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+enum class Color : long int {
+  Red   = 0xff0000,
+  Green = 0x00ff00,
+  Blue  = 0x0000ff
+};
+
+enum class Size : char {
+  Small   = 's',
+  Big     = 'b'
+};
+</pre>

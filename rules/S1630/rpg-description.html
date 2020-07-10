@@ -1,0 +1,45 @@
+<p>If a file is defined without the &lt;code&gt;USROPN&lt;/code&gt; statement then the natural RPG logic will deal with opening and closing it. However, files defined with &lt;code&gt;USROPN&lt;/code&gt;, must be both explicitly &lt;code&gt;OPEN&lt;/code&gt;ed and &lt;code&gt;CLOSE&lt;/code&gt;d.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+FEWPCCR1   O    E             PRINTER USROPN
+F                                     INFDS(WSFD01)
+F                                     INFSR(*PSSR)
+
+C                   OPEN      EWPCCR1
+
+C                   CLOSE     *ALL
+</pre>
+<pre>
+FEWPCCR1   O    E             PRINTER USROPN
+F                                     INFDS(WSFD01)
+F                                     INFSR(*PSSR)
+
+ /free
+  open  EWPCCR1;
+  close *ALL;
+ /end-free
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+FEWPCCR1   O    E             PRINTER USROPN
+F                                     INFDS(WSFD01)
+F                                     INFSR(*PSSR)
+
+C                   OPEN      EWPCCR1
+
+C                   CLOSE     EWPCCR1
+</pre>
+<pre>
+FEWPCCR1   O    E             PRINTER USROPN
+F                                     INFDS(WSFD01)
+F                                     INFSR(*PSSR)
+
+ /free
+  open  EWPCCR1;
+  close EWPCCR1;
+ /end-free
+</pre>
+<h2>See</h2>
+<ul>
+<li><a href="http://cwe.mitre.org/data/definitions/459.html">MITRE, CWE-459</a> - Incomplete Cleanup</li>
+</ul>

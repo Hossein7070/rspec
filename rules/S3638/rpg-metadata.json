@@ -1,0 +1,26 @@
+{
+  "title": "\"WHERE\" clauses should not be conditioned on values forbidden by column constraints",
+  "type": "BUG",
+  "status": "ready",
+  "remediation": {
+    "func": "Constant/Issue",
+    "constantCost": null
+  },
+  "tags": [
+    "sql"
+  ],
+  "defaultSeverity": "Major",
+  "ruleSpecification": "RSPEC-3638",
+  "sqKey": "S3638",
+  "scope": "Main",
+  "all_languages": [
+    "abap",
+    "cobol",
+    "pli",
+    "plsql",
+    "rpg"
+  ],
+  "allKeys": [
+    "S3638"
+  ]
+}

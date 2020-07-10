@@ -1,0 +1,19 @@
+<p>Frequent commits are widely understood to negatively impact performance. Thus, committing inside a loop (even when only executed conditionally once every n iterations) is highly likely to cause unwanted performance impacts.</p>
+<p>Further, in general use &lt;code&gt;COMMIT&lt;/code&gt; should only be used at the end of a transaction. Code that is not structured to have one transaction per loop iteration could yield unexpected results if &lt;code&gt;COMMIT&lt;/code&gt; is nonetheless used inside the loop. Code that <em>is</em> structured to have one transaction per loop iteration should probably be reconsidered.</p>
+<p>Note that when dealing with very large data sets, a &lt;code&gt;COMMIT&lt;/code&gt; may be required every n iterations, but the goal should be to avoid &lt;code&gt;COMMIT&lt;/code&gt;s inside loops.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+FOR item IN itemlist
+LOOP
+  -- ...
+  COMMIT;  -- Noncompliant
+END LOOP;
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+FOR item IN itemlist
+LOOP
+  -- ...
+END LOOP;
+COMMIT;
+</pre>

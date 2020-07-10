@@ -1,0 +1,32 @@
+<p>URL patterns configured on a &lt;code&gt;HttpSecurity.authorizeRequests()&lt;/code&gt; method are considered in the order they were declared. It’s easy to do a mistake and to declare a less restrictive configuration before a more restrictive one. Therefore, it’s required to review the order of the "antMatchers" declarations. The &lt;code&gt;/**&lt;/code&gt; one should be the last one if it is declared.</p>
+<p>This rule raises an issue when:
+- A pattern is preceded by another that ends with &lt;code&gt;<strong>&lt;/code&gt; and has the same beginning. E.g.: &lt;code&gt;/page*-admin/db/</strong>&lt;/code&gt; is after &lt;code&gt;/page*-admin/<strong>&lt;/code&gt;
+- A pattern without wildcard characters is preceded by another that matches. E.g.: &lt;code&gt;/page-index/db&lt;/code&gt; is after &lt;code&gt;/page*/</strong>&lt;/code&gt;</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+  protected void configure(HttpSecurity http) throws Exception {
+    http.authorizeRequests()
+      .antMatchers("/resources/**", "/signup", "/about").permitAll() // Compliant
+      .antMatchers("/admin/**").hasRole("ADMIN")
+      .antMatchers("/admin/login").permitAll() // Noncompliant; the pattern "/admin/login" should occurs before "/admin/**"
+      .antMatchers("/**", "/home").permitAll()
+      .antMatchers("/db/**").access("hasRole('ADMIN') and hasRole('DBA')") // Noncompliant; the pattern "/db/**" should occurs before "/**"
+      .and().formLogin().loginPage("/login").permitAll().and().logout().permitAll();
+  }
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+  protected void configure(HttpSecurity http) throws Exception {
+    http.authorizeRequests()
+      .antMatchers("/resources/**", "/signup", "/about").permitAll() // Compliant
+      .antMatchers("/admin/login").permitAll()
+      .antMatchers("/admin/**").hasRole("ADMIN") // Compliant
+      .antMatchers("/db/**").access("hasRole('ADMIN') and hasRole('DBA')")
+      .antMatchers("/**", "/home").permitAll() // Compliant; "/**" is the last one
+      .and().formLogin().loginPage("/login").permitAll().and().logout().permitAll();
+  }
+</pre>
+<h2>See</h2>
+<ul>
+<li><a href="https://www.owasp.org/index.php/Top_10-2017_A6-Security_Misconfiguration">OWASP Top 10 2017 Category A6</a> - Security Misconfiguration</li>
+</ul>

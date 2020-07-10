@@ -1,0 +1,17 @@
+<p>When allocating memory with &lt;code&gt;malloc&lt;/code&gt;, &lt;code&gt;calloc&lt;/code&gt; and &lt;code&gt;realloc&lt;/code&gt; it is important to make sure that the size of the allocated memory is compatible with the receiver type.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+void f() {
+  ...
+  int* ptr1 = malloc(sizeof(short)); // Noncompliant
+  ...
+}
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+void f() {
+  ...
+  int* ptr1 = malloc(sizeof(int));
+  ...
+}
+</pre>

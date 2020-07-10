@@ -1,0 +1,24 @@
+<p>Shared naming conventions allow teams to collaborate effectively. This rule raises an issue when an open curly brace is not placed at the end of a line of code.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+if condition
+{
+  doSomething()
+}
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+if condition {
+  doSomething()
+}
+</pre>
+<h2>Exceptions</h2>
+<p>Closure and inlined blocks (left and right curly braces on the same line) are ignored by this rule.</p>
+<pre>
+if condition {doSomething()} // Compliant
+reversed = sorted(
+    names,
+    { (s1: String, s2: String) -&gt; Bool in  // Compliant
+        return s1 &gt; s2
+    })
+</pre>

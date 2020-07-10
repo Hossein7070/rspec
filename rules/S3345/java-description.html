@@ -1,0 +1,54 @@
+<p>The creation of a &lt;code&gt;JAXBContext.newInstance&lt;/code&gt; is a costly operation, and should only be performed once per context and stored - preferably in a &lt;code&gt;static&lt;/code&gt; member - for reuse.</p>
+<p>In fact, according to the JAXB 2.2 Specification:
+bq. To avoid the overhead involved in creating a JAXBContext instance, a JAXB application is encouraged to reuse a JAXBContext instance. An implementation of abstract class JAXBContext is required to be thread-safe, thus, multiple threads in an application can share the same JAXBContext instance.</p>
+<p>This rule raises an issue when multiple instances are created for the same context path.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+public void doSomething(List&lt;MyObj&gt; inputs) {
+  for (String input : inputs) {
+    Marshaller m = JAXBContext.newInstance(MyObj.class).createMarshaller();  // Noncompliant; context created in loop
+    // ...
+  }
+}
+
+public List&lt;JAXBContext&gt; getContexts(List&lt;Class&gt; inputs) {
+  List&lt;JAXBContext&gt; result = new ArrayList&lt;&gt;();
+  for (Class input : inputs) {
+    result.add(JAXBContext.newInstance(input);  // Compliant; context path varies
+  }
+  return result;
+}
+
+public void doSomething2(List&lt;MyObj&gt; inputs) {
+  Marshaller m = JAXBContext.newInstance(MyObj.class).createMarshaller();  // Noncompliant; context created each time method invoked
+  for (String input : inputs) {
+    // ...
+  }
+}
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+private static JAXBContext context;
+static {
+  try {
+    context = JAXBContext.newInstance(MyObj.class);
+  } catch (JAXBException e) {
+    // handle exception...
+  }
+}
+
+public void doSomething(List&lt;MyObj&gt; inputs) {
+  Marshaller m = context.createMarshaller();
+  for (String input : inputs) {
+    // ...
+  }
+}
+
+public List&lt;JAXBContext&gt; getContexts(List&lt;Class&gt; inputs) {
+  List&lt;JAXBContext&gt; result = new ArrayList&lt;&gt;();
+  for (Class input : inputs) {
+    result.add(JAXBContext.newInstance(input);
+  }
+  return result;
+}
+</pre>

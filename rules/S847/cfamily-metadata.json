@@ -1,0 +1,20 @@
+{
+  "title": "An implicit integral or floating-point conversion shall not reduce the size of the \"underlying type\"",
+  "type": "BUG",
+  "status": "ready",
+  "remediation": {
+    "func": "Constant/Issue",
+    "constantCost": "10min"
+  },
+  "tags": [],
+  "defaultSeverity": "Major",
+  "ruleSpecification": "RSPEC-847",
+  "sqKey": "S847",
+  "scope": "Main",
+  "all_languages": [
+    "cfamily"
+  ],
+  "allKeys": [
+    "S847"
+  ]
+}

@@ -1,0 +1,11 @@
+<p>When placing Unicode <a href="https://unicode.org/glossary/#grapheme_cluster">Grapheme Clusters</a> (characters which require to be encoded in multiple <a href="https://unicode.org/glossary/#code_point">Code Points</a>) inside a character class of a regular expression, this will likely lead to unintended behavior.</p>
+<p>For instance, the grapheme cluster &lt;code&gt;c̈&lt;/code&gt; requires two code points: one for &lt;code&gt;'c'&lt;/code&gt;, followed by one for the <em>umlaut</em> modifier &lt;code&gt;'\u{0308}'&lt;/code&gt;. If placed within a character class, such as &lt;code&gt;[c̈]&lt;/code&gt;, the regex will consider the character class being the enumeration &lt;code&gt;[c\u{0308}\]&lt;/code&gt; instead. It will, therefore, match every &lt;code&gt;'c'&lt;/code&gt; and every <em>umlaut</em> that isn’t expressed as a single codepoint, which is extremely unlikely to be the intended behavior.</p>
+<p>This rule raises an issue every time Unicode Grapheme Clusters are used within a character class of a regular expression.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+"cc̈d̈d".replaceAll("[c̈d̈]", "X"); // Noncompliant, print "XXXXXX" instead of expected "cXXd".
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+"cc̈d̈d".replaceAll("c̈|d̈", "X"); // print "cXXd"
+</pre>

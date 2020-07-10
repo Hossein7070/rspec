@@ -1,0 +1,24 @@
+{
+  "title": "Non-standard comparison operators should not be used",
+  "type": "CODE_SMELL",
+  "status": "ready",
+  "remediation": {
+    "func": "Constant/Issue",
+    "constantCost": "5min"
+  },
+  "tags": [
+    "lock-in",
+    "sql"
+  ],
+  "defaultSeverity": "Minor",
+  "ruleSpecification": "RSPEC-1742",
+  "sqKey": "S1742",
+  "scope": "Main",
+  "all_languages": [
+    "cobol",
+    "tsql"
+  ],
+  "allKeys": [
+    "S1742"
+  ]
+}

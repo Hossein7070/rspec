@@ -1,0 +1,27 @@
+<p>There is no reason to re-assign a variable to itself. Either this statement is redundant and should be removed, or the re-assignment is a mistake and some other value or variable was intended for the assignment instead.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+SET NAME TO NAME.    *&gt; Noncompliant
+MOVE NAME TO NAME.   *&gt; Noncompliant
+COMPUTE NAME = NAME. *&gt; Noncompliant
+EXEC SQL
+  UPDATE PERSON
+    SET NAME = NAME  -- Noncompliant
+  WHERE ID = :PERSON_ID
+END-EXEC.
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+SET NAME TO NEW_NAME.
+MOVE NEW_NAME TO NAME.
+COMPUTE NAME = NEW_NAME.
+EXEC SQL
+  UPDATE PERSON
+    SET NAME = :NEW_NAME
+  WHERE ID = :PERSON_ID
+END-EXEC.
+</pre>
+<h2>See</h2>
+<ul>
+<li><a href="https://www.securecoding.cert.org/confluence/x/NYA5">CERT, MSC12-C.</a> - Detect and remove code that has no effect or is never executed</li>
+</ul>

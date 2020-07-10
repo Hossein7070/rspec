@@ -1,0 +1,28 @@
+{
+  "title": "Conditionally executed code should be denoted by either indentation or BEGIN...END block",
+  "type": "CODE_SMELL",
+  "status": "ready",
+  "remediation": {
+    "func": "Constant/Issue",
+    "constantCost": "10min"
+  },
+  "tags": [
+    "confusing",
+    "suspicious"
+  ],
+  "defaultSeverity": "Critical",
+  "ruleSpecification": "RSPEC-3973",
+  "sqKey": "S3973",
+  "scope": "All",
+  "all_languages": [
+    "cfamily",
+    "csharp",
+    "java",
+    "javascript",
+    "php",
+    "tsql"
+  ],
+  "allKeys": [
+    "S3973"
+  ]
+}

@@ -1,0 +1,11 @@
+<p>Although the &lt;code&gt;WHERE&lt;/code&gt; condition is optional in a &lt;code&gt;SELECT&lt;/code&gt; statement, for performance and security reasons, a &lt;code&gt;WHERE&lt;/code&gt; clause should always be specified to prevent reading the whole table.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+SELECT * FROM db_persons INTO us_persons
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+SELECT * FROM db_persons INTO us_persons WHERE country IS 'US'
+</pre>
+<h2>Exceptions</h2>
+<p>Not having a WHERE clause is acceptable in read-only cursors as results are generally sorted and it is possible to stop processing in the middle.</p>

@@ -1,0 +1,16 @@
+<p>New lines and control characters can be injected in the source code by bad manipulations. Control characters aren’t visible to maintainers, so whether or not they are actually wanted should be double-checked. Note that this rule can optionally also report violations on literals containing the tabulation character.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+SET SERVEROUTPUT ON
+
+BEGIN
+  /* Non-Compliant */ DBMS_OUTPUT.PUT_LINE('Hello
+world!');
+
+  DBMS_OUTPUT.PUT_LINE('Hello'); -- Compliant, this is preferred
+  DBMS_OUTPUT.PUT_LINE('world!');
+END;
+/
+</pre>
+<h2>Exceptions</h2>
+<p>By default no issue will be raised on tabulation characters. This exception can be disabled.</p>

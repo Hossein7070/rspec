@@ -1,0 +1,64 @@
+<p>Applications that allow execution of operating system commands from user-controlled data should control the command name to execute, otherwise an attacker can inject arbitrary commands which will compromised the underlying operating system.</p>
+<p>The mitigation strategy can be based on a list of authorized and safe commands to execute and when a shell is spawned to sanitize shell meta-characters.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+import java.io.IOException;
+import javax.servlet.http.HttpServletRequest;
+
+public void runUnsafe(HttpServletRequest request) throws IOException {
+  String cmd = request.getParameter("command");
+  String arg = request.getParameter("arg");
+
+  Runtime.getRuntime().exec(cmd+" "+arg); // Noncompliant
+}
+</pre>
+<h2>Compliant Solution</h2>
+<p>Implement an allow-list of authorized commands to execute:</p>
+<ul>
+<li>each time the command to execute is user-controlled:</li>
+</ul>
+<pre>
+import java.io.IOException;
+import javax.servlet.http.HttpServletRequest;
+
+public void runUnsafe(HttpServletRequest request) throws IOException {
+  String cmd = request.getParameter("command");
+  String arg = request.getParameter("arg");
+
+  if(cmd.equals("/usr/bin/ls") || cmd.equals("/usr/bin/cat"))
+  {
+       // only ls or cat command are authorized
+       String cmdarray[] =  new String[] { cmd, arg };
+       Runtime.getRuntime().exec(cmdarray); // Compliant
+  }
+}
+</pre>
+<ul>
+<li>or globally with the creation of a SecurityManager overriding checkExec() method:</li>
+</ul>
+<pre>
+class MySecurityManager extends SecurityManager {
+  MySecurityManager() {
+    super();
+  }
+
+  public void checkExec(String cmd) {
+    if(!(cmd.equals("/usr/bin/ls") || cmd.equals("/usr/bin/cat"))) {
+      throw new SecurityException("Unauthorized command: "+cmd);
+    }
+  }
+}
+</pre>
+<pre>
+MySecurityManager sm = new MySecurityManager();
+System.setSecurityManager(sm);
+</pre>
+<h2>See</h2>
+<ul>
+<li>OWASP OS Command Injection Defense <a href="https://cheatsheetseries.owasp.org/cheatsheets/OS_Command_Injection_Defense_Cheat_Sheet.html">Cheat Sheet</a></li>
+<li><a href="https://www.owasp.org/index.php/Top_10-2017_A1-Injection">OWASP Top 10 2017 Category A1</a> - Injection</li>
+<li><a href="http://cwe.mitre.org/data/definitions/77">MITRE, CWE-77</a> - Improper Neutralization of Special Elements used in a Command ('Command Injection')</li>
+<li><a href="http://cwe.mitre.org/data/definitions/78">MITRE, CWE-78</a> - Improper Neutralization of Special Elements used in an OS Command</li>
+<li><a href="http://cwe.mitre.org/data/definitions/88">MITRE, CWE-88</a> - Argument Injection or Modification</li>
+<li><a href="https://www.sans.org/top25-software-errors/#cat1">SANS Top 25</a> - Insecure Interaction Between Components</li>
+</ul>

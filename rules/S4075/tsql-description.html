@@ -1,0 +1,26 @@
+<p>Deprecated language features are those that have been retained temporarily for backward compatibility, but which will eventually be removed from the language. In effect, deprecation announces a grace period to allow the smooth transition from the old features to the new ones. In that period, no use of the deprecated features should be added to the code, and all existing uses should be gradually removed.</p>
+<p>The following features are deprecated or (depending on your version) already removed from TSQL:</p>
+<p>||Instead of||Use||
+|&lt;code&gt;WRITETEXT&lt;/code&gt;, &lt;code&gt;UPDATETEXT&lt;/code&gt;, &lt;code&gt;READTEXT&lt;/code&gt;|&lt;code&gt;VARCHAR&lt;/code&gt;|
+|&lt;code&gt;GROUP BY ALL&lt;/code&gt;|&lt;code&gt;UNION&lt;/code&gt; or a derived table|
+|&lt;code&gt;FASTFIRSTROW&lt;/code&gt;|&lt;code&gt;FAST n&lt;/code&gt;|
+|&lt;code&gt;SETUSER&lt;/code&gt;|&lt;code&gt;EXECUTE AS&lt;/code&gt;|
+|&lt;code&gt;CREATE RULE&lt;/code&gt;|&lt;code&gt;CHECK&lt;/code&gt; constraints|
+|&lt;code&gt;PASSWORD&lt;/code&gt;, &lt;code&gt;MEDIAPASSWORD&lt;/code&gt; in &lt;code&gt;BACKUP&lt;/code&gt; or &lt;code&gt;RESTORE&lt;/code&gt;|use access control on the directory or &lt;code&gt;WITH RESTRICTED_USER&lt;/code&gt; for &lt;code&gt;RESTORE&lt;/code&gt;|
+|&lt;code&gt;DBCC DBREINDEX&lt;/code&gt;|&lt;code&gt;ALTER INDEX REBUILD&lt;/code&gt;|
+|&lt;code&gt;DBCC INDEXDEFRAG&lt;/code&gt;|&lt;code&gt;ALTER INDEX DEFRAG&lt;/code&gt;|
+|&lt;code&gt;DBCC SHOWCONTIG&lt;/code&gt;|&lt;code&gt;sys.dm_db_index_physical_stats&lt;/code&gt;|
+|DBCC CONCURRENCYVIOLATION|no replacement|
+|&lt;code&gt;SET ROWCOUNT&lt;/code&gt;|&lt;code&gt;TOP(n)&lt;/code&gt;|
+|&lt;code&gt;SET REMOTE_PROC_TRANSACTIONS&lt;/code&gt;|distributed queries that reference linked servers (&lt;code&gt;sp_addlinkedserver&lt;/code&gt;)|
+|&lt;code&gt;RAISERROR @Errno @ErrMsg&lt;/code&gt;|the &lt;code&gt;RAISERROR&lt;/code&gt; syntax using parentheses|
+|DROP INDEX with two-part name|Move table (and database) to an &lt;code&gt;ON&lt;/code&gt; clause|
+|String literals as column aliases|Remove the quotes around the alias. Use square brackets if escaping is necessary|
+|Numbered procedures|Replace with un-numbered procedures|
+|System stored procedure|no replacement|
+|&lt;code&gt;fn_virtualservernodes&lt;/code&gt;|&lt;code&gt;sys.dm_os_cluster_nodes&lt;/code&gt;|
+|&lt;code&gt;fn_servershareddrives&lt;/code&gt;|&lt;code&gt;sys.dm_io_cluster_shared_drives&lt;/code&gt;|
+|&lt;code&gt;GRANT / DENY / REVOKE ALL&lt;/code&gt;|List the specific permissions |
+|&lt;code&gt;TORN_PAGE_DETECTION&lt;/code&gt;|checksum|
+|&lt;code&gt;TAPE&lt;/code&gt;|&lt;code&gt;DISK&lt;/code&gt; or &lt;code&gt;URL&lt;/code&gt;|
+|Table hint without &lt;code&gt;WITH&lt;/code&gt;|&lt;code&gt;WITH(hint)&lt;/code&gt;|</p>

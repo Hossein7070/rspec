@@ -1,0 +1,48 @@
+<p>Libraries used to unarchive a file (zip, bzip2, tar, …​) do what they were made for: they extract the content of the archive blindly, creating on the filesystem directories and files corresponding exactly to the content of the archive. Using a specially crafted archive containing some path traversal filenames, it is possible to create directories/files outside of the dir where the archive is extracted. This can lead to overwriting an executable or a configuration file with a file containing malicious code and transform a simple archive into a way to execute arbitrary code.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+using System.IO;
+using System.IO.Compression;
+
+public class ZipHelper
+{
+    public void Extract(ZipFile zipFile, string destinationDirectory)
+    {
+        foreach (var entry in zipFile.Entries)
+        {
+            var destinationFileName = Path.GetFullPath(Path.Combine(destinationDirectory, entry.FullName));
+            entry.ExtractToFile(destinationFileName); // entry.FullName could contain parent directory references (..) and make the
+                                                      // file to be extracted in an arbitrary directory, outside of destinationDirectory
+        }
+    }
+}
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+using System.IO;
+using System.IO.Compression;
+
+public class ZipHelper
+{
+    public void Extract(ZipFile zipFile, string destinationDirectory)
+    {
+        foreach (var entry in zipFile.Entries)
+        {
+            var destinationFileName = Path.GetFullPath(Path.Combine(destinationDirectory, entry.FullName));
+            if (destinationFullName.StartsWith(destinationDirectory)) // Do not extract files if the destination file path will be outside of destinationDirectory
+            {
+                entry.ExtractToFile(destinationFileName); // Compliant, destinationFileName is ensured to be under destinationDirectory
+            }
+        }
+    }
+}{code}
+</pre>
+<h2>See</h2>
+<ul>
+<li><a href="https://www.owasp.org/index.php/Top_10-2017_A1-Injection">OWASP Top 10 2017 Category A1</a> - Injection</li>
+<li><a href="http://cwe.mitre.org/data/definitions/409.html">MITRE, CWE-409</a> - Improper Handling of Highly Compressed Data (Data Amplification)</li>
+<li><a href="https://wiki.sei.cmu.edu/confluence/display/java/IDS04-J.+Safely+extract+files+from+ZipInputStream">CERT, IDS04-J.</a> - Safely extract files from ZipInputStream</li>
+<li>Snyk Research Team: <a href="https://snyk.io/research/zip-slip-vulnerability">Zip Slip Vulnerability</a></li>
+<li><a href="https://nvd.nist.gov/vuln/detail/CVE-2016-0709">https://nvd.nist.gov/vuln/detail/CVE-2016-0709</a></li>
+<li><a href="https://nvd.nist.gov/vuln/detail/CVE-2017-5946">https://nvd.nist.gov/vuln/detail/CVE-2017-5946</a></li>
+</ul>

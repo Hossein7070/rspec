@@ -1,0 +1,13 @@
+<p>Historically &lt;code&gt;/COPY&lt;/code&gt; procedures contained all of the specifications required for each procedure, so for example &lt;code&gt;xxxxF /COPY&lt;/code&gt; would be used to copy the F lines from another &lt;code&gt;F&lt;/code&gt; spec. However, this practice results in code that is difficult to understand and maintain. Instead, the use of &lt;code&gt;/COPY&lt;/code&gt; statements should be replaced with explicit declarations.</p>
+<h2>Noncompliant Code Example</h2>
+<p>Given the default list of specs, H,F,I,D,C,O:</p>
+<pre>
+F/COPY HRSILERPG,RSX36
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+FSSINRTP   IF   E           K DISK    INFSR(*PSSR)
+F*
+F*  Interest Rates File
+F*
+</pre>

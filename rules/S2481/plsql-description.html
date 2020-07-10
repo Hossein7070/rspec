@@ -1,0 +1,40 @@
+<p>The &lt;code&gt;EXIT WHEN&lt;/code&gt; syntax can exit a loop depending on a condition. It should be preferred to the more verbose and error-prone &lt;code&gt;IF …​ THEN EXIT; END IF;&lt;/code&gt; syntax.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+SET SERVEROUTPUT ON
+
+DECLARE
+  i PLS_INTEGER;
+BEGIN
+
+  i := 0;
+  LOOP
+    IF i &gt; 10 THEN -- Noncompliant
+       EXIT;
+    END IF;
+
+    DBMS_OUTPUT.PUT_LINE('i = ' || i);
+    i := i + 1;
+  END LOOP;
+
+END;
+/
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+SET SERVEROUTPUT ON
+
+DECLARE
+  i PLS_INTEGER;
+BEGIN
+
+  i := 0;
+  LOOP
+    EXIT WHEN i &gt; 10;
+
+    DBMS_OUTPUT.PUT_LINE('i = ' || i);
+    i := i + 1;
+  END LOOP;
+END;
+/
+</pre>

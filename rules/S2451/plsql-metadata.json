@@ -1,0 +1,22 @@
+{
+  "title": "\"END\" statements of labeled blocks should be labeled",
+  "type": "CODE_SMELL",
+  "status": "ready",
+  "remediation": {
+    "func": "Constant/Issue",
+    "constantCost": "5min"
+  },
+  "tags": [
+    "style"
+  ],
+  "defaultSeverity": "Major",
+  "ruleSpecification": "RSPEC-2451",
+  "sqKey": "BlockUnlabeledEndCheck",
+  "scope": "Main",
+  "all_languages": [
+    "plsql"
+  ],
+  "allKeys": [
+    "BlockUnlabeledEndCheck"
+  ]
+}

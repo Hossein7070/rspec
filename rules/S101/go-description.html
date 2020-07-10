@@ -1,0 +1,12 @@
+<p>Shared coding conventions allow teams to collaborate effectively. This rule allows to check that all class names match a provided regular expression.</p>
+<p>The convention in go is to use mixedCaps rather than underscores. See <a href="https://golang.org/doc/effective_go.html#names">Go documentation</a> for the complete naming conventions.</p>
+<p>Note that the casing of the first character determines if the type is exported or not.</p>
+<h2>Noncompliant Code Example</h2>
+<p>With default provided regular expression &lt;code&gt;^[a-zA-Z][a-zA-Z0-9]*$&lt;/code&gt;:</p>
+<pre>
+type my_struct struct {...}
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+type myStruct struct {...}
+</pre>

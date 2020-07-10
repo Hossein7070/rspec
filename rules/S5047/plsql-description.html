@@ -1,0 +1,21 @@
+<p>The &lt;code&gt;TO_NUMBER&lt;/code&gt; function is converting the value of &lt;code&gt;BINARY_FLOAT&lt;/code&gt;, &lt;code&gt;BINARY_DOUBLE&lt;/code&gt;, &lt;code&gt;CHAR&lt;/code&gt;, &lt;code&gt;VARCHAR2&lt;/code&gt;, &lt;code&gt;NCHAR&lt;/code&gt;, or &lt;code&gt;NVARCHAR2&lt;/code&gt; datatype to a value of &lt;code&gt;NUMBER&lt;/code&gt; datatype.</p>
+<p>Without providing the format of the input, &lt;code&gt;TO_NUMBER&lt;/code&gt; will consider the provided value is compliant with the default format. Relying on a default configuration is a source of error because it creates a dependency between the code and the configuration of the ORACLE server where this code is deployed.
+The behaviour of the &lt;code&gt;TO_NUMBER&lt;/code&gt; function will certainly not be the expected one if the configuration of the ORACLE server is changing.</p>
+<h2>Noncompliant Code Example</h2>
+<p>The following code with return 0 on an ORACLE server running with its default US configuration with p_string = "2,540"</p>
+<pre>
+IF ( TO_NUMBER(p_string) &gt;= 0 and TO_NUMBER(p_string) &lt;= TO_NUMBER('50.00') ) THEN
+  RETURN 1;
+ELSE
+  RETURN 0;
+END IF;
+</pre>
+<h2>Compliant Solution</h2>
+<p>The following code with return 1 on an ORACLE server running with its default FR configuration with p_string = "2,540" because the comma will be interpreted as decimal separator instead of thousand separator.</p>
+<pre>
+IF ( TO_NUMBER(p_string, '99.99') &gt;= 0 and TO_NUMBER(p_string, '99.99') &lt;= TO_NUMBER('50.00','99.99') ) THEN
+  RETURN 1;
+ELSE
+  RETURN 0;
+END IF;
+</pre>

@@ -1,0 +1,13 @@
+<p>&lt;code&gt;SELECT&lt;/code&gt; queries that return too many columns may be complex or difficult to maintain.</p>
+<p>This rule identifies queries that &lt;code&gt;SELECT&lt;/code&gt; more than the specified number of columns.</p>
+<h2>Noncompliant Code Example</h2>
+<p>With a threshold of 6:</p>
+<pre>
+BEGIN
+  SELECT id, name, firstname, gender, height, weight, age -- Noncompliant
+    INTO peopleArray
+    FROM people
+    WHERE age &gt; 60;
+END;
+/
+</pre>

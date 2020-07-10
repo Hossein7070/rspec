@@ -1,0 +1,12 @@
+<p>An Open SQL &lt;code&gt;SELECT&lt;/code&gt; statement without an explicit &lt;code&gt;ORDER BY&lt;/code&gt; clause will retrieve rows in an unpredictable order. On pool/cluster tables, the current implementation of Open SQL &lt;code&gt;SELECT&lt;/code&gt;  returns the result set in the primary key order, but that’s not the case for transparent tables. That’s why it’s safer to always use an &lt;code&gt;ORDER BY&lt;/code&gt; clause.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+OPEN CURSOR C FOR SELECT * FROM SBOOK WHERE CARRID = 'LH '. "NonCompliant
+SELECT * FROM FLIGHTS WHERE FLIGHT_NUMBER = 'LH '."NonCompliant
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+OPEN CURSOR C FOR SELECT * FROM SBOOK WHERE CARRID = 'LH '
+  ORDER BY PRIMARY KEY.
+SELECT * FROM FLIGHTS WHERE FLIGHT_NUMBER = 'LH ' ORDER BY PRIMARY KEY.
+</pre>

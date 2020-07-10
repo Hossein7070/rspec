@@ -1,0 +1,19 @@
+<p>Proper synchronization and thread management can be tricky under the best of circumstances, but it’s particularly difficult in JEE application, and is even forbidden under some circumstances by the JEE standard.</p>
+<p>This rule raises an issue for each &lt;code&gt;Runnable&lt;/code&gt;, and use of the &lt;code&gt;synchronized&lt;/code&gt; keyword.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+  // ...
+
+  Runnable r = new Runnable() {  // Noncompliant
+    public void run() {
+      // ...
+    }
+  };
+  new Thread(r).start();
+</pre>
+<h2>See</h2>
+<ul>
+<li><a href="http://cwe.mitre.org/data/definitions/383.html">MITRE, CWE-383</a> - J2EE Bad Practices: Direct Use of Threads</li>
+<li><a href="http://cwe.mitre.org/data/definitions/574.html">MITRE, CWE-574</a> - EJB Bad Practices: Use of Synchronization Primitives</li>
+</ul>

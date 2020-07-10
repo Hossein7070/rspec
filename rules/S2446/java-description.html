@@ -1,0 +1,31 @@
+<p>&lt;code&gt;notify&lt;/code&gt; and &lt;code&gt;notifyAll&lt;/code&gt; both wake up sleeping threads, but &lt;code&gt;notify&lt;/code&gt; only rouses one, while &lt;code&gt;notifyAll&lt;/code&gt; rouses all of them. Since &lt;code&gt;notify&lt;/code&gt; might not wake up the right thread, &lt;code&gt;notifyAll&lt;/code&gt; should be used instead.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+class MyThread extends Thread{
+
+  @Override
+  public void run(){
+    synchronized(this){
+      // ...
+      notify();  // Noncompliant
+    }
+  }
+}
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+class MyThread extends Thread{
+
+  @Override
+  public void run(){
+    synchronized(this){
+      // ...
+      notifyAll();
+    }
+  }
+}
+</pre>
+<h2>See</h2>
+<ul>
+<li><a href="https://www.securecoding.cert.org/confluence/x/OoAlAQ">CERT, THI02-J.</a> - Notify all waiting threads rather than a single thread</li>
+</ul>

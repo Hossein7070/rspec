@@ -1,0 +1,9 @@
+<p>There’s no need to invoke &lt;code&gt;stream()&lt;/code&gt; on a &lt;code&gt;Collection&lt;/code&gt; before a &lt;code&gt;forEach&lt;/code&gt; call because each &lt;code&gt;Collection&lt;/code&gt; has its own &lt;code&gt;forEach&lt;/code&gt; method.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+identifiers.stream().forEach(System.out::println);  // Noncompliant
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+identifiers.forEach(System.out::println);  // Noncompliant
+</pre>

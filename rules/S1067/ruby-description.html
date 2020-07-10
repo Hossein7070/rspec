@@ -1,0 +1,15 @@
+<p>The complexity of an expression is defined by the number of &lt;code&gt;&amp;&amp;&lt;/code&gt;, &lt;code&gt;||&lt;/code&gt; and &lt;code&gt;condition ? ifTrue : ifFalse&lt;/code&gt; operators it contains.
+A single expression’s complexity should not become too high to keep the code readable.</p>
+<h2>Noncompliant Code Example</h2>
+<p>With the default threshold value of 3:</p>
+<pre>
+if ((condition1 &amp;&amp; condition2) || (condition3 &amp;&amp; condition4)) &amp;&amp; condition5
+  ...
+end
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+if (myFirstCondition() || mySecondCondition()) &amp;&amp; myLastCondition()
+  ...
+end
+</pre>

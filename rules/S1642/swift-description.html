@@ -1,0 +1,16 @@
+<p>Sharing some naming conventions enables teams to collaborate more efficiently. This rule checks that all &lt;code&gt;struct&lt;/code&gt; names match a provided regular expression.</p>
+<p>Using the default regular expression:  "^[A-Z][a-zA-Z0-9]*$"</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+struct my_struct {
+    var one : Int
+    var two : Int
+}
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+struct MyStruct {
+    var one : Int
+    var two : Int
+}
+</pre>

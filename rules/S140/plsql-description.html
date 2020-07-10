@@ -1,0 +1,17 @@
+<p>This rule allows the definition of custom rules using XPath expressions.</p>
+<p>Issues are created depending on the return value of the XPath expression. If the XPath expression returns:</p>
+<ul>
+<li>a single or list of AST nodes, then a line issue with the given message is created for each node</li>
+<li>a boolean, then a file issue with the given message is created only if the boolean is true</li>
+<li>anything else, no issue is created</li>
+</ul>
+<p>On the following code, the XPath expression &lt;code&gt;//IDENTIFIER[string-length(@tokenValue) &gt;= 10]&lt;/code&gt; generates a violation on the identifier "aaaaaaaaaa":</p>
+<pre>
+DECLARE
+  aaaaaaaaaa NUMBER := 10; /* Non-Compliant, this identifier is 10 characters long */
+  aaaaaaaaa NUMBER := 9; /* Compliant, this one is only 9 */
+BEGIN
+  NULL;
+END;
+/
+</pre>

@@ -1,0 +1,16 @@
+{
+  "title": "Track uses of disallowed functions",
+  "type": "CODE_SMELL",
+  "status": "ready",
+  "tags": [],
+  "defaultSeverity": "Major",
+  "ruleSpecification": "RSPEC-2035",
+  "sqKey": "S2035",
+  "scope": "Main",
+  "all_languages": [
+    "php"
+  ],
+  "allKeys": [
+    "S2035"
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "title": "Types should be defined in separate source files",
+  "type": "CODE_SMELL",
+  "status": "ready",
+  "remediation": {
+    "func": "Linear",
+    "linearDesc": "number of independent types - 1",
+    "linearFactor": "10min"
+  },
+  "tags": [
+    "brain-overload"
+  ],
+  "defaultSeverity": "Major",
+  "ruleSpecification": "RSPEC-1996",
+  "sqKey": "S1996",
+  "scope": "All",
+  "all_languages": [
+    "cfamily",
+    "java",
+    "php",
+    "swift",
+    "vbnet"
+  ],
+  "allKeys": [
+    "S1996"
+  ]
+}

@@ -1,0 +1,31 @@
+<p>The &lt;code&gt;CONST&lt;/code&gt; keyword on a subprocedure’s parameter indicates that the parameter value will not be changed by the subprocedure. This is not just a nice way to communicate with the programmers who will call the procedure. It also offers performance benefits, because it allows the compiler to produce more optimized code. Further, using &lt;code&gt;CONST&lt;/code&gt; means that a field of a similar data type will automatically be converted to the correct type and size for the parameter.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+     D X               S             15A   INZ('ABC')
+
+     P SubProc1        B
+     D SubProc1        PI
+     D  Parm1                        15A    // Noncompliant; read-only. Should be CONST
+     D  Parm2                        15A
+      /Free
+       X = Parm1;
+       Parm2 = X;
+       return;
+      /End-free
+     P SubProc1        E
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+     D X               S             15A   INZ('ABC')
+
+     P SubProc1        B
+     D SubProc1        PI
+     D  Parm1                        15A   CONST
+     D  Parm2                        15A
+      /Free
+       X = Parm1;
+       Parm2 = X;
+       return;
+      /End-free
+     P SubProc1        E
+</pre>

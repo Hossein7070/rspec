@@ -1,0 +1,40 @@
+<p>By default tests will run in system mode, i.e. without taking into account users permissions. In order to be realistic, a test needs to run Business logic code in User context. This is done by encapsulating the tested code in <a href="https://developer.salesforce.com/docs/atlas.en-us.apexcode.meta/apexcode/apex_testing_tools_runas.htm">&lt;code&gt;System.runAs()&lt;/code&gt;</a>.</p>
+<p>This rule raises an issue when a test function, i.e. a function annotated with &lt;code&gt;@isTest&lt;/code&gt; or &lt;code&gt;testMethod&lt;/code&gt;, does not contain a &lt;code&gt;System.runAs()&lt;/code&gt; call.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+@isTest
+private class TestClass {
+    @isTest
+    public static void testMethod() { // NonCompliant
+        // Setup test data
+        User u = new User(...);
+        Case c = new Case (Name = 'Test');
+        Test.startTest();
+            Insert c;
+        Test.stopTest();
+    }
+}
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+@isTest
+private class TestClass {
+    @isTest
+    public static void testMethod() {
+        // Setup test data
+        User u = new User(...);
+        Case c = new Case (Name = 'Test');
+        System.runAs(u) {
+            Test.startTest();
+            Insert c;
+            Test.stopTest();
+        }
+    }
+}
+</pre>
+<h2>Exceptions</h2>
+<p>No issue will be raised if the test class, i.e. the class annotated with &lt;code&gt;@isTest&lt;/code&gt;, contains helper methods, i.e. methods <strong>not</strong> annotated with &lt;code&gt;@isTest&lt;/code&gt; or &lt;code&gt;testmethod&lt;/code&gt;, which contain calls to &lt;code&gt;System.runAs()&lt;/code&gt;. This indicates that the test code has been factorized and the rule would raise false positives.</p>
+<h2>See</h2>
+<ul>
+<li><a href="https://developer.salesforce.com/docs/atlas.en-us.apexcode.meta/apexcode/apex_testing_tools_runas.htm">Using the runAs Method</a></li>
+</ul>

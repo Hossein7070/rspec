@@ -1,0 +1,38 @@
+<p>The use of &lt;code&gt;GOTO&lt;/code&gt; in general is arguable. However, when used within loops, &lt;code&gt;GOTO&lt;/code&gt; statements are even more evil, and they can often be replaced by other constructs.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+DECLARE
+  i PLS_INTEGER := 0;
+BEGIN
+  LOOP
+    IF i = 3 THEN
+      GOTO loopEnd; -- Noncompliant
+    END IF;
+
+    DBMS_OUTPUT.PUT_LINE('i = ' || i);
+
+    i := i + 1;
+  END LOOP;
+
+  &lt;&lt;loopEnd&gt;&gt;
+  DBMS_OUTPUT.PUT_LINE('Loop end');
+END;
+/
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+DECLARE
+  i PLS_INTEGER := 0;
+BEGIN
+  LOOP
+    EXIT WHEN i = 3; -- Compliant
+
+    DBMS_OUTPUT.PUT_LINE('i = ' || i);
+
+    i := i + 1;
+  END LOOP;
+
+  DBMS_OUTPUT.PUT_LINE('Loop end');
+END;
+/
+</pre>

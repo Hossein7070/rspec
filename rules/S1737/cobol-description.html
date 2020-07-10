@@ -1,0 +1,15 @@
+<p>According to SQL-92:
+{quote}
+"X BETWEEN Y AND Z" is equivalent to "X&gt;=Y AND X⇐Z"
+{quote}</p>
+<p>Even if the &lt;code&gt;BETWEEN&lt;/code&gt; predicate is simply syntactic sugar, using it can improve the readability of a SQL WHERE clause, and is therefore preferred.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+SELECT * FROM PERSONS
+WHERE AGE &gt;=18 and AGE &lt;=60
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+SELECT * FROM PERSONS
+WHERE AGE BETWEEN 18 and 60
+</pre>

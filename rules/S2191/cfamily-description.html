@@ -1,0 +1,13 @@
+<p>Conversion of a function pointer to a non-function pointer type causes undefined behaviour. Undefined behaviour may arise if a function call is made using a pointer that is the result of a function pointer conversion.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+void f ( int32_t )
+{
+ ( void (*)() ) &amp;f; // Noncompliant, conversion to a function pointer type with different prototype
+ ( void * ) &amp;f; // Noncompliant, conversion to a non-function pointer type
+}
+</pre>
+<h2>See</h2>
+<ul>
+<li>MISRA C++:2008, 5-2-6</li>
+</ul>

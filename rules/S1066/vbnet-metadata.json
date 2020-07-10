@@ -1,0 +1,40 @@
+{
+  "title": "Collapsible \"if\" statements should be merged",
+  "type": "CODE_SMELL",
+  "status": "ready",
+  "remediation": {
+    "func": "Constant/Issue",
+    "constantCost": "5min"
+  },
+  "tags": [
+    "clumsy"
+  ],
+  "defaultSeverity": "Major",
+  "ruleSpecification": "RSPEC-1066",
+  "sqKey": "S1066",
+  "scope": "All",
+  "all_languages": [
+    "abap",
+    "apex",
+    "cfamily",
+    "cobol",
+    "csharp",
+    "flex",
+    "go",
+    "java",
+    "javascript",
+    "kotlin",
+    "php",
+    "plsql",
+    "python",
+    "ruby",
+    "scala",
+    "swift",
+    "tsql",
+    "vb6",
+    "vbnet"
+  ],
+  "allKeys": [
+    "S1066"
+  ]
+}

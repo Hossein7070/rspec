@@ -1,0 +1,42 @@
+<p>Jump statements (&lt;code&gt;return&lt;/code&gt;, &lt;code&gt;break&lt;/code&gt; and &lt;code&gt;continue&lt;/code&gt;) and &lt;code&gt;throw&lt;/code&gt; expressions move control flow out of the current code block. So any statements that come after a jump are dead code.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+function fun(a) {
+  var i = 10;
+  return i + a;
+  i++;             // Noncompliant; this is never executed
+}
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+function fun(int a) {
+  var i = 10;
+  return i + a;
+}
+</pre>
+<h2>Exceptions</h2>
+<p>This rule ignores unreachable &lt;code&gt;break&lt;/code&gt; statements in &lt;code&gt;switch&lt;/code&gt; clauses.</p>
+<pre>
+switch (x) {
+  case 42:
+     return 43;
+     break;   // Compliant
+  default:
+    doSomething();
+}
+</pre>
+<p>Hoisted variables declarations without initialization are always considered reachable.</p>
+<pre>
+function bar() {
+  return x = function() {
+    x.foo = 42;
+  }
+  var x;
+}
+</pre>
+<h2>See</h2>
+<ul>
+<li><a href="http://cwe.mitre.org/data/definitions/561.html">MITRE, CWE-561</a> - Dead Code</li>
+<li><a href="https://www.securecoding.cert.org/confluence/x/uQCSBg">CERT, MSC56-J.</a> - Detect and remove superfluous code and values</li>
+<li><a href="https://www.securecoding.cert.org/confluence/x/NYA5">CERT, MSC12-C.</a> - Detect and remove code that has no effect or is never executed</li>
+</ul>

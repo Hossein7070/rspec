@@ -1,0 +1,46 @@
+<p>User provided data, such as URL parameters, POST data payloads, or cookies, should always be considered untrusted and tainted. Constructing file system paths directly from tainted data could enable an attacker to inject specially crafted values, such as &lt;code&gt;'../'&lt;/code&gt;, that change the initial path and, when accessed, resolve to a path on the filesystem where the user should normally not have access.</p>
+<p>A successful attack might give an attacker the ability to read, modify, or delete sensitive information from the file system and sometimes even execute arbitrary operating system commands. This is often referred to as a "path traversal" or "directory traversal" attack.</p>
+<p>The mitigation strategy should be based on the whitelisting of allowed paths or characters.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+    String file = request.getParameter("file");
+
+    File fileUnsafe = new File(file);
+    try {
+      FileUtils.forceDelete(fileUnsafe); // Noncompliant
+    }
+    catch(IOException ex){
+      System.out.println (ex.toString());
+    }
+}
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+    String file = request.getParameter("file");
+
+    File fileUnsafe = new File(file);
+    File directory = new File("/tmp/");
+
+    try {
+      if(FileUtils.directoryContains(directory, fileUnsafe)) {
+        FileUtils.forceDelete(fileUnsafe); // Compliant
+      }
+    }
+    catch(IOException ex){
+      System.out.println (ex.toString());
+    }
+}
+</pre>
+<h2>See</h2>
+<ul>
+<li><a href="https://www.owasp.org/index.php/Top_10-2017_A1-Injection">OWASP Top 10 2017 Category A1</a> - Injection</li>
+<li><a href="https://www.owasp.org/index.php/Top_10-2017_A5-Broken_Access_Control">OWASP Top 10 2017 Category A5</a> - Broken Access Control</li>
+<li><a href="http://cwe.mitre.org/data/definitions/22">MITRE, CWE-22</a> - Improper Limitation of a Pathname to a Restricted Directory ('Path Traversal')</li>
+<li><a href="http://cwe.mitre.org/data/definitions/23">MITRE, CWE-23</a> - Relative Path Traversal</li>
+<li><a href="http://cwe.mitre.org/data/definitions/36">MITRE, CWE-36</a> - Absolute Path Traversal</li>
+<li><a href="http://cwe.mitre.org/data/definitions/99">MITRE, CWE-99</a> - Improper Control of Resource Identifiers ('Resource Injection')</li>
+<li><a href="http://cwe.mitre.org/data/definitions/641.html">MITRE, CWE-641</a> - Improper Restriction of Names for Files and Other Resources</li>
+<li><a href="https://www.sans.org/top25-software-errors/#cat2">SANS Top 25</a> - Risky Resource Management</li>
+</ul>

@@ -1,0 +1,8 @@
+<p>Numbers can be shifted with the &lt;code&gt;&lt;<a href="#/code> and <code">[/code&gt; and &lt;code]</a>&gt;&lt;/code&gt; operators, but the right operand of the operation needs to be an &lt;code&gt;int&lt;/code&gt; or a type that has an implicit conversion to &lt;code&gt;int&lt;/code&gt;. However, with &lt;code&gt;dynamic&lt;/code&gt;, the compiler’s type checking is turned off, so you can pass anything to a shift operator and have it compile. And if  the argument can’t be converted to &lt;code&gt;int&lt;/code&gt; at runtime, then a &lt;code&gt;RuntimeBinderException&lt;/code&gt; will be raised.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+dynamic d = 5;
+var x = d &gt;&gt; 5.4; // Noncompliant
+x = d &gt;&gt; null; // Noncompliant
+x &lt;&lt;= new object(); // Noncompliant
+</pre>

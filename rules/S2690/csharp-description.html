@@ -1,0 +1,13 @@
+<p>The point of calling &lt;code&gt;notify&lt;/code&gt;, or more prefereably &lt;code&gt;notifyAll&lt;/code&gt;, is to alert other threads that the state of &lt;code&gt;this&lt;/code&gt; object has changed. Doing so without a state change seems pointless, and may indicate a logic error.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+public void run(){
+  synchronized(this){
+    int total = 0;
+    for(int i=0; i&lt;100 ; i++){
+      total += i;
+    }
+    notify();  // Noncompliant; only local variables have been modified. What's the point?
+  }
+}
+</pre>

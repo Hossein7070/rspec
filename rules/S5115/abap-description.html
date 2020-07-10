@@ -1,0 +1,19 @@
+<p>Checking logged users' permissions by comparing their name to a hardcoded string can create security vulnerabilities. It prevents system administrators from changing users' permissions when needed (example: when their account has been compromised). Thus system fields &lt;code&gt;SY-UNAME&lt;/code&gt; and &lt;code&gt;SYST-UNAME&lt;/code&gt; should not be compared to hardcoded strings. Use instead &lt;code&gt;AUTHORITY-CHECK&lt;/code&gt; to check users' permissions.</p>
+<p>This rule raises an issue when either of the system fields &lt;code&gt;SY-UNAME&lt;/code&gt; or &lt;code&gt;SYST-UNAME&lt;/code&gt; are compared to a hardcoded value in a &lt;code&gt;CASE&lt;/code&gt; statement or using one of the following operators: &lt;code&gt;=&lt;/code&gt;, &lt;code&gt;EQ&lt;/code&gt;, &lt;code&gt;&lt;&gt;&lt;/code&gt;, &lt;code&gt;NE&lt;/code&gt;.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+IF SY-UNAME = 'ALICE'. " Noncompliant
+ENDIF.
+
+CASE SY-UNAME.
+WHEN 'A'. " Noncompliant
+ENDCASE.
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+AUTHORITY-CHECK OBJECT 'S_CARRID'
+  ID 'CARRID' FIELD mycarrid.
+IF sy-subrc &lt;&gt; 0.
+  MESSAGE 'Not authorized' TYPE 'E'.
+ENDIF.
+</pre>

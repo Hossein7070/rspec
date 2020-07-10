@@ -1,0 +1,10 @@
+<p>The hazards of division by zero are well known, but easy to overlook when the zero is obfuscated by a column name.</p>
+<p>This rule raises an issue when a column that is not constrained to be non-zero is used as the denominator in division or modulo in a &lt;code&gt;WHERE&lt;/code&gt; clause. Such an issue is raised <em>even if</em> the &lt;code&gt;WHERE&lt;/code&gt; clause contains a condition limiting the column to non-zero values because the evaluation sequence of &lt;code&gt;WHERE&lt;/code&gt; clauses is not guaranteed.</p>
+<p>An issue is also raised if such a column is used in division or modulo in a &lt;code&gt;SELECT&lt;/code&gt; clause and there’s no &lt;code&gt;WHERE&lt;/code&gt; clause condition to limit the value to non-zero.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+SELECT id, name
+FROM product
+WHERE price / discount &gt; .3  -- Noncompliant
+  AND discount &gt; 0
+</pre>

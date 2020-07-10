@@ -1,0 +1,15 @@
+<p>No matter whether the optional value is present or not, &lt;code&gt;Optional::orElse&lt;/code&gt;'s argument will always be executed. This is usually not what the developer intended when the content of the &lt;code&gt;orElse()&lt;/code&gt; call has side effects. Even when no side effect is involved, the unnecessary computation of the &lt;code&gt;orElse()&lt;/code&gt; clause might be a waste of resources.</p>
+<p>Calls to <a href="https://docs.oracle.com/javase/8/docs/api/java/util/Optional.html#orElse-T-">&lt;code&gt;Optional::orElse&lt;/code&gt;</a> should be replaced with <a href="https://docs.oracle.com/javase/8/docs/api/java/util/Optional.html#orElseGet-java.util.function.Supplier-">&lt;code&gt;Optional::orElseGet&lt;/code&gt;</a> whenever the alternative value is not a constant.</p>
+<p>This rule raises an issue when &lt;code&gt;Optional::orElse&lt;/code&gt; is called with an argument that doesn’t evaluate to a constant value.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+Optional&lt;MyObj&gt; opt = getOptMyObj();
+MyObj myObj = opt.orElse(new MyObj());  // Noncompliant
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+Optional&lt;MyObj&gt; opt = getOptMyObj();
+MyObj myObj = opt.orElseGet(MyObj::new);
+Optional&lt;String&gt; optString = getOptString();
+String str = opt.orElse("hello");
+</pre>

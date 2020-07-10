@@ -1,0 +1,54 @@
+<p>The &lt;code&gt;&lt;label&gt;&lt;/code&gt; tag defines a label for &lt;code&gt;&lt;input&gt;&lt;/code&gt;, &lt;code&gt;&lt;select&gt;&lt;/code&gt; and &lt;code&gt;&lt;textarea&gt;&lt;/code&gt; elements.</p>
+<p>The &lt;code&gt;&lt;label&gt;&lt;/code&gt; tag improves usability for visually impaired users: Screen readers will announce the label text whenever the focus is set on the input field.</p>
+<p>It also improves usability for users with impaired motor control: when the text within the &lt;code&gt;&lt;label&gt;&lt;/code&gt; element is clicked, the associated input field is toggled.</p>
+<p>In most cases, &lt;code&gt;for&lt;/code&gt; attribute of the &lt;code&gt;&lt;label&gt;&lt;/code&gt; tag should be equal to the &lt;code&gt;id&lt;/code&gt; attribute of the related element to bind them together.</p>
+<p>Sometimes the field is explained by an icon. In this case the label can be either hidden or the &lt;code&gt;&lt;input&gt;&lt;/code&gt;, &lt;code&gt;&lt;select&gt;&lt;/code&gt; or &lt;code&gt;&lt;textarea&gt;&lt;/code&gt; tags should contain one of the following attributes: &lt;code&gt;aria-label&lt;/code&gt;, &lt;code&gt;aria-labelledby&lt;/code&gt;. Screen-readers will use those attributes to describe the field.</p>
+<p>The purpose of this rule is to make sure that every &lt;code&gt;input&lt;/code&gt; (except &lt;code&gt;submit&lt;/code&gt;, &lt;code&gt;button&lt;/code&gt;, &lt;code&gt;image&lt;/code&gt;, and &lt;code&gt;hidden&lt;/code&gt; inputs), &lt;code&gt;select&lt;/code&gt;, and &lt;code&gt;textarea&lt;/code&gt; field has a label.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+&lt;input type="text" name="firstname" /&gt;               &lt;!-- Non-Compliant - no id --&gt;
+
+&lt;input type="text" name="lastname" id="lastname" /&gt;  &lt;!-- Non-Compliant - no matching label for "lastname" --&gt;
+
+&lt;label for="address"&gt;Address&lt;/label&gt;
+&lt;input type="text" name="address" id="address" /&gt;    &lt;!-- Compliant --&gt;
+
+&lt;input type="hidden" name="time" value="..."&gt;        &lt;!-- Compliant - "hidden" type is excluded --&gt;
+&lt;input type="submit" value="Send" /&gt;                 &lt;!-- Compliant - "submit" type is excluded --&gt;
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+&lt;label for="firstname"&gt;First name&lt;/label&gt;
+&lt;input type="text" name="firstname" id="firstname" /&gt;
+
+&lt;label for="lastname"&gt;Last name&lt;/label&gt;
+&lt;input type="text" name="lastname" id="lastname" /&gt;
+
+&lt;!-- OR --&gt;
+
+&lt;input type="text" name="firstname" aria-label="firstname"&gt;
+
+&lt;div id="lastNameId"&gt;Last name&lt;/div&gt;
+&lt;input type="text" name="lastname"  aria-labelledby="lastNameId"/&gt;
+
+&lt;!-- still compliant --&gt;
+
+&lt;label for="address"&gt;Address&lt;/label&gt;
+&lt;input type="text" name="address" id="address" /&gt;
+
+&lt;input type="hidden" name="time" value="..."&gt;
+&lt;input type="submit" value="Send" /&gt;
+</pre>
+<h2>Exceptions</h2>
+<p>No issue will be raised on "implicit labels", i.e. &lt;code&gt;&lt;label&gt;&lt;/code&gt; tags enclosing an &lt;code&gt;&lt;input&gt;&lt;/code&gt;, &lt;code&gt;&lt;select&gt;&lt;/code&gt; or &lt;code&gt;&lt;textarea&gt;&lt;/code&gt; instead of being referencing via an&nbsp;&lt;code&gt;id&lt;/code&gt;. However, note that the support of this technic is not supported by all assistive technologies. Thus it is better to reference them by id.</p>
+<pre>
+&lt;label&gt;
+  Name:
+  &lt;input type="text" name="name"&gt;
+&lt;/label&gt;
+</pre>
+<h2>See</h2>
+<ul>
+<li><a href="https://www.w3.org/TR/WCAG20-TECHS/H44.html">WCAG2, H97</a> - Using label elements to associate text labels with form controls</li>
+<li><a href="https://www.w3.org/WAI/tutorials/forms/labels/">W3C Web Accessibility Tutorials</a> - Labeling Controls</li>
+</ul>

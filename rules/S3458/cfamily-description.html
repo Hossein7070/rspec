@@ -1,0 +1,32 @@
+<p>Empty &lt;code&gt;case&lt;/code&gt; clauses that fall through to the default are useless. Whether or not such a &lt;code&gt;case&lt;/code&gt; is present, the &lt;code&gt;default&lt;/code&gt; clause will be invoked. Such &lt;code&gt;case&lt;/code&gt;s simply clutter the code, and should be removed.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+switch(ch)
+{
+  case 'a' :
+    handleA();
+    break;
+  case 'b' :
+    handleB();
+    break;
+  case 'c' :  // Noncompliant
+  default:
+    handleTheRest();
+    break;
+}
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+switch(ch)
+{
+  case 'a' :
+    handleA();
+    break;
+  case 'b' :
+    handleB();
+    break;
+  default:
+    handleTheRest();
+    break;
+}
+</pre>

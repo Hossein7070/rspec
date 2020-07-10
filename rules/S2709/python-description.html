@@ -1,0 +1,10 @@
+<p>Python interprets &lt;code&gt;False&lt;/code&gt; as a "false" boolean value, and &lt;code&gt;True&lt;/code&gt; as a "true" boolean value. Assigning them other values could lead to unexpected behaviors.</p>
+<p>This rule raises an issue when "True" and "False", with any case, are used as identifiers.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+True = "red"  # Noncompliant
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+color = "red"  # Noncompliant
+</pre>

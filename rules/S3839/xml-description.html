@@ -1,0 +1,14 @@
+<p>The use of a &lt;code&gt;targetNamespace&lt;/code&gt; in an XSD means that all the elements described in the XSD are restricted to that namespace, rather than landing in the global namespace. This provides clarity, and makes the schema easier to use in concert with other schemas that might define elements with the same names.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+&lt;xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           elementFormDefault="qualified" version="1"&gt;  &lt;!-- Noncompliant --&gt;
+...
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+&lt;xs:schema targetNamespace="http://www.codeSamples.com/fruit"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           elementFormDefault="qualified" version="1"&gt;
+...
+</pre>

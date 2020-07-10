@@ -1,0 +1,32 @@
+<p>Any insert which omits a value for a &lt;code&gt;NOT NULL&lt;/code&gt; column in a database table will be automatically rejected by the database unless a default value has been specified for the column.</p>
+<p><strong>Noteworthy</strong>
+This rule raises issues only when a <strong>Database Catalog</strong> is provided during the analysis. See <a href="https://docs.sonarqube.org/latest/analysis/languages/cobol/">https://docs.sonarqube.org/latest/analysis/languages/cobol/</a></p>
+<h2>Noncompliant Code Example</h2>
+<p>With the table &lt;code&gt;MY_TABLE&lt;/code&gt; having a &lt;code&gt;NOT NULL&lt;/code&gt; column &lt;code&gt;N2&lt;/code&gt; without default value and a &lt;code&gt;NOT NULL&lt;/code&gt; column &lt;code&gt;N3&lt;/code&gt; with default value:</p>
+<pre>
+EXEC SQL
+  INSERT INTO MY_TABLE  *&gt; Noncompliant; N2 value omitted
+  (
+    N1
+  )
+  VALUES
+  (
+    :ITQ1-NUMBER,
+  )
+END-EXEC.
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+EXEC SQL
+  INSERT INTO MY_TABLE  *&gt; Compliant even though N3 value not supplied
+  (
+    N1,
+    N2
+  )
+  VALUES
+  (
+    :ITQ1-NUMBER,
+    :ITQ2-NUMBER,
+  )
+END-EXEC.
+</pre>

@@ -1,0 +1,9 @@
+<p>Type assertion can be done in two ways: with &lt;code&gt;as MyType&lt;/code&gt; or with &lt;code&gt;&lt;MyType&gt;&lt;/code&gt;. But since there is an ambiguity in the latter when using JSX and there is no ambiguity in the former, &lt;code&gt;as&lt;/code&gt; is preferred.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+var foo = &lt;any&gt;"foo";  // Noncompliant
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+var foo = "foo" as any;
+</pre>

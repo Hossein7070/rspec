@@ -1,0 +1,17 @@
+<p>The &lt;code&gt;restrict&lt;/code&gt; type qualifier is a guarantee by the programmer that there are no other pointers with access to the referenced object, and that the object does not overlap with any other object in memory. Its use may allow the compiler to generate more efficient byte code.</p>
+<p>However, this is a tricky language feature to use correctly, and there is significant risk of unexpected program behavior if &lt;code&gt;restrict&lt;/code&gt; is misused. Therefore, &lt;code&gt;restrict&lt;/code&gt; should not be used.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+void user_copy (
+  void * restrict p,  // Noncompliant parameter
+  void * restrict q,  // Noncompliant parameter
+  size_t n
+) {
+  // ...
+}
+</pre>
+<h2>See</h2>
+<ul>
+<li>MISRA C:2012, 8.14 - The restrict type qualifier shall not be used</li>
+<li><a href="https://www.securecoding.cert.org/confluence/x/QQBLBw">CERT, EXP43-C.</a> - Avoid undefined behavior when using restrict-qualified pointers</li>
+</ul>

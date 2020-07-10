@@ -1,0 +1,28 @@
+<p>When a &lt;code&gt;SELECT&lt;/code&gt; returns &lt;code&gt;null&lt;/code&gt; from a nullable column, the relevant host variable isn’t updated; it simply retains its previous value. The only way you’ll ever know the column value was &lt;code&gt;null&lt;/code&gt; is to check the relevant null indicator included in the &lt;code&gt;SELECT&lt;/code&gt; for a negative (&lt;code&gt;null&lt;/code&gt;) value.</p>
+<p>This rule raises an issue when a &lt;code&gt;SELECT&lt;/code&gt; omits a &lt;code&gt;null&lt;/code&gt; indicator for a nullable column.</p>
+<p><strong>Note</strong> that this rule raises issues only when a database catalog is provided during the SonarQube analysis.</p>
+<h2>Noncompliant Code Example</h2>
+<p>With the table &lt;code&gt;PRODUCT&lt;/code&gt; having a nullable column &lt;code&gt;NAME&lt;/code&gt;:</p>
+<pre>
+EXEC SQL
+  SELECT
+    PROD_ID,
+    NAME
+  INTO
+    :P-ID,
+    :P-NAME                 -- Noncompliant; No null indicator
+  FROM PRODUCT
+END-EXEC
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+EXEC SQL
+  SELECT
+    PROD_ID,
+    NAME
+  INTO
+    :P-ID,
+    :P-NAME :P-NAME-NULL  -- Compliant
+  FROM PRODUCT
+END-EXEC
+</pre>

@@ -1,0 +1,24 @@
+{
+  "title": "\"LOOP ... END LOOP;\" constructs should be avoided",
+  "type": "CODE_SMELL",
+  "status": "ready",
+  "remediation": {
+    "func": "Constant/Issue",
+    "constantCost": "1h"
+  },
+  "tags": [
+    "pitfall"
+  ],
+  "defaultSeverity": "Critical",
+  "ruleSpecification": "RSPEC-2340",
+  "sqKey": "LoopAvoidSimpleLoopCheck",
+  "scope": "Main",
+  "all_languages": [
+    "plsql",
+    "vbnet"
+  ],
+  "allKeys": [
+    "LoopAvoidSimpleLoopCheck",
+    "S2340"
+  ]
+}

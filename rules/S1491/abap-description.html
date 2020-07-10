@@ -1,0 +1,9 @@
+<p>This statement deletes all rows of an internal table itab. This &lt;code&gt;REFRESH&lt;/code&gt; statement is deprecated and usage should be avoided.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+REFRESH itab.
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+CLEAR itab.
+</pre>

@@ -1,0 +1,10 @@
+<p>Instantiating a &lt;code&gt;StringBuilder&lt;/code&gt; or a &lt;code&gt;StringBuffer&lt;/code&gt; with a character is misleading because most Java developers would expect the character to be the initial value of the &lt;code&gt;StringBuffer&lt;/code&gt;.
+What actually happens is that the int representation of the character is used to determine the initial size of the &lt;code&gt;StringBuffer&lt;/code&gt;.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+StringBuffer foo = new StringBuffer('x');   //equivalent to StringBuffer foo = new StringBuffer(120);
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+StringBuffer foo = new StringBuffer("x");
+</pre>

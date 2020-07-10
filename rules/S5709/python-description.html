@@ -1,0 +1,29 @@
+<p><a href="https://docs.python.org/3/library/exceptions.html#SystemExit">&lt;code&gt;SystemExit&lt;/code&gt;</a>&nbsp;is raised when <a href="https://docs.python.org/3/library/sys.html#sys.exit">&lt;code&gt;sys.exit()&lt;/code&gt;</a> is called. <a href="https://docs.python.org/3/library/exceptions.html#KeyboardInterrupt">&lt;code&gt;KeyboardInterrupt&lt;/code&gt;</a> is raised when the user asks the program to stop by pressing interrupt keys. Both exceptions are expected to propagate up until the application stops.</p>
+<p>In order to avoid catching &lt;code&gt;SystemExit&lt;/code&gt; and &lt;code&gt;KeyboardInterrupt&lt;/code&gt; by mistake <a href="https://www.python.org/dev/peps/pep-0352/#exception-hierarchy">PEP-352</a> created the root class &lt;code&gt;BaseException&lt;/code&gt; from which &lt;code&gt;SystemExit&lt;/code&gt;, &lt;code&gt;KeyboardInterrupt&lt;/code&gt; and &lt;code&gt;Exception&lt;/code&gt; derive. Thus developers can use &lt;code&gt;except Exception:&lt;/code&gt; without preventing the software from stopping.</p>
+<p>The &lt;code&gt;GeneratorExit&lt;/code&gt; class also derives from &lt;code&gt;BaseException&lt;/code&gt; as it is not really an error and is not supposed to be caught by user code.</p>
+<p>As said in <a href="https://docs.python.org/3/library/exceptions.html#BaseException">Python’s documentation</a>, user-defined exceptions are not supposed to inherit directly from &lt;code&gt;BaseException&lt;/code&gt;. They should instead inherit from &lt;code&gt;Exception&lt;/code&gt; or one of its subclasses.</p>
+<p>This rule raises an issue when a class derives from one of the following exception classes: &lt;code&gt;BaseException&lt;/code&gt;, &lt;code&gt;KeyboardInterrupt&lt;/code&gt;, &lt;code&gt;SystemExit&lt;/code&gt; or &lt;code&gt;GeneratorExit&lt;/code&gt;.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+class MyException(BaseException):  # Noncompliant
+    pass
+
+class MyException(GeneratorExit):  # Noncompliant
+    pass
+
+class MyException(KeyboardInterrupt):  # Noncompliant
+    pass
+
+class MyException(SystemExit):  # Noncompliant
+    pass
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+class MyException(Exception):
+    pass
+</pre>
+<h2>See</h2>
+<ul>
+<li>PEP 352 — <a href="https://www.python.org/dev/peps/pep-0352/#exception-hierarchy-changes">Required Superclass for Exceptions</a></li>
+<li>Python Documentation - <a href="https://docs.python.org/3/library/exceptions.html#BaseException">BaseException class</a></li>
+</ul>

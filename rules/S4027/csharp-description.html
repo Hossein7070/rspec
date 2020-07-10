@@ -1,0 +1,53 @@
+<p>Exceptions types should provide the following constructors:</p>
+<ul>
+<li>&lt;code&gt;public MyException()&lt;/code&gt;</li>
+<li>&lt;code&gt;public MyException(string)&lt;/code&gt;</li>
+<li>&lt;code&gt;public MyException(string, Exception)&lt;/code&gt;</li>
+<li>&lt;code&gt;protected&lt;/code&gt; or &lt;code&gt;private MyException(SerializationInfo, StreamingContext)&lt;/code&gt;</li>
+</ul>
+<p>That fourth constructor should be &lt;code&gt;protected&lt;/code&gt; in unsealed classes, and &lt;code&gt;private&lt;/code&gt; in sealed classes.</p>
+<p>Not having this full set of constructors can make it difficult to handle exceptions.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+using System;
+
+namespace MyLibrary
+{
+  public class MyException // Noncompliant: several constructors are missing
+  {
+    public MyException()
+    {
+    }
+  }
+}
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+using System;
+using System.Runtime.Serialization;
+
+namespace MyLibrary
+{
+  public class MyException : Exception
+  {
+      public MyException()
+      {
+      }
+
+      public MyException(string message)
+          :base(message)
+      {
+      }
+
+      public MyException(string message, Exception innerException)
+          : base(message, innerException)
+      {
+      }
+
+      protected MyException(SerializationInfo info, StreamingContext context)
+          : base(info, context)
+      {
+      }
+  }
+}
+</pre>

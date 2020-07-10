@@ -1,0 +1,17 @@
+<p>If a label is declared but not used in the program, it can be considered as dead code and should therefore be removed.
+This will improve maintainability as developers will not wonder what this label is used for.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+label: -- Noncompliant
+  PRINT 'hello world';
+GO
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+PRINT 'hello world';
+GO
+</pre>
+<h2>See</h2>
+<ul>
+<li><a href="https://www.securecoding.cert.org/confluence/x/NYA5">CERT, MSC12-C.</a> - Detect and remove code that has no effect or is never executed</li>
+</ul>

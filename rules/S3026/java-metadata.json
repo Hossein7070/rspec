@@ -1,0 +1,22 @@
+{
+  "title": "Conditions should not contain unnecessary null tests",
+  "type": "CODE_SMELL",
+  "status": "ready",
+  "remediation": {
+    "func": "Constant/Issue",
+    "constantCost": "2min"
+  },
+  "tags": [
+    "clumsy"
+  ],
+  "defaultSeverity": "Minor",
+  "ruleSpecification": "RSPEC-3026",
+  "sqKey": "S3026",
+  "scope": "Main",
+  "all_languages": [
+    "java"
+  ],
+  "allKeys": [
+    "S3026"
+  ]
+}

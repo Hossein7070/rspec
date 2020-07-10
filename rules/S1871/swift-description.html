@@ -1,0 +1,58 @@
+<p>Having two &lt;code&gt;cases&lt;/code&gt; in the same &lt;code&gt;switch&lt;/code&gt; statement or branches in the same &lt;code&gt;if&lt;/code&gt; structure  with the same implementation is at best duplicate code, and at worst a coding error. If the same logic is truly needed for both instances, then they should be combined.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+switch i {
+  case 1:
+    doFirstThing()
+    doSomething()
+  case 2:
+    doSomethingDifferent()
+  case 3:  // Noncompliant; duplicates case 1's implementation
+    doFirstThing()
+    doSomething()
+  default:
+    doTheRest()
+}
+
+if a &gt;= 0 &amp;&amp; a &lt; 10 {
+  doFirstThing()
+  doTheThing()
+} else if a &gt;= 10 &amp;&amp; a &lt; 20 {
+  doTheOtherThing()
+} else if a &gt;= 20 &amp;&amp; a &lt; 50 {
+  doFirstThing()     // Noncompliant; duplicates first condition
+  doTheThing()
+} else {
+  doTheRest()
+}
+</pre>
+<h2>Exceptions</h2>
+<p>&lt;code&gt;case&lt;/code&gt; labels that declare variables cannot have multiple patterns. Therefore this situation is ignored.</p>
+<pre>
+switch a {
+    case .STR_CASE(let x):
+        print(x)
+    case .INT_CASE(let x):
+        print(x)
+    default:
+        print("default")
+}
+</pre>
+<p>Blocks in an &lt;code&gt;if&lt;/code&gt; chain that contain a single line of code are ignored, as are blocks in a &lt;code&gt;switch&lt;/code&gt; statement that contain a single line of code with or without a following &lt;code&gt;break&lt;/code&gt;.</p>
+<pre>
+if a &gt;= 0 &amp;&amp; a &lt; 10 {    //no issue, usually this is done on purpose to increase the readability
+  doTheThing()
+} else if a &gt;= 10 &amp;&amp; a &lt; 20 {
+  doTheThing()
+} else if a &gt;= 20 &amp;&amp; a &lt; 50 {
+  doFirstThing()
+}
+</pre>
+<p>But this exception does not apply to &lt;code&gt;if&lt;/code&gt; chains without &lt;code&gt;else&lt;/code&gt;-s, or to &lt;code&gt;switch&lt;/code&gt;-es without default clauses when all branches have the same single line of code. In case of &lt;code&gt;if&lt;/code&gt; chains with &lt;code&gt;else&lt;/code&gt;-s, or of &lt;code&gt;switch&lt;/code&gt;-es with default clauses, rule S3923 raises a bug.</p>
+<pre>
+if a &gt;= 0 &amp;&amp; a &lt; 10 {     //Noncompliant, this might have been done on purpose but probably not
+  doTheThing()
+} else if a &gt;= 10 &amp;&amp; a &lt; 20 {
+  doTheThing()
+}
+</pre>

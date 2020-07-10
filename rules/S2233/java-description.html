@@ -1,0 +1,22 @@
+<p>The implementation of certain &lt;code&gt;ResultSet&lt;/code&gt; methods is optional for result sets of type &lt;code&gt;TYPE_FORWARD_ONLY&lt;/code&gt;. Even if your current JDBC driver does implement those methods, there’s no guarantee you won’t change drivers in the future.</p>
+<p>This rule looks for invocations of the following methods on &lt;code&gt;TYPE_FORWARD_ONLY&lt;/code&gt; &lt;code&gt;ResultSet&lt;/code&gt;s:</p>
+<ul>
+<li>&lt;code&gt;isBeforeFirst&lt;/code&gt;</li>
+<li>&lt;code&gt;isAfterLast&lt;/code&gt;</li>
+<li>&lt;code&gt;isFirst&lt;/code&gt;</li>
+<li>&lt;code&gt;getRow&lt;/code&gt;</li>
+</ul>
+<h2>Noncompliant Code Example</h2>
+<pre>
+Statement stmt = con.createStatement(ResultSet.TYPE_FORWARD_ONLY);
+stmt.executeQuery("SELECT name, address FROM PERSON");
+ResultSet rs = stmt.getResultSet();
+
+if (rs.isBeforeFirst()) { // Noncompliant
+
+}
+</pre>
+<h2>See Also</h2>
+<ul>
+<li>S2232 - "ResultSet.isLast()" should not be used</li>
+</ul>

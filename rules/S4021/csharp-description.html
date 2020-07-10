@@ -1,0 +1,4 @@
+<p>The &lt;code&gt;SafeHandle&lt;/code&gt; class provides a simpler and safer way to manage the life cycle of objects which contains un-managed pointers (&lt;code&gt;IntPtr&lt;/code&gt;). When converting to &lt;code&gt;SafeHandle&lt;/code&gt; all calls to &lt;code&gt;GC.KeepAlive&lt;/code&gt; should be removed because they become unnecessary and could confuse maintainers if left in the code.</p>
+<p>This rule raises an issue when a class is using &lt;code&gt;SafeHandle&lt;/code&gt; and still contains calls to &lt;code&gt;GC.KeepAlive&lt;/code&gt;.</p>
+<h2>See</h2>
+<p><a href="https://msdn.microsoft.com/en-us/library/system.runtime.interopservices.safehandle(v=vs.110).aspx">SafeHandle Reference</a></p>

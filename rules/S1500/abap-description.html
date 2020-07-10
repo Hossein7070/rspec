@@ -1,0 +1,8 @@
+<p>&lt;code&gt;DISTINCT&lt;/code&gt; operator causes the &lt;code&gt;SELECT&lt;/code&gt; statement to avoid the SAP buffering and to read directly from the database and not from the buffer on the application server.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+SELECT DISTINCT carrid
+       FROM spfli
+       INTO count
+       WHERE cityto = 'NEW YORK'.
+</pre>

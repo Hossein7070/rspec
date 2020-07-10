@@ -1,0 +1,22 @@
+{
+  "title": "\"COPY SUPPRESS\" should not be used",
+  "type": "CODE_SMELL",
+  "status": "ready",
+  "remediation": {
+    "func": "Constant/Issue",
+    "constantCost": "5min"
+  },
+  "tags": [
+    "confusing"
+  ],
+  "defaultSeverity": "Critical",
+  "ruleSpecification": "RSPEC-3892",
+  "sqKey": "S3892",
+  "scope": "All",
+  "all_languages": [
+    "cobol"
+  ],
+  "allKeys": [
+    "S3892"
+  ]
+}

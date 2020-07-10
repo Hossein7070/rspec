@@ -1,0 +1,21 @@
+<p>&lt;code&gt;JOIN&lt;/code&gt; bypasses the SAP table buffer. Buffered tables should be accessed with the simplest &lt;code&gt;SELECT&lt;/code&gt; statements possible so as not to risk bypassing the buffer.
+If one of the tables in a &lt;code&gt;JOIN&lt;/code&gt; is buffered, it would be an advantage to first import the required entries using a &lt;code&gt;SELECT&lt;/code&gt; into an internal table &lt;code&gt;itab&lt;/code&gt;, and then for example, using the statement &lt;code&gt;SELECT …​ FOR ALL ENTRIES IN itab&lt;/code&gt; to access further tables.</p>
+<h2>Noncompliant Code Examples</h2>
+<p>For &lt;code&gt;JOIN&lt;/code&gt; clauses:</p>
+<pre>
+SELECT s~carrid s~carrname p~connid
+       INTO CORRESPONDING FIELDS OF TABLE itab
+       FROM scarr AS s
+       LEFT OUTER JOIN spfli AS p ON s~carrid   =  p~carrid
+            AND p~cityfrom = p_cityfr.
+</pre>
+<p>For subqueries</p>
+<pre>
+SELECT  carrname
+  INTO  TABLE name_tab
+  FROM  scarr
+  WHERE EXISTS ( select  *
+                   FROM  spfli
+                   WHERE carrid   =  scarr~carrid AND
+                         cityfrom = 'NEW YORK'        ).
+</pre>

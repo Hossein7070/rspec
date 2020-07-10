@@ -1,0 +1,30 @@
+{
+  "title": "Local variables should not have the same name as fields or \"enum\" cases",
+  "type": "CODE_SMELL",
+  "status": "ready",
+  "remediation": {
+    "func": "Constant/Issue",
+    "constantCost": "5min"
+  },
+  "tags": [
+    "suspicious",
+    "pitfall"
+  ],
+  "defaultSeverity": "Major",
+  "ruleSpecification": "RSPEC-1117",
+  "sqKey": "S1117",
+  "scope": "All",
+  "all_languages": [
+    "cfamily",
+    "csharp",
+    "flex",
+    "java",
+    "javascript",
+    "php",
+    "plsql",
+    "swift"
+  ],
+  "allKeys": [
+    "S1117"
+  ]
+}

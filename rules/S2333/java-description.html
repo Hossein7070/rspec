@@ -1,0 +1,15 @@
+<p>The methods declared in an &lt;code&gt;interface&lt;/code&gt; are &lt;code&gt;public&lt;/code&gt; and &lt;code&gt;abstract&lt;/code&gt; by default. Any variables are automatically &lt;code&gt;public static final&lt;/code&gt;. There is no need to explicitly declare them so.</p>
+<p>Since annotations are implicitly interfaces, the same holds true for them as well.</p>
+<p>Similarly, the &lt;code&gt;final&lt;/code&gt; modifier is redundant on any method of a &lt;code&gt;final&lt;/code&gt; class, and &lt;code&gt;private&lt;/code&gt; is redundant on the constructor of an &lt;code&gt;Enum&lt;/code&gt;.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+public interface Vehicle {
+
+  public void go(int speed, Direction direction);  // Noncompliant
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+public interface Vehicle {
+
+  void go(int speed, Direction direction);
+</pre>

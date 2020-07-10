@@ -1,0 +1,21 @@
+<p>Nested &lt;code&gt;If&lt;/code&gt;, &lt;code&gt;Select&lt;/code&gt;, &lt;code&gt;For&lt;/code&gt;, &lt;code&gt;For Each&lt;/code&gt;, &lt;code&gt;While&lt;/code&gt;, &lt;code&gt;Do&lt;/code&gt;, and &lt;code&gt;Try&lt;/code&gt; statements are key ingredients for making what’s known as "Spaghetti code".
+Such code is hard to read, refactor and therefore maintain.</p>
+<h2>Noncompliant Code Example</h2>
+<p>With the default threshold of 3:</p>
+<pre>
+If condition1 ' Compliant - depth = 1
+  ' ...
+  If condition2 ' Compliant - depth = 2
+    ' ...
+    For i = 0 to 10 ' Compliant - depth = 3, not exceeding the limit
+      ' ...
+      If condition4 ' Noncompliant - depth = 4
+        If condition5 ' Depth = 5, exceeding the limit, but issues are only reported on depth = 4
+          ' ...
+        End If
+        Return
+      End If
+    Next
+  End If
+End If
+</pre>

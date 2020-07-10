@@ -1,0 +1,30 @@
+<p>The following words may be used as keywords in future evolutions of the language, so using them as identifiers should be avoided to allow an easier adoption of those potential future versions:</p>
+<ul>
+<li>&lt;code&gt;await&lt;/code&gt;</li>
+<li>&lt;code&gt;class&lt;/code&gt;</li>
+<li>&lt;code&gt;const&lt;/code&gt;</li>
+<li>&lt;code&gt;enum&lt;/code&gt;</li>
+<li>&lt;code&gt;export&lt;/code&gt;</li>
+<li>&lt;code&gt;extends&lt;/code&gt;</li>
+<li>&lt;code&gt;implements&lt;/code&gt;</li>
+<li>&lt;code&gt;import&lt;/code&gt;</li>
+<li>&lt;code&gt;interface&lt;/code&gt;</li>
+<li>&lt;code&gt;let&lt;/code&gt;</li>
+<li>&lt;code&gt;package&lt;/code&gt;</li>
+<li>&lt;code&gt;private&lt;/code&gt;</li>
+<li>&lt;code&gt;protected&lt;/code&gt;</li>
+<li>&lt;code&gt;public&lt;/code&gt;</li>
+<li>&lt;code&gt;static&lt;/code&gt;</li>
+<li>&lt;code&gt;super&lt;/code&gt;</li>
+<li>&lt;code&gt;yield&lt;/code&gt;</li>
+</ul>
+<p>Use of these words as identifiers would produce an error in JavaScript &lt;code&gt;strict&lt;/code&gt; mode code.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+var package = document.getElementsByName("foo"); // Noncompliant
+var someData = { package: true };                 // Compliant, as it is not used as an identifier here
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+var elements = document.getElementsByName("foo"); // Compliant
+</pre>

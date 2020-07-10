@@ -1,0 +1,17 @@
+<p>Explicitly declaring a function’s return data type makes it easier to use the function correctly.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+Function BinarySearch(. . .)
+    [. . .]
+End Function
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+Function BinarySearch(. . .) As Boolean
+    [. . .]
+End Function
+</pre>
+<h2>See</h2>
+<ul>
+<li><a href="https://www.securecoding.cert.org/confluence/x/tgDI">CERT, DCL31-C.</a> - Declare identifiers before using them</li>
+</ul>

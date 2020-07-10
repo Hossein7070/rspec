@@ -1,0 +1,38 @@
+<p>As soon as the &lt;code&gt;yield&lt;/code&gt; keyword is used the enclosing method or function becomes a generator. Thus &lt;code&gt;yield&lt;/code&gt; should never be used in a function or method which is not intended to be a generator.</p>
+<p>This rule raises an issue when &lt;code&gt;yield&lt;/code&gt; or &lt;code&gt;yield from&lt;/code&gt; are used in a function or method which is not a generator because:</p>
+<ul>
+<li>the function/method’s return type annotation is not [&lt;code&gt;typing.Generator[…​]&lt;/code&gt;|https://docs.python.org/3/library/typing.html#typing.Generator]</li>
+<li>it is a special method which can never be a generator (ex: &lt;code&gt;_\_init\_\_&lt;/code&gt;).</li>
+</ul>
+<h2>Noncompliant Code Example</h2>
+<pre>
+class A:
+    def __init__(self, value):
+        self.value = value
+        yield value  # Noncompliant
+
+def mylist2() -&gt; List[str]:
+    yield ['string']  # Noncompliant. Return should be used instead of yield
+
+def generator_ok() -&gt; Generator[int, float, str]:
+    sent = yield 42
+    return '42'
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+class A:
+    def __init__(self, value):
+        self.value = value
+
+def mylist2() -&gt; List[str]:
+    return ['string']
+
+def generator_ok() -&gt; Generator[int, float, str]:
+    sent = yield 42
+    return '42'
+</pre>
+<h2>See</h2>
+<ul>
+<li><a href="https://docs.python.org/3/library/typing.html">Python documentation - Support for type hints</a></li>
+<li><a href="https://docs.python.org/3/reference/datamodel.html#special-method-names">Python documentation - Special method names</a></li>
+</ul>

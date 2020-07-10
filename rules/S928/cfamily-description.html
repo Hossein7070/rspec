@@ -1,0 +1,25 @@
+<p>If a re-declaration has compatible types but not types which are token-for-token identical, it may not be clear to which declaration that re-declaration refers.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+typedef int32_t INT;
+
+INT i;
+extern int32_t i; // Noncompliant
+
+extern void f ( INT );
+void f ( int32_t ); // Noncompliant
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+typedef int32_t INT;
+
+INT i;
+extern INT i; // Compliant
+
+extern void f ( INT );
+void f ( INT ); // Compliant
+</pre>
+<h2>See</h2>
+<ul>
+<li>MISRA C++:2008, 3-9-1</li>
+</ul>

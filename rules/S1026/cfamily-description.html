@@ -1,0 +1,34 @@
+<p>Contrary to possible developer expectations, a template assignment operator will not suppress the compiler generated <em>copy assignment operator</em>. This may lead to incorrect copy semantics for members requiring deep copies.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+class A
+{
+public:
+// A &amp; operator= ( A const &amp; rhs ) Example 1 - implicitly generated
+// {
+// i = rhs.i;
+// return *this;
+// }
+  template &lt;typename T&gt;
+  T &amp; operator= ( T const &amp; rhs ) // Example 2
+  {
+    if ( this != &amp;rhs ) {
+      delete i;
+        i = new int32_t;
+      *i = *rhs.i;
+    }
+    return *this;
+  }
+private:
+  int32_t * i; // Member requires deep copy
+};
+
+void f ( A const &amp; a1, A &amp; a2 )
+{
+  a2 = a1; // Unexpectedly uses Example 1
+}
+</pre>
+<h2>See</h2>
+<ul>
+<li>MISRA C++:2008, 14-5-3</li>
+</ul>

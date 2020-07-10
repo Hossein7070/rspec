@@ -1,0 +1,11 @@
+<p>An unordered pair is easy to handle, but the longer an unordered set gets, the harder it is to deal with.</p>
+<p>This rule raises an issue when a tuple of more than the allowed number of elements is returned.</p>
+<h2>Noncompliant Code Example</h2>
+<p>With the default threshold of 2</p>
+<pre>
+func doTheThing() -&gt; (Int, Int, Int) {}  // Noncompliant
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+func doTheThing() -&gt; MyIntStruct {}
+</pre>

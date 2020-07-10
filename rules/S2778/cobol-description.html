@@ -1,0 +1,14 @@
+<p>The use of &lt;code&gt;DUMP&lt;/code&gt; and &lt;code&gt;DUMP TRANSACTION&lt;/code&gt;, while potentially useful during development and debugging, could expose system information to attackers and should not be used in production.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+EXEC CICS DUMP TRANSACTION  *&gt; Noncompliant
+  DUMPCODE('dumpfile')
+  FROM (area-to-dump)
+  LENGTH (data-to-dump)
+END-EXEC.
+</pre>
+<h2>See</h2>
+<ul>
+<li><a href="https://www.owasp.org/index.php/Top_10-2017_A3-Sensitive_Data_Exposure">OWASP Top 10 2017 Category A3</a> - Sensitive Data Exposure</li>
+<li><a href="http://cwe.mitre.org/data/definitions/497">MITRE, CWE-497</a> - Exposure of System Data to an Unauthorized Control Sphere</li>
+</ul>

@@ -1,0 +1,38 @@
+<p>There are many ways to implement the Singleton pattern in Java, but none of them is as clean, compact and close to fool-proof as using an &lt;code&gt;enum&lt;/code&gt;. Without an &lt;code&gt;enum&lt;/code&gt;, the implementer must take care to properly handle thread-safety, serialization, and classloaders, but those things come for free with an &lt;code&gt;enum&lt;/code&gt;.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+public class Highlander implements Serializable { // Serializable makes Singleton tricky to get right
+  private static final Highlander INSTANCE;
+
+  public static synchronized Highlander getInstance() {
+    if(INSTANCE == null) {
+      INSTANCE = new Highlander();
+    }
+    return INSTANCE;
+  }
+
+  private Highlander () {}
+
+  private final String [] rivals = {"The Kurgan", "Ramirez"}; // oops, not serializable now
+
+  private Object readResolve() {
+    return INSTANCE;
+  }
+
+  ...
+}
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+public enum Highlander {
+  INSTANCE;
+
+  private final String [] rivals = {"The Kurgan", "Ramirez"};
+
+  ...
+}
+</pre>
+<h2>See</h2>
+<ul>
+<li><a href="https://www.securecoding.cert.org/confluence/x/SQJqAQ">CERT MSC07-J.</a> - Prevent multiple instantiations of singleton objects</li>
+</ul>

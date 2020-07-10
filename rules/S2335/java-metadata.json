@@ -1,0 +1,23 @@
+{
+  "title": "Octal and hexadecimal escape sequences should be terminated",
+  "type": "CODE_SMELL",
+  "status": "ready",
+  "remediation": {
+    "func": "Constant/Issue",
+    "constantCost": "5min"
+  },
+  "tags": [
+    "pitfall"
+  ],
+  "defaultSeverity": "Critical",
+  "ruleSpecification": "RSPEC-2335",
+  "sqKey": "S2335",
+  "scope": "Main",
+  "all_languages": [
+    "cfamily",
+    "java"
+  ],
+  "allKeys": [
+    "S2335"
+  ]
+}

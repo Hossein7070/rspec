@@ -1,0 +1,20 @@
+{
+  "title": "Template literal placeholder syntax should not be used in regular strings",
+  "type": "BUG",
+  "status": "ready",
+  "remediation": {
+    "func": "Constant/Issue",
+    "constantCost": "1min"
+  },
+  "tags": [],
+  "defaultSeverity": "Major",
+  "ruleSpecification": "RSPEC-3786",
+  "sqKey": "S3786",
+  "scope": "All",
+  "all_languages": [
+    "javascript"
+  ],
+  "allKeys": [
+    "S3786"
+  ]
+}

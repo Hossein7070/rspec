@@ -1,0 +1,28 @@
+{
+  "title": "Locks should be released",
+  "type": "BUG",
+  "status": "ready",
+  "remediation": {
+    "func": "Constant/Issue",
+    "constantCost": "20min"
+  },
+  "tags": [
+    "cwe",
+    "multi-threading"
+  ],
+  "defaultSeverity": "Critical",
+  "ruleSpecification": "RSPEC-2222",
+  "sqKey": "S2222",
+  "scope": "All",
+  "securityStandards": {
+    "CWE": [
+      459
+    ]
+  },
+  "all_languages": [
+    "java"
+  ],
+  "allKeys": [
+    "S2222"
+  ]
+}

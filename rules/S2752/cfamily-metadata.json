@@ -1,0 +1,27 @@
+{
+  "title": "The ternary operator should not always return the same value",
+  "type": "BUG",
+  "status": "ready",
+  "remediation": {
+    "func": "Constant/Issue",
+    "constantCost": "10min"
+  },
+  "tags": [],
+  "defaultSeverity": "Major",
+  "ruleSpecification": "RSPEC-2752",
+  "sqKey": "S2752",
+  "scope": "Main",
+  "all_languages": [
+    "cfamily",
+    "csharp",
+    "flex",
+    "java",
+    "javascript",
+    "php",
+    "python",
+    "swift"
+  ],
+  "allKeys": [
+    "S2752"
+  ]
+}

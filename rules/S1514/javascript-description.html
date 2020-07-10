@@ -1,0 +1,40 @@
+<p>&lt;code&gt;eval&lt;/code&gt; is used to evaluate a string as JavaScript code, and &lt;code&gt;arguments&lt;/code&gt; is used to access function arguments through indexed properties. As a consequence, &lt;code&gt;eval&lt;/code&gt; and &lt;code&gt;arguments&lt;/code&gt; should not be bound or assigned, because doing so would overwrite the original definitions of those two reserved words.
+What’s more, using either of those two names to assign or bind will generate an error in JavaScript strict mode code.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+eval = 17; // Noncompliant
+arguments++; // Noncompliant
+++eval; // Noncompliant
+var obj = { set p(arguments) { } }; // Noncompliant
+var eval; // Noncompliant
+try { } catch (arguments) { } // Noncompliant
+function x(eval) { } // Noncompliant
+function arguments() { } // Noncompliant
+var y = function eval() { }; // Noncompliant
+var f = new Function("arguments", "return 17;"); // Noncompliant
+
+function fun() {
+  if (arguments.length == 0) { // Compliant
+    // do something
+  }
+}
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+result = 17;
+args++;
+++result;
+var obj = { set p(arg) { } };
+var result;
+try { } catch (args) { }
+function x(arg) { }
+function args() { }
+var y = function fun() { };
+var f = new Function("args", "return 17;");
+
+function fun() {
+  if (arguments.length == 0) {
+    // do something
+  }
+}
+</pre>

@@ -1,0 +1,21 @@
+{
+  "title": "Using command line arguments is security-sensitive",
+  "type": "SECURITY_HOTSPOT",
+  "status": "deprecated",
+  "tags": [],
+  "defaultSeverity": "Critical",
+  "ruleSpecification": "RSPEC-4823",
+  "sqKey": "S4823",
+  "scope": "Main",
+  "all_languages": [
+    "csharp",
+    "java",
+    "javascript",
+    "php",
+    "python",
+    "vbnet"
+  ],
+  "allKeys": [
+    "S4823"
+  ]
+}

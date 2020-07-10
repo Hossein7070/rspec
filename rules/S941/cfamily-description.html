@@ -1,0 +1,41 @@
+<p>Outside of the context of an array, explicitly calculating a pointer value will almost never yield the intended result. Even variables declared in the same statement should not be assumed to inhabit sequential memory addresses.</p>
+<p>Using an explicitly calculated pointer will have unexpected runtime results as you either read or modify the wrong memory addresses.</p>
+<p>Within limits, array indexes are an acceptable form of pointer math <em>when</em> the pointer in question is an array pointer <em>and</em> the array does not hold polymorphic objects/structs.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+void f(char *c) {
+  int i = 0;
+  int j = 0;
+  int *p1 = &amp;i + 1; // Noncompliant: arithmetic not allowed
+  int *p2 = &amp;i;
+  p2++; // Noncompliant. Presumably intended to point to j. No guarantee that it does.
+
+  char c2 = c[1];  // Noncompliant; not an array context
+  char *c3 = c + 1; // Noncompliant: arithmetic not allowed
+}
+</pre>
+<h2>Exceptions</h2>
+<p>Because it can be convenient to treat an array as a contiguous set of memory addresses, the increment operator (&lt;code&gt;++&lt;/code&gt;) is allowed in an array context.</p>
+<pre>
+char message[] = "Hello world";  // implicitly null-terminated
+char *p;
+
+for (p = message; *p; p++) {  // Compliant
+  // do something;
+}
+</pre>
+<h2>See</h2>
+<ul>
+<li>MISRA C:2004, 17.1</li>
+<li>MISRA C:2004, 17.2</li>
+<li>MISRA C:2004, 17.4</li>
+<li>MISRA C++:2008, 5-0-15</li>
+<li>MISRA C++:2008, 5-0-16</li>
+<li>MISRA C++:2008, 5-0-17</li>
+<li>MISRA C:2012, 18.1</li>
+<li>MISRA C:2012, 18.2</li>
+<li>MISRA C:2012, 18.4</li>
+<li><a href="https://www.securecoding.cert.org/confluence/x/UgHm">CERT, ARR37-C.</a> - Do not add or subtract an integer to a pointer to a non-array object</li>
+<li><a href="https://www.securecoding.cert.org/confluence/x/HADXAQ">CERT, ARR39-C.</a> - Do not add or subtract a scaled integer to a pointer</li>
+<li><a href="https://www.securecoding.cert.org/confluence/x/_wM">CERT, CTR56-CPP.</a> - Do not use pointer arithmetic on polymorphic objects</li>
+</ul>

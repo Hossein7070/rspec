@@ -1,0 +1,41 @@
+<p>A &lt;code&gt;WHILE&lt;/code&gt; loop with at most one iteration is equivalent to the use of an &lt;code&gt;IF&lt;/code&gt; statement to conditionally execute one piece of code. No developer expects to find such usage of a loop statement. If the initial intention of the author was really to conditionally execute one piece of code, an &lt;code&gt;IF&lt;/code&gt; statement should be used in place.
+At worst that was not the initial intention of the author and so the body of the loop should be fixed to use the nested &lt;code&gt;RETURN&lt;/code&gt;, &lt;code&gt;BREAK&lt;/code&gt; or &lt;code&gt;THROW&lt;/code&gt; statements in a more appropriate way.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+WHILE @cond -- noncompliant, loop only executes once
+BEGIN
+  EXEC something;
+  BREAK;
+END;
+...
+WHILE @cond1 -- noncompliant, loop only executes once
+BEGIN
+  IF @cond2
+  BEGIN
+    EXEC something;
+    BREAK;
+  END ELSE
+  BEGIN
+    RETURN @value;
+  END;
+END;
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+IF @cond
+BEGIN
+  EXEC something;
+  BREAK;
+END;
+...
+WHILE @cond
+BEGIN
+  IF @cond2
+  BEGIN
+    EXEC something;
+  END ELSE
+  BEGIN
+    RETURN @value;
+  END;
+END;
+</pre>

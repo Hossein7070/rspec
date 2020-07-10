@@ -1,0 +1,36 @@
+<p>To ensure EJB portability, the EJB specification forbids the use of functionality in the &lt;code&gt;java.io&lt;/code&gt; package. Instead of reading and writing files, EJB’s should use some other means of data storage and retrieval, such as JDBC.</p>
+<p>This rule raises an issue for the first &lt;code&gt;java.io&lt;/code&gt; method call in each method.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+public class MyBean implements BeanInterface {
+
+  private File baseline = null;
+
+  private void readBaseline () {
+    try {
+      baseline = new File(Constants.INTEREST_RATE_FILE);  // Noncompliant.
+      if (baseline.exists()) {
+        //...
+      }
+    } catch (IOException e) {
+      //...
+    }
+  }
+
+  private void writeBaseline() {
+    try {
+      FileWriter fw = new FileWriter(baseline.getAbsoluteFile());  // Noncompliant
+      BufferedWriter bw = new BufferedWriter(fw);
+      bw.write(content);
+
+      bw.close();
+    } catch (IOException e) {
+      //...
+    }
+  }
+}
+</pre>
+<h2>See</h2>
+<ul>
+<li><a href="http://cwe.mitre.org/data/definitions/576.html">MITRE, CWE-576</a> - EJB Bad Practices: Use of Java I/O</li>
+</ul>

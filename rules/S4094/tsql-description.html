@@ -1,0 +1,27 @@
+<p>Under the covers, Simple &lt;code&gt;CASE&lt;/code&gt; expressions are evaluated as searched &lt;code&gt;CASE&lt;/code&gt; expressions. That is,</p>
+<pre>
+CASE @foo
+WHEN 1 THEN 'a'
+WHEN 2 THEN 'b'
+</pre>
+<p>is actually evaluated as</p>
+<pre>
+CASE
+WHEN @foo = 1 THEN 'a'
+WHEN @foo = 2 THEN 'b'
+</pre>
+<p>In most situations the difference is inconsequential, but when the input expression isn’t fixed, for instance if &lt;code&gt;RAND()&lt;/code&gt; is involved, it is likely to yield unexpected results. For that reason, it is better to evaluate the input expression once, assign it to a variable, and use the variable as the &lt;code&gt;CASE&lt;/code&gt;'s input expression.</p>
+<p>This rule raises an issue when any of the following is used in a &lt;code&gt;CASE&lt;/code&gt; input expression: &lt;code&gt;RAND&lt;/code&gt;, &lt;code&gt;NEWID&lt;/code&gt;, &lt;code&gt;CRYPT_GEN_RANDOM&lt;/code&gt;.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+CASE CONVERT(SMALLINT, RAND()*@foo)  -- Noncompliant
+WHEN 1 THEN 'a'
+WHEN 2 THEN 'b'
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+DECLARE @bar SMALLINT = CONVERT(SMALLINT, RAND()*@foo)
+CASE @bar
+WHEN 1 THEN 'a'
+WHEN 2 THEN 'b'
+</pre>

@@ -1,0 +1,24 @@
+{
+  "title": "All declarations of an object or function should use the same names and type qualifiers",
+  "type": "CODE_SMELL",
+  "status": "ready",
+  "remediation": {
+    "func": "Constant/Issue",
+    "constantCost": "10min"
+  },
+  "tags": [
+    "based-on-misra",
+    "suspicious"
+  ],
+  "defaultSeverity": "Critical",
+  "ruleSpecification": "RSPEC-927",
+  "sqKey": "S927",
+  "scope": "All",
+  "all_languages": [
+    "cfamily",
+    "csharp"
+  ],
+  "allKeys": [
+    "S927"
+  ]
+}

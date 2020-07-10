@@ -1,0 +1,19 @@
+<p>A &lt;code&gt;BREAK-POINT&lt;/code&gt; statement is used when debugging an application with help of the ABAP Debugger. But such debugging statements could make an application vulnerable to attackers, and should not be left in the source code.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+IF wv_parallel EQ 'X'.
+  BREAK-POINT.
+  WAIT UNTIL g_nb_return EQ wv_nb_call.
+ENDIF.
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+IF wv_parallel EQ 'X'.
+  WAIT UNTIL g_nb_return EQ wv_nb_call.
+ENDIF.
+</pre>
+<h2>See</h2>
+<ul>
+<li><a href="https://www.owasp.org/index.php/Top_10-2017_A3-Sensitive_Data_Exposure">OWASP Top 10 2017 Category A3</a> - Sensitive Data Exposure</li>
+<li><a href="http://cwe.mitre.org/data/definitions/489.html">MITRE, CWE-489</a> - Leftover Debug Code</li>
+</ul>

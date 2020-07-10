@@ -1,0 +1,14 @@
+<p>When the last argument to a function is a closure, it’s possible and sometimes desirable to write that closure after the function’s parentheses. This is called a <em>trailing</em> closure. In order to help distinguish a trailing closure from an independent code block, it is best to begin the closure on the same line as the function call.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+funWithClosureArgument()
+{ // Noncompliant; looks like an independent code block
+   print("Hello world")
+}
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+funWithClosureArgument() {
+   print("Hello world")
+}
+</pre>

@@ -1,0 +1,104 @@
+<p>The access control of an application must be properly implemented in order to restrict access to resources to authorized entities otherwise this could lead to vulnerabilities:</p>
+<ul>
+<li><a href="http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2018-12999">CVE-2018-12999</a></li>
+<li><a href="http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2018-10285">CVE-2018-10285</a></li>
+<li><a href="http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2017-7455">CVE-2017-7455</a></li>
+</ul>
+<p>Granting correct permissions to users, applications, groups or roles and defining required permissions that allow access to a resource is sensitive, must therefore be done with care. For instance, it is obvious that only users with administrator privilege should be authorized to add/remove the administrator permission of another user.</p>
+<h2>Ask Yourself Whether</h2>
+<ul>
+<li>Granted permission to an entity (user, application) allow access to information or functionalities not needed by this entity.</li>
+<li>Privileges are easily acquired (eg: based on the location of the user, type of device used, defined by third parties, does not require approval …​).</li>
+<li>Inherited permission, default permission, no privileges (eg: anonymous user) is authorized to access to a protected resource.</li>
+</ul>
+<p>There is a risk if you answered yes to any of those questions.</p>
+<h2>Recommended Secure Coding Practices</h2>
+<p>At minimum, an access control system should:</p>
+<ul>
+<li>Use a well-defined access control model like <a href="https://en.wikipedia.org/wiki/Role-based_access_control">RBAC</a> or <a href="https://en.wikipedia.org/wiki/Access-control_list">ACL</a>.</li>
+<li>Entities' permissions should be reviewed regularly to remove permissions that are no longer needed.</li>
+<li>Respect <a href="https://en.wikipedia.org/wiki/Principle_of_least_privilege">the principle of least privilege</a> ("<em>an entity has access only the information and resources that are necessary for its legitimate purpose</em>").</li>
+</ul>
+<h2>Sensitive Code Example</h2>
+<pre>
+# limiting access via "has_perm" and adding permission with "user_permissions.add"
+
+from django.contrib.auth.models import Permission, User, Group
+from django.contrib.contenttypes.models import ContentType
+from django.shortcuts import get_object_or_404
+from django.core.exceptions import PermissionDenied
+
+
+def test_permissions(request, user_id):  # Sensitive. This method checks permissions/authentication or changes permissions
+    user = get_object_or_404(User, pk=user_id)
+    # Or
+    user = request.user
+
+    user.has_perm('thisis.a_perm')  # Check permission
+    user.has_perms(['thisis.a_perm'])  # Check permission
+
+    request.user.is_authenticated  # Check permission
+
+    content_type = ContentType.objects.get_for_model(User)
+
+    permission = Permission.objects.get(
+        codename='change_something',
+        content_type=content_type,
+    )
+    user.user_permissions.add(permission)  # Changes permissions
+    user.user_permissions.set([permission])  # Changes permissions
+    user.user_permissions.remove(permission)  # Changes permissions
+    user.user_permissions.clear()  # Changes permissions
+
+    group, created = Group.objects.get_or_create(name='mygroup')
+    group = Group.objects.get(name='mygroup')  # Or
+
+    group.permissions.add(permission)  # Changes permissions
+    group.permissions.set([permission])  # Changes permissions
+    group.permissions.remove(permission)  # Changes permissions
+    group.permissions.clear()  # Changes permissions
+
+    user.groups.set([group])  # Changes permissions
+    user.groups.add(group)  # Changes permissions
+    user.groups.remove(group)  # Changes permissions
+    user.groups.clear()  # Changes permissions
+
+    raise PermissionDenied  # Denies permission
+
+
+# limiting access to the models with Model-&gt;Meta-&gt;permissions
+
+from django.db import models
+
+class Person(models.Model):
+    class Meta:
+        permissions = (('can_sleep_in_bed', 'Can sleep in bed'),)  # Sensitive.
+
+
+# Limiting access with the decorators
+
+from django.contrib.auth.decorators import permission_required, login_required
+
+@login_required  # Checks authentication
+@permission_required('app.can_sleep')  # Checks permission
+def index(request):  # Sensitive.
+    pass
+
+
+# Limiting access with "PermissionRequiredMixin"
+
+from django.contrib.auth.mixins import PermissionRequiredMixin
+from django.views.generic import View
+
+class MyView(PermissionRequiredMixin, View):
+    permission_required = ('app.can_sleep', 'app.can_drive')  # Sensitive.
+</pre>
+<h2>See</h2>
+<ul>
+<li><a href="https://www.owasp.org/index.php/Top_10-2017_A5-Broken_Access_Control">OWASP Top 10 2017 Category A5</a> - Boken Access Control</li>
+<li><a href="https://www.sans.org/top25-software-errors/#cat3">SANS Top 25</a> - Porous Defenses</li>
+<li><a href="https://cwe.mitre.org/data/definitions/276.html">MITRE, CWE-276</a> - Incorrect Default Permissions</li>
+<li><a href="https://cwe.mitre.org/data/definitions/732.html">MITRE, CWE-732</a> - Incorrect Permission Assignment for Critical Resource</li>
+<li><a href="https://cwe.mitre.org/data/definitions/668.html">MITRE, CWE-668</a> - Exposure of Resource to Wrong Sphere</li>
+<li><a href="https://cwe.mitre.org/data/definitions/277.html">MITRE, CWE-277</a> - Insecure Inherited Permissions</li>
+</ul>

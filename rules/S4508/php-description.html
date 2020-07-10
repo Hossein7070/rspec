@@ -1,0 +1,30 @@
+<p>Deserializing objects is security-sensitive. For example, it has led in the past to the following vulnerabilities:</p>
+<ul>
+<li><a href="http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2017-17672">CVE-2017-17672</a>: vBulletin: Unserialize PHP Code Execution</li>
+<li><a href="http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2018-1000167">CVE-2018-1000167</a>: Jenkins Pipeline: arbitrary code execution vulnerability</li>
+</ul>
+<p>Object deserialization from an untrusted source can lead to unexpected code execution. Deserialization takes a stream of bits and turns it into an object. If the stream contains the type of object you expect, all is well. But if you’re deserializing data coming from untrusted input, and an attacker has inserted some other type of object, you’re in trouble. Why? <a href="https://www.owasp.org/index.php/PHP_Object_Injection">A known attack scenario</a> involves the creation of a serialized PHP object with crafted attributes which will modify your application’s behavior. This attack relies on <a href="https://php.net/manual/en/language.oop5.magic.php">PHP magic methods</a> like &lt;code&gt;__desctruct&lt;/code&gt;, &lt;code&gt;\__wakeup&lt;/code&gt; or &lt;code&gt;\__string&lt;/code&gt;. The attacker doesn’t necessarily need the source code of the targeted application to exploit the vulnerability, he can also rely on the presence of open-source component and use <a href="https://github.com/ambionics/phpggc">tools to craft malicious payloads</a>.</p>
+<h2>Ask Yourself Whether</h2>
+<ul>
+<li>an attacker could have tampered with the source provided to the deserialization function</li>
+<li>you are using an unsafe deserialization function</li>
+</ul>
+<p>You are at risk if you answered yes to any of those questions.</p>
+<h2>Recommended Secure Coding Practices</h2>
+<p>To prevent insecure deserialization, it is recommended to:</p>
+<ul>
+<li>Use safe libraries that do not allow code execution at deserialization.</li>
+<li>Not communicate with the outside world using serialized objects</li>
+<li><p>Limit access to the serialized source</p>
+<ul>
+<li>if it is a file, restrict the access to it.</li>
+<li>if it comes from the network, restrict who has access to the process, such as with a Firewall or by authenticating the sender first.</li>
+</ul></li>
+</ul>
+<h2>See</h2>
+<ul>
+<li><a href="https://www.owasp.org/index.php/Deserialization_of_untrusted_data">OWASP - Deserialization of untrusted data</a></li>
+<li><a href="https://www.owasp.org/index.php/Top_10-2017_A8-Insecure_Deserialization">OWASP Top 10 2017 Category A8</a> - Insecure Deserialization</li>
+<li><a href="https://cwe.mitre.org/data/definitions/502.html">MITRE, CWE-502</a> - Deserialization of Untrusted Data</li>
+<li>Derived from FindSecBugs rule <a href="https://find-sec-bugs.github.io/bugs.htm#OBJECT_DESERIALIZATION">OBJECT_DESERIALIZATION </a></li>
+</ul>

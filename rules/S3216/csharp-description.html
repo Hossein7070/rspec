@@ -1,0 +1,10 @@
+<p>After an &lt;code&gt;await&lt;/code&gt;ed &lt;code&gt;Task&lt;/code&gt; has executed, you can continue execution in the original, calling thread or any arbitrary thread. Unless the rest of the code needs the context from which the &lt;code&gt;Task&lt;/code&gt; was spawned, &lt;code&gt;Task.ConfigureAwait(false)&lt;/code&gt; should be used to keep execution in the &lt;code&gt;Task&lt;/code&gt; thread to avoid the need for context switching and the possibility of deadlocks.</p>
+<p>This rule raises an issue when code in a class library &lt;code&gt;await&lt;/code&gt;s a &lt;code&gt;Task&lt;/code&gt; and continues execution in the original calling thread.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+var response = await httpClient.GetAsync(url);  // Noncompliant
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+var response = await httpClient.GetAsync(url).ConfigureAwait(false);
+</pre>

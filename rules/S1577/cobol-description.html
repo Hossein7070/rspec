@@ -1,0 +1,16 @@
+<p>There should not be any statements after &lt;code&gt;EXIT PROGRAM&lt;/code&gt;. Such statements cannot be reached, and are therefore dead code. Dead code makes a program more complex and therefore more difficult to maintain.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+  PROCEDURE DIVISION.
+    PARAGRAPH1.
+      MOVE A TO B.
+      EXIT PROGRAM.   &gt;NOK as the following "MOVE B TO C" statement will never be called
+      MOVE B TO C.
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+  PROCEDURE DIVISION.
+    PARAGRAPH1.
+      MOVE A TO B.
+      EXIT PROGRAM.
+</pre>

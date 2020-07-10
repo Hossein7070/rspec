@@ -1,0 +1,26 @@
+<p>Titles are important because they are displayed in search engine results as well as the browser’s toolbar.</p>
+<p>This rule verifies that the &lt;code&gt;&lt;head&gt;&lt;/code&gt; tag contains a &lt;code&gt;&lt;title&gt;&lt;/code&gt; one, and the &lt;code&gt;&lt;html&gt;&lt;/code&gt; tag a &lt;code&gt;&lt;head&gt;&lt;/code&gt; one.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+&amp;lt;html&amp;gt;         &amp;lt;!-- Non-Compliant --&amp;gt;
+
+&amp;lt;body&amp;gt;
+...
+&amp;lt;/body&amp;gt;
+
+&amp;lt;/html&amp;gt;
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+&amp;lt;html&amp;gt;         &amp;lt;!-- Compliant --&amp;gt;
+
+&amp;lt;head&amp;gt;
+  &amp;lt;title&amp;gt;Some relevant title&amp;lt;/title&amp;gt;
+&amp;lt;/head&amp;gt;
+
+&amp;lt;body&amp;gt;
+...
+&amp;lt;/body&amp;gt;
+
+&amp;lt;/html&amp;gt;
+</pre>

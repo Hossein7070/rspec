@@ -1,0 +1,42 @@
+<p>Salesforce Governor Limits do not allow more than 10 calls to \&lt;code&gt;Messaging.sendEmail&lt;/code&gt; in a single transaction. There is a good chance that calling this method in a loop will reach that limit and fail. You can instead send a batch of emails with a single call to&nbsp;\&lt;code&gt;Messaging.sendEmail&lt;/code&gt;.</p>
+<p>This rule raises an issue when a call to &lt;code&gt;Messaging.sendEmail&lt;/code&gt; is found in a loop.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+trigger MyWelcomeTrigger on Contact (after insert) {
+    List&lt;Id&gt; toIds = new List&lt;Id&gt;();
+    for (Contact contact : trigger.new)
+    {
+        if(contact.Email != null)
+        {
+            Messaging.SingleEmailMessage mail = new Messaging.SingleEmailMessage();
+        	String[] toAddresses = new String[] { contact.email };
+        	mail.setToAddresses(toAddresses);
+        	mail.setSubject('Welcome');
+        	mail.setPlainTextBody('Welcome');
+        	Messaging.sendEmail(new Messaging.SingleEmailMessage[] { mail });  // Noncompliant
+        }
+}
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+trigger MyWelcomeTrigger on Contact (after insert) {
+    List&lt;Id&gt; toIds = new List&lt;Id&gt;();
+    for (Contact contact : trigger.new)
+    {
+        if(contact.Email != null)
+        {
+            toIds.add(contact.Id);
+        }
+    }
+    string templateName = 'Welcome Email Template';
+    EmailTemplate template = [select Id, Name from EmailTemplate where name = :templateName];
+    Messaging.MassEmailMessage mail = new Messaging.MassEmailMessage();
+    mail.setTargetObjectIds(toIds);
+    mail.setTemplateId(template.Id);
+    Messaging.sendEmail(new Messaging.MassEmailMessage[] { mail });
+}
+</pre>
+<h2>See</h2>
+<ul>
+<li><a href="https://developer.salesforce.com/docs/atlas.en-us.apexcode.meta/apexcode/apex_gov_limits.htm">Execution Governors and Limits</a></li>
+</ul>

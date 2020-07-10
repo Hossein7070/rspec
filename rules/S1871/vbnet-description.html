@@ -1,0 +1,47 @@
+<p>Having two &lt;code&gt;Cases&lt;/code&gt; in the same &lt;code&gt;Select&lt;/code&gt; statement or branches in the same &lt;code&gt;If&lt;/code&gt; structure with the same implementation is at best duplicate code, and at worst a coding error. If the same logic is truly needed for both instances, then in an &lt;code&gt;If&lt;/code&gt; structure they should be combined, or for a &lt;code&gt;Select&lt;/code&gt;, one should fall through to the other.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+Select i
+  Case 1
+    DoFirst()
+    DoSomething()
+  Case 2
+    DoSomethingDifferent()
+  Case 3  ' Noncompliant; duplicates case 1's implementation
+    DoFirst()
+    DoSomething()
+  Case Else:
+    DoTheRest()
+End Select
+
+If a &gt;= 0 AndAlso a &lt; 10 Then
+  DoFirst()
+  DoTheThing()
+ElseIf a &gt;= 10 AndAlso a &lt; 20 Then
+  DoTheOtherThing()
+ElseIf a &gt;= 20 AndAlso a &lt; 50   ' Noncompliant; duplicates first condition
+  DoFirst()
+  DoTheThing()
+Else
+  DoTheRest();
+End If
+</pre>
+<h2>Exceptions</h2>
+<p>Blocks in an &lt;code&gt;If&lt;/code&gt; chain or &lt;code&gt;Case&lt;/code&gt; clause that contain a single line of code are ignored.</p>
+<pre>
+If a &gt;= 0 AndAlso a &lt; 10 Then
+  DoTheThing()
+ElseIf a &gt;= 10 AndAlso a &lt; 20 Then
+  DoTheOtherThing()
+ElseIf a &gt;= 20 AndAlso a &lt; 50   ' no issue, usually this is done on purpose to increase the readability
+  DoTheThing()
+End If
+</pre>
+<p>But this exception does not apply to &lt;code&gt;If&lt;/code&gt; chains without &lt;code&gt;Else&lt;/code&gt;-s, or to &lt;code&gt;Select&lt;/code&gt;-s without &lt;code&gt;Case Else&lt;/code&gt; clauses when all branches have the same single line of code. In case of &lt;code&gt;If&lt;/code&gt; chains with &lt;code&gt;Else&lt;/code&gt;-s, or of &lt;code&gt;Select&lt;/code&gt;-es with &lt;code&gt;Case Else&lt;/code&gt; clauses, rule S3923 raises a bug.</p>
+<pre>
+If a &gt;= 0 AndAlso a &lt; 10 Then
+  DoTheThing()
+ElseIf a &gt;= 10 AndAlso a &lt; 20 Then
+  DoTheOtherThing()  ' Noncompliant, this might have been done on purpose but probably not
+End If
+</pre>

@@ -1,0 +1,16 @@
+<p>Restricting the number of &lt;code&gt;break&lt;/code&gt; and &lt;code&gt;continue&lt;/code&gt; statements in a loop is done in the interest of good structured programming.</p>
+<p>One &lt;code&gt;break&lt;/code&gt; and &lt;code&gt;continue&lt;/code&gt; statement is acceptable in a loop, since it facilitates optimal coding. If there is more than one, the code should be refactored to increase readability.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+for (var i = 1; i &lt;= 10; i++) {  // Noncompliant - 2 continue - one might be tempted to add some logic in between
+  if (i % 2 == 0) {
+    continue;
+  }
+
+  if (i % 3 == 0) {
+    continue;
+  }
+
+  alert("i = " + i);
+}
+</pre>

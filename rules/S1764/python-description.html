@@ -1,0 +1,29 @@
+<p>Using the same value on either side of a binary operator is almost always a mistake. In the case of logical operators, it is either a copy/paste error and therefore a bug, or it is simply wasted code, and should be simplified. In the case of bitwise operators and most binary mathematical operators, having the same value on both sides of an operator yields predictable results, and should be simplified.</p>
+<p>Note that this rule will raise issues on &lt;code&gt;a == a&lt;/code&gt; and &lt;code&gt;a != a&lt;/code&gt; expressions which are sometime used to detect &lt;code&gt;NaN&lt;/code&gt; values. It is recommended to use instead <a href="https://docs.python.org/3/library/math.html#math.isnan">&lt;code&gt;math.isnan&lt;/code&gt;</a> or an equivalent function. This will improve code readability.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+if a == a: # Noncompliant
+    work()
+
+if  a != a: # Noncompliant
+    work()
+
+if  a == b and a == b: # Noncompliant
+    work()
+
+if a == b or a == b: # Noncompliant
+    work()
+
+j = 5 / 5 # Noncompliant
+k = 5 - 5 # Noncompliant
+</pre>
+<h2>Exceptions</h2>
+<p>The following are ignored:</p>
+<ul>
+<li>The expression &lt;code&gt;1 &lt;&lt; 1&lt;/code&gt;</li>
+</ul>
+<h2>See</h2>
+<ul>
+<li><a href="https://www.securecoding.cert.org/confluence/x/NYA5">CERT, MSC12-C.</a> - Detect and remove code that has no effect or is never executed</li>
+<li>S1656 - Implements a check on &lt;code&gt;=&lt;/code&gt;.</li>
+</ul>

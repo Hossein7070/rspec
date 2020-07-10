@@ -1,0 +1,24 @@
+{
+  "title": "\"ToString()\" calls should not be redundant",
+  "type": "CODE_SMELL",
+  "status": "ready",
+  "remediation": {
+    "func": "Constant/Issue",
+    "constantCost": "2min"
+  },
+  "tags": [
+    "finding",
+    "clumsy"
+  ],
+  "defaultSeverity": "Minor",
+  "ruleSpecification": "RSPEC-1858",
+  "sqKey": "S1858",
+  "scope": "All",
+  "all_languages": [
+    "csharp",
+    "java"
+  ],
+  "allKeys": [
+    "S1858"
+  ]
+}

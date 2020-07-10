@@ -1,0 +1,25 @@
+<p>&lt;code&gt;goto&lt;/code&gt; is an unstructured control flow statement. It makes code less readable and maintainable. Structured control flow statements such as &lt;code&gt;if&lt;/code&gt;, &lt;code&gt;for&lt;/code&gt;, &lt;code&gt;while&lt;/code&gt;, &lt;code&gt;continue&lt;/code&gt; or &lt;code&gt;break&lt;/code&gt; should be used instead.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+foo: proc options(main);
+  declare i fixed decimal init (0);
+
+loopLabel:
+  put list (i);
+  i = i + 1;
+  if i &lt; 10 then go to loopLabel;  /* Noncompliant - usage of the GO TO statement */
+end;
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+foo: proc options(main);
+  declare i fixed decimal init (0);
+
+
+  do i = 0 to 9;   /* Compliant */
+    put list (i);
+  end;
+end;
+</pre>
+<h2>Exceptions</h2>
+<p>Exclusions format parameter can be used to allow specific &lt;code&gt;GO TO&lt;/code&gt; targets which match the given regular expression.</p>

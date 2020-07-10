@@ -1,0 +1,29 @@
+<p>Using a &lt;code&gt;&lt;li&gt;&lt;/code&gt; or &lt;code&gt;&lt;dt&gt;&lt;/code&gt; item tag outside of a &lt;code&gt;&lt;ul&gt;&lt;/code&gt;, &lt;code&gt;&lt;ol&gt;&lt;/code&gt; or &lt;code&gt;&lt;dl&gt;&lt;/code&gt; one does not make sense and indicates a bug.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+&lt;li&gt;Apple&lt;/li&gt;          &lt;!-- Noncompliant --&gt;
+&lt;li&gt;Strawberry&lt;/li&gt;     &lt;!-- Noncompliant --&gt;
+
+&lt;li&gt;Apple&lt;/li&gt;          &lt;!-- Noncompliant --&gt;
+&lt;li&gt;Strawberry&lt;/li&gt;     &lt;!-- Noncompliant --&gt;
+
+&lt;dt&gt;Apple&lt;/dt&gt;          &lt;!-- Noncompliant --&gt;
+&lt;dt&gt;Strawberry&lt;/dt&gt;     &lt;!-- Noncompliant --&gt;
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+&lt;ul&gt;
+  &lt;li&gt;Apple&lt;/li&gt;
+  &lt;li&gt;Strawberry&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Apple&lt;/li&gt;
+  &lt;li&gt;Strawberry&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;dl&gt;
+  &lt;dt&gt;Apple&lt;/dt&gt;
+  &lt;dt&gt;Strawberry&lt;/dt&gt;
+&lt;/dl&gt;
+</pre>

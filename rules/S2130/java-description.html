@@ -1,0 +1,13 @@
+<p>Rather than creating a boxed primitive from a &lt;code&gt;String&lt;/code&gt; to extract the primitive value, use the relevant &lt;code&gt;parse&lt;/code&gt; method instead. It will be clearer and more efficient.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+String myNum = "12.2";
+
+float f = (new Float(myNum)).floatValue();  // Noncompliant; creates &amp; discards a Float
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+String myNum = "12.2";
+
+float f = Float.parseFloat(myNum);
+</pre>

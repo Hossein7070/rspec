@@ -1,0 +1,20 @@
+<p>Using a &lt;code&gt;NUMBER&lt;/code&gt; to store an integer is less performant than using a &lt;code&gt;PLS_INTEGER&lt;/code&gt;. &lt;code&gt;PLS_INTEGER&lt;/code&gt;s require less storage than &lt;code&gt;NUMBER&lt;/code&gt;s, and benefit from the use of hardware math, as opposed to the library math required for &lt;code&gt;NUMBER&lt;/code&gt;s. Even more performant is the &lt;code&gt;SIMPLE_INTEGER&lt;/code&gt; subtype of &lt;code&gt;PLS_INTEGER&lt;/code&gt;. However, changing to either of these types is only appropriate under certain circumstances.</p>
+<p>&lt;code&gt;PLS_INTEGER&lt;/code&gt; is only a candidate for &lt;code&gt;NUMBER&lt;/code&gt; with a scale of up to 9.
+&lt;code&gt;SIMPLE_INTEGER&lt;/code&gt; has the same size limitation, in addition to it’s &lt;code&gt;NOT NULL&lt;/code&gt; constraint and lack of overflow checking.</p>
+<p>This rule raises an issue when a &lt;code&gt;NUMBER&lt;/code&gt; is declared with a scale of 9 or less.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+DECLARE
+    son NUMBER(1);      -- Noncompliant
+    rumbo NUMBER(9);  -- Noncompliant
+    conga Number(10);   -- Ignored; falls outside the PLS_INTEGER range
+    compalsa PLS_INTEGER;
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+DECLARE
+    son SIMPLE_INTEGER;
+    rumbo PLS_INTEGER;
+    conga Number(10);   -- Ignored; falls outside the PLS_INTEGER range
+    compalsa PLS_INTEGER;
+</pre>

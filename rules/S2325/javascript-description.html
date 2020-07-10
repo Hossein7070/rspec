@@ -1,0 +1,27 @@
+<p>If a class method doesn’t access properties of that class (i.e. it doesn’t use &lt;code&gt;this&lt;/code&gt;), it should be made &lt;code&gt;static&lt;/code&gt;.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+class Foo {
+  constructor() {
+    this.i = 1;
+  }
+
+  bar() {
+    window.focus();
+  }
+}
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+class Foo {
+  constructor() {
+    this.i = 1;
+  }
+
+  static bar() {
+    window.focus();
+  }
+}
+</pre>
+<h2>Exceptions</h2>
+<p>The constructor is exempt of this rule.</p>

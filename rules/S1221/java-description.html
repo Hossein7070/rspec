@@ -1,0 +1,25 @@
+<p>Naming a method &lt;code&gt;tostring&lt;/code&gt;, &lt;code&gt;hashcode()&lt;/code&gt; or &lt;code&gt;equal&lt;/code&gt; is either:</p>
+<ul>
+<li>A bug in the form of a typo. Overriding &lt;code&gt;toString&lt;/code&gt;, &lt;code&gt;Object.hashCode()&lt;/code&gt; (note the camelCasing) or &lt;code&gt;Object.equals&lt;/code&gt; (note the 's' on the end) was meant, and the application does not behave as expected.</li>
+<li>Done on purpose. The name however will confuse every other developer, who may not notice the naming difference, or who will think it is a bug.</li>
+</ul>
+<p>In both cases, the method should be renamed.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+public int hashcode() { /* ... */ }  // Noncompliant
+
+public String tostring() { /* ... */ } // Noncompliant
+
+public boolean equal(Object obj) { /* ... */ }  // Noncompliant
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+@Override
+public int hashCode() { /* ... */ }
+
+@Override
+public String toString() { /* ... */ }
+
+@Override
+public boolean equals(Object obj) { /* ... */ }
+</pre>

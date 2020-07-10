@@ -1,0 +1,29 @@
+<p>The multi-line comment syntax &lt;code&gt;/* …​ */&lt;/code&gt; should not be used for single line comments; the &lt;code&gt;--&lt;/code&gt; syntax is more appropriate.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+/*
+ These comment lines are Compliant
+ comment 1
+ comment 2
+*/
+
+/*
+ This comment is also Compliant
+ */
+
+/* This comment is Noncompliant */
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+/*
+ These comment lines are Compliant
+ comment 1
+ comment 2
+*/
+
+/*
+ This comment is also Compliant
+ */
+
+-- This comment is compliant
+</pre>

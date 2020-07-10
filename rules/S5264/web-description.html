@@ -1,0 +1,31 @@
+<p>Assistive technologies, such as screen readers, will not be able to render &lt;code&gt;&lt;object&gt;&lt;/code&gt; elements, in such cases it is the content of the &lt;code&gt;&lt;object&gt;&lt;/code&gt; which is provided to the user. This alternative content needs to be accessible or the screen readers won’t be able to use it. For example, if an &lt;code&gt;&lt;img&gt;&lt;/code&gt; is used it must contain an \&lt;code&gt;alt&lt;/code&gt; attribute (see corresponding rule Web:ImgWithoutAltCheck).</p>
+<p>This rule raises an issue when an &lt;code&gt;&lt;object&gt;&lt;/code&gt; tag does not have any alternative content.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+&lt;object&gt;&lt;/object&gt; &lt;!-- Noncompliant --&gt;
+
+&lt;object&gt;
+  &lt;object&gt;&lt;/object&gt; &lt;!-- Noncompliant --&gt;
+&lt;/object&gt;
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+&lt;object&gt;This application shows the simulation of two particles colliding&lt;/object&gt;
+
+&lt;object&gt;
+  &lt;img src="flower.png" alt="Flower growing in a pot" /&gt;
+&lt;/object&gt;
+
+&lt;object&gt;
+  &lt;object&gt;
+    This application shows the simulation of two particles colliding
+  &lt;/object&gt;
+&lt;/object&gt;
+</pre>
+<h2>See</h2>
+<ul>
+<li><a href="https://www.w3.org/TR/WCAG20-TECHS/H53.html">WCAG2, H53</a> - Using the body of the object element</li>
+<li><a href="https://www.w3.org/WAI/WCAG21/quickref/?versions=2.0#qr-text-equiv-all">WCAG2, 1.1.1</a> - Non-text Content</li>
+<li><a href="https://www.w3.org/WAI/WCAG21/quickref/?versions=2.0#qr-media-equiv-audio-desc">WCAG2, 1.2.3</a> - Audio Description or Media Alternative (Prerecorded)</li>
+<li><a href="https://www.w3.org/WAI/WCAG21/quickref/?versions=2.0#qr-media-equiv-text-doc">WCAG2, 1.2.8</a> - Media Alternative (Prerecorded)</li>
+</ul>

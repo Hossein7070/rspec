@@ -1,0 +1,13 @@
+<p>Returning &lt;code&gt;Nothing&lt;/code&gt; from a non-&lt;code&gt;async&lt;/code&gt; &lt;code&gt;Task&lt;/code&gt;/&lt;code&gt;Task(Of T)&lt;/code&gt; method will cause a &lt;code&gt;NullReferenceException&lt;/code&gt; at runtime. This problem can be avoided by returning &lt;code&gt;Task.FromResult(Of T)(Nothing)&lt;/code&gt; instead.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+Public Function GetFooAsync() As Task(Of Object)
+    Return Nothing
+End Function
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+Public Function GetFooAsync() As Task(Of Object)
+    Return Task.FromResult(Of Object)(Nothing)
+End Function
+</pre>

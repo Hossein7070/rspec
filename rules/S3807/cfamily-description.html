@@ -1,0 +1,70 @@
+<p>The standard C library includes a number of functions for string and memory manipulation. They take pointers and a lengths as parameters. Passing &lt;code&gt;NULL&lt;/code&gt; for the pointers will at best do nothing and at worst crash the application.</p>
+<p>This rule raises an issue when &lt;code&gt;NULL&lt;/code&gt; is passed as a pointer in to any of the following functions:</p>
+<ul>
+<li>&lt;code&gt;void *memcpy(void *dest, const void *src, size_t n);&lt;/code&gt;</li>
+<li>&lt;code&gt;void *memmove(void *dest, const void *src, size_t n);&lt;/code&gt;</li>
+<li>&lt;code&gt;void *memccpy(void *dest, const void *src, int c, size_t n);&lt;/code&gt;</li>
+<li>&lt;code&gt;void *memset(void *s, int c, size_t n);&lt;/code&gt;</li>
+<li>&lt;code&gt;int memcmp(const void *s1, const void *s2, size_t n);&lt;/code&gt;</li>
+<li>&lt;code&gt;void *memchr(const void *s, int c, size_t n);&lt;/code&gt;</li>
+<li>&lt;code&gt;void *rawmemchr(const void *s, int c);&lt;/code&gt;</li>
+<li>&lt;code&gt;void *memrchr(const void *s, int c, size_t n);&lt;/code&gt;</li>
+<li>&lt;code&gt;char *strcpy(char *dest, const char *src);&lt;/code&gt;</li>
+<li>&lt;code&gt;char *strncpy(char *dest, const char *src, size_t n);&lt;/code&gt;</li>
+<li>&lt;code&gt;char *strcat(char *dest, const char *src);&lt;/code&gt;</li>
+<li>&lt;code&gt;char *strncat(char *dest, const char *src, size_t n);&lt;/code&gt;</li>
+<li>&lt;code&gt;int strcmp(const char *s1, const char *s2);&lt;/code&gt;</li>
+<li>&lt;code&gt;int strncmp(const char *s1, const char *s2, size_t n);&lt;/code&gt;</li>
+<li>&lt;code&gt;int strcoll(const char *s1, const char *s2);&lt;/code&gt;</li>
+<li>&lt;code&gt;size_t strxfrm(char *dest, const char *src, size_t n);&lt;/code&gt;</li>
+<li>&lt;code&gt;int strcoll_l(const char *s1, const char *s2, locale_t loc);&lt;/code&gt;</li>
+<li>&lt;code&gt;size_t strxfrm_l(char *restrict s1, const char *restrict s2, size_t n, locale_t loc);&lt;/code&gt;</li>
+<li>&lt;code&gt;char *strdup(const char *s);&lt;/code&gt;</li>
+<li>&lt;code&gt;char *strndup(const char *s, size_t n);&lt;/code&gt;</li>
+<li>&lt;code&gt;char *strchr(const char *s, int c);&lt;/code&gt;</li>
+<li>&lt;code&gt;char *strrchr(const char *s, int c);&lt;/code&gt;</li>
+<li>&lt;code&gt;char *strchrnul(const char *s, int c);&lt;/code&gt;</li>
+<li>&lt;code&gt;size_t strcspn(const char *s, const char *reject);&lt;/code&gt;</li>
+<li>&lt;code&gt;size_t strspn(const char *s, const char *accept);&lt;/code&gt;</li>
+<li>&lt;code&gt;char *strpbrk(const char *s, const char *accept);&lt;/code&gt;</li>
+<li>&lt;code&gt;char *strstr(const char *haystack, const char *needle);&lt;/code&gt;</li>
+<li>&lt;code&gt;char *strtok(char *s, const char *delim);&lt;/code&gt;</li>
+<li>&lt;code&gt;char *strtok_r(char *str, const char *delim, char **saveptr);&lt;/code&gt;</li>
+<li>&lt;code&gt;char *strcasestr(const char *haystack, const char *needle);&lt;/code&gt;</li>
+<li>&lt;code&gt;void *memmem(const void *haystack, size_t haystacklen, const void *needle, size_t needlelen);&lt;/code&gt;</li>
+<li>&lt;code&gt;void *mempcpy(void *dest, const void *src, size_t n);&lt;/code&gt;</li>
+<li>&lt;code&gt;size_t strlen(const char *s);&lt;/code&gt;</li>
+<li>&lt;code&gt;size_t strnlen(const char *s, size_t maxlen);&lt;/code&gt;</li>
+<li>&lt;code&gt;char *strerror_r(int errnum, char *buf, size_t buflen);&lt;/code&gt;</li>
+<li>&lt;code&gt;void bcopy(const void *src, void *dest, size_t n);&lt;/code&gt;</li>
+<li>&lt;code&gt;void bzero(void *s, size_t n);&lt;/code&gt;</li>
+<li>&lt;code&gt;int bcmp(const void *s1, const void *s2, size_t n);&lt;/code&gt;</li>
+<li>&lt;code&gt;char *index(const char *s, int c);&lt;/code&gt;</li>
+<li>&lt;code&gt;char *rindex(const char *s, int c);&lt;/code&gt;</li>
+<li>&lt;code&gt;int strcasecmp(const char *s1, const char *s2);&lt;/code&gt;</li>
+<li>&lt;code&gt;int strncasecmp(const char *s1, const char *s2, size_t n);&lt;/code&gt;</li>
+<li>&lt;code&gt;int strcasecmp_l(const char *s1, const char *s2, locale_t loc);&lt;/code&gt;</li>
+<li>&lt;code&gt;int strncasecmp_l(const char *s1, const char *s2, size_t n, locale_t loc);&lt;/code&gt;</li>
+<li>&lt;code&gt;char *strsep(char **stringp, const char *delim);&lt;/code&gt;</li>
+<li>&lt;code&gt;char *stpcpy(char *dest, const char *src);&lt;/code&gt;</li>
+<li>&lt;code&gt;char *stpncpy(char *dest, const char *src, size_t n);&lt;/code&gt;</li>
+<li>&lt;code&gt;int strverscmp(const char *s1, const char *s2);&lt;/code&gt;</li>
+<li>&lt;code&gt;char *strfry(char *string);&lt;/code&gt;</li>
+<li>&lt;code&gt;void *memfrob(void *s, size_t n);&lt;/code&gt;</li>
+<li>&lt;code&gt;char *basename(char *path);&lt;/code&gt;</li>
+</ul>
+<p>This rule raises an issue when 0 is passed as a length to any of the following functions, since the last two parameters might have been swapped by mistake:</p>
+<ul>
+<li>&lt;code&gt;void *memccpy(void *dest, const void *src, int c, size_t n);&lt;/code&gt;</li>
+<li>&lt;code&gt;void *memset(void *s, int c, size_t n);&lt;/code&gt;</li>
+<li>&lt;code&gt;void *memchr(const void *s, int c, size_t n);&lt;/code&gt;</li>
+<li>&lt;code&gt;void *memrchr(const void *s, int c, size_t n);&lt;/code&gt;</li>
+<li>&lt;code&gt;void bzero(void *s, size_t n);&lt;/code&gt;</li>
+</ul>
+<p>This rule also raises an issue when &lt;code&gt;sizeof&lt;/code&gt; is passed as a second argument of &lt;code&gt;memset&lt;/code&gt;, since it is another case where the last two parameters might have been swapped by mistake.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+memcpy(NULL, src, 10); // Noncompliant, null pointer
+memset(ptr, 0, 0); // Noncompliant, length is zero
+memset(dest, sizeof(src), src); // Noncompliant, "sizeof" should be the third argument
+</pre>

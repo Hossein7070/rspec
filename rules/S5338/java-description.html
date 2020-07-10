@@ -1,0 +1,9 @@
+<p>This rule raises an issue when a configured Java package or class is used.</p>
+<h2>Noncompliant Code Example</h2>
+<p>Given a disallowed list of &lt;code&gt;java.sql,ArrayList&lt;/code&gt;:</p>
+<pre>
+import java.sql.*; // Noncompliant
+
+java.util.ArrayList clients; // Noncompliant
+java.lang.String name // Compliant
+</pre>

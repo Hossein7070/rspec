@@ -1,0 +1,67 @@
+<p>Validation of X.509 certificates is essential to create secure SSL/TLS sessions not vulnerable to man-in-the-middle attacks.
+The certificate chain validation includes these steps:</p>
+<ul>
+<li>The certificate is issued by its parent Certificate Authority or the root CA trusted by the system.</li>
+<li>Each CA is allowed to issue certificates.</li>
+<li>Each certificate in the chain is not expired.</li>
+</ul>
+<p>It’s not recommended to reinvent the wheel by implementing custom certificate chain validation.
+TLS libraries provide built-in certificate validation functions that should be used.</p>
+<h2>Noncompliant Code Examples</h2>
+<p><a href="https://github.com/curl/curl">libcurl</a></p>
+<pre>
+#include &lt;curl/curl.h&gt;
+
+CURL *curl;
+curl_global_init(CURL_GLOBAL_DEFAULT);
+
+curl = curl_easy_init();
+curl_easy_setopt(curl, CURLOPT_URL, "https://example.com/");
+curl_easy_setopt(curl, CURLOPT_SSL_VERIFYPEER, 0L); // Noncompliant; CURLOPT_SSL_VERIFYPEER is set to 0, no peer's SSL certificate will be verified
+</pre>
+<p><a href="https://github.com/openssl/openssl">OpenSSL</a></p>
+<pre>
+#include &lt;openssl/ssl.h&gt;
+
+const SSL_METHOD *method = TLS_method();
+SSL_CTX *ctx = SSL_CTX_new(method);
+
+SSL_CTX_set_verify(ctx, SSL_VERIFY_NONE, NULL); // Noncompliant; SSL_VERIFY_NONE means no automatic certificate verification
+</pre>
+<pre>
+#include &lt;openssl/ssl.h&gt;
+
+static int verify_callback(int preverify_ok, X509_STORE_CTX *ctx) { return 1; } // This callback always validate the certificate
+
+const SSL_METHOD *method = TLS_method();
+SSL_CTX *ctx = SSL_CTX_new(method);
+
+SSL_CTX_set_verify(ctx, CURLOPT_SSL_VERIFYPEER, verify_callback); // Noncompliant; the verify callback result overrides OpenSSL built-in verification enabled by CURLOPT_SSL_VERIFYPEER option.
+</pre>
+<h2>Compliant Solution</h2>
+<p><a href="https://github.com/curl/curl">libcurl</a></p>
+<pre>
+#include &lt;curl/curl.h&gt;
+
+CURL *curl;
+curl_global_init(CURL_GLOBAL_DEFAULT);
+
+curl = curl_easy_init();
+curl_easy_setopt(curl, CURLOPT_URL, "https://example.com/");
+curl_easy_setopt(curl, CURLOPT_SSL_VERIFYPEER, 1L); // Compliant; CURLOPT_SSL_VERIFYPEER is set to 1
+</pre>
+<p><a href="https://github.com/openssl/openssl">OpenSSL</a></p>
+<pre>
+#include &lt;openssl/ssl.h&gt;
+
+const SSL_METHOD *method = TLS_method();
+SSL_CTX *ctx = SSL_CTX_new(method);
+
+SSL_CTX_set_verify(ctx, SSL_VERIFY_PEER, NULL); // Compliant; CURLOPT_SSL_VERIFYPEER enable OpenSSL's built-in verification of the peer certificate.
+</pre>
+<h2>See</h2>
+<ul>
+<li><a href="https://www.owasp.org/index.php/Top_10-2017_A3-Sensitive_Data_Exposure">OWASP Top 10 2017 Category A3</a> - Sensitive Data Exposure</li>
+<li><a href="https://www.owasp.org/index.php/Top_10-2017_A6-Security_Misconfiguration">OWASP Top 10 2017 Category A6</a> - Security Misconfiguration</li>
+<li><a href="https://cwe.mitre.org/data/definitions/295.html">MITRE, CWE-295</a> - Improper Certificate Validation</li>
+</ul>

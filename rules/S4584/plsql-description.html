@@ -1,0 +1,12 @@
+<p>&lt;code&gt;CREATE_TIMER&lt;/code&gt; is generating network traffic each time the timer is fired. It’s probably totally fine for a timer being executed every hour but generally, this is used to provide clocks components that are going to generate network traffic every second or more.
+It is recommended by Oracle to examine timers and replace them with JavaBeans.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+BEGIN
+  timer := CREATE_TIMER('foo', 1000, REPEAR)
+ENDl
+</pre>
+<h2>See</h2>
+<ul>
+<li><a href="https://docs.oracle.com/cd/A97335_02/apps.102/a86202/chap11.htm">11.3.4 Other Techniques to Improve Performance</a></li>
+</ul>

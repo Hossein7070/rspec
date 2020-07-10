@@ -1,0 +1,22 @@
+<p>Oracle supports at most 1000 items in a SQL query’s &lt;code&gt;IN&lt;/code&gt; clause. When more items are given, the exception &lt;code&gt;ORA-01795 maximum number of expressions in a list is 1000&lt;/code&gt; is raised. Thus, &lt;code&gt;IN&lt;/code&gt; clauses are not as scalable as joins.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+BEGIN
+  SELECT *
+  INTO result
+  FROM my_table
+  WHERE col1 IN (1, 2, 3, ..., 1001);       -- Noncompliant - raises ORA-01795
+END;
+/
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+BEGIN
+  SELECT my_table.*
+  INTO result
+  FROM my_table
+  JOIN new_in_table
+  WHERE my_table.col1 = new_in_table.value; -- Compliant
+END;
+/
+</pre>

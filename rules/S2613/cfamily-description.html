@@ -1,0 +1,15 @@
+<p>Passing a negative value into a memory allocation function can still result in a cleanly-allocated block of memory. However, it will likely be much, much larger than intended. This is because &lt;code&gt;alloc&lt;/code&gt;, &lt;code&gt;malloc&lt;/code&gt;, &lt;code&gt;calloc&lt;/code&gt;, and &lt;code&gt;realloc&lt;/code&gt; take a &lt;code&gt;size_t&lt;/code&gt; parameteter, which is unsigned. Pass in a negative value, and it will be converted to &lt;code&gt;SIZE_MAX - 1&lt;/code&gt;. According to the standard, &lt;code&gt;SIZE_MAX&lt;/code&gt; must be at least 65,535.</p>
+<p>Such an allocation could result in Denial of Service as the system struggles in the wake of the too-large memory grab.</p>
+<p>This rule logs an issue when a signed value is passed in to an allocation function.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+char** addOne(char ** cpp, int len) {
+  len++;
+  return realloc(cpp, len * sizeof(char *));  // Noncompliant; negative in the case of overflow
+}
+</pre>
+<h2>See</h2>
+<ul>
+<li><a href="http://cwe.mitre.org/data/definitions/131">MITRE, CWE-131</a> - Incorrect Calculation of Buffer Size</li>
+<li><a href="https://www.sans.org/top25-software-errors/#cat2">SANS Top 25</a> - Risky Resource Management</li>
+</ul>

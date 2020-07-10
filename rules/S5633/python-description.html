@@ -1,0 +1,21 @@
+<p>Dictionary unpacking requires an objects with methods &lt;code&gt;_\_getitem\__&lt;/code&gt; and &lt;code&gt;keys&lt;/code&gt; or &lt;code&gt;\__getitem\__&lt;/code&gt; and &lt;code&gt;\__getattr\_\_&lt;/code&gt;. This is the case for any <a href="https://docs.python.org/3/glossary.html#term-mapping">mapping</a> object such as &lt;code&gt;dict&lt;/code&gt;. Using an object which doesn’t have these methods will raise a &lt;code&gt;TypeError&lt;/code&gt;.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+class A:
+    pass
+
+dict(**A())  # Noncompliant
+{'a': 10, 'b': 20, **A()}  # Noncompliant
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+class A:
+  def __getitem__(self, key):
+      return 2
+
+  def keys(self):
+      return ['1','2','3']
+
+dict(**A())  # =&gt; {'1': 2, '2': 2, '3': 2}
+{'a': 10, 'b': 20, **A()}  # =&gt; {'a': 10, 'b': 20, '1': 2, '2': 2, '3': 2}
+</pre>

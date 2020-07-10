@@ -1,0 +1,29 @@
+<p>The use of Swift 2.0’s &lt;code&gt;try!&lt;/code&gt; lets you execute code that might throw an exception without using the &lt;code&gt;do&lt;/code&gt; and &lt;code&gt;catch&lt;/code&gt; syntax normally required for such code. By using it, you’re guaranteeing that the executed code will never fail. Murphy’s Law guarantees you’re wrong. And when it does fail, the program will exit abruptly, probably without cleaning up after itself.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+let myvar = try! dangerousCode(foo);  // Noncompliant
+// ...
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+guard let myvar = try? dangerousCode(foo) else {
+  // handle error
+}
+
+// or
+
+if let myvar = try? dangerousCode(foo); {
+  // ...
+} else {
+  // handle error
+}
+
+// or
+
+do {
+  let myvar = try dangerousCode(foo)
+  // ...
+} catch {
+  // handle error
+}
+</pre>

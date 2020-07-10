@@ -1,0 +1,25 @@
+{
+  "title": "\"UNION\" should not be used in \"SELECT\" statements",
+  "type": "CODE_SMELL",
+  "status": "ready",
+  "remediation": {
+    "func": "Constant/Issue",
+    "constantCost": "2h"
+  },
+  "tags": [
+    "performance",
+    "sql"
+  ],
+  "defaultSeverity": "Major",
+  "ruleSpecification": "RSPEC-1571",
+  "sqKey": "SQL.UnionUsageCheck",
+  "scope": "Main",
+  "all_languages": [
+    "cobol",
+    "plsql"
+  ],
+  "allKeys": [
+    "SQL.UnionUsageCheck",
+    "UnionUsageCheck"
+  ]
+}

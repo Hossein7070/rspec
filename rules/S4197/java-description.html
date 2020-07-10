@@ -1,0 +1,10 @@
+<p>Java 8 adds &lt;code&gt;Comparator.comparing&lt;/code&gt; to allow the creation of a single-value comparator to be shorthanded into a single call. This cleaner syntax should be preferred.</p>
+<p><strong>Note</strong> that this rule is automatically disabled when the project’s &lt;code&gt;sonar.java.source&lt;/code&gt; is lower than &lt;code&gt;8&lt;/code&gt;.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+Comparator&lt;Foo&gt; compartor = (foo1, foo2) -&gt; foo.getName().compareTo(foo2.getName());  // Noncompliant
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+Comparator&lt;Foo&gt; compartor = Comparator.comparing(Foo::getName);
+</pre>

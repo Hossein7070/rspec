@@ -1,0 +1,25 @@
+{
+  "title": "Enumeration types should comply with a naming convention",
+  "type": "CODE_SMELL",
+  "status": "ready",
+  "remediation": {
+    "func": "Constant/Issue",
+    "constantCost": "5min"
+  },
+  "tags": [
+    "convention"
+  ],
+  "defaultSeverity": "Minor",
+  "ruleSpecification": "RSPEC-2342",
+  "sqKey": "S2342",
+  "scope": "All",
+  "all_languages": [
+    "cfamily",
+    "csharp",
+    "swift",
+    "vbnet"
+  ],
+  "allKeys": [
+    "S2342"
+  ]
+}

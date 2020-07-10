@@ -1,0 +1,14 @@
+<p>The use of positional notation can quickly become confusing, especially in a large or complex data structure. To keep the code clean and understandable, use length notation instead.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+     D PERSON          DS                  QUALIFIED
+      * Noncompliant
+     D  FName                  1     30
+     D  LName                 31     60
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+     D PERSON          DS                  QUALIFIED
+     D  FName                        30
+     D  LName                        30
+</pre>

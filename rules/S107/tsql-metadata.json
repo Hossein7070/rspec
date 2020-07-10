@@ -1,0 +1,39 @@
+{
+  "title": "Functions and procedures should not have too many parameters",
+  "type": "CODE_SMELL",
+  "status": "ready",
+  "remediation": {
+    "func": "Constant/Issue",
+    "constantCost": "20min"
+  },
+  "tags": [
+    "brain-overload"
+  ],
+  "defaultSeverity": "Major",
+  "ruleSpecification": "RSPEC-107",
+  "sqKey": "S107",
+  "scope": "All",
+  "all_languages": [
+    "apex",
+    "cfamily",
+    "csharp",
+    "flex",
+    "go",
+    "java",
+    "javascript",
+    "kotlin",
+    "php",
+    "pli",
+    "plsql",
+    "python",
+    "ruby",
+    "scala",
+    "swift",
+    "tsql",
+    "vbnet"
+  ],
+  "allKeys": [
+    "S107",
+    "PlSql.FunctionAndProcedureExcessiveParameters"
+  ]
+}

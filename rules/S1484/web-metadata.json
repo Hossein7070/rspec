@@ -1,0 +1,40 @@
+{
+  "title": "Track instances of below-threshold comment line density",
+  "type": "CODE_SMELL",
+  "status": "ready",
+  "remediation": {
+    "func": "Linear",
+    "linearDesc": "per additional line required to meet minimum density",
+    "linearFactor": "2min"
+  },
+  "tags": [
+    "convention"
+  ],
+  "defaultSeverity": "Minor",
+  "ruleSpecification": "RSPEC-1484",
+  "sqKey": "S1484",
+  "scope": "Main",
+  "all_languages": [
+    "abap",
+    "cfamily",
+    "cobol",
+    "csharp",
+    "flex",
+    "java",
+    "javascript",
+    "php",
+    "pli",
+    "plsql",
+    "python",
+    "rpg",
+    "swift",
+    "tsql",
+    "vb6",
+    "vbnet",
+    "web",
+    "xml"
+  ],
+  "allKeys": [
+    "S1484"
+  ]
+}

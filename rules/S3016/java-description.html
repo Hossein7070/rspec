@@ -1,0 +1,21 @@
+<p>The use of &lt;code&gt;short&lt;/code&gt;s saves a little bit of memory, but actually increases processor use because the JVM has no real capability for handling &lt;code&gt;short&lt;/code&gt;s. Instead, it must convert each &lt;code&gt;short&lt;/code&gt; to an &lt;code&gt;int&lt;/code&gt; before performing any operations on it, then convert it back to a &lt;code&gt;short&lt;/code&gt; for storage.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+public class MyClass {
+  short s = 0;  // Noncompliant
+
+  public short doubleSmallNumber(short num) {  // Noncompliant
+    return num+num;
+  }
+}
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+public class MyClass {
+  int s = 0;
+
+  public int doubleSmallNumber(int num) {
+    return num+num;
+  }
+}
+</pre>

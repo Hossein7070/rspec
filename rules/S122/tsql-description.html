@@ -1,0 +1,10 @@
+<p>For better readability, do not put more than one statement on a single line.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+IF @x &gt; 0 SET @x = 0; IF @y &gt; 0 SET @y = 0; -- Noncompliant
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+IF @x &gt; 0 SET @x = 0;
+IF @y &gt; 0 SET @y = 0;
+</pre>

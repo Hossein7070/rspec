@@ -1,0 +1,27 @@
+<p>Even if the compiler allows it, &lt;code&gt;main&lt;/code&gt; should not return &lt;code&gt;void&lt;/code&gt;. The return value of &lt;code&gt;main&lt;/code&gt; is used by callers to determine whether the program executed successfully or not. A &lt;code&gt;0&lt;/code&gt; return value indicates that the program completed successfully. Anything else indicates an error.</p>
+<p>Since both standards and conventions dictate that &lt;code&gt;main&lt;/code&gt; return an &lt;code&gt;int&lt;/code&gt;, any caller that evaluates the return value of a &lt;code&gt;void main&lt;/code&gt; method will believe the program executed successfully, regardless of the actual outcome.</p>
+<p>Further, &lt;code&gt;main&lt;/code&gt;'s return type should not be left to default to &lt;code&gt;int&lt;/code&gt;, as happens when it is not expressly listed. Instead, it should be set explicitly to &lt;code&gt;int&lt;/code&gt;.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+main( int argc, const char* argv[] ) {  // Noncompliant; int return type not explicit
+  // ...
+}
+
+// file boundary here...
+
+void main(void) { // Noncompliant; void return type
+  // ...
+}
+</pre>
+<p>h2 Noncompliant Code Example</p>
+<pre>
+int main( int argc, const char* argv[] ) {
+  // ...
+}
+
+// file boundary here...
+
+int main(void) {
+  // ...
+}
+</pre>

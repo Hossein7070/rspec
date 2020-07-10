@@ -1,0 +1,38 @@
+<p>The &lt;code&gt;switch&lt;/code&gt; statement should be used only to clearly define some new branches in the control flow. As soon as a &lt;code&gt;case&lt;/code&gt; clause contains too many statements this highly decreases the readability of the overall control flow statement. In such case, the content of the &lt;code&gt;case&lt;/code&gt; clause should be extracted into a dedicated method.</p>
+<h2>Noncompliant Code Example</h2>
+<p>With the default threshold of 5:</p>
+<pre>
+func foo(tag int) {
+	switch tag {
+	case 0:
+		methodCall1()
+		methodCall2()
+		methodCall3()
+		methodCall4()
+                methodCall5()
+                methodCall6()
+	case 1:
+		bar()
+	}
+}
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+func foo(tag int) {
+	switch tag {
+	case 0:
+		executeAll()
+	case 1:
+		bar()
+	}
+}
+
+func executeAll() {
+	methodCall1()
+	methodCall2()
+	methodCall3()
+	methodCall4()
+        methodCall5()
+        methodCall6()
+}
+</pre>

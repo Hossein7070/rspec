@@ -1,0 +1,28 @@
+{
+  "title": "\"Equals(Object)\" and \"GetHashCode()\" should be overridden in pairs",
+  "type": "BUG",
+  "status": "ready",
+  "remediation": {
+    "func": "Constant/Issue",
+    "constantCost": "15 min"
+  },
+  "tags": [
+    "cwe"
+  ],
+  "defaultSeverity": "Minor",
+  "ruleSpecification": "RSPEC-1206",
+  "sqKey": "S1206",
+  "scope": "Main",
+  "securityStandards": {
+    "CWE": [
+      581
+    ]
+  },
+  "all_languages": [
+    "csharp",
+    "java"
+  ],
+  "allKeys": [
+    "S1206"
+  ]
+}

@@ -1,0 +1,9 @@
+<p>Surrounding your operators with whitespace in operator declarations will help maintainers derive meaning from what might otherwise look like a meaningless jumble of punctuation.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+func &lt;*&gt;(a: MyClass, b: MyClass) -&gt; Boolean { // Noncompliant
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+func &lt;*&gt; (a: MyClass, b: MyClass) -&gt; Boolean {
+</pre>

@@ -1,0 +1,17 @@
+<p>Using unvalidated values can expose an application to injection attacks.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+  // ...
+  Employee employee = new Employee();
+  employee.setFirstName(request.getParameter("firstName")); // Noncompliant
+  // ...
+
+  save(employee); // Uh-oh!
+</pre>
+<h2>See</h2>
+<ul>
+<li><a href="https://www.owasp.org/index.php/Top_10-2017_A1-Injection">OWASP Top 10 2017 Category A1</a> - Injection</li>
+<li><a href="https://www.securecoding.cert.org/confluence/x/EwAZAg">CERT, IDS51-J.</a> - Properly encode or escape output</li>
+<li><a href="https://www.securecoding.cert.org/confluence/x/CwHEAw">CERT, IDS52-J.</a> - Prevent code injection</li>
+</ul>

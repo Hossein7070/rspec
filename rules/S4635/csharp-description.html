@@ -1,0 +1,16 @@
+<p>Looking for a given substring starting from a specified offset can be achieved by such code: &lt;code&gt;str.Substring(startIndex).IndexOf(char1)&lt;/code&gt;. This works well, but it creates a new &lt;code&gt;string&lt;/code&gt; for each call to the &lt;code&gt;Substring&lt;/code&gt; method. When this is done in a loop, a lot of &lt;code&gt;strings&lt;/code&gt; are created for nothing, which can lead to performance problems if &lt;code&gt;str&lt;/code&gt; is large.</p>
+<p>To avoid performance problems, &lt;code&gt;string.Substring(startIndex)&lt;/code&gt; should not be chained with the following methods:
+- &lt;code&gt;IndexOf&lt;/code&gt;
+- &lt;code&gt;IndexOfAny&lt;/code&gt;
+- &lt;code&gt;LastIndexOf&lt;/code&gt;
+- &lt;code&gt;LastIndexOfAny&lt;/code&gt;</p>
+<p>For each of these methods, another method with an additional parameter is available to specify an offset.
+Using these methods gives the same result while avoiding the creation of additional &lt;code&gt;String&lt;/code&gt; instances.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+str.Substring(StartIndex).IndexOf(char1); // Noncompliant; a new string is going to be created by "Substring"
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+str.IndexOf(char1, startIndex);
+</pre>

@@ -1,0 +1,37 @@
+<p>With the advent of .NET framework version 2, certain practices have become obsolete.
+In particular, exceptions should now extend &lt;code&gt;System.Exception&lt;/code&gt; instead of &lt;code&gt;System.ApplicationException&lt;/code&gt;. Similarly, generic collections should be used instead of the older, non-generic, ones. Finally when creating an XML view, you should not extend &lt;code&gt;System.Xml.XmlDocument&lt;/code&gt;.
+This rule raises an issue when an externally visible type extends one of these types:</p>
+<ul>
+<li>&lt;code&gt;System.ApplicationException&lt;/code&gt;</li>
+<li>&lt;code&gt;System.Xml.XmlDocument&lt;/code&gt;</li>
+<li>&lt;code&gt;System.Collections.CollectionBase&lt;/code&gt;</li>
+<li>&lt;code&gt;System.Collections.DictionaryBase&lt;/code&gt;</li>
+<li>&lt;code&gt;System.Collections.Queue&lt;/code&gt;</li>
+<li>&lt;code&gt;System.Collections.ReadOnlyCollectionBase&lt;/code&gt;</li>
+<li>&lt;code&gt;System.Collections.SortedList&lt;/code&gt;</li>
+<li>&lt;code&gt;System.Collections.Stack&lt;/code&gt;</li>
+</ul>
+<h2>Noncompliant Code Example</h2>
+<pre>
+using System;
+using System.Collections;
+
+namespace MyLibrary
+{
+  public class MyCollection : CollectionBase  // Noncompliant
+  {
+  }
+}
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+using System;
+using System.Collections;
+
+namespace MyLibrary
+{
+  public class MyCollection : Collection&lt;T&gt;
+  {
+  }
+}
+</pre>

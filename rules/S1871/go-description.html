@@ -1,0 +1,39 @@
+<p>Having two &lt;code&gt;cases&lt;/code&gt; in a &lt;code&gt;switch&lt;/code&gt; statement or two branches in an &lt;code&gt;if&lt;/code&gt; chain  with the same implementation is at best duplicate code, and at worst a coding error. If the same logic is truly needed for both instances, then in an &lt;code&gt;if&lt;/code&gt; chain they should be combined, or for a &lt;code&gt;switch&lt;/code&gt;, one should fall through to the other.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+switch i {
+case 1:
+	doFirstThing()
+	doSomething()
+case 2:
+	doSomethingElse()
+case 3: // Noncompliant; duplicates case 1's implementation
+	doFirstThing()
+	doSomething()
+default:
+	doTheRest()
+}
+
+if a &gt;= 0 &amp;&amp; a &lt; 10 {
+	doFirstThing()
+	doSomething()
+} else if a &gt;= 10 &amp;&amp; a &lt; 20 {
+	doSomethingElse()
+} else if a &gt;= 20 &amp;&amp; a &lt; 50 {
+	doFirstThing()
+	doSomething() // Noncompliant; duplicates first condition
+} else {
+	doTheRest()
+}
+</pre>
+<h2>Exceptions</h2>
+<p>Blocks in an &lt;code&gt;if&lt;/code&gt; chain or &lt;code&gt;case&lt;/code&gt; blocks that contain a single line of code are ignored.</p>
+<pre>
+if a == 1 {
+  doSomething()  //no issue, usually this is done on purpose to increase the readability
+} else if a == 2 {
+  doSomethingElse()
+} else {
+  doSomething()
+}
+</pre>

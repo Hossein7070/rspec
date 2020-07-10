@@ -1,0 +1,39 @@
+<p>&lt;code&gt;cursor%NOTFOUND&lt;/code&gt; is clearer and more readable than &lt;code&gt;NOT cursor%FOUND&lt;/code&gt;, and is preferred.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+SET SERVEROUTPUT ON
+
+DECLARE
+  CURSOR c IS SELECT DUMMY FROM DUAL;
+  x VARCHAR2(1);
+BEGIN
+  OPEN c;
+  FETCH c INTO x;
+  IF NOT c%FOUND THEN  -- Noncompliant
+    DBMS_OUTPUT.PUT_LINE('uh?');
+  ELSE
+    DBMS_OUTPUT.PUT_LINE('all good: ' || x);
+  END IF;
+  CLOSE c;
+END;
+/
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+SET SERVEROUTPUT ON
+
+DECLARE
+  CURSOR c IS SELECT DUMMY FROM DUAL;
+  x VARCHAR2(1);
+BEGIN
+  OPEN c;
+  FETCH c INTO x;
+  IF c%NOTFOUND THEN
+    DBMS_OUTPUT.PUT_LINE('uh?');
+  ELSE
+    DBMS_OUTPUT.PUT_LINE('all good: ' || x);
+  END IF;
+  CLOSE c;
+END;
+/
+</pre>

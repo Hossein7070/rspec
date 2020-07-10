@@ -1,0 +1,52 @@
+<p>Mutable collections are those whose state can be changed. For instance, &lt;code&gt;Array&lt;/code&gt; and &lt;code&gt;List&lt;T&gt;&lt;/code&gt; are mutable, but &lt;code&gt;System.Collections.ObjectModel.ReadOnlyCollection&lt;T&gt;&lt;/code&gt; and &lt;code&gt;System.Collections.Immutable.ImmutableList&lt;T&gt;&lt;/code&gt; are not. Mutable collection class members should not be returned to a caller or accepted and stored directly. Doing so leaves you vulnerable to unexpected changes in your class state.</p>
+<p>Instead use and store a copy of the mutable collection, or return an immutable collection wrapper, e.g. &lt;code&gt;System.Collections.ObjectModel.ReadOnlyCollection&lt;T&gt;&lt;/code&gt;.</p>
+<p>Note that you can’t just return your mutable collection through the &lt;code&gt;IEnumerable&lt;T&gt;&lt;/code&gt; interface because the caller of your method/property could cast it down to the mutable type and then change it.</p>
+<p>This rule checks that mutable collections are not stored or returned directly.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+class A
+{
+    private List&lt;string&gt; names = new List&lt;string&gt;();
+
+    public ICollection&lt;string&gt; Names =&gt; names; // Noncompliant
+
+    public IEnumerable&lt;string&gt; GetNames()  // Noncompliant
+    {
+        return names;
+    }
+
+    public void SetNames(List&lt;string&gt; strings)
+    {
+        this.names = strings;  // Noncompliant
+    }
+}
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+class A
+{
+    private List&lt;string&gt; names = new List&lt;string&gt;();
+    private ReadOnlyCollection&lt;string&gt; readOnlyNames = new ReadOnlyCollection&lt;string&gt;(names);
+
+    public ICollection&lt;string&gt; Names =&gt; readOnlyNames; // Return a collection wrapper
+
+    public IEnumerable&lt;string&gt; GetNames()
+    {
+        names.ToList(); // Make a copy
+    }
+
+    public void SetNames(List&lt;string&gt; strings)
+    {
+        this.names.Clear();
+        this.names.AddRange(strings); // Make a copy
+    }
+}
+</pre>
+<h2>See</h2>
+<ul>
+<li><a href="http://cwe.mitre.org/data/definitions/374">MITRE, CWE-374</a> - Passing Mutable Objects to an Untrusted Method</li>
+<li><a href="http://cwe.mitre.org/data/definitions/375">MITRE, CWE-375</a> - Returning a Mutable Object to an Untrusted Caller</li>
+<li><a href="https://www.securecoding.cert.org/confluence/x/zQCuAQ">CERT, OBJ05-J.</a> - Do not return references to private mutable class members</li>
+<li><a href="https://www.securecoding.cert.org/confluence/x/QIEVAQ">CERT, OBJ06-J.</a> - Defensively copy mutable inputs and mutable internal components</li>
+<li><a href="https://www.securecoding.cert.org/confluence/x/JQLEAw">CERT, OBJ13-J.</a> - Ensure that references to mutable objects are not exposed</li>
+</ul>

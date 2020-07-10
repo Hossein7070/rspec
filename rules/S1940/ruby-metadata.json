@@ -1,0 +1,34 @@
+{
+  "title": "Boolean checks should not be inverted",
+  "type": "CODE_SMELL",
+  "status": "ready",
+  "remediation": {
+    "func": "Constant/Issue",
+    "constantCost": "2min"
+  },
+  "tags": [
+    "pitfall"
+  ],
+  "defaultSeverity": "Minor",
+  "ruleSpecification": "RSPEC-1940",
+  "sqKey": "S1940",
+  "scope": "All",
+  "all_languages": [
+    "apex",
+    "csharp",
+    "go",
+    "java",
+    "javascript",
+    "kotlin",
+    "php",
+    "plsql",
+    "ruby",
+    "scala",
+    "swift",
+    "tsql",
+    "vbnet"
+  ],
+  "allKeys": [
+    "S1940"
+  ]
+}

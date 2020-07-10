@@ -1,0 +1,8 @@
+<p>There’s almost no point in returning results from a trigger. Because there is generally no expectation that triggers will return anything, any such results are likely to be ignored nearly all the time.</p>
+<p>This rule raises an issue when &lt;code&gt;PRINT&lt;/code&gt; is used inside a trigger, and when &lt;code&gt;SELECT&lt;/code&gt;, or &lt;code&gt;FETCH&lt;/code&gt; is used inside a trigger without the retrieved data subsequently being used inside the trigger itself.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+ALTER TRIGGER TRG_myTrigger
+...
+  PRINT @diagnostic_message -- Noncompliant
+</pre>

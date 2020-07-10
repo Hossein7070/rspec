@@ -1,0 +1,26 @@
+{
+  "title": "\"EXIT\" should not be used in loops",
+  "type": "CODE_SMELL",
+  "status": "ready",
+  "remediation": {
+    "func": "Constant/Issue",
+    "constantCost": "20min"
+  },
+  "tags": [
+    "bad-practice"
+  ],
+  "defaultSeverity": "Minor",
+  "ruleSpecification": "RSPEC-909",
+  "sqKey": "ExitInLoop",
+  "scope": "Main",
+  "all_languages": [
+    "cfamily",
+    "javascript",
+    "plsql"
+  ],
+  "allKeys": [
+    "ContinueUsage",
+    "ContinueStatement",
+    "ExitInLoop"
+  ]
+}

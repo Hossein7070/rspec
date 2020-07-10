@@ -1,0 +1,33 @@
+<p>If every &lt;code&gt;WHEN&lt;/code&gt; test of a &lt;code&gt;SELECT&lt;/code&gt; statement fails, an &lt;code&gt;ERROR&lt;/code&gt; condition is raised if the &lt;code&gt;OTHERWISE&lt;/code&gt; statement is omitted. This can lead to the unexpected termination of the program.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+foo: proc options(main);
+  declare i fixed decimal init (42);
+
+  select (i); /* Non-Compliant - SELECT without OTHERWISE statement */
+    when (0) put list ('i = 0');
+    when (1) put list ('i = 1');
+  end;
+
+  put list ('Continuation'); /* This statement will not be executed */
+end;
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+foo: proc options(main);
+  declare i fixed decimal init (42);
+
+  select (i); /* Compliant */
+    when (0) put list ('i = 0');
+    when (1) put list ('i = 1');
+    otherwise; /* No operation */
+  end;
+
+  put list ('Continuation'); /* This statement will be executed */
+end;
+</pre>
+<h2>See</h2>
+<ul>
+<li><a href="http://cwe.mitre.org/data/definitions/478.html">MITRE, CWE-478</a> - Missing Default Case in Switch Statement</li>
+<li><a href="https://www.securecoding.cert.org/confluence/x/YgE">CERT, MSC01-C.</a> - Strive for logical completeness</li>
+</ul>

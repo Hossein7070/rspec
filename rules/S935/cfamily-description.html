@@ -1,0 +1,55 @@
+<h2>Noncompliant Code Example</h2>
+<pre>
+int my_func (int a)
+{
+  if (a &gt; 100)
+  {
+    return; // Noncompliant
+  }
+
+  if (a &gt; 80)
+  {
+    throw new Exception(); // Compliant
+  }
+
+  // Noncompliant
+}
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+int my_func (int a)
+{
+  if (a &gt; 100)
+  {
+    return 12;
+  }
+
+  if (a &gt; 80)
+  {
+    throw new Exception();
+  }
+
+  return a;
+}
+</pre>
+<h2>Exceptions</h2>
+<p>This rule doesn’t raise an exception when the &lt;code&gt;return&lt;/code&gt; statement for a &lt;code&gt;void&lt;/code&gt; function, is itself a &lt;code&gt;void&lt;/code&gt; expression.</p>
+<pre>
+void foo() {
+  // Do stuff ...
+}
+
+void bar() {
+  return foo();
+}
+</pre>
+<h2>See</h2>
+<ul>
+<li>MISRA C:2004, 16.8 - All exit paths from a function with non-void return type shall have an explicit return statement with an expression</li>
+<li>MISRA C++:2008, 8-4-3 - All exit paths from a function with non-void return type shall have an explicit return statement with an expression</li>
+<li>MISRA C:2012, 17.4 - All exit paths from a function with non-void return type shall have an explicit return statement with an expression</li>
+<li><a href="http://cwe.mitre.org/data/definitions/394.html">MITRE, CWE-394</a> - Unexpected Status Code or Return Value</li>
+<li><a href="https://www.securecoding.cert.org/confluence/x/goCGAg">CERT, MSC37-C.</a> - Ensure that control never reaches the end of a non-void function</li>
+<li><a href="https://www.securecoding.cert.org/confluence/x/ZoCKC">CERT, MSC52-CPP.</a> - Value-returning functions must return a value from all exit paths</li>
+<li><a href="https://www.securecoding.cert.org/confluence/x/dICKC">CERT, MSC53-CPP.</a> - Do not return from a function declared <a></a></li>
+</ul>

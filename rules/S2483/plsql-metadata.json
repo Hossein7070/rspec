@@ -1,0 +1,20 @@
+{
+  "title": "\"END LOOP\" should be followed by a semicolon",
+  "type": "BUG",
+  "status": "ready",
+  "remediation": {
+    "func": "Constant/Issue",
+    "constantCost": "1min"
+  },
+  "tags": [],
+  "defaultSeverity": "Blocker",
+  "ruleSpecification": "RSPEC-2483",
+  "sqKey": "LoopMissingSemicolonCheck",
+  "scope": "Main",
+  "all_languages": [
+    "plsql"
+  ],
+  "allKeys": [
+    "LoopMissingSemicolonCheck"
+  ]
+}

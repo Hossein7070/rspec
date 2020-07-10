@@ -1,0 +1,14 @@
+<p>Global variables are a useful construct, but they should not be abused. Functions access the global scope through the &lt;code&gt;global&lt;/code&gt; keyword, but this practice considerably reduce the function’s readability and reusability. Instead, the global variable should be passed as a parameter to the function.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+NAME = 'Joe'
+
+def write_name();
+  global NAME   # Noncompliant
+  print NAME
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+def write_name(name);
+  print name
+</pre>

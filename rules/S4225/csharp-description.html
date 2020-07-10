@@ -1,0 +1,16 @@
+<p>Creating an extension method that extends &lt;code&gt;object&lt;/code&gt; is not recommended because it makes the method available on <em>every</em> type. Extensions should be applied at the most specialized level possible, and that is very unlikely to be &lt;code&gt;object&lt;/code&gt;.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+using System;
+
+namespace MyLibrary
+{
+    public static class MyExtensions
+    {
+        public static void Foo(this object o)  //Noncompliant
+        {
+            // ...
+        }
+    }
+}
+</pre>

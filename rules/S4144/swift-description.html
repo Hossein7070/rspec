@@ -1,0 +1,26 @@
+<p>When two functions have the same implementation, either it was a mistake - something else was intended - or the duplication was intentional, but may be confusing to maintainers. In the latter case, one implementation should invoke the other.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+func calculate() {
+  doTheThing()
+  doOtherThing()
+}
+
+func doEverything() {  // Noncompliant
+  doTheThing()
+  doOtherThing()
+}
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+func calculate() {
+  doTheThing()
+  doOtherThing()
+}
+
+func doEveryting() {
+  calculate()
+}
+</pre>
+<h2>Exceptions</h2>
+<p>Methods with fewer than 2 statements are ignored.</p>

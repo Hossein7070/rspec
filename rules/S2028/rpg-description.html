@@ -1,0 +1,18 @@
+<p>The use of &lt;code&gt;UNDERLINE&lt;/code&gt; makes normal text printed to the screen difficult to read, and prevents titles from being read at all. For these reasons, &lt;code&gt;UNDERLINE&lt;/code&gt; should not be used.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+     R DETAIL1
+      * Noncompliant; next line contains UNDERLINE
+       NAME          25      2  2UNDERLINE
+       ADD1          25      3  2
+     R DETAIL3
+       ADD2          25         2SPACEB(1)
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+     R DETAIL1
+       NAME          25      2  2
+       ADD1          25      3  2
+     R DETAIL3
+       ADD2          25         2SPACEB(1)
+</pre>

@@ -1,0 +1,24 @@
+<p>&lt;code&gt;CASE&lt;/code&gt; can contain a &lt;code&gt;WHEN OTHERS&lt;/code&gt; clause for various reasons: to handle unexpected values, to show that all the cases were properly considered.
+For readability purpose, to help a developer to quickly find the default behavior of a &lt;code&gt;CASE&lt;/code&gt; statement, it is recommended to put the &lt;code&gt;WHEN OTHERS&lt;/code&gt; clause at the end of the &lt;code&gt;CASE&lt;/code&gt; statement. This rule raises an issue if the &lt;code&gt;WHEN OTHERS&lt;/code&gt; clause is not the last one of the &lt;code&gt;CASE&lt;/code&gt;'s cases.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+CASE SY-INDEX.
+  WHEN OTHERS.   // Noncompliant; WHEN OTHERS should be last statement
+    WRITE 'Unexpected result'
+  WHEN ONE.
+    WRITE  'One'.
+  WHEN 2.
+    WRITE   'Two'.
+ENDCASE.
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+CASE SY-INDEX.
+  WHEN ONE.
+    WRITE  'One'.
+  WHEN 2.
+    WRITE   'Two'.
+  WHEN OTHERS. // Compliant
+    WRITE 'Unexpected result'
+ENDCASE.
+</pre>

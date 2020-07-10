@@ -1,0 +1,14 @@
+<p>OS/VS COBOL accepted the &lt;code&gt;ON&lt;/code&gt; statement, but IBM Enterprise COBOL does not accept it anymore. The &lt;code&gt;ON&lt;/code&gt; statement allows the selective execution of statements it contains. Similar functions are provided in Enterprise COBOL by &lt;code&gt;EVALUATE&lt;/code&gt; and &lt;code&gt;IF&lt;/code&gt;</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+       IDENTIFICATION DIVISION.
+       PROGRAM-ID. foo.
+
+       PROCEDURE DIVISION.
+      * Non-Compliant
+         ON 1
+           DISPLAY 'First time'
+         ELSE
+           DISPLAY 'Other times'.
+       END PROGRAM foo.
+</pre>

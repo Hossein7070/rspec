@@ -1,0 +1,6 @@
+<p>&lt;code&gt;CAST(…​ AS CHAR/VARCHAR)&lt;/code&gt; can be a source of incompatibilities between database versions: the behavior of &lt;code&gt;CAST&lt;/code&gt; may not be the same depending on the version of the database system. Such incompatibilities can cause unexpected output from applications that &lt;code&gt;CAST&lt;/code&gt; decimal data to &lt;code&gt;CHAR&lt;/code&gt; or &lt;code&gt;VARCHAR&lt;/code&gt;, it’s therefore best to avoid using &lt;code&gt;CAST(…​ AS CHAR/VARCHAR)&lt;/code&gt;.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+  DELETE product
+  WHERE CAST(status_code AS CHAR(2)) = '42' -- Noncompliant
+</pre>

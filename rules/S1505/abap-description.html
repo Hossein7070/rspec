@@ -1,0 +1,10 @@
+<p>This &lt;code&gt;BYPASSING BUFFER&lt;/code&gt; clause explicitly switches off SAP table buffering, so the &lt;code&gt;SELECT&lt;/code&gt; reads data directly from the database.
+By definition, using this clause can lead to performance issues, which is why its use must be strongly indicated.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+SELECT *
+INTO US_PERSONS
+FROM PERSONS
+BYPASSING BUFFER
+WHERE CITY EQ 'US'
+</pre>

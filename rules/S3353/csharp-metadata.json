@@ -1,0 +1,21 @@
+{
+  "title": "Unchanged local variables should be \"const\"",
+  "type": "CODE_SMELL",
+  "status": "ready",
+  "remediation": {
+    "func": "Constant/Issue",
+    "constantCost": "2min"
+  },
+  "tags": [],
+  "defaultSeverity": "Critical",
+  "ruleSpecification": "RSPEC-3353",
+  "sqKey": "S3353",
+  "scope": "Main",
+  "all_languages": [
+    "csharp",
+    "javascript"
+  ],
+  "allKeys": [
+    "S3353"
+  ]
+}

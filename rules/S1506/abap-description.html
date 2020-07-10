@@ -1,0 +1,23 @@
+<p>The &lt;code&gt;EXEC SQL …​ END-EXEC&lt;/code&gt; statement can be used to embed Native SQL statically in ABAP programs.</p>
+<p>According to the SAP documentation:
+{quote}
+Alongside ADBC, it is also possible to embed Native SQL statically between &lt;code&gt;EXEC SQL&lt;/code&gt; and &lt;code&gt;ENDEXEC&lt;/code&gt; in ABAP programs. The recommendation, however, is to use ADBC. While the static embedding of Native SQL offers exclusively static access to the Native SQL interface, ADBC makes modern object-orientated and dynamic access possible. New developments and improvements, such as optimized performance using bulk access across internal tables, are now made only for ADBC.</p>
+<p>The existing static embedding of Native SQL statements is still supported but should no longer be used in new programs.
+{quote}</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+EXEC SQL.
+      CREATE TABLE abap_docu_demo_mytab (
+               val1 char(10) NOT NULL,
+               val2 char(10) NOT NULL,
+               PRIMARY KEY (val1)      )
+ENDEXEC.
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+NEW cl_sql_statement( )-&gt;execute_ddl(
+      `CREATE TABLE ` &amp;&amp; dbname   &amp;&amp;
+      `( val1 char(10) NOT NULL,` &amp;&amp;
+      `  val2 char(10) NOT NULL,` &amp;&amp;
+      `  PRIMARY KEY (val1) )` ).
+</pre>

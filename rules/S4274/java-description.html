@@ -1,0 +1,20 @@
+<p>An &lt;code&gt;assert&lt;/code&gt; is inappropriate for parameter validation because assertions can be disabled at runtime in the JVM, meaning that a bad operational setting would completely eliminate the intended checks. Further, &lt;code&gt;assert&lt;/code&gt;s that fail throw &lt;code&gt;AssertionError&lt;/code&gt;s, rather than throwing some type of &lt;code&gt;Exception&lt;/code&gt;. Throwing &lt;code&gt;Error&lt;/code&gt;s is completely outside of the normal realm of expected &lt;code&gt;catch&lt;/code&gt;/&lt;code&gt;throw&lt;/code&gt; behavior in normal programs.</p>
+<p>This rule raises an issue when a &lt;code&gt;public&lt;/code&gt; method uses one or more of its parameters with &lt;code&gt;assert&lt;/code&gt;s.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+ public void setPrice(int price) {
+  assert price &gt;= 0 &amp;&amp; price &lt;= MAX_PRICE;
+  // Set the price
+ }
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+ public void setPrice(int price) {
+  if (price &lt; 0 || price &gt; MAX_PRICE) {
+    throw new IllegalArgumentException("Invalid price: " + price);
+  }
+  // Set the price
+ }
+</pre>
+<h2>See</h2>
+<p><a href="https://docs.oracle.com/javase/7/docs/technotes/guides/language/assert.html">Programming With Assertions</a></p>

@@ -1,0 +1,17 @@
+<p>"&gt;" and "&lt;" can be used in Java both as comparison operators or when working with generics.  To prevent any confusion, extra whitespaces around these characters should be avoided when defining types.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+public class Foo &lt; A &gt; {...}
+...
+List &lt; String &gt; myList = new ArrayList &lt; String &gt; ();
+...
+boolean same = Util. &lt; Integer, String &gt; compare(p1, p2);
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+public class Foo&lt;A&gt; {...}
+...
+List&lt;String&gt; myList = new ArrayList&lt;String&gt;();
+...
+boolean same = Util.&lt;Integer, String&gt;compare(p1, p2);
+</pre>

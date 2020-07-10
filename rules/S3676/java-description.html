@@ -1,0 +1,23 @@
+<p>The &lt;code&gt;Class.isInstance&lt;/code&gt; method is the dynamic equivalent of the &lt;code&gt;instanceof&lt;/code&gt; operator. According to the JavaDoc, &lt;code&gt;isInstance&lt;/code&gt;</p>
+<p>{quote}
+returns &lt;code&gt;true&lt;/code&gt; if the specified Object argument is an instance of the represented class (or of any of its subclasses); it returns &lt;code&gt;false&lt;/code&gt; otherwise
+{quote}</p>
+<p>Thus, calling &lt;code&gt;isInstance&lt;/code&gt; with a class argument is likely a mistake, since any random &lt;code&gt;Class&lt;/code&gt; will only be "an instance of the represented class" when the left-hand side of the call is &lt;code&gt;Class.class&lt;/code&gt; itself. To test for a class/sub-class relationship, use &lt;code&gt;isAssignableFrom&lt;/code&gt; instead.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+    Class&lt;Number&gt; num = Number.class;
+    Class&lt;BigInteger&gt; bi = BigInteger.class;
+
+    System.out.println(num.isInstance(bi));  // Noncompliant. false
+    System.out.println(bi.isInstance(Class.class));  // Noncompliant. false
+    System.out.println(Class.class.isInstance(bi));  // Noncompliant. true
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+    Class&lt;Number&gt; num = Number.class;
+    Class&lt;BigInteger&gt; bi = BigInteger.class;
+
+    System.out.println(num.isAssignableFrom(bi));  // true
+    System.out.println(bi.isAssignableFrom(Class.class));  // false
+    System.out.println(Class.class.isAssignableFrom(bi));  // false
+</pre>

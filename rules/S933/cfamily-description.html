@@ -1,0 +1,47 @@
+<p>By implementing class interfaces with member functions the implementation retains more control over how the object state can be modified and helps to allow a class to be maintained without affecting clients. Returning a handle to class-data allows for clients to modify the state of the object without using any interfaces.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+class C
+{
+public:
+  int32_t &amp; getA () // Noncompliant, non-const handle to class-data returned.
+  {
+    return a;
+  }
+private:
+  int32_t a;
+};
+
+void b ( C &amp; c )
+{
+  int32_t &amp; a_ref = c.getA ();
+  a_ref = 10; // External modification of private C::a
+}
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+class C
+{
+public:
+  int32_t const &amp; getA () // Compliant
+  {
+    return a;
+  }
+  void setA(int32_t a)
+  {
+    this.a = a;
+  }
+private:
+  int32_t a;
+};
+
+void b ( C &amp; c )
+{
+  int32_t const &amp; a_ref = c.getA ();
+  a_ref = 10; // Not allowed, use setter setA instead
+}
+</pre>
+<h2>See</h2>
+<ul>
+<li>MISRA C++:2008, 9-3-2</li>
+</ul>

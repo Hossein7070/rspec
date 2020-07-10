@@ -1,0 +1,29 @@
+<p>&lt;code&gt;SELECT *&lt;/code&gt; should be avoided because it releases control of the returned columns and could therefore lead to errors and potentially to performance issues.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+DECLARE
+  myvar CHAR;
+BEGIN
+  SELECT * INTO myvar FROM DUAL; -- Noncompliant
+ END;
+/
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+DECLARE
+  myvar CHAR;
+BEGIN
+  SELECT dummy INTO myvar FROM DUAL;
+END;
+/
+</pre>
+<h2>Exceptions</h2>
+<p>Wrapper queries using &lt;code&gt;ROWNUM&lt;/code&gt; are ignored.</p>
+<pre>
+SELECT *
+FROM ( SELECT fname, lname, deptId
+    FROM employee
+    ORDERBY salary
+  )
+WHERE rownum &lt;= 10
+</pre>

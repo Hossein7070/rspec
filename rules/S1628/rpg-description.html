@@ -1,0 +1,25 @@
+<p>The &lt;code&gt;DEBUG(*YES)&lt;/code&gt; and &lt;code&gt;DUMP&lt;/code&gt; statements are useful during development and debugging, but could expose sensitive information to attackers and should not be included in production code.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+   H*-------------------------------------------------------------------------
+   H   DATEDIT(*YMD) DEBUG(*YES)
+   H**************************************************************************
+
+   C     SR990         BegSR
+   C     'CVTERR'      DUMP                                                   DUMP for error
+   C                   Move      *on           *INLR
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+   H*-------------------------------------------------------------------------
+   H   DATEDIT(*YMD)
+   H**************************************************************************
+
+   C     SR990         BegSR
+   C                   Move      *on           *INLR
+</pre>
+<h2>See</h2>
+<ul>
+<li><a href="https://www.owasp.org/index.php/Top_10-2017_A3-Sensitive_Data_Exposure">OWASP Top 10 2017 Category A3</a> - Sensitive Data Exposure</li>
+<li><a href="http://cwe.mitre.org/data/definitions/489.html">MITRE, CWE-489</a> - Leftover Debug Code</li>
+</ul>

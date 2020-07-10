@@ -1,0 +1,29 @@
+<p>A &lt;code&gt;Do …​ Loop&lt;/code&gt; without a &lt;code&gt;While&lt;/code&gt; or &lt;code&gt;Until&lt;/code&gt; condition must be terminated by an unstructured &lt;code&gt;Exit Do&lt;/code&gt; statement. It is safer and more readable to use structured loops instead.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+Module Module1
+    Sub Main()
+        Dim i = 1
+
+        Do                        ' Non-Compliant
+            If i = 10 Then
+                Exit Do
+            End If
+
+            Console.WriteLine(i)
+
+            i = i + 1
+        Loop
+    End Sub
+End Module
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+Module Module1
+    Sub Main()
+        For i = 1 To 9            ' Compliant
+            Console.WriteLine(i)
+        Next
+    End Sub
+End Module
+</pre>

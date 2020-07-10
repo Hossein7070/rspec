@@ -1,0 +1,38 @@
+<p>In Linux, "&lt;code&gt;capabilities&lt;/code&gt;" can be assigned to files and processes to specify fine-grained permissions and privileges.
+Granting capabilities can lead to privilege escalations.</p>
+<h2>Ask Yourself Whether</h2>
+<p>Capabilities are granted:</p>
+<ul>
+<li>To a process that does not require all capabilities to do its job.</li>
+<li>To a not trusted process.</li>
+</ul>
+<p>There is a risk if you answered yes to any of those questions.</p>
+<h2>Recommended Secure Coding Practices</h2>
+<p>Capabilities are high privileges, traditionally associated with superuser (root), thus make sure that the most restrictive and necessary capabilities are assigned to files and processes.</p>
+<h2>Sensitive Code Example</h2>
+<p>When setting capabilities:</p>
+<pre>
+cap_t caps = cap_init();
+cap_value_t cap_list[2];
+cap_list[0] = CAP_FOWNER;
+cap_list[1] = CAP_CHOWN;
+cap_set_flag(caps, CAP_PERMITTED, 2, cap_list, CAP_SET);
+
+cap_set_file("file", caps); // Sensitive
+cap_set_fd(fd, caps); // Sensitive
+cap_set_proc(caps); // Sensitive
+capsetp(pid, caps); // Sensitive
+capset(hdrp, datap); // Sensitive: is discouraged to be used because it is a system call
+</pre>
+<p>When setting SUID/SGID attributes:</p>
+<pre>
+chmod("file", S_ISUID|S_ISGID); // Sensitive
+fchmod(fd, S_ISUID|S_ISGID); // Sensitive
+</pre>
+<h2>See</h2>
+<ul>
+<li><a href="https://www.owasp.org/index.php/Top_10-2017_A5-Broken_Access_Control">OWASP Top 10 2017 Category A5</a> - Broken Access Control</li>
+<li><a href="https://cwe.mitre.org/data/definitions/250.html">CWE-250</a> - Execution with Unnecessary Privileges</li>
+<li><a href="https://cwe.mitre.org/data/definitions/266.html">CWE-266</a> -  Incorrect Privilege Assignment</li>
+<li><a href="https://forums.grsecurity.net/viewtopic.php?f=7&amp;t=2522">False Boundaries and Arbitrary Code Execution</a></li>
+</ul>

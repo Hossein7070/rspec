@@ -1,0 +1,41 @@
+<p>The class &lt;code&gt;java.util.zip.GZIPInputStream&lt;/code&gt; is already buffering its input while reading. Thus passing a &lt;code&gt;java.io.BufferedInputStream&lt;/code&gt; to a &lt;code&gt;java.util.zip.GZIPInputStream&lt;/code&gt; is redundant. It is more efficient to directly pass the original input stream to &lt;code&gt;java.util.zip.GZIPInputStream&lt;/code&gt;.</p>
+<p>Note that the default buffer size of &lt;code&gt;GZIPInputStream&lt;/code&gt; is not the same as the one in &lt;code&gt;BufferedInputStream&lt;/code&gt;. Configure it if need be.</p>
+<p>This rule raises an issue when a &lt;code&gt;java.util.zip.GZIPInputStream&lt;/code&gt; reads from a &lt;code&gt;java.io.BufferedInputStream&lt;/code&gt;.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+import java.io.*;
+import java.util.zip.GZIPInputStream;
+
+public class Noncompliant {
+
+    void deflateFile(final File file) throws IOException {
+        try (
+            FileInputStream fileStream = new FileInputStream(file);
+            BufferedInputStream bufferedStream = new BufferedInputStream(fileStream);
+            InputStream input = new GZIPInputStream(bufferedStream); // Noncompliant
+        ) {
+            // process the input
+        }
+    }
+}
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+import java.io.*;
+import java.util.zip.GZIPInputStream;
+public class Compliant {
+
+    void deflateFile(final File file) throws IOException {
+        try (
+            FileInputStream fileStream = new FileInputStream(file);
+            InputStream input = new GZIPInputStream(fileStream);
+        ) {
+            // process the input
+        }
+    }
+}
+</pre>
+<h2>See</h2>
+<ul>
+<li>Java Performance Tuning Guide - <a href="http://java-performance.info/java-io-bufferedinputstream-and-java-util-zip-gzipinputstream/">java.io.BufferedInputStream and java.util.zip.GZIPInputStream</a></li>
+</ul>

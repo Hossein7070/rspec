@@ -1,0 +1,57 @@
+<p>The &lt;code&gt;default&lt;/code&gt; clause should take appropriate action. Having an empty &lt;code&gt;default&lt;/code&gt; is a waste of keystrokes.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+enum Fruit
+{
+  Apple,
+  Orange,
+  Banana
+}
+
+void PrintName(Fruit fruit)
+{
+  switch(fruit)
+  {
+    case Fruit.Apple:
+      Console.WriteLine("apple");
+      break;
+    default:  //Noncompliant
+      break;
+  }
+}
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+enum Fruit
+{
+  Apple,
+  Orange,
+  Banana
+}
+
+void PrintName(Fruit fruit)
+{
+  switch(fruit)
+  {
+    case Fruit.Apple:
+      Console.WriteLine("apple");
+      break;
+    default:
+      throw new NotSupportedException();
+  }
+}
+</pre>
+<p>or</p>
+<pre>
+void PrintName(Fruit fruit)
+{
+  switch(fruit)
+  {
+    case Fruit.Apple:
+      Console.WriteLine("apple");
+      break;
+  }
+}
+</pre>
+<h2>Exceptions</h2>
+<p>&lt;code&gt;default&lt;/code&gt; clauses containing only a comment are ignored with the assumption that they are empty on purpose and the comment documents why.</p>

@@ -1,0 +1,18 @@
+<p>Be careful about your use of Oracle-specific data types like &lt;code&gt;ROWID&lt;/code&gt; and &lt;code&gt;UROWID&lt;/code&gt;. They might offer a slight improvement in performance over other means of identifying a single row (primary key or unique index value), but that is by no means guaranteed.
+On the other hand, the use of &lt;code&gt;ROWID&lt;/code&gt; or &lt;code&gt;UROWID&lt;/code&gt; means that your SQL statement will not be portable to other SQL databases. Further, many developers are not familiar with these data types, which can make the code harder to maintain.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+SET SERVEROUTPUT ON
+
+DECLARE
+  id rowid; -- Non-Compliant
+  universeId urowid; -- Non-Compliant
+BEGIN
+  SELECT rowid INTO id FROM DUAL;
+  SELECT rowid INTO universeId FROM DUAL;
+
+  DBMS_OUTPUT.PUT_LINE('id = ' || id);
+  DBMS_OUTPUT.PUT_LINE('universe id = ' || universeId);
+END;
+/
+</pre>

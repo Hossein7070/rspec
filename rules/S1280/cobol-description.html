@@ -1,0 +1,25 @@
+<p>Paragraphs, sections and statements must be correctly indented for better code readability.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+       IDENTIFICATION DIVISION.
+       PROGRAM-ID. foo.
+
+       PROCEDURE DIVISION.
+           IF "foo" = "bar" THEN
+           DISPLAY "foo = bar!"      *&gt; Noncompliant
+           ELSE
+           DISPLAY "foo &lt;&gt; bar!".      *&gt; Noncompliant
+       END PROGRAM foo.
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+       IDENTIFICATION DIVISION.
+       PROGRAM-ID. foo.
+
+       PROCEDURE DIVISION.
+           IF "foo" = "bar" THEN
+              DISPLAY "foo = bar!"
+           ELSE
+              DISPLAY "foo &lt;&gt; bar!".
+       END PROGRAM foo.
+</pre>

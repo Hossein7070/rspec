@@ -1,0 +1,65 @@
+<p>User provided data, such as URL parameters, POST data payloads, or cookies, should always be considered untrusted and tainted. Applications performing HTTP redirects based on tainted data could enable an attacker to redirect users to a malicious site to, for example, steal login credentials.</p>
+<p>This problem could be mitigated in any of the following ways:</p>
+<ul>
+<li>Validate the user provided data based on a whitelist and reject input not matching.</li>
+<li>Redesign the application to not perform redirects based on user provided data.</li>
+</ul>
+<h2>Noncompliant Code Example</h2>
+<pre>
+using Microsoft.AspNetCore.Mvc;
+
+namespace WebApplicationDotNetCore.Controllers
+{
+    public class RSPEC5146OpenRedirectNoncompliantController : Controller
+    {
+        public IActionResult Index()
+        {
+            return View();
+        }
+
+        private readonly string[] whiteList = { "https://www.sonarsource.com" };
+
+        public IActionResult RedirectMe(string url)
+        {
+            return Redirect(url);
+        }
+    }
+}
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+using System.Linq;
+using Microsoft.AspNetCore.Mvc;
+
+namespace WebApplicationDotNetCore.Controllers
+{
+    public class RSPEC5146OpenRedirectCompliantController : Controller
+    {
+        public IActionResult Index()
+        {
+            return View();
+        }
+
+        private readonly string[] whiteList = { "https://www.sonarsource.com" };
+
+        public IActionResult RedirectMe(string url)
+        {
+            // Match the incoming URL against a whitelist
+            if (!whiteList.Contains(url))
+            {
+                return BadRequest();
+            }
+
+            return Redirect(url);
+        }
+    }
+}
+</pre>
+<h2>See</h2>
+<ul>
+<li><a href="https://docs.microsoft.com/en-us/aspnet/core/security/preventing-open-redirects?view=aspnetcore-3.1">Microsoft Documentation ASP.NET Core</a> - Prevent Open Redirect Attacks in ASP.NET Core</li>
+<li><a href="https://docs.microsoft.com/en-us/aspnet/mvc/overview/security/preventing-open-redirection-attacks">Microsoft Documentation ASP.NET MVC</a> - Preventing Open Redirection Attacks</li>
+<li><a href="https://www.owasp.org/index.php/Top_10-2017_A5-Broken_Access_Control">OWASP Top 10 2017 Category A5</a> - Broken Access Control</li>
+<li><a href="https://cwe.mitre.org/data/definitions/601.html">MITRE, CWE-601</a> - URL Redirection to Untrusted Site ('Open Redirect')</li>
+<li><a href="https://www.sans.org/top25-software-errors/#cat2">SANS Top 25</a> - Risky Resource Management</li>
+</ul>

@@ -1,0 +1,14 @@
+<p>It can be useful to use the in-code comment &lt;code&gt;NOSONAR&lt;/code&gt; to suppress issues on given lines, but when those suppressions are no longer relevant they become a potential source of confusion and should be removed.</p>
+<p>This rule raises an issue when &lt;code&gt;NOSONAR&lt;/code&gt; is used on a line for which no issues would be raised during analysis.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+public class A {
+  // This constant definition is valid and not raising any issue
+  static final int LOCAL = 42;  // NOSONAR - Noncompliant
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+public class A {
+  // This constant definition is valid and not raising any issue
+  static final int LOCAL = 42;
+</pre>

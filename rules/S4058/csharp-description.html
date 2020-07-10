@@ -1,0 +1,32 @@
+<p>Many string operations, the &lt;code&gt;Compare&lt;/code&gt; and &lt;code&gt;Equals&lt;/code&gt; methods in particular, provide an overload that accepts a &lt;code&gt;StringComparison&lt;/code&gt; enumeration value as a parameter. Calling these overloads and explicitly providing this parameter makes your code clearer and easier to maintain.</p>
+<p>This rule raises an issue when a string comparison operation doesn’t use the overload that takes a &lt;code&gt;StringComparison&lt;/code&gt; parameter.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+using System;
+
+namespace MyLibrary
+{
+  public class Foo
+  {
+    public bool HaveSameNames(string name1, string name2)
+    {
+      return string.Compare(name1, name2) == 0; // Noncompliant
+    }
+  }
+}
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+using System;
+
+namespace MyLibrary
+{
+  public class Foo
+  {
+    public bool HaveSameNames(string name1, string name2)
+    {
+      return string.Compare(name1, name2, StringComparison.OrdinalIgnoreCase) == 0;
+    }
+  }
+}
+</pre>

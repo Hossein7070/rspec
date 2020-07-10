@@ -1,0 +1,9 @@
+<p>Python has no pre/post increment/decrement operator. For instance, &lt;code&gt;x&lt;/code&gt; and &lt;code&gt;x--&lt;/code&gt; will fail to parse. More importantly, &lt;code&gt;x&lt;/code&gt; and &lt;code&gt;--x&lt;/code&gt; will do nothing. To increment a number, simply write &lt;code&gt;x += 1&lt;/code&gt;.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+++x # Noncompliant
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+x += 1
+</pre>

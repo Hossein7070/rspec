@@ -1,0 +1,32 @@
+<p>Certain math operations are just silly and should not be performed because their results are predictable.</p>
+<p>In particular, &lt;code&gt;anyValue % 1&lt;/code&gt; is silly because it will always return 0.</p>
+<p>Casting a non-floating-point value to floating-point and then passing it to &lt;code&gt;Math.round&lt;/code&gt;, &lt;code&gt;Math.ceil&lt;/code&gt;, or &lt;code&gt;Math.floor&lt;/code&gt; is silly  because the result will always be the original value.</p>
+<p>These operations are silly with any constant value: &lt;code&gt;Math.abs&lt;/code&gt;, &lt;code&gt;Math.ceil&lt;/code&gt;, &lt;code&gt;Math.floor&lt;/code&gt;, &lt;code&gt;Math.rint&lt;/code&gt;, &lt;code&gt;Math.round&lt;/code&gt;.</p>
+<p>And these oprations are silly with certain constant values:</p>
+<p>||Operation||Value||
+|acos|0.0 or 1.0|
+|asin|0.0 or 1.0|
+|atan|0.0 or 1.0|
+|atan2|0.0|
+|cbrt|0.0 or 1.0|
+|cos|0.0|
+|cosh|0.0|
+|exp|0.0 or 1.0|
+|expm1|0.0|
+|log|0.0 or 1.0|
+|log10|0.0 or 1.0|
+|sin|0.0|
+|sinh|0.0|
+|sqrt|0.0 or 1.0|
+|tan|0.0|
+|tanh|0.0|
+|toDegrees|0.0 or 1.0|
+|toRadians|0.0|</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+public void doMath(int a) {
+  double floor = Math.floor((double)a); // Noncompliant
+  double ceiling = Math.ceil(4.2);  // Noncompliant
+  double arcTan = Math.atan(0.0);  // Noncompliant
+}
+</pre>

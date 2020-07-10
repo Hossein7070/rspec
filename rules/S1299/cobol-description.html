@@ -1,0 +1,23 @@
+<p>If the second procedure of a PERFORM THRU is not defined after the first one, the source code is semantically incorrect and the program doesn’t behave as expected.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+  PERFORM SECOND-P THRU FIRST-P.
+  ...
+
+ FIRST-P.
+   ...
+
+ SECOND-P.
+   ...
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+  PERFORM FIRST-P THRU SECOND-P.
+  ...
+
+ FIRST-P.
+   ...
+
+ SECOND-P.
+   ...
+</pre>

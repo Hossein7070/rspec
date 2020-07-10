@@ -1,0 +1,19 @@
+<p>Through Java’s evolution keywords have been added. While code that uses those words as identifiers may be compilable under older versions of Java, it will not be under modern versions.
+Following keywords are marked as invalid identifiers</p>
+<p>||Keyword||Added||
+|&lt;code&gt;_&lt;/code&gt;|9|
+|&lt;code&gt;enum&lt;/code&gt;|5.0|</p>
+<p>&lt;code&gt;assert&lt;/code&gt; and &lt;code&gt;strictfp&lt;/code&gt; are another example of valid identifiers which became keywords in later versions, but are not supported by this rule.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+public void doSomething() {
+  int enum = 42;            // Noncompliant
+  String _ = "";   // Noncompliant
+}
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+public void doSomething() {
+  int magic = 42;
+}
+</pre>

@@ -1,0 +1,16 @@
+<p>Shared naming conventions allow teams to collaborate effectively. This rule raises an issue when a local variable or function parameter name does not match the provided regular expression.</p>
+<h2>Noncompliant Code Example</h2>
+<p>With the default regular expression &lt;code&gt;^[a-z][a-zA-Z0-9_]*$&lt;/code&gt;:</p>
+<pre>
+public void doSomething(Integer PARAM) { // Noncompliant
+  Integer LOCAL; // Noncompliant
+  ...
+}
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+public void doSomething(Integer param) {
+  Integer local;
+  ...
+}
+</pre>

@@ -1,0 +1,17 @@
+<p>Oracle’s &lt;code&gt;ROWNUM&lt;/code&gt; is a pseudo column that numbers the rows in a result set. Unfortunately, it numbers the rows in the set <em>before</em> ordering is applied. So combining the two in the same query won’t get you the results you expect. Instead, you should move your selection and ordering into a subquery, and use &lt;code&gt;ROWNUM&lt;/code&gt; only on the outer query.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+SELECT fname, lname, deptId
+FROM employee
+WHERE rownum &lt;= 10
+ORDER BY salary  -- Noncompliant
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+SELECT *
+FROM ( SELECT fname, lname, deptId
+    FROM employee
+    ORDER BY salary
+  )
+WHERE rownum &lt;= 10
+</pre>

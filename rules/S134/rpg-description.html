@@ -1,0 +1,26 @@
+<p>Nested &lt;code&gt;CASxx&lt;/code&gt;, &lt;code&gt;DO&lt;/code&gt;, &lt;code&gt;DOU&lt;/code&gt;, &lt;code&gt;DOW&lt;/code&gt;, &lt;code&gt;DOUxx&lt;/code&gt;, &lt;code&gt;DOWxx&lt;/code&gt;, &lt;code&gt;FOR&lt;/code&gt;, &lt;code&gt;IF&lt;/code&gt;, &lt;code&gt;IFxx&lt;/code&gt;, &lt;code&gt;MONITOR&lt;/code&gt; and &lt;code&gt;SELECT&lt;/code&gt; statements is a key ingredient for making what’s known as "Spaghetti code".
+Such code is hard to read, refactor and therefore maintain.</p>
+<h2>Noncompliant Code Example</h2>
+<p>With the default threshold of 3:</p>
+<pre>
+IF        A &lt;&gt; B
+IF        B &lt;&gt; C
+DOW       B &lt;&gt; A
+IF        A &lt;&gt; D
+...
+ENDIF
+ENDDO
+ENDIF
+ENDIF
+</pre>
+<pre>
+if a &lt;&gt; b;
+  if b &lt;&gt; c;
+    dow b &lt;&gt; a;
+      if a &lt;&gt; d;
+        ...
+      endif;
+    enddo;
+  endif;
+endif;
+</pre>

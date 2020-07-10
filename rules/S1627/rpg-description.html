@@ -1,0 +1,25 @@
+<p>When using a &lt;code&gt;PRINTER&lt;/code&gt; defined file, an &lt;code&gt;INFDS&lt;/code&gt; keyword should be used to read the file’s line count from &lt;code&gt;*PSSR&lt;/code&gt; positions 367-368.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+ FCSO602R1  O    E             PRINTER USROPN
+ or ...
+ FCSO602R1  O    E             PRINTER USROPN
+ F                                     INFDS(WSFD01)
+ F                                     INFSR(*PSSR)
+
+ D WSFD01          DS
+ D  W1ST01           *STATUS
+ D  W1SPNO               123    124B 0
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+ FCSO602R1  O    E             PRINTER USROPN
+ F                                     INFDS(WSFD01)
+ F                                     INFSR(*PSSR)
+
+ D WSFD01          DS
+ D  W1ST01           *STATUS
+ D  W1SPNO               123    124B 0
+ D  W1LNCT               367    368B 0
+ D  W1PGNO               369    372B 0
+</pre>

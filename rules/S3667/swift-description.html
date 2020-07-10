@@ -1,0 +1,29 @@
+<p>Brevity may be the soul of wit, but concise (yet readable!) code is the soul of good programming. For that reason, you should never use a &lt;code&gt;let&lt;/code&gt; or &lt;code&gt;var&lt;/code&gt; keyword that can be left out with the same effect.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+if let x = x, let y = y {  // Noncompliant
+  // ...
+}
+
+if let p = p, var q = q {
+  // ...
+}
+
+if case (let x?, let y?) = foo {  // Noncompliant
+  // ...
+}
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+if let x = x, y = y {
+  // ...
+}
+
+if let p = p, var q = q {
+  // ...
+}
+
+if case (x?,  y?) = foo {
+  // ...
+}
+</pre>

@@ -1,0 +1,58 @@
+<p>The system field &lt;code&gt;SY-SUBRC&lt;/code&gt; must be tested immediately after any statement setting this variable. Reading this variable informs on previous operation success or errors. Such errors should be handled properly so that the program continues in a consistent state.</p>
+<p>This rule raises an issue when the field &lt;code&gt;SY-SUBRC&lt;/code&gt; is not checked just after performing one of the following operations:</p>
+<ul>
+<li>Calling a function which can throw exceptions.</li>
+<li>Calling one of the file access operation &lt;code&gt;OPEN DATASET&lt;/code&gt;, &lt;code&gt;READ DATASET&lt;/code&gt; or &lt;code&gt;DELETE DATASET&lt;/code&gt;.</li>
+</ul>
+<p>&lt;code&gt;SY-SUBRC&lt;/code&gt; check must be done either with the &lt;code&gt;CASE&lt;/code&gt;, &lt;code&gt;IF&lt;/code&gt; or &lt;code&gt;CHECK&lt;/code&gt; statement.</p>
+<h2>Noncompliant Code Example</h2>
+<p>In the following case nothing happens if the exceptions &lt;code&gt;NOT_FOUND&lt;/code&gt; or &lt;code&gt;OTHERS&lt;/code&gt; are raised:</p>
+<pre>
+CALL FUNCTION 'STRING_SPLIT'
+  EXPORTING
+    DELIMITER = ':'
+    STRING = FELD
+  IMPORTING
+    HEAD =   HEAD
+    TAIL = TAIL
+  EXCEPTIONS
+    NOT_FOUND = 1
+    OTHERS = 2.
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+CALL FUNCTION 'STRING_SPLIT'
+  EXPORTING
+    DELIMITER = ':'
+    STRING = FELD
+  IMPORTING
+    HEAD =   HEAD
+    TAIL = TAIL
+  EXCEPTIONS
+    NOT_FOUND = 1
+    OTHERS = 2.
+CASE SY-SUBRC.
+  WHEN 1. ...
+  WHEN 2. ...
+  WHEN OTHER.
+ENDCASE.
+</pre>
+<h2>Exceptions</h2>
+<p>No issue will be raised in the following cases:</p>
+<ul>
+<li>One or more &lt;code&gt;WRITE&lt;/code&gt; operation are performed between the statement setting &lt;code&gt;SY-SUBRC&lt;/code&gt; and its check. An exception will be however raised if the &lt;code&gt;WRITE&lt;/code&gt; operation is a &lt;code&gt;WRITE …​ TO&lt;/code&gt;, as this will set &lt;code&gt;SY-SUBRC&lt;/code&gt; too.</li>
+<li>&lt;code&gt;SY-SUBRC&lt;/code&gt;'s value is assigned to a variable. We then assume that it will be checked later.</li>
+</ul>
+<pre>
+OPEN DATASET my_dataset FOR INPUT IN TEXT MODE ENCODING DEFAULT. " Compliant
+WRITE 'Test'. " WRITE is accepted before checking SY-SUBRC
+IF SY-SUBRC &lt;&gt; 0.
+    EXIT.
+ENDIF.
+
+OPEN DATASET my_dataset FOR INPUT IN TEXT MODE ENCODING DEFAULT. " Compliant
+Tmp = SY-SUBRC. " Assigning SY-SUBRC value to a variable. We assume that it will be checked later.
+IF Tmp &lt;&gt; 0.
+    EXIT.
+ENDIF.
+</pre>

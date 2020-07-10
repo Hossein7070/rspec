@@ -1,0 +1,17 @@
+<p>There is little valid reason to use the methods of the &lt;code&gt;ThreadGroup&lt;/code&gt; class. Some are deprecated (&lt;code&gt;allowThreadSuspension()&lt;/code&gt;, &lt;code&gt;resume()&lt;/code&gt;, &lt;code&gt;stop()&lt;/code&gt;, and &lt;code&gt;suspend()&lt;/code&gt;), some are obsolete, others aren’t thread-safe, and still others are insecure (&lt;code&gt;activeCount()&lt;/code&gt;, &lt;code&gt;enumerate()&lt;/code&gt;) . For these reasons, any use of &lt;code&gt;ThreadGroup&lt;/code&gt; is suspicious and should be avoided.</p>
+<h2>Compliant Solution</h2>
+<pre>
+ThreadFactory threadFactory = Executors.defaultThreadFactory();
+ThreadPoolExecutor executorPool = new ThreadPoolExecutor(3, 10, 5, TimeUnit.SECONDS, new ArrayBlockingQueue&lt;Runnable&gt;(2), threadFactory);
+
+for (int i = 0; i &lt; 10; i++) {
+  executorPool.execute(new JobThread("Job: " + i));
+}
+
+System.out.println(executorPool.getActiveCount()); // Compliant
+executorPool.shutdown();
+</pre>
+<h2>See</h2>
+<ul>
+<li><a href="https://www.securecoding.cert.org/confluence/x/RQCHAQ">CERT, THI01-J.</a> - Do not invoke ThreadGroup methods</li>
+</ul>

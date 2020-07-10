@@ -1,0 +1,25 @@
+<p>By contract, any implementation of the &lt;code&gt;java.util.Iterator.next()&lt;/code&gt; method should throw a &lt;code&gt;NoSuchElementException&lt;/code&gt; exception when the iteration has no more elements. Any other behavior when the iteration is done could lead to unexpected behavior for users of this &lt;code&gt;Iterator&lt;/code&gt;.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+public class MyIterator implements Iterator&lt;String&gt;{
+  ...
+  public String next(){
+    if(!hasNext()){
+      return null;
+    }
+    ...
+  }
+}
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+public class MyIterator implements Iterator&lt;String&gt;{
+  ...
+  public String next(){
+    if(!hasNext()){
+      throw new NoSuchElementException();
+    }
+    ...
+  }
+}
+</pre>

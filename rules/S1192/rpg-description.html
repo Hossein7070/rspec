@@ -1,0 +1,39 @@
+<p>Duplicated string literals make the process of refactoring error-prone, since you must be sure to update all occurrences.
+On the other hand, constants can be referenced from many places, but only need to be updated in a single place.</p>
+<h2>Noncompliant Code Example</h2>
+<p>With the default threshold of 3:</p>
+<pre>
+C                   MOVEL     'CLEAR'       W1CLR                           Noncompliant
+C                   MOVEL     '*DECOD'      W1DCDE
+C                   MOVEL     '*ERROR'      W1ERR
+C                   MOVEL     '*EXIT '      W1EXIT
+C                   MOVEL     'CLEAR'       W1FIRT
+C                   MOVEL     'CLEAR'       W1HELP
+</pre>
+<pre>
+ /free
+   W1CLR = 'CLEAR'; // Noncompliant
+   W1FIRT = 'CLEAR';
+   W1HELP = 'CLEAR';
+ /end-free
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+D W0Clr         C                   CONST('CLEAR')
+C                   MOVEL     W0Clr         W1CLR
+C                   MOVEL     '*DECOD'      W1DCDE
+C                   MOVEL     '*ERROR'      W1ERR
+C                   MOVEL     '*EXIT '      W1EXIT
+C                   MOVEL     W0Clr         W1FIRT
+C                   MOVEL     W0Clr         W1HELP
+</pre>
+<pre>
+D W0Clr         C                   CONST('CLEAR')
+ /free
+   W1CLR = W0Clr;
+   W1FIRT = W0Clr;
+   W1HELP = W0Clr;
+ /end-free
+</pre>
+<h2>Exceptions</h2>
+<p>To prevent generating some false-positives, literals having less than 5 characters are excluded.</p>

@@ -1,0 +1,11 @@
+<p>&lt;code&gt;FORMS_DDL&lt;/code&gt; command, like every DDL statements, is performing an implicit COMMIT. It should be used only if there is no pending transaction otherwise this transaction is automatically committed without updating the Form statuses. Also, the potentially acquired locks are lost in case of this implicit COMMIT.</p>
+<p>"FORMS_DDL('COMMIT')" and "FORMS_DDL('ROLLBACK')" should be used with care and most of the time, "COMMIT_FORM" or "ROLLBACK_FORM" should be preferred.</p>
+<p>Check the Oracle Forms documentation for more details.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+FORMS_DDL('COMMIT');
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+COMMIT_FORM;
+</pre>

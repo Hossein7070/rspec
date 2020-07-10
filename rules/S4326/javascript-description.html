@@ -1,0 +1,23 @@
+<p>An &lt;code&gt;async&lt;/code&gt; function always wraps the return value in a &lt;code&gt;Promise&lt;/code&gt;. Using &lt;code&gt;return await&lt;/code&gt; is therefore redundant.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+async function foo() {
+  // ...
+}
+
+async function bar() {
+  // ...
+  return await foo(); // Noncompliant
+}
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+async function foo() {
+  // ...
+}
+
+async function bar() {
+  // ...
+  return foo();
+}
+</pre>

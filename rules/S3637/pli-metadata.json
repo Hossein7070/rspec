@@ -1,0 +1,26 @@
+{
+  "title": "\"SELECT\" columns should not be redundant",
+  "type": "CODE_SMELL",
+  "status": "ready",
+  "remediation": {
+    "func": "Constant/Issue",
+    "constantCost": "20min"
+  },
+  "tags": [
+    "performance",
+    "sql"
+  ],
+  "defaultSeverity": "Minor",
+  "ruleSpecification": "RSPEC-3637",
+  "sqKey": "S3637",
+  "scope": "All",
+  "all_languages": [
+    "abap",
+    "pli",
+    "plsql",
+    "rpg"
+  ],
+  "allKeys": [
+    "S3637"
+  ]
+}

@@ -1,0 +1,19 @@
+<p>Even if there’s no data to be returned from a procedure, each procedure should at least return a boolean to indicate when procedure execution failed, so callers can respond accordingly.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+     D MyProc          PI
+     D   param1                      10A   const
+      /free
+        // do work...
+        return;  // Noncompliant
+      /end-free
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+     D MyProc          PI              N
+     D   param1                      10A   const
+      /free
+        // do work...
+        return *ON;
+      /end-free
+</pre>

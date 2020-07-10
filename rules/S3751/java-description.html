@@ -1,0 +1,17 @@
+<p>A method with a &lt;code&gt;@RequestMapping&lt;/code&gt; annotation part of a class annotated with &lt;code&gt;@Controller&lt;/code&gt; (directly or indirectly through a meta annotation - &lt;code&gt;@RestController&lt;/code&gt; from Spring Boot is a good example) will be called to handle matching web requests. That will happen even if the method is &lt;code&gt;private&lt;/code&gt;, because Spring invokes such methods via reflection, without checking visibility.</p>
+<p>So marking a sensitive method &lt;code&gt;private&lt;/code&gt; may seem like a good way to control how such code is called. Unfortunately, not all Spring frameworks ignore visibility in this way. For instance, if you’ve tried to control web access to your sensitive, &lt;code&gt;private&lt;/code&gt;, &lt;code&gt;@RequestMapping&lt;/code&gt; method by marking it &lt;code&gt;@Secured&lt;/code&gt; …​ it will still be called, whether or not the user is authorized to access it. That’s because AOP proxies are not applied to non-public methods.</p>
+<p>In addition to &lt;code&gt;@RequestMapping&lt;/code&gt;, this rule also considers the annotations introduced in Spring Framework 4.3: &lt;code&gt;@GetMapping&lt;/code&gt;, &lt;code&gt;@PostMapping&lt;/code&gt;, &lt;code&gt;@PutMapping&lt;/code&gt;, &lt;code&gt;@DeleteMapping&lt;/code&gt;, &lt;code&gt;@PatchMapping&lt;/code&gt;.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+@RequestMapping("/greet", method = GET)
+private String greet(String greetee) {  // Noncompliant
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+@RequestMapping("/greet", method = GET)
+public String greet(String greetee) {
+</pre>
+<h2>See</h2>
+<ul>
+<li><a href="https://www.owasp.org/index.php/Top_10-2017_A6-Security_Misconfiguration">OWASP Top 10 2017 Category A6</a> - Security Misconfiguration</li>
+</ul>

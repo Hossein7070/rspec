@@ -1,0 +1,7 @@
+<p>Assignment of &lt;code&gt;false&lt;/code&gt; to a pointer type is implicitly converted to a &lt;code&gt;NULL&lt;/code&gt; assignment.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+void foo(bool *p) {
+  p = false;  // Noncompliant
+}
+</pre>

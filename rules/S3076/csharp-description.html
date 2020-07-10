@@ -1,0 +1,10 @@
+<p>Methods with a &lt;code&gt;void&lt;/code&gt; return type that neither alter their objects' state nor the states of their arguments are effectively useless. They should either be eliminated, or - more likely - corrected to include the missing side effects.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+public void whatsThePoint(List&lt;Integer&gt; ints) {  // Noncompliant
+  int sum = 0;
+  for (Integer i : ints) {
+    sum += i.intValue();
+  }
+}
+</pre>

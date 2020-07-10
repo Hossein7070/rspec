@@ -1,0 +1,21 @@
+<p>A function which does not return a value and which does not have external side effects will only consume time and will not contribute to the generation of any outputs, which may not meet developer expectations.
+The following are examples of external side effects:</p>
+<ul>
+<li>Reading or writing to a file, stream, etc.;</li>
+<li>Changing the value of a non local variable;</li>
+<li>Changing the value of an argument having reference type;</li>
+<li>Using a volatile object;</li>
+<li>Raising an exception.</li>
+</ul>
+<h2>Noncompliant Code Example</h2>
+<pre>
+void pointless ( void ) // Non-compliant – no external side effects
+{
+ int16_t local;
+ local = 0;
+}
+</pre>
+<h2>See</h2>
+<ul>
+<li>MISRA C++:2008, 0-1-8</li>
+</ul>

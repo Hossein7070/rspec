@@ -1,0 +1,11 @@
+<p>Credentials should never be included in comments. Doing so means that anyone who has access to the code also has access to the database.</p>
+<p>This rule flags each instance of "password" in a comment</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+* Password is "red!"
+</pre>
+<h2>See</h2>
+<ul>
+<li><a href="https://www.owasp.org/index.php/Top_10-2017_A3-Sensitive_Data_Exposure">OWASP Top 10 2017 Category A3</a> - Sensitive Data Exposure</li>
+<li><a href="http://cwe.mitre.org/data/definitions/615">MITRE, CWE-615</a> - Information Exposure Through Comments</li>
+</ul>

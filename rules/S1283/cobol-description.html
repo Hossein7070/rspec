@@ -1,0 +1,8 @@
+<p>You should avoid opening a cursor inside a &lt;code&gt;PERFORM&lt;/code&gt; statement because doing so could impact performance, or lead to unexpected behavior if the the closing of the cursor is not defined in the same loop.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+  PERFORM UNTIL (NOT DA-OK) OR (Y00CIA-CD-RET-PGM = ZERO)
+    EXEC SQL OPEN C2
+    END-EXEC
+  END-PERFORM.
+</pre>

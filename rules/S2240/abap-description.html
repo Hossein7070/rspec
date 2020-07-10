@@ -1,0 +1,12 @@
+<p>Using &lt;code&gt;EXIT&lt;/code&gt; and &lt;code&gt;CHECK&lt;/code&gt; in &lt;code&gt;SELECT&lt;/code&gt; statements to stop the execution of &lt;code&gt;SELECT&lt;/code&gt; loop is an expensive and ineffective way to filter data. Filtering should be part of the &lt;code&gt;SELECT&lt;/code&gt; loop themselves. Most of the time conditions located in a &lt;code&gt;CHECK&lt;/code&gt; statement should be moved to the &lt;code&gt;WHERE&lt;/code&gt; clause, and the &lt;code&gt;EXIT&lt;/code&gt; statement should typically be replaced by an &lt;code&gt;UP TO 1 ROW&lt;/code&gt; clause.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+SELECT * FROM SBOOK INTO SBOOK_WA.
+  CHECK: SBOOK_WAS-CARRID = 'LH' AND SBOOK_WAS-CONNID = '0400'. "Noncompliant
+ENDSELECT.
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+SELECT * FROM SBOOK INTO SBOOK_WA WHERE CARRID = 'LH' AND CONNID = '0400'.
+ENDSELECT.
+</pre>

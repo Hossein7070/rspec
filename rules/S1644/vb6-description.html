@@ -1,0 +1,17 @@
+<p>Because Visual Basic 6 does not automatically unload &lt;code&gt;Form&lt;/code&gt; s after a program terminates, it is possible for them to remain in memory. Even after &lt;code&gt;Unload&lt;/code&gt; ing, they may stay in memory if references remain. Therefore &lt;code&gt;Form&lt;/code&gt; s should be explicitly &lt;code&gt;Unload&lt;/code&gt; ed, and their references set to &lt;code&gt;Nothing&lt;/code&gt;.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+dim f1 as new form
+f1.show
+...
+f1.hide
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+dim f1 as new form
+f1.show
+...
+f1.hide
+Unload f1
+Set f1 = Nothing
+</pre>

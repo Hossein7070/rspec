@@ -1,0 +1,16 @@
+<p>Declaring multiple variable on one line is difficult to read and potentially misleading since the &lt;code&gt;As&lt;/code&gt; typing only applies to the last variable on the line.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+Public AAA, BBB, CCC As String ' AAA and BBB are variants
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+Public AAA as String
+Public BBB as String
+Public CCC as String
+</pre>
+<h2>See</h2>
+<ul>
+<li><a href="https://www.securecoding.cert.org/confluence/x/7wHEAw">CERT, DCL52-J.</a> - Do not declare more than one variable per declaration</li>
+<li><a href="https://www.securecoding.cert.org/confluence/x/VgU">CERT, DCL04-C.</a> - Do not declare more than one variable per declaration</li>
+</ul>

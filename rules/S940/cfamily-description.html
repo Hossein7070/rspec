@@ -1,0 +1,30 @@
+<p>Attempting to make comparisons between pointers will produce undefined behaviour if the two pointers do not point to the same object.</p>
+<p>Note: it is permissible to address the next element beyond the end of an array, but accessing this element is not allowed.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+void f1 ( )
+{
+ int32_t a1[ 10 ];
+ int32_t a2[ 10 ];
+ int32_t * p1 = a1;
+ if ( p1 &lt; a2 ) // Non-compliant, p1 and a2 are unrelated
+ {
+ }
+}
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+void f1 ( )
+{
+ int32_t a1[ 10 ];
+ int32_t * p1 = a1;
+ if ( p1 &lt; a1 ) // Compliant, p1 points to an element of a1
+ {
+ }
+}
+</pre>
+<h2>See</h2>
+<ul>
+<li>MISRA C:2004, 17.3 - &gt;, &gt;=, &lt;, ⇐ shall not be applied to pointer types except where they point to the same array.</li>
+<li>MISRA C++:2008, 5-0-18 - &gt;, &gt;=, &lt;, ⇐ shall not be applied to objects of pointer type, except where they point to the same array.</li>
+</ul>

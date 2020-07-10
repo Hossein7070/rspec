@@ -1,0 +1,29 @@
+<p>Nullable value types can hold either a value or &lt;code&gt;null&lt;/code&gt;. The value held in the nullable type can be accessed with the &lt;code&gt;Value&lt;/code&gt; property, but &lt;code&gt;.Value&lt;/code&gt; throws an &lt;code&gt;InvalidOperationException&lt;/code&gt; when the value is &lt;code&gt;null&lt;/code&gt;. To avoid the exception, a nullable type should always be tested before &lt;code&gt;.Value&lt;/code&gt; is accessed.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+int? nullable = null;
+...
+UseValue(nullable.Value); // Noncompliant
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+int? nullable = null;
+...
+if (nullable.HasValue)
+{
+  UseValue(nullable.Value);
+}
+</pre>
+<p>or</p>
+<pre>
+int? nullable = null;
+...
+if (nullable != null)
+{
+  UseValue(nullable.Value);
+}
+</pre>
+<h2>See</h2>
+<ul>
+<li><a href="https://cwe.mitre.org/data/definitions/476.html">MITRE, CWE-476</a> - NULL Pointer Dereference</li>
+</ul>

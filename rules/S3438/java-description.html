@@ -1,0 +1,21 @@
+<p>Use of a Spring &lt;code&gt;SingleConnectionFactory&lt;/code&gt; without enabling the &lt;code&gt;reconnectOnException&lt;/code&gt; setting will prevent automatic connection recovery when the connection goes bad.</p>
+<p>That’s because the &lt;code&gt;reconnectOnException&lt;/code&gt; property defaults to &lt;code&gt;false&lt;/code&gt;. As a result, even if the code that uses this connection factory (Spring’s &lt;code&gt;DefaultMessageListenerContainer&lt;/code&gt; or your own code) has reconnect logic, that code won’t work because the &lt;code&gt;SingleConnectionFactory&lt;/code&gt; will act like a single-connection pool by preventing connection &lt;code&gt;close&lt;/code&gt; calls from actually closing anything. As a result, subsequent factory &lt;code&gt;create&lt;/code&gt; operations will just hand back the original broken &lt;code&gt;Connection&lt;/code&gt;.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+ &lt;bean id="singleCF" class="org.springframework.jms.connection.SingleConnectionFactory"&gt;  &lt;!-- Noncompliant --&gt;
+   &lt;constructor-arg ref="dummyConnectionFactory" /&gt;
+ &lt;/bean&gt;
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+ &lt;bean id="singleCF" class="org.springframework.jms.connection.SingleConnectionFactory" p:reconnectOnException="true"&gt;
+   &lt;constructor-arg ref="dummyConnectionFactory" /&gt;
+ &lt;/bean&gt;
+</pre>
+<p>or</p>
+<pre>
+ &lt;bean id="singleCF" class="org.springframework.jms.connection.SingleConnectionFactory"&gt;
+   &lt;constructor-arg ref="dummyConnectionFactory" /&gt;
+   &lt;property name="reconnectOnException"&gt;&lt;value&gt;true&lt;/value&gt;&lt;/property&gt;
+ &lt;/bean&gt;
+</pre>

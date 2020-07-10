@@ -1,0 +1,30 @@
+{
+  "title": "\"==\" should not be used when \"Equals\" is overridden",
+  "type": "CODE_SMELL",
+  "status": "ready",
+  "remediation": {
+    "func": "Constant/Issue",
+    "constantCost": "2min"
+  },
+  "tags": [
+    "cwe",
+    "suspicious"
+  ],
+  "defaultSeverity": "Minor",
+  "ruleSpecification": "RSPEC-1698",
+  "sqKey": "S1698",
+  "scope": "Main",
+  "securityStandards": {
+    "CWE": [
+      595,
+      597
+    ]
+  },
+  "all_languages": [
+    "csharp",
+    "java"
+  ],
+  "allKeys": [
+    "S1698"
+  ]
+}

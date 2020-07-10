@@ -1,0 +1,22 @@
+<p>For arrays of objects, &lt;code&gt;Arrays.asList(T …​ a).stream()&lt;/code&gt; and &lt;code&gt;Arrays.stream(array)&lt;/code&gt; are basically equivalent in terms of performance. However, for arrays of primitives, using &lt;code&gt;Arrays.asList&lt;/code&gt; will force the construction of a list of boxed types, and then use <em>that</em> list as a stream. On the other hand, &lt;code&gt;Arrays.stream&lt;/code&gt; uses the appropriate primitive stream type (&lt;code&gt;IntStream&lt;/code&gt;, &lt;code&gt;LongStream&lt;/code&gt;, &lt;code&gt;DoubleStream&lt;/code&gt;) when applicable, with much better performance.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+Arrays.asList("a1", "a2", "b1", "c2", "c1").stream()
+    .filter(...)
+    .forEach(...);
+
+Arrays.asList(1, 2, 3, 4).stream() // Noncompliant
+    .filter(...)
+    .forEach(...);
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+Arrays.asList("a1", "a2", "b1", "c2", "c1").stream()
+    .filter(...)
+    .forEach(...);
+
+int[] intArray = new int[]{1, 2, 3, 4};
+Arrays.stream(intArray)
+    .filter(...)
+    .forEach(...);
+</pre>

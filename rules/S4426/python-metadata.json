@@ -1,0 +1,40 @@
+{
+  "title": "Cryptographic key generation should be based on strong parameters",
+  "type": "VULNERABILITY",
+  "status": "ready",
+  "remediation": {
+    "func": "Constant/Issue",
+    "constantCost": "2min"
+  },
+  "tags": [
+    "cwe",
+    "owasp-a9",
+    "privacy",
+    "owasp-a3"
+  ],
+  "defaultSeverity": "Blocker",
+  "ruleSpecification": "RSPEC-4426",
+  "sqKey": "S4426",
+  "scope": "Main",
+  "securityStandards": {
+    "CWE": [
+      326
+    ],
+    "OWASP": [
+      "A3",
+      "A9"
+    ]
+  },
+  "all_languages": [
+    "cfamily",
+    "csharp",
+    "java",
+    "javascript",
+    "kotlin",
+    "php",
+    "python"
+  ],
+  "allKeys": [
+    "S4426"
+  ]
+}

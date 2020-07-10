@@ -1,0 +1,31 @@
+<p>The requirement for a final &lt;code&gt;when else&lt;/code&gt; clause is defensive programming. The clause should either take appropriate action, or contain a suitable comment as to why no action is taken.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+switch on i { // missing 'when else'
+  when 2 {
+    System.debug('when block 2');
+  }
+  when -3 {
+    System.debug('when block -3');
+  }
+}
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+switch on i {
+  when 2 {
+    System.debug('when block 2');
+  }
+  when -3 {
+    System.debug('when block -3');
+  }
+  when else {
+    System.debug('default');
+  }
+}
+</pre>
+<h2>See</h2>
+<ul>
+<li><a href="http://cwe.mitre.org/data/definitions/478.html">MITRE, CWE-478</a> - Missing Default Case in Switch Statement</li>
+<li><a href="https://www.securecoding.cert.org/confluence/x/YgE">CERT, MSC01-C.</a> - Strive for logical completeness</li>
+</ul>

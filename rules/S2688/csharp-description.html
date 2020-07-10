@@ -1,0 +1,26 @@
+<p>&lt;code&gt;NaN&lt;/code&gt; is not equal to anything, even itself. Testing for equality or inequality against &lt;code&gt;NaN&lt;/code&gt; will yield predictable results, but probably not the ones you want.</p>
+<p>Instead, the best way to see whether a variable is equal to &lt;code&gt;NaN&lt;/code&gt; is to use &lt;code&gt;Number.isNaN()&lt;/code&gt;, since ES2015, or (perhaps counter-intuitively) to compare it to itself. Since &lt;code&gt;NaN !== NaN&lt;/code&gt;, when &lt;code&gt;a !== a&lt;/code&gt;, you know it must equal &lt;code&gt;NaN&lt;/code&gt;.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+var a = double.NaN;
+
+if (a == double.NaN) // Noncompliant; always false
+{
+  Console.WriteLine("a is not a number");  // this is dead code
+}
+if (a != double.NaN)  // Noncompliant; always true
+{
+  Console.WriteLine("a is not NaN"); // this statement is not necessarily true
+}
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+if (double.IsNaN(a))
+{
+  console.log("a is not a number");
+}
+</pre>
+<h2>See</h2>
+<ul>
+<li><a href="https://www.securecoding.cert.org/confluence/x/7AEqAQ">CERT, NUM07-J.</a> - Do not attempt comparisons with NaN</li>
+</ul>

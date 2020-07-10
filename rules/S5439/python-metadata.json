@@ -1,0 +1,16 @@
+{
+  "title": "HTML autoescape mechanism should not be globally disabled",
+  "type": "VULNERABILITY",
+  "status": "deprecated",
+  "tags": [],
+  "defaultSeverity": "Blocker",
+  "ruleSpecification": "RSPEC-5439",
+  "sqKey": "S5439",
+  "scope": "Main",
+  "all_languages": [
+    "python"
+  ],
+  "allKeys": [
+    "S5439"
+  ]
+}

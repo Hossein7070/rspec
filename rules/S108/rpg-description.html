@@ -1,0 +1,17 @@
+<p>Most of the time a block of code is empty when a piece of code is really missing. So such empty block must be either filled or removed.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+     C   99W1SCNO        IFEQ      1
+     C                   EXSR      SR201
+     C                   ELSE
+     C* Empty on purpose or missing a piece of code?
+     C                   END
+</pre>
+<pre>
+      /free
+        for i = 1 to n;
+        endfor;
+      /end-free
+</pre>
+<h2>Exceptions</h2>
+<p>When a block contains a comment, this block is not considered to be empty.</p>

@@ -1,0 +1,34 @@
+{
+  "title": "LDAP queries should not be vulnerable to injection attacks",
+  "type": "VULNERABILITY",
+  "status": "ready",
+  "remediation": {
+    "func": "Constant/Issue",
+    "constantCost": "30min"
+  },
+  "tags": [
+    "cwe",
+    "owasp-a1"
+  ],
+  "defaultSeverity": "Blocker",
+  "ruleSpecification": "RSPEC-2078",
+  "sqKey": "S2078",
+  "scope": "Main",
+  "securityStandards": {
+    "CWE": [
+      90
+    ],
+    "OWASP": [
+      "A1"
+    ]
+  },
+  "all_languages": [
+    "csharp",
+    "java",
+    "php",
+    "python"
+  ],
+  "allKeys": [
+    "S2078"
+  ]
+}

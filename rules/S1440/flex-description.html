@@ -1,0 +1,10 @@
+<p>The &lt;code&gt;==&lt;/code&gt; and &lt;code&gt;!=&lt;/code&gt; operators do type coercion before comparing values. This is bad because it can mask type errors. For example, it evaluates &lt;code&gt;' \t\r\n' == 0&lt;/code&gt; as &lt;code&gt;true&lt;/code&gt;.
+It is best to always use the side-effect-less &lt;code&gt;===&lt;/code&gt; and &lt;code&gt;!==&lt;/code&gt; operators instead.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+if (var == 'howdy') {...} // Noncompliant
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+if (var === 'howdy') {...}
+</pre>

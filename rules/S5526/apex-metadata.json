@@ -1,0 +1,16 @@
+{
+  "title": "\"@future\" methods should not be called in loops",
+  "type": "BUG",
+  "status": "ready",
+  "tags": [],
+  "defaultSeverity": "Critical",
+  "ruleSpecification": "RSPEC-5526",
+  "sqKey": "S5526",
+  "scope": "Main",
+  "all_languages": [
+    "apex"
+  ],
+  "allKeys": [
+    "S5526"
+  ]
+}

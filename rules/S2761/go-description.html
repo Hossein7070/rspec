@@ -1,0 +1,19 @@
+<p>The needless repetition of an operator is usually a typo. There is no reason to write &lt;code&gt;!!!i&lt;/code&gt; when &lt;code&gt;!i&lt;/code&gt; will do.</p>
+<p>On the other hand, the repetition of increment and decrement operators may have been done on purpose, but doing so obfuscates the meaning, and should be simplified.</p>
+<p>This rule raises an issue for sequences of: &lt;code&gt;!&lt;/code&gt;, &lt;code&gt;^&lt;/code&gt;, &lt;code&gt;-&lt;/code&gt;, and &lt;code&gt;\+&lt;/code&gt;.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+  var a int = 1
+  var flag bool = true
+
+  var a1 int = ^^^a // Noncompliant
+  var flag2 bool  = !!!flag  // Noncompliant
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+  var a int = 1
+  var flag bool = true
+
+  var a1 int = ^a
+  var flag2 bool  = !flag
+</pre>

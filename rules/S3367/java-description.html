@@ -1,0 +1,18 @@
+<p>Validation is the first line of defense against injection, cross-site scripting, and many other attacks. Omitting it in modern web applications is simply negligent.</p>
+<p>When creating a Struts &lt;code&gt;ActionForm&lt;/code&gt;, you have the choice of extending something from the &lt;code&gt;org.apache.struts.action&lt;/code&gt; package, or extending something from the &lt;code&gt;org.apache.struts.validator&lt;/code&gt; package. Since you can’t use the Struts validator capabilities without extending something from the &lt;code&gt;validator&lt;/code&gt; package, that should always be your choice.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+public class MyForm extends org.apache.struts.action.ActionForm {  // Noncompliant
+  // ...
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+public class MyForm extends org.apache.struts.validator.ValidatorForm {
+  // ...
+</pre>
+<h2>See</h2>
+<ul>
+<li><a href="https://www.owasp.org/index.php/Top_10-2017_A1-Injection">OWASP Top 10 2017 Category A1</a> - Injection</li>
+<li><a href="https://www.owasp.org/index.php/Top_10-2017_A7-Cross-Site_Scripting_(XSS)">OWASP Top 10 2017 Category A7</a> - Cross-Site Scripting (XSS)</li>
+<li><a href="https://cwe.mitre.org/data/definitions/104.html">MITRE, CWE-104</a> - Struts: Form Bean Does Not Extend Validation Class</li>
+</ul>

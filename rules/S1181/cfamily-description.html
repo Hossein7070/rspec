@@ -1,0 +1,31 @@
+<p>Some exception classes are designed to be used only as base classes to more specific exceptions, for instance &lt;code&gt;std::exception&lt;/code&gt; (the base class of all standard C++ exceptions), &lt;code&gt;std::logic_error&lt;/code&gt; or &lt;code&gt;std::runtime_error&lt;/code&gt;.</p>
+<p>Catching such a generic exception types is a usually bad idea, because it implies that the "catch" block is clever enough to handle any type of exception.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+try {
+  /* code that may throw std::system_error */
+} catch (const std::exception &amp;ex) { // Noncompliant
+  /*...*/
+}
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+try {
+  /* code that may throw std::system_error */
+} catch (const std::system_error &amp;ex) {
+  /*...*/
+}
+</pre>
+<h2>Exceptions</h2>
+<p>There are cases though where you want to catch all exceptions, because no exceptions should be allowed to escape the function, and generic &lt;code&gt;catch&lt;/code&gt; handlers are excluded from the rule:</p>
+<ul>
+<li>In the main function</li>
+<li>In a &lt;code&gt;noexcept&lt;/code&gt; function</li>
+<li>In an &lt;code&gt;extern "C"&lt;/code&gt; function</li>
+</ul>
+<p>Additionally, if the &lt;code&gt;catch&lt;/code&gt; handler is throwing an exception (either the same as before, with &lt;code&gt;throw;&lt;/code&gt; or a new one that may make more sense to the callers of the function), or is never exiting (because it calls a &lt;code&gt;noreturn&lt;/code&gt; function, for instance &lt;code&gt;exit&lt;/code&gt;), then the accurate type of the exception usually does not matter any longer: this case is excluded too.</p>
+<h2>See</h2>
+<ul>
+<li><a href="http://cwe.mitre.org/data/definitions/396.html">MITRE, CWE-396</a> - Declaration of Catch for Generic Exception</li>
+<li><a href="https://www.securecoding.cert.org/confluence/x/BIB3AQ">CERT, ERR08-J.</a> - Do not catch NullPointerException or any of its ancestors</li>
+</ul>

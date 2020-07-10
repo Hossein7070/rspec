@@ -1,0 +1,13 @@
+<p>Shared coding conventions allow teams to collaborate effectively. This rule checks that classes extending &lt;code&gt;React.PureComponent&lt;/code&gt; or &lt;code&gt;React.Component&lt;/code&gt; are named with UpperCamelCase (aka PascalCase).</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+export default class my-super-component extends React.PureComponent { // Noncompliant
+ ...
+}
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+export default class MySuperComponent extends React.PureComponent {
+ ...
+}
+</pre>

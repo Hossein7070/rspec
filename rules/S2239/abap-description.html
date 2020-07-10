@@ -1,0 +1,20 @@
+<p>Removing duplicate entries from driver tables enables &lt;code&gt;OPEN SQL&lt;/code&gt; to generate fewer queries for getting the same data, giving a performance boost.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+SELECT carrid , connid , seatsocc FROM flights
+INTO TABLE seatsocc_tab
+FOR ALL ENTRIES IN conn_tab
+WHERE carrid = conn_tab-carrid
+AND connid = conn_tab-connid.
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+SORT conn_tab BY carrid.
+DELETE ADJACENT DUPLICATES FROM conn_tab COMPARING carrid.
+...
+SELECT carrid , connid , seatsocc FROM flights
+INTO TABLE seatsocc_tab
+FOR ALL ENTRIES IN conn_tab
+WHERE carrid = conn_tab-carrid
+AND connid = conn_tab-connid.
+</pre>

@@ -1,0 +1,37 @@
+<p>Returning from a &lt;code&gt;finally&lt;/code&gt; block suppresses the propagation of any unhandled exception which was thrown in the &lt;code&gt;try&lt;/code&gt; or &lt;code&gt;catch&lt;/code&gt; block.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+void openResource() {
+  @throw [NSException exceptionWithName:@"FileNotFoundException" reason:@"File Not Found on System" userInfo:nil];
+}
+
+void fun() {
+  @try {
+    openResource();
+  }
+  @finally {
+    closeResource();
+    return; // Noncompliant - prevents the exception from being propagated
+  }
+}
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+void openResource() {
+  @throw [NSException exceptionWithName:@"FileNotFoundException" reason:@"File Not Found on System" userInfo:nil];
+}
+
+void fun() {
+  @try {
+    openResource();
+  }
+  @finally {
+    closeResource();
+  }
+}
+</pre>
+<h2>See</h2>
+<ul>
+<li><a href="http://cwe.mitre.org/data/definitions/584.html">MITRE, CWE-584</a> - Return Inside Finally Block</li>
+<li><a href="https://www.securecoding.cert.org/confluence/x/mIEbAQ">CERT, ERR04-J.</a> - Do not complete abruptly from a finally block</li>
+</ul>

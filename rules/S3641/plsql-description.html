@@ -1,0 +1,21 @@
+<p>A WHERE clause condition that uses NOT IN with a subquery will have unexpected results if that subquery returns NULL. On the other hand NOT EXISTS subqueries work reliably under the same conditions.
+ This rule raises an issue when NOT IN is used with a subquery where the selected column is nullable.</p>
+<p><strong>Noteworthy</strong>
+This rule raises issues only when a <strong>Data Dictionary</strong> is provided during the analysis. See&nbsp;https://docs.sonarqube.org/display/PLUG/Data+Dictionary</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+SELECT *
+FROM my_table
+WHERE my_column NOT IN (SELECT nullable_column FROM another_table)  -- Noncompliant; "nullable_column" may contain 'NULL' value and the whole SELECT query will return nothing
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+SELECT *
+FROM my_table
+WHERE NOT EXISTS (SELECT 1 FROM another_table WHERE nullable_column = my_table.my_column)
+</pre>
+<pre>
+SELECT *
+FROM my_table
+WHERE my_column NOT IN (SELECT nullable_column FROM another_table WHERE nullable_column IS NOT NULL)
+</pre>

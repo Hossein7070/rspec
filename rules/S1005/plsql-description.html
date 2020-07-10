@@ -1,0 +1,17 @@
+<p>Procedures, unlike functions, do not return values. The &lt;code&gt;RETURN&lt;/code&gt; statement therefore, when used within a procedure, is used to prematurely end the procedure. However, having multiple exit points (i.e. more than the &lt;code&gt;END&lt;/code&gt; of the procedure itself), increases the complexity of the procedure and makes it harder to understand and debug.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+SET SERVEROUTPUT ON
+
+DECLARE
+  PROCEDURE prcoedureWithReturn AS
+  BEGIN
+    RETURN; -- Noncompliant
+
+    DBMS_OUTPUT.PUT_LINE('prcoedureWithReturn called'); -- This is actually unreachable
+  END;
+BEGIN
+  prcoedureWithReturn;
+END;
+/
+</pre>

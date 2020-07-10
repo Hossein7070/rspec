@@ -1,0 +1,20 @@
+<p>Sharing some naming conventions is a key factory in efficient team collaboration. This rule checks that all constraint names match a provided regular expression.</p>
+<h2>Noncompliant Code Example</h2>
+<p>With &lt;code&gt;format_primary_key&lt;/code&gt; set to "pk_<span> " and &lt;code&gt;format_foreign_key&lt;/code&gt; to "fk_[a-z]</span> ".</p>
+<pre>
+CREATE TABLE employee(
+  first_name VARCHAR2(42),
+  last_name VARCHAR2(42)
+  department_id INTEGER CONSTRAINT department_fk REFERENCES department,
+  CONSTRAINT fullname_pk PRIMARY KEY (first_name, last_name);
+);
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+CREATE TABLE employee(
+  first_name VARCHAR2(42),
+  last_name VARCHAR2(42)
+  department_id INTEGER CONSTRAINT fk_department REFERENCES department,
+  CONSTRAINT pk_fullname PRIMARY KEY (first_name, last_name);
+);
+</pre>

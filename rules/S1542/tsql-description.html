@@ -1,0 +1,35 @@
+<p>Shared coding conventions allow teams to collaborate efficiently. This rule checks that all function names match a provided regular expression.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+CREATE PROCEDURE sp_PrintMagicNumber
+AS
+BEGIN
+  PRINT 42
+END
+GO
+
+CREATE FUNCTION MagicNumber()
+RETURNS INT
+AS
+BEGIN
+  RETURN 42
+END
+GO
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+CREATE PROCEDURE usp_PrintMagicNumber
+AS
+BEGIN
+  PRINT 42
+END
+GO
+
+CREATE FUNCTION fn_MagicNumber()
+RETURNS INT
+AS
+BEGIN
+  RETURN 42
+END
+GO
+</pre>

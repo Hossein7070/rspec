@@ -1,0 +1,28 @@
+<p>If you’re using a &lt;code&gt;struct&lt;/code&gt;, it is likely because you’re interested in performance. But by failing to implement &lt;code&gt;IEquatable&lt;T&gt;&lt;/code&gt; you’re loosing performance when comparisons are made because without &lt;code&gt;IEquatable&lt;T&gt;&lt;/code&gt;, boxing and reflection are used to make comparisons.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+struct MyStruct  // Noncompliant
+{
+  private int i;
+  public int I
+  {
+    //...
+  }
+}
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+struct MyStruct : IEquatable&lt;MyStruct&gt;
+{
+  private int i;
+  public int I
+  {
+    //...
+  }
+
+  public bool Equals(MyStruct other)
+  {
+    throw new NotImplementedException();
+  }
+}
+</pre>

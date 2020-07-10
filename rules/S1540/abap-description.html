@@ -1,0 +1,22 @@
+<p>This variant of the &lt;code&gt;REFRESH&lt;/code&gt; statement is deprecated and should be avoided.</p>
+<p>This &lt;code&gt;REFRESH&lt;/code&gt; statement initializes the internal table &lt;code&gt;itab&lt;/code&gt;, reads several rows from the database table &lt;code&gt;dbtab&lt;/code&gt;, and adds their contents to the internal table &lt;code&gt;itab&lt;/code&gt;. A &lt;code&gt;SELECT&lt;/code&gt; statement should be used instead.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+TABLES t100.
+DATA itab TYPE STANDARD TABLE OF t100.
+
+t100-sprsl = 'E'.
+t100-arbgb = 'BC'.
+
+REFRESH itab FROM TABLE t100.
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+DATA itab TYPE STANDARD TABLE OF t100.
+
+SELECT *
+       FROM t100
+       INTO TABLE itab
+       WHERE sprsl = 'E' AND
+             arbgb LIKE 'BC%'.
+</pre>

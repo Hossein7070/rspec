@@ -1,0 +1,23 @@
+{
+  "title": "Exception specifications should not be used",
+  "type": "CODE_SMELL",
+  "status": "ready",
+  "remediation": {
+    "func": "Constant/Issue",
+    "constantCost": "1min"
+  },
+  "tags": [
+    "error-handling",
+    "clumsy"
+  ],
+  "defaultSeverity": "Critical",
+  "ruleSpecification": "RSPEC-2303",
+  "sqKey": "ExceptionSpecificationUsage",
+  "scope": "Main",
+  "all_languages": [
+    "cfamily"
+  ],
+  "allKeys": [
+    "ExceptionSpecificationUsage"
+  ]
+}

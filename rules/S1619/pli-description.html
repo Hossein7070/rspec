@@ -1,0 +1,9 @@
+<p>The storage of a &lt;code&gt;FIXED DECIMAL&lt;/code&gt; is most efficient when you use an odd number of digits, so that the leftmost byte is fully used.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+ declare total fixed dec(10);
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+ declare total fixed dec(9);
+</pre>

@@ -1,0 +1,8 @@
+<p>If a SQL &lt;code&gt;TABLE&lt;/code&gt; is declared but not used in the program, it can be considered dead code and should therefore be removed. This will improve maintainability because developers will not wonder what the variable is used for.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+EXEC SQL
+ DECLARE DSN8B10.DEPT TABLE  -- Noncompliant
+   ( ...  )
+END-EXEC.
+</pre>

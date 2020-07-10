@@ -1,0 +1,50 @@
+<p>A &lt;code&gt;FETCH …​ BULK COLLECT INTO&lt;/code&gt; without a &lt;code&gt;LIMIT&lt;/code&gt; clause will load all the records returned by the cursor at once. This may lead to memory exhaustion. Instead, it is better to process the records in chunks using the &lt;code&gt;LIMIT&lt;/code&gt; clause.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+SET SERVEROUTPUT ON
+
+-- Fetches all records at once, requiring lots of memory
+DECLARE
+  TYPE largeTableRowArrayType IS TABLE OF largeTable%ROWTYPE;
+  largeTableRowArray largeTableRowArrayType;
+  CURSOR myCursor IS SELECT * FROM largeTable;
+BEGIN
+  OPEN myCursor;
+
+  FETCH myCursor BULK COLLECT INTO largeTableRowArray; -- Non-compliant
+
+  DBMS_OUTPUT.PUT_LINE('Alternative 1: ' || largeTableRowArray.COUNT || ' records');
+
+  CLOSE myCursor;
+END;
+/
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+SET SERVEROUTPUT ON
+
+-- fetches one chunk at a time, requiring constant memory
+DECLARE
+  TYPE largeTableRowArrayType IS TABLE OF largeTable%ROWTYPE;
+  largeTableRowArray largeTableRowArrayType;
+  CURSOR myCursor IS SELECT * FROM largeTable;
+  counter PLS_INTEGER := 0;
+BEGIN
+  OPEN myCursor;
+
+  LOOP
+    FETCH myCursor BULK COLLECT INTO largeTableRowArray LIMIT 1000; -- Compliant
+
+    counter := counter + largeTableRowArray.COUNT;
+
+    EXIT WHEN myCursor%NOTFOUND;
+  END LOOP;
+
+  DBMS_OUTPUT.PUT_LINE('Alternative 1: ' || counter || ' records');
+
+  CLOSE myCursor;
+END;
+/
+
+DROP TABLE largeTable;
+</pre>

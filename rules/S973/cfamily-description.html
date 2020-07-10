@@ -1,0 +1,29 @@
+<p>Include guards wrap around the entire contents of a header file and ensure that no matter how many times the file is actually included, its contents are only defined once. Because multiple, potentially conflicting definitions could lead to errors, the use of include guards is a best practice.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+//my_header.h
+...
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+//my_header.h
+#ifndef MY_HEADER
+#define MY_HEADER
+...
+#endif
+</pre>
+<p>or</p>
+<pre>
+//my_header.h
+#if !defined(MY_HEADER)
+#define MY_HEADER
+ ...
+#endif
+</pre>
+<h2>See</h2>
+<ul>
+<li>MISRA C:2004, 19.15</li>
+<li>MISRA C++:2008, 16-2-3 - Include guards shall be provided.</li>
+<li>MISRA C:2012, Directive 4.10</li>
+<li><a href="https://www.securecoding.cert.org/confluence/x/WgBi">CERT, PRE06-C</a> - Enclose header files in an include guard</li>
+</ul>

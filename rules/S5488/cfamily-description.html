@@ -1,0 +1,18 @@
+<p>UNIX/POSIX functions can have undefined behavior if they are not called correctly. More specifically:</p>
+<ul>
+<li>allocation size of &lt;code&gt;calloc&lt;/code&gt;, &lt;code&gt;malloc&lt;/code&gt;, &lt;code&gt;realloc&lt;/code&gt;, &lt;code&gt;reallocf&lt;/code&gt;, &lt;code&gt;alloca&lt;/code&gt; and &lt;code&gt;valloc&lt;/code&gt; should be strictly positive</li>
+<li>&lt;code&gt;open&lt;/code&gt; and &lt;code&gt;openat&lt;/code&gt; should be called with a flag that contains one access mode: &lt;code&gt;O_RDONLY&lt;/code&gt;, &lt;code&gt;O_WRONLY&lt;/code&gt;, or &lt;code&gt;O_RDWR&lt;/code&gt;</li>
+<li>&lt;code&gt;open&lt;/code&gt; and &lt;code&gt;openat&lt;/code&gt; with flag &lt;code&gt;O_CREAT&lt;/code&gt; should be called with a third argument</li>
+<li>flag &lt;code&gt;O_EXCL&lt;/code&gt; should be used with &lt;code&gt;O_CREAT&lt;/code&gt;</li>
+<li>first argument of &lt;code&gt;pthread_once&lt;/code&gt; should not have automatic storage duration and should be initialized by &lt;code&gt;PTHREAD_ONCE_INIT&lt;/code&gt;</li>
+</ul>
+<h2>Noncompliant Code Example</h2>
+<pre>
+int res = open(file, O_CREAT); // Noncompliant, flag O_CREAT requires a third argument
+
+void *mem = alloca(0); // Noncompliant, allocation of 0 bytes
+
+extern void initialize();
+pthread_once_t pthread = PTHREAD_ONCE_INIT;
+pthread_once(&amp;pthread, initialize); // Noncompliant, do not pass a local variable as argument
+</pre>

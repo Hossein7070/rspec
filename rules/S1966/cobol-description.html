@@ -1,0 +1,32 @@
+<p>An alphanumeric value should not be moved to a numeric field. Because alphanumeric values are stored differently than numeric values, simply moving the bits from one field to the other will yield strange results at best, and crashes at worst.</p>
+<p>Instead, &lt;code&gt;NUMVAL&lt;/code&gt; should be used to explicitly convert the alphanumeric value to a numeric one.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+01  MY-STR          PIC X(3) VALUE SPACES.
+01  MY-NUM         PIC 9(3) VALUE ZEROES.
+*&gt; ...
+    MOVE '1'         TO MY-STR
+    MOVE MY-STR  TO MY-NUM  *&gt; Noncompliant
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+01  MY-STR          PIC X(3) VALUE SPACES.
+01  MY-NUM         PIC 9(3) VALUE ZEROES.
+*&gt; ...
+    MOVE '1'         TO MY-STR
+    COMPUTE MY-NUM = FUNCTION NUMVAL(MY-STR)
+</pre>
+<p>or</p>
+<pre>
+01  MY-STR         PIC X(3) VALUE SPACES.
+01  MY-STR-RED     REDEFINES MY-STR PIC 9(3).
+01  MY-NUM         PIC 9(3) VALUE ZEROES.
+*&gt; ...
+IF MY-STR NUMERIC
+   MOVE MY-STR-RED  TO MY-NUM
+END-IF
+</pre>
+<h2>See</h2>
+<ul>
+<li><a href="http://cwe.mitre.org/data/definitions/704.html">MITRE, CWE-704</a> - Incorrect Type Conversion or Cast</li>
+</ul>

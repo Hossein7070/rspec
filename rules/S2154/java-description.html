@@ -1,0 +1,13 @@
+<p>If wrapped primitive values (e.g. &lt;code&gt;Integers&lt;/code&gt; and &lt;code&gt;Floats&lt;/code&gt;) are used in a ternary operator (e.g. &lt;code&gt;a?b:c&lt;/code&gt;), both values will be unboxed and coerced to a common type, potentially leading to unexpected results. To avoid this, add an explicit cast to a compatible type.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+Integer i = 123456789;
+Float f = 1.0f;
+Number n = condition ? i : f;  // Noncompliant; i is coerced to float. n = 1.23456792E8
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+Integer i = 123456789;
+Float f = 1.0f;
+Number n = condition ? (Number) i : f;  // n = 123456789
+</pre>

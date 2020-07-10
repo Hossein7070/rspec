@@ -1,0 +1,28 @@
+<p>Omitting a join condition is a subtle, yet classic blunder. Do so, and you’re guaranteed not to get the results you intended.</p>
+<p>This rule raises an issue when a table is included in the &lt;code&gt;FROM&lt;/code&gt; list but not in the &lt;code&gt;WHERE&lt;/code&gt; list in relation to other tables, and when only part of a compound key is used in the conditions.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+SELECT p.name, f.name
+FROM product p,
+  product_feature f  -- Noncompliant
+WHERE p.id=?
+
+SELECT p.name, ck.date
+FROM product p
+JOIN compound_key_table ck
+  ON p.manufacturer_product_id=ck.manufacturer_product_id  -- Noncompliant
+WHERE ...
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+SELECT p.name, f.name
+FROM product p,
+  product_feature f
+WHERE p.id=f.product_id AND p.id=?
+
+SELECT p.name, ck.date
+FROM product p
+JOIN compound_key_table ck
+  ON p.manufacturer_product_id=ck.manufacturer_product_id AND p.manufacturer_id=ck.manufacturer_id
+WHERE ...
+</pre>

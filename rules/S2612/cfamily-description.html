@@ -1,0 +1,54 @@
+<p>In Unix, "&lt;code&gt;others&lt;/code&gt;" class refers to all users except the owner of the file and the members of the group assigned to this file.
+Granting permissions to this group can lead to unauthorized access to files.</p>
+<h2>Ask Yourself Whether</h2>
+<ul>
+<li>The application is designed to be run on a multi-user environment.</li>
+<li>Corresponding files and directories may contain confidential information.</li>
+</ul>
+<p>There is a risk if you answered yes to any of those questions.</p>
+<h2>Recommended Secure Coding Practices</h2>
+<p>The most restrictive possible permissions should be assigned to files and directories.</p>
+<h2>Sensitive Code Example</h2>
+<p>When creating a file or directory with permissions to "other group":</p>
+<pre>
+open("myfile.txt", O_CREAT, S_IRWXU | S_IRWXG | S_IRWXO); // Sensitive: the process set 777 permissions to this newly created file
+
+mkdir("myfolder", S_IRWXU | S_IRWXG | S_IRWXO); // Sensitive: the process try to set 777 permissions to this newly created directory
+</pre>
+<p>When explicitly adding permissions to "other group" with &lt;code&gt;chmod&lt;/code&gt;, &lt;code&gt;fchmod&lt;/code&gt; or &lt;code&gt;filesystem::permissions&lt;/code&gt; functions:</p>
+<pre>
+chmod("myfile.txt", S_IRWXU | S_IRWXG | S_IRWXO);  // Sensitive: the process set 777 permissions to this file
+
+fchmod(fd, S_IRWXU | S_IRWXG | S_IRWXO); // Sensitive: the process set 777 permissions to this file descriptor
+</pre>
+<p>When defining the &lt;code&gt;umask&lt;/code&gt; without read, write and execute permissions for "other group":</p>
+<pre>
+umask(S_IRWXU | S_IRWXG); // Sensitive: the further files and folders will be created with possible permissions to "other group"
+</pre>
+<h2>Compliant Solution</h2>
+<p>When creating a file or directory, do not set permissions to "other group":</p>
+<pre>
+open("myfile.txt", O_CREAT, S_IRWXU | S_IRWXG); // Compliant
+
+mkdir("myfolder", S_IRWXU | S_IRWXG); // Compliant
+</pre>
+<p>When using &lt;code&gt;chmod&lt;/code&gt;, &lt;code&gt;fchmod&lt;/code&gt; or &lt;code&gt;filesystem::permissions&lt;/code&gt; functions, do not add permissions to "other group":</p>
+<pre>
+chmod("myfile.txt", S_IRWXU | S_IRWXG);  // Compliant
+
+fchmod(fd, S_IRWXU | S_IRWXG); // Compliant
+</pre>
+<p>When defining the &lt;code&gt;umask&lt;/code&gt;, set read, write and execute permissions to other group:</p>
+<pre>
+umask(S_IRWXO); // Compliant: further created files or directories will not have permissions set for "other group"
+</pre>
+<h2>See</h2>
+<ul>
+<li><a href="https://www.owasp.org/index.php/Top_10-2017_A5-Broken_Access_Control">OWASP Top 10 2017 Category A5</a> - Broken Access Control</li>
+<li><a href="https://www.owasp.org/index.php/Test_File_Permission_(OTG-CONFIG-009)">OWASP File Permission</a></li>
+<li><a href="http://cwe.mitre.org/data/definitions/732">MITRE, CWE-732</a> - Incorrect Permission Assignment for Critical Resource</li>
+<li><a href="https://cwe.mitre.org/data/definitions/266.html">MITRE, CWE-266</a> -  Incorrect Privilege Assignment</li>
+<li><a href="https://wiki.sei.cmu.edu/confluence/display/java/FIO01-J.+Create+files+with+appropriate+access+permissions">CERT, FIO01-J.</a> - Create files with appropriate access permissions</li>
+<li><a href="https://wiki.sei.cmu.edu/confluence/display/c/FIO06-C.+Create+files+with+appropriate+access+permissions">CERT, FIO06-C.</a> - Create files with appropriate access permissions</li>
+<li><a href="https://www.sans.org/top25-software-errors/#cat3">SANS Top 25</a> - Porous Defenses</li>
+</ul>

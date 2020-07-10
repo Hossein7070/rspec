@@ -1,0 +1,13 @@
+<p>It’s slightly more efficient to append single characters to &lt;code&gt;StringBuffer&lt;/code&gt; and &lt;code&gt;StringBuilder&lt;/code&gt; instances as &lt;code&gt;char&lt;/code&gt;s, than as &lt;code&gt;String&lt;/code&gt;s. That is, it’s more efficient to put a single &lt;code&gt;char&lt;/code&gt; in single quotes, rather than double quotes.</p>
+<h2>Noncompliant Code Example.</h2>
+<pre>
+StringBuilder sb = new StringBuilder();
+
+sb.append("a"); // Noncompliant
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+StringBuilder sb = new StringBuilder();
+
+sb.append('a'); // Noncompliant
+</pre>

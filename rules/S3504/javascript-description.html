@@ -1,0 +1,14 @@
+<p>ECMAScript 2015 introduced the &lt;code&gt;let&lt;/code&gt; and &lt;code&gt;const&lt;/code&gt; keywords for block-scope variable declaration. Using &lt;code&gt;const&lt;/code&gt; creates a read-only (constant) variable.</p>
+<p>The distinction between the variable types created by &lt;code&gt;var&lt;/code&gt; and by &lt;code&gt;let&lt;/code&gt; is significant, and a switch to &lt;code&gt;let&lt;/code&gt; will help alleviate many of the variable scope issues which have caused confusion in the past.</p>
+<p>Because these new keywords create more precise variable types, they are preferred in environments that support ECMAScript 2015. However, some refactoring may be required by the switch from &lt;code&gt;var&lt;/code&gt; to &lt;code&gt;let&lt;/code&gt;, and you should be aware that they raise &lt;code&gt;SyntaxError&lt;/code&gt;s in pre-ECMAScript 2015 environments.</p>
+<p>This rule raises an issue when &lt;code&gt;var&lt;/code&gt; is used instead of &lt;code&gt;const&lt;/code&gt; or &lt;code&gt;let&lt;/code&gt;.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+var color = "blue";
+var size = 4;
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+const color = "blue";
+let size = 4;
+</pre>

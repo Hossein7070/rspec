@@ -1,0 +1,13 @@
+<p>"A rose by any other name would smell as sweet," but &lt;code&gt;main&lt;/code&gt; by any other name would not. Just because a method has the name "main", that doesn’t make it the entry point to an application. It must also have the correct signature. Specifically, it must be &lt;code&gt;public static void&lt;/code&gt; and accept a single &lt;code&gt;String []&lt;/code&gt; as an argument.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+public void main(String arg) {  // Noncompliant
+  // ...
+}
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+public static void main(String [] args) {
+  // ...
+}
+</pre>

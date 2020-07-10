@@ -1,0 +1,33 @@
+<p>AssertJ assertions &lt;code&gt;allMatch&lt;/code&gt; and &lt;code&gt;doesNotContains&lt;/code&gt; on an empty list always&nbsp;returns true whatever the content of the predicate. Despite being correct, you should make explicit if you expect an empty list or not, by adding &lt;code&gt;isEmpty()&lt;/code&gt;/&lt;code&gt;isNotEmpty()&lt;/code&gt; in addition to calling the assertion, or by testing the list’s content further. It will justify the useless predicate to improve clarity or increase the reliability of the test.</p>
+<p>This rule raises an issue when any of the methods listed are used without asserting that the list is empty or not and without testing the content.</p>
+<p>Targetted methods:</p>
+<ul>
+<li>&lt;code&gt;allMatch&lt;/code&gt;</li>
+<li>&lt;code&gt;allSatisfy&lt;/code&gt;</li>
+<li>&lt;code&gt;doesNotContain&lt;/code&gt;</li>
+<li>&lt;code&gt;doesNotContainSequence&lt;/code&gt;</li>
+<li>&lt;code&gt;doesNotContainSubsequence&lt;/code&gt;</li>
+<li>&lt;code&gt;doesNotContainAnyElementsOf&lt;/code&gt;</li>
+</ul>
+<h2>Noncompliant Code Example</h2>
+<pre>
+List&lt;String&gt; logs = getLogs();
+
+assertThat(logs).allMatch(e -&gt; e.contains(“error”)); // Noncompliant, this test pass if logs are empty!
+assertThat(logs).doesNotContain("error"); // Noncompliant, do you expect any log?
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+List&lt;String&gt; logs = getLogs();
+
+assertThat(logs).isNotEmpty().allMatch(e -&gt; e.contains(“error”));
+// Or
+assertThat(logs).hasSize(5).allMatch(e -&gt; e.contains(“error”));
+// Or
+assertThat(logs).isEmpty();
+
+// Despite being redundant, this is also acceptable since it explains why you expect an empty list
+assertThat(logs).doesNotContain("error").isEmpty();
+// or test the content of the list further
+assertThat(logs).contains("warning").doesNotContain("error");
+</pre>

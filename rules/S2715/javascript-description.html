@@ -1,0 +1,14 @@
+<p>The use of &lt;code&gt;find&lt;/code&gt; allows &lt;code&gt;document.getElementById()&lt;/code&gt; to be used for the top-level selection, and saves the jQuery Sizzle engine for where it’s really needed. That makes the query faster, and your application more responsive.</p>
+<p>From the jQuery documentation:</p>
+<p>{quote}
+Beginning your selector with an ID is always best.
+The &lt;code&gt;.find()&lt;/code&gt; approach is faster because the first selection is handled without going through the Sizzle selector engine – ID-only selections are handled using &lt;code&gt;document.getElementById()&lt;/code&gt;, which is extremely fast because it is native to the browser.
+{quote}</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+var $productIds = $("#products div.id"); // Noncompliant - a nested query for Sizzle selector engine
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+var $productIds = $("#products").find("div.id"); // Compliant - #products is already selected by document.getElementById() so only div.id needs to go through Sizzle selector engine
+</pre>

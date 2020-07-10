@@ -1,0 +1,9 @@
+<p>Allowing an application to dynamically change the structure of a database at runtime is very dangerous because the application can become unstable under unexpected conditions. Best practices dictate that applications only manipulate data.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+CREATE TABLE my_table(
+  my_column INTEGER
+);
+</pre>
+<h2>Exceptions</h2>
+<p>Creating global temporary tables, creating indexes on those tables, and then dropping those indices and tables is allowed.</p>

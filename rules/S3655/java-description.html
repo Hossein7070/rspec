@@ -1,0 +1,33 @@
+<p>&lt;code&gt;Optional&lt;/code&gt; value can hold either a value or not. The value held in the &lt;code&gt;Optional&lt;/code&gt; can be accessed using the &lt;code&gt;get()&lt;/code&gt; method, but it will throw a
+&lt;code&gt;NoSuchElementException&lt;/code&gt; if there is no value present. To avoid the exception, calling the &lt;code&gt;isPresent()&lt;/code&gt; or &lt;code&gt;! isEmpty()&lt;/code&gt; method should always be done before any call to &lt;code&gt;get()&lt;/code&gt;.</p>
+<p>Alternatively, note that other methods such as &lt;code&gt;orElse(…​)&lt;/code&gt;, &lt;code&gt;orElseGet(…​)&lt;/code&gt; or &lt;code&gt;orElseThrow(…​)&lt;/code&gt; can be used to specify what to do with an empty &lt;code&gt;Optional&lt;/code&gt;.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+Optional&lt;String&gt; value = this.getOptionalValue();
+
+// ...
+
+String stringValue = value.get(); // Noncompliant
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+Optional&lt;String&gt; value = this.getOptionalValue();
+
+// ...
+
+if (value.isPresent()) {
+  String stringValue = value.get();
+}
+</pre>
+<p>or</p>
+<pre>
+Optional&lt;String&gt; value = this.getOptionalValue();
+
+// ...
+
+String stringValue = value.orElse("default");
+</pre>
+<h2>See</h2>
+<ul>
+<li><a href="https://cwe.mitre.org/data/definitions/476.html">MITRE, CWE-476</a> - NULL Pointer Dereference</li>
+</ul>

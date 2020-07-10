@@ -1,0 +1,85 @@
+<p>To check the type of an object there are several options:</p>
+<ul>
+<li>&lt;code&gt;expr is SomeType&lt;/code&gt; or &lt;code&gt;expr.GetType() == typeof(SomeType)&lt;/code&gt; if the type is known at compile time,</li>
+<li>&lt;code&gt;typeInstance.IsInstanceOfType(expr)&lt;/code&gt; if the type is calculated during runtime.</li>
+</ul>
+<p>If runtime calculated &lt;code&gt;Type&lt;/code&gt;s need to be compared:</p>
+<ul>
+<li>&lt;code&gt;typeInstance1.IsAssignableFrom(typeInstance2)&lt;/code&gt;.</li>
+</ul>
+<p>Depending on whether the type is returned by a &lt;code&gt;GetType()&lt;/code&gt; or &lt;code&gt;typeof()&lt;/code&gt; call, the &lt;code&gt;IsAssignableFrom()&lt;/code&gt; and &lt;code&gt;IsInstanceOfType()&lt;/code&gt; might be simplified. Similarly, if the type is &lt;code&gt;sealed&lt;/code&gt;, the type comparison with &lt;code&gt;==&lt;/code&gt; can be converted to an &lt;code&gt;is&lt;/code&gt; call. Simplifying the calls also make &lt;code&gt;null&lt;/code&gt; checking unnecessary because both &lt;code&gt;is&lt;/code&gt; and &lt;code&gt;IsInstanceOfType&lt;/code&gt; performs it already.</p>
+<p>Finally, utilizing the most concise language constructs for type checking makes the code more readable, so</p>
+<ul>
+<li>&lt;code&gt;expr as T != null&lt;/code&gt; checks should be simplified to &lt;code&gt;expr is T&lt;/code&gt;, and</li>
+<li>&lt;code&gt;expr is T&lt;/code&gt; should be converted to &lt;code&gt;expr != null&lt;/code&gt;, when &lt;code&gt;expr&lt;/code&gt; is of type &lt;code&gt;T&lt;/code&gt;.</li>
+</ul>
+<h2>Noncompliant Code Example</h2>
+<pre>
+class Fruit { }
+sealed class Apple : Fruit { }
+
+class Program
+{
+  static void Main()
+  {
+    var apple = new Apple();
+    var b = apple != null &amp;&amp; apple.GetType() == typeof (Apple); // Noncompliant
+    b = typeof(Apple).IsInstanceOfType(apple); // Noncompliant
+    if (apple != null)
+    {
+      b = typeof(Apple).IsAssignableFrom(apple.GetType()); // Noncompliant
+    }
+    var appleType = typeof (Apple);
+    if (apple != null)
+    {
+      b = appleType.IsAssignableFrom(apple.GetType()); // Noncompliant
+    }
+
+    Fruit f = apple;
+    if (f as Apple != null) // Noncompliant
+    {
+    }
+    if (apple is Apple) // Noncompliant
+    {
+    }
+  }
+}
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+class Fruit { }
+sealed class Apple : Fruit { }
+
+class Program
+{
+  static void Main()
+  {
+    var apple = new Apple();
+    var b = apple is Apple;
+    b = apple is Apple;
+    b = apple is Apple;
+    var appleType = typeof(Apple);
+    b = appleType.IsInstanceOfType(apple);
+
+    Fruit f = apple;
+    if (f is Apple)
+    {
+    }
+    if (apple != null)
+    {
+    }
+  }
+}
+</pre>
+<h2>Exceptions</h2>
+<p>Calling &lt;code&gt;GetType&lt;/code&gt; on an object of &lt;code&gt;Nullable&lt;T&gt;&lt;/code&gt; type returns the underlying generic type parameter &lt;code&gt;T&lt;/code&gt;, thus a comparison with &lt;code&gt;typeof(Nullable&lt;T&gt;)&lt;/code&gt; can’t be simplified to use the &lt;code&gt;is&lt;/code&gt; operator, which doesn’t make difference between &lt;code&gt;T&lt;/code&gt; and &lt;code&gt;T?&lt;/code&gt;.</p>
+<pre>
+int? i = 42;
+bool condition = i.GetType() == typeof(int?); // false;
+condition = i is int?; // true
+</pre>
+<p>No issue is reported on the following expressions:</p>
+<ul>
+<li>&lt;code&gt;expr is T&lt;/code&gt;&nbsp;when either operand of the &lt;code&gt;is&lt;/code&gt; operator is a value type. In that case CS0183 or CS0184 reports</li>
+<li>&lt;code&gt;expr is object&lt;/code&gt;, as this is a common and efficient pattern to do null checks</li>
+</ul>

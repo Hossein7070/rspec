@@ -1,0 +1,29 @@
+<p>Using a &lt;code&gt;type="timestamp"&lt;/code&gt; column as the primary key of a table is slightly risky. Two threads could create new objects in the table close enough in sequence for them to both have the same timestamp. Alternately, this could happen during a daylight savings time change. Instead, use a numeric value as the &lt;code&gt;@Id&lt;/code&gt;.</p>
+<p>This rule raises an issue when a time or date-related class is annotated with &lt;code&gt;@Id&lt;/code&gt;.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+public class Person {
+
+  @Id
+  @Type(type="timestamp")
+  private Date birthDate;  // Noncompliant
+
+  private String lastName;
+  // ...
+}
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+public class Person {
+
+  @Id
+  @GeneratedValue
+  int id;
+
+  @Type(type="timestamp")
+  private Date birthDate;
+
+  private String lastName;
+  // ...
+}
+</pre>

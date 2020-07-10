@@ -1,0 +1,13 @@
+<p>Creating a new &lt;code&gt;Exception&lt;/code&gt; without actually throwing it is useless and is probably due to a mistake.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+If x &lt; 0 Then
+    Dim ex = New ArgumentException("x must be nonnegative")
+End If
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+If x &lt; 0 Then
+    Throw New ArgumentException("x must be nonnegative")
+End If
+</pre>

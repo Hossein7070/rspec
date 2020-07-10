@@ -1,0 +1,9 @@
+<p>Both the "+" operator and the "&amp;" operator can be used to concatenate strings. However, there is a complicated set of rules around the actual  behavior of the "+" operator, and whether you will get a concatenation operation, addition, a compiler error, or a &lt;code&gt;Type mismatch&lt;/code&gt; error. On the other hand, the "&amp;" operator can only perform concatenation, and is therefore preferred.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+Dim y As String = "Con" + "caten" + "ation"
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+Dim y As String = "Con" &amp; "caten" &amp; "ation"
+</pre>

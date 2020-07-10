@@ -1,0 +1,65 @@
+<p>&lt;code&gt;free&lt;/code&gt; or &lt;code&gt;delete&lt;/code&gt; a block of memory and even though the memory has been released, your pointer still hold the address of the memory. Unless the pointer is immediately and explicitly reset to a null value (0 or &lt;code&gt;NULL&lt;/code&gt;), access to that freed memory could inadvertently be made, causing potentially serious problems at runtime.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+void do_something() {
+  char *cp;
+
+  cp = malloc(10*sizeof(char));
+  // ...
+
+  free(cp);  // Noncompliant; not set to NULL
+  // ...
+}
+
+void do_something_else() {
+  int *int_array;
+
+  int_array = new int_array[5];
+  // ...
+
+  delete int_array;  // Noncompliant
+  // ...
+}
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+void do_something() {
+  char *cp;
+
+  cp = malloc(10*sizeof(char));
+  // ...
+
+  free(cp);
+  cp = NULL;
+  // ...
+}
+
+void do_something_else() {
+  int *int_array;
+
+  int_array = new int_array[5];
+  // ...
+
+  delete int_array;
+  int_array = NULL;
+  // ...
+}
+</pre>
+<h2>Exceptions</h2>
+<p>Automatic pointers are ignored when the only statements between the release of their memory and the end of the function are other &lt;code&gt;free&lt;/code&gt;/&lt;code&gt;delete&lt;/code&gt; statements.</p>
+<pre>
+void do_other_thing(char *cp1) {
+  char *cp;
+
+  cp = malloc(10*sizeof(char));
+  cp1 = malloc(10*sizeof(char));
+  // ...
+
+  free(cp);  // Ignored
+  free(cp1); // Noncompliant; not an automatic variable
+}
+</pre>
+<h2>See</h2>
+<ul>
+<li><a href="https://www.securecoding.cert.org/confluence/x/uAE">CERT, MEM01-C.</a> - Store a new value in pointers immediately after free()</li>
+</ul>

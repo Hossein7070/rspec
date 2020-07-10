@@ -1,0 +1,23 @@
+<p>The standard order for &lt;code&gt;using&lt;/code&gt; directives is alphabetic with the exception of &lt;code&gt;System&lt;/code&gt; directives, which come first for higher visibility. Using a different order may cause maintainers to overlook a directive or misunderstand what’s being used.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+using C;  // Noncompliant
+using System.A.A;
+using A;
+using D;
+using B;
+using System;
+using System.A;
+using System.B;
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+using System;
+using System.A;
+using System.A.A;
+using System.B;
+using A;
+using C;
+using B;
+using D;
+</pre>

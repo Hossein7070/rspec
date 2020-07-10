@@ -1,0 +1,20 @@
+{
+  "title": " XML transformers should be secured ",
+  "type": "VULNERABILITY",
+  "status": "deprecated",
+  "remediation": {
+    "func": "Constant/Issue",
+    "constantCost": "5min"
+  },
+  "tags": [],
+  "defaultSeverity": "Critical",
+  "ruleSpecification": "RSPEC-4435",
+  "sqKey": "S4435",
+  "scope": "Main",
+  "all_languages": [
+    "java"
+  ],
+  "allKeys": [
+    "S4435"
+  ]
+}

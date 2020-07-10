@@ -1,0 +1,11 @@
+<p>The main motivation for this rule is to improve the readability of relevant SQL code. From one database optimiser to another, the performance of &lt;code&gt;IN&lt;/code&gt; and &lt;code&gt;OR&lt;/code&gt; clauses to specify a list of possible values for a column can be slightly different, but this difference is usually very minor. What is not minor is the difference in readability between the two styles, which is why an &lt;code&gt;IN&lt;/code&gt; clause is preferred.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+SELECT * FROM PERSONS
+WHERE AGE = 10 OR AGE = 13 OR AGE = 18 OR AGE &lt; 5
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+SELECT * FROM PERSONS
+WHERE AGE IN (10, 13, 18) OR AGE &lt; 5
+</pre>

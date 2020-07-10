@@ -1,0 +1,28 @@
+<p>While it is technically correct to use a &lt;code&gt;Thread&lt;/code&gt; where a &lt;code&gt;Runnable&lt;/code&gt; is called for, the semantics of the two objects are different, and mixing them is a bad practice that will likely lead to headaches in the future.</p>
+<p>The crux of the issue is that &lt;code&gt;Thread&lt;/code&gt; is a larger concept than &lt;code&gt;Runnable&lt;/code&gt;. A &lt;code&gt;Runnable&lt;/code&gt; is an object whose running should be managed. A &lt;code&gt;Thread&lt;/code&gt; expects to manage the running of itself or other &lt;code&gt;Runnables&lt;/code&gt;.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+	public static void main(String[] args) {
+		Thread r =new Thread() {
+			int p;
+			@Override
+			public void run() {
+				while(true)
+					System.out.println("a");
+			}
+		};
+		new Thread(r).start();  // Noncompliant
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+	public static void main(String[] args) {
+		Runnable r =new Runnable() {
+			int p;
+			@Override
+			public void run() {
+				while(true)
+					System.out.println("a");
+			}
+		};
+		new Thread(r).start();
+</pre>

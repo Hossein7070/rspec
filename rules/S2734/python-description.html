@@ -1,0 +1,15 @@
+<p>By contract, every Python function returns something, even if it’s the &lt;code&gt;None&lt;/code&gt; value, which can be returned implicitly by omitting the &lt;code&gt;return&lt;/code&gt; statement, or explicitly.</p>
+<p>The &lt;code&gt;<em>init</em>&lt;/code&gt; method is required to return &lt;code&gt;None&lt;/code&gt;. A &lt;code&gt;TypeError&lt;/code&gt; will be raised if the &lt;code&gt;<em>init</em>&lt;/code&gt; method either &lt;code&gt;yield&lt;/code&gt;s or &lt;code&gt;return&lt;/code&gt;s any expression other than &lt;code&gt;None&lt;/code&gt;. Returning some expression that evaluates to &lt;code&gt;None&lt;/code&gt; will not raise an error, but is considered bad practice.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+class MyClass(object):
+    def __init__(self):
+        self.message = 'Hello'
+        return self  # Noncompliant
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+class MyClass(object):
+    def __init__(self):
+        self.message = 'Hello'
+</pre>

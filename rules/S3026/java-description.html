@@ -1,0 +1,17 @@
+<p>There’s no need to null-test a variable before an &lt;code&gt;instanceof&lt;/code&gt; test because &lt;code&gt;instanceof&lt;/code&gt; tests for &lt;code&gt;null&lt;/code&gt;. Similarly, there’s no need to null-test a variable before dereferencing <em>some other</em> object.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+if (myVar != null &amp;&amp; myVar instanceof MyClass) { // Noncompliant
+  // ...
+} else if (myVar != null &amp;&amp; myOtherVar.equals(myVar) {  // Noncompliant
+  // ...
+}
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+if (myVar instanceof MyClass) {
+  // ...
+} else if (myVar != null &amp;&amp; myVar.equals(myOtherVar) {
+  // ...
+}
+</pre>

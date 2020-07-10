@@ -1,0 +1,22 @@
+{
+  "title": "Runtime type checking should be simplified",
+  "type": "CODE_SMELL",
+  "status": "ready",
+  "remediation": {
+    "func": "Constant/Issue",
+    "constantCost": "5min"
+  },
+  "tags": [
+    "clumsy"
+  ],
+  "defaultSeverity": "Minor",
+  "ruleSpecification": "RSPEC-2219",
+  "sqKey": "S2219",
+  "scope": "All",
+  "all_languages": [
+    "csharp"
+  ],
+  "allKeys": [
+    "S2219"
+  ]
+}

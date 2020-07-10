@@ -1,0 +1,11 @@
+<p>Parameters that are declared as "INONLY" or "NONASSIGNABLE" are flagged as non-assignable by the compiler.</p>
+<p>This rule raises an issue when a non-assignable parameter is written to.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+sum: PROC(a, b);
+   dcl a fixed dec(15,2) NONASSIGNABLE;
+   dcl b fixed dec(15,2) NONASSIGNABLE;
+   a = a + b; /* Noncompliant */
+   return (a);
+end;
+</pre>

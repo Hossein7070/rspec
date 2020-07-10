@@ -1,0 +1,19 @@
+<p>By default case insensitivity only affects letters in the ASCII range. This can be changed by either passing &lt;code&gt;Pattern.UNICODE_CASE&lt;/code&gt; or &lt;code&gt;Pattern.UNICODE_CHARACTER_CLASS&lt;/code&gt; as an argument to &lt;code&gt;Pattern.compile&lt;/code&gt; or using &lt;code&gt;(?u)&lt;/code&gt; or &lt;code&gt;(?U)&lt;/code&gt; within the regex.</p>
+<p>If not done, regular expressions involving non-ASCII letters will still handle those letters as being case sensitive.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+Pattern.compile("söme pättern", Pattern.CASE_INSENSITIVE);
+str.matches("(?i)söme pättern");
+str.matches("(?i:söme) pättern");
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+Pattern.compile("söme pättern", Pattern.CASE_INSENSITIVE | Pattern.UNICODE_CASE);
+str.matches("(?iu)söme pättern");
+str.matches("(?iu:söme) pättern");
+
+// UNICODE_CHARACTER_CLASS implies UNICODE_CASE
+Pattern.compile("söme pättern", Pattern.CASE_INSENSITIVE | Pattern.UNICODE_CHARACTER_CLASS);
+str.matches("(?iU)söme pättern");
+str.matches("(?iU:söme) pättern");
+</pre>

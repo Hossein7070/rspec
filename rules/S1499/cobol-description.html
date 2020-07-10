@@ -1,0 +1,15 @@
+<p>&lt;code&gt;SELECT *&lt;/code&gt; should be avoided because it releases control of the returned columns and could therefore lead to errors and potentially to performance issues.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+SELECT *
+       FROM persons
+       INTO newyorkers
+       WHERE city = 'NEW YORK'
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+SELECT firstname, lastname
+       FROM persons
+       INTO newyorkers
+       WHERE city = 'NEW YORK'
+</pre>

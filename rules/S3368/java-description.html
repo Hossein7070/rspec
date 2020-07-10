@@ -1,0 +1,21 @@
+<p>According to Hibernate’s documentation:
+bq. Hibernate’s own connection pooling algorithm is, …​ quite rudimentary. It is intended to help you get started and is <em>not intended for use in a production system</em>, or even for performance testing. You should use a third party pool for best performance and stability.</p>
+<p>This rule raises an issue when a &lt;code&gt;hibernate.connection.pool_size&lt;/code&gt; value is found in a <em>hibernate.cfg.xml</em> or <em>hibernate.properties</em> file.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+&lt;hibernate-configuration&gt;
+  &lt;session-factory&gt;
+    &lt;!-- ... --&gt;
+    &lt;property name="connection.pool_size"&gt;10&lt;/property&gt;  &lt;!-- Noncompliant --&gt;
+  &lt;/session-factory&gt;
+&lt;/hibernate-configuration&gt;
+</pre>
+<p>or</p>
+<pre>
+// ...
+hibernate.connection.pool_size=10  // Noncompliant
+</pre>
+<h2>See</h2>
+<ul>
+<li><a href="https://docs.jboss.org/hibernate/orm/3.3/reference/en-US/html/session-configuration.html#configuration-hibernatejdbc">Hibernate, Session Configuration</a> - JDBC Connections</li>
+</ul>

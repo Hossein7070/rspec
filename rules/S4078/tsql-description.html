@@ -1,0 +1,10 @@
+<p>String data types (&lt;code&gt;char&lt;/code&gt;, &lt;code&gt;varchar&lt;/code&gt;, &lt;code&gt;nchar&lt;/code&gt;, &lt;code&gt;nvarchar&lt;/code&gt;) default to a size of 1 if no size is specified in the declaration. For &lt;code&gt;char&lt;/code&gt; and &lt;code&gt;nchar&lt;/code&gt; this is confusing at best, but it is most probably a mistake for &lt;code&gt;varchar&lt;/code&gt; and &lt;code&gt;nvarchar&lt;/code&gt;.</p>
+<p>This rule raises an issue when no size is specified for &lt;code&gt;varchar&lt;/code&gt; or &lt;code&gt;nvarchar&lt;/code&gt;.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+DECLARE @myStr varchar;  -- Noncompliant
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+DECLARE @myStr varchar(255);
+</pre>

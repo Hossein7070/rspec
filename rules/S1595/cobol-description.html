@@ -1,0 +1,14 @@
+<p>When calling a CICS command other than &lt;code&gt;RETURN&lt;/code&gt;, &lt;code&gt;ADDRESS&lt;/code&gt;, or &lt;code&gt;ABEND&lt;/code&gt;, either &lt;code&gt;RESP&lt;/code&gt; should be used to specify where the response code should be written, or &lt;code&gt;NOHANDLE&lt;/code&gt; should be used to specify that abnormal conditions should be ignored.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+           EXEC CICS DELETEQ TS        *&gt; Noncompliant
+             QNAME(WS-TS5FTARF-NAME)
+           END-EXEC.
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+           EXEC CICS DELETEQ TS
+             QNAME(WS-TS5FTARF-NAME)
+             RESP(WS-STATUS)
+           END-EXEC.
+</pre>

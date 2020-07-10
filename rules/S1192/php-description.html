@@ -1,0 +1,31 @@
+<p>Duplicated string literals make the process of refactoring error-prone, since you must be sure to update all occurrences.
+On the other hand, constants can be referenced from many places, but only need to be updated in a single place.</p>
+<h2>Noncompliant Code Example</h2>
+<p>With the default threshold of 3:</p>
+<pre>
+function run() {
+  prepare('this is a duplicate'); // Non-Compliant - 'this is a duplicate' is duplicated 3 times
+  execute('this is a duplicate');
+  release('this is a duplicate');
+}
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+MESSAGE = 'this is a duplicate';
+
+function run() {
+  prepare(MESSAGE);
+  execute(MESSAGE);
+  release(MESSAGE);
+}
+</pre>
+<h2>Exceptions</h2>
+<p>No issue will be raised on:</p>
+<ul>
+<li>strings with less than 5 characters</li>
+<li>strings with only letters, numbers, underscores and hyphens</li>
+<li>strings must start with a letter</li>
+</ul>
+<pre>
+$severity = $request-&gt;getParam('severity-score');{code}
+</pre>

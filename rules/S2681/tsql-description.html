@@ -1,0 +1,27 @@
+<p>&lt;code&gt;BEGIN…​END&lt;/code&gt; can be omitted from a one-line block, such as with an &lt;code&gt;IF&lt;/code&gt; statement or &lt;code&gt;WHILE&lt;/code&gt; loop, but doing so can be misleading and induce bugs.</p>
+<p>This rule raises an issue when the indentation of the lines after a one-line block indicates an intent to include those lines in the block, but the omission of &lt;code&gt;BEGIN…​END&lt;/code&gt; means the lines will be unconditionally executed once.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+IF (0=1)
+  EXEC firstActionInBlock;
+  EXEC secondAction;  -- Noncompliant; executed unconditionally
+EXEC thirdAction;
+
+IF (0=1) EXEC firstActionInBlock; EXEC secondAction;  -- Noncompliant; secondAction executed unconditionally
+
+IF (0=1) EXEC firstActionInBlock;  -- Noncompliant
+  EXEC secondAction;  -- Executed unconditionally
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+IF (0=1) BEGIN
+  EXEC firstActionInBlock;
+  EXEC secondAction;
+END
+EXEC thirdAction;
+</pre>
+<h2>See</h2>
+<ul>
+<li><a href="http://cwe.mitre.org/data/definitions/483.html">MITRE, CWE-483</a> - Incorrect Block Delimitation</li>
+<li><a href="https://www.securecoding.cert.org/confluence/x/3wHEAw">CERT, EXP52-J.</a> - Use braces for the body of an if, for, or while statement</li>
+</ul>

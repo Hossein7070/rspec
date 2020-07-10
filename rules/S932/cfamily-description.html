@@ -1,0 +1,55 @@
+<p>When an object is declared with &lt;code&gt;const&lt;/code&gt; class type, only &lt;code&gt;const&lt;/code&gt; member functions can be invoked on that object. The common expectation of &lt;code&gt;const&lt;/code&gt; member functions is that the state of the object may not be modified when invoking the functions. However, returning a non-const pointer or reference to class-data from a &lt;code&gt;const&lt;/code&gt; function allows a modification to the conceptual state of an object.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+class C
+{
+public:
+  C(int32_t &amp; value) : a(&amp;value), b(value) { }
+  int32_t * getA () const // Noncompliant, "const" method returns a non-const pointer to data
+  {
+    return a;
+  }
+  int32_t &amp; getB () const // Noncompliant, "const" method returns a non-const reference to data
+  {
+    return b;
+  }
+private:
+  int32_t * a;
+  int32_t &amp; b;
+};
+
+void fn ( C const &amp; c )
+{
+  c.getA()[ 0 ] = 0; // Hazardous: modification to conceptual state of C from the returned value of a const method
+  c.getB() = 0; // Hazardous: modification to conceptual state of C from the returned value of a const method
+}
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+class C
+{
+public:
+  C(int32_t &amp; value) : a(&amp;value), b(value) { }
+  int32_t const * getA () const // Compliant, "const" method returns a "const" pointer to data
+  {
+    return a;
+  }
+  int32_t const &amp; getB () const // Compliant, "const" method returns a "const" reference to data
+  {
+    return b;
+  }
+private:
+  int32_t * a;
+  int32_t &amp; b;
+};
+
+void fn ( C const &amp; c )
+{
+  c.getA()[ 0 ] = 0; // Compliant, rejected during compliation
+  c.getB() = 0; // Compliant, rejected during compilation
+}
+</pre>
+<h2>See</h2>
+<ul>
+<li>MISRA C++:2008, 9-3-1</li>
+</ul>

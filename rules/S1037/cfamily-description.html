@@ -1,0 +1,41 @@
+<p>If an exception is thrown when constructing the exception object, or when evaluating the assignment expression that initializes the exception object, it is that exception that propagates in preference to the one that was about to be thrown. This may be inconsistent with developer expectations.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+// construction of E2 causes an exception to be thrown
+class E2
+{
+  public:
+  E2 ( )
+  {
+    throw 10;
+  }
+};
+
+try
+{
+  if ( ... )
+  {
+    throw E2 ( ); // Non-compliant – int exception thrown when constructing the E2 object
+  }
+}
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+class E
+{
+  public:
+  E ( ) { } // Assume constructor cannot cause an exception
+};
+
+try
+{
+  if ( ... )
+  {
+    throw E ( ); // Compliant – no exception thrown when constructing the object
+  }
+}
+</pre>
+<h2>See</h2>
+<ul>
+<li>MISRA C++:2008, 15-1-1</li>
+</ul>

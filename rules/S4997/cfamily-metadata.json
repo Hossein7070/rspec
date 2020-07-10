@@ -1,0 +1,23 @@
+{
+  "title": "\"std::auto_ptr\" should not be used",
+  "type": "BUG",
+  "status": "ready",
+  "remediation": {
+    "func": "Constant/Issue",
+    "constantCost": "1min"
+  },
+  "tags": [
+    "cpp11",
+    "suspicious"
+  ],
+  "defaultSeverity": "Blocker",
+  "ruleSpecification": "RSPEC-4997",
+  "sqKey": "S4997",
+  "scope": "All",
+  "all_languages": [
+    "cfamily"
+  ],
+  "allKeys": [
+    "S4997"
+  ]
+}

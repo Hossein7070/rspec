@@ -1,0 +1,27 @@
+<p>Adding &lt;code&gt;IBInspectable&lt;/code&gt; to a properly-typed variable makes it available in Xcode’s Interface Builder. But that only works if variable type is declared explicitly as one of the following:</p>
+<ul>
+<li>&lt;code&gt;Int&lt;/code&gt; types, &lt;code&gt;Double&lt;/code&gt;, &lt;code&gt;Float&lt;/code&gt;, &lt;code&gt;Bool&lt;/code&gt;</li>
+<li>&lt;code&gt;String&lt;/code&gt; (or its optional)</li>
+<li>&lt;code&gt;CGFloat&lt;/code&gt;, &lt;code&gt;CGPoint&lt;/code&gt;, &lt;code&gt;CGSize&lt;/code&gt;, &lt;code&gt;CGRect&lt;/code&gt;</li>
+<li>&lt;code&gt;UIColor&lt;/code&gt;, &lt;code&gt;UIImage&lt;/code&gt; (and their optionals)</li>
+<li>&lt;code&gt;NSString&lt;/code&gt;,  &lt;code&gt;NSColor&lt;/code&gt;, &lt;code&gt;NSImage&lt;/code&gt; (and their optionals)</li>
+<li>&lt;code&gt;NSRect&lt;/code&gt;, &lt;code&gt;NSPoint&lt;/code&gt;, &lt;code&gt;NSSize&lt;/code&gt;,</li>
+</ul>
+<h2>Noncompliant Code Example</h2>
+<pre>
+@IBInspectable  // Noncompliant; type is implicit
+public var cornerRadius = 2.0 {
+  didSet {
+     //...
+  }
+}
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+@IBInspectable
+public var cornerRadius: CGFloat  = 2.0 {
+  didSet {
+     //...
+  }
+}
+</pre>

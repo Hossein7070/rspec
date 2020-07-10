@@ -1,0 +1,28 @@
+<p>Duplicated string literals make the process of refactoring error-prone, since you must be sure to update all occurrences.
+On the other hand, constants can be referenced from many places, but only need to be updated in a single place.</p>
+<h2>Noncompliant Code Example</h2>
+<p>With the default threshold of 3:</p>
+<pre>
+       PROCEDURE DIVISION.
+
+       DISPLAY "Firstname: ".
+      *...
+       DISPLAY "Firstname: ".
+      *...
+       DISPLAY "Firstname: ".
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+       WORKING-STORAGE SECTION.
+         01 FIRST-NAME-HEADER PIC X(42) VALUE "Firstname: ".
+       PROCEDURE DIVISION.
+
+       DISPLAY FIRST-NAME-HEADER
+      *...
+       DISPLAY FIRST-NAME-HEADER
+      *...
+       DISPLAY FIRST-NAME-HEADER
+</pre>
+<h2>Exceptions</h2>
+<p>Literals with fewer than 7 characters are ignored.</p>
+<p>Only duplications located in a &lt;code&gt;PROCEDURE DIVISION&lt;/code&gt;, not those contained in copybooks are reported.</p>

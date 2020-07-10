@@ -1,0 +1,18 @@
+<p>The use of operators pairs ( &lt;code&gt;=+&lt;/code&gt;, &lt;code&gt;=\-&lt;/code&gt; or &lt;code&gt;=\!&lt;/code&gt; ) where the reversed, single operator was meant (&lt;code&gt;+=&lt;/code&gt;, &lt;code&gt;-=&lt;/code&gt; or &lt;code&gt;\!=&lt;/code&gt;) will compile and run, but not produce the expected results.</p>
+<p>This rule raises an issue when &lt;code&gt;=+&lt;/code&gt;, &lt;code&gt;=-&lt;/code&gt;, or &lt;code&gt;=!&lt;/code&gt; is used without any spacing between the two operators and when there is at least one whitespace character after.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+$target = -5;
+$num = 3;
+
+$target =- $num;  // Noncompliant; target = -3. Is that really what's meant?
+$target =+ $num; // Noncompliant; target = 3
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+$target = -5;
+$num = 3;
+
+$target = -$num;  // Compliant; intent to assign inverse value of num is clear
+$target += $num;
+</pre>

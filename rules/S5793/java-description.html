@@ -1,0 +1,132 @@
+<p>As mentioned in JUnit5 documentation, it is possible to integrate JUnit4 with JUnit5:
+{quote}JUnit provides a gentle migration path via a JUnit Vintage test engine which allows existing tests based on JUnit 3 and JUnit 4 to be executed using the JUnit Platform infrastructure. Since all classes and annotations specific to JUnit Jupiter reside under a new org.junit.jupiter base package, having both JUnit 4 and JUnit Jupiter in the classpath does not lead to any conflicts.
+{quote}
+However, maintaining both systems is a temporary solution. This rule flags all the annotations from JUnit4 which would need to be migrated to JUnit5, hence helping migration of a project.</p>
+<p>Here is the list of JUnit4 annotations tracked by the rule, with their corresponding annotations in JUnit5:
+||JUnit4||JUnit5||
+|&lt;code&gt;org.junit.Test&lt;/code&gt;|&lt;code&gt;org.junit.jupiter.api.Test&lt;/code&gt;|
+|&lt;code&gt;org.junit.Before&lt;/code&gt;|&lt;code&gt;org.junit.jupiter.api.BeforeEach&lt;/code&gt;|
+|&lt;code&gt;org.junit.After&lt;/code&gt;|&lt;code&gt;org.junit.jupiter.api.AfterEach&lt;/code&gt;|
+|&lt;code&gt;org.junit.BeforeClass&lt;/code&gt;|&lt;code&gt;org.junit.jupiter.api.BeforeAll&lt;/code&gt;|
+|&lt;code&gt;org.junit.AfterClass&lt;/code&gt;|&lt;code&gt;org.junit.jupiter.api.AfterAll&lt;/code&gt;|
+|&lt;code&gt;org.junit.Ignore&lt;/code&gt;|&lt;code&gt;org.junit.jupiter.api.Disabled&lt;/code&gt;|</p>
+<p>Note that the following annotations might requires some rework of the tests to have JUnit5 equivalent behavior. A simple replacement of the annotation won’t work immediately:
+||JUnit4||JUnit5||
+|&lt;code&gt;org.junit.experimental.categories.Category&lt;/code&gt;|&lt;code&gt;org.junit.jupiter.api.Tag&lt;/code&gt;|
+|&lt;code&gt;org.junit.Rule&lt;/code&gt;|&lt;code&gt;org.junit.jupiter.api.extension.ExtendWith&lt;/code&gt;|
+|&lt;code&gt;org.junit.ClassRule&lt;/code&gt;|&lt;code&gt;org.junit.jupiter.api.extension.RegisterExtension&lt;/code&gt;|
+|&lt;code&gt;org.junit.runner.RunWith&lt;/code&gt;|&lt;code&gt;org.junit.jupiter.api.extension.ExtendWith&lt;/code&gt;|</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+package org.foo;
+
+import org.junit.After;
+import org.junit.AfterClass;
+import org.junit.Before;
+import org.junit.BeforeClass;
+import org.junit.Ignore;
+import org.junit.Test;
+import org.junit.experimental.categories.Category;
+import org.junit.runner.RunWith;
+
+@RunWith(MyJUnit4Runner.class)
+public class MyJUnit4Test {
+
+  @BeforeClass
+  public static void beforeAll() {
+    System.out.println("beforeAll");
+  }
+
+  @AfterClass
+  public static void afterAll() {
+    System.out.println("AfterAll");
+  }
+
+  @Before
+  public void beforeEach() {
+    System.out.println("beforeEach");
+  }
+
+  @After
+  public void afterEach() {
+    System.out.println("afterEach");
+  }
+
+  @Test
+  public void test1() throws Exception {
+    System.out.println("test1");
+  }
+
+  public interface SomeTests { /* category marker */ }
+
+  @Test
+  @Category(SomeTests.class)
+  public void test2() throws Exception {
+    System.out.println("test2");
+  }
+
+  @Test
+  @Ignore("Requires fix of #42")
+  public void ignored() throws Exception {
+    System.out.println("ignored");
+  }
+}
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+package org.foo;
+
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Tag;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+
+@ExtendWith(MyJUnit5Extension.class)
+class MyJUnit5Test {
+
+  @BeforeAll
+  static void beforeAll() {
+    System.out.println("beforeAll");
+  }
+
+  @AfterAll
+  static void afterAll() {
+    System.out.println("afterAll");
+  }
+
+  @BeforeEach
+  void beforeEach() {
+    System.out.println("beforeEach");
+  }
+
+  @AfterEach
+  void afterEach() {
+    System.out.println("afterEach");
+  }
+
+  @Test
+  void test1() {
+    System.out.println("test1");
+  }
+
+  @Test
+  @Tag("SomeTests")
+  void test2() {
+    System.out.println("test2");
+  }
+
+  @Test
+  @Disabled("Requires fix of #42")
+  void disabled() {
+    System.out.println("ignored");
+  }
+}
+</pre>
+<h2>See</h2>
+<ul>
+<li><a href="https://junit.org/junit5/docs/current/user-guide/#migrating-from-junit4">JUnit 5: Migrating from JUnit4</a></li>
+</ul>

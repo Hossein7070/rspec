@@ -1,0 +1,29 @@
+<p>Manipulation of character data may generate results that are contrary to developer expectations. For example, ISO/IEC 14882:2003 §2.2(3) only requires that the digits "0" to "9" have consecutive numerical values.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+char_t ch = 't'; // Compliant
+uint8_t v;
+if ( ( ch &gt;= 'a' ) &amp;&amp; ( ch &lt;= 'z' ) ) // Noncompliant
+{
+}
+if ( ( ch &gt;= '0' ) &amp;&amp; ( ch &lt;= '9' ) ) // Compliant by exception
+{
+  v = ch - '0'; // Compliant by exception
+  v = ch - '1'; // Noncompliant
+}
+ch = '0' + v; // Compliant by exception
+ch = 'A' + v; // Noncompliant
+</pre>
+<h2>Exceptions</h2>
+<p>Exceptionally, the following operators may be used if the associated restriction is observed:</p>
+<ul>
+<li>The binary + operator may be used to add an integral value in the range 0 to 9 to '0';</li>
+<li>The binary - operator may be used to subtract character '0';</li>
+<li>The relational operators &lt;, ⇐, &gt;, &gt;= may be used to determine if a character (or wide
+character) represents a digit.</li>
+</ul>
+<h2>See</h2>
+<ul>
+<li>MISRA C++:2008, 4-5-3 - Expressions with type (plain) char and wchar_t shall not be used as operands to built-in operators other than the assignment operator =, the equality operators == and !=, and the unary &amp; operator.</li>
+<li>ISO/IEC 14882:2003 §2.2(3)</li>
+</ul>

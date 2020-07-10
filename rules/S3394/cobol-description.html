@@ -1,0 +1,17 @@
+<p>The &lt;code&gt;ACCEPT&lt;/code&gt; keyword does no editing or error checking of the data it stores, therefore its use can be dangerous. For this reason, &lt;code&gt;ACCEPT&lt;/code&gt; should be avoided.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+ 01 USER-INPUT PIC X(4).
+
+  GET-USER-INPUT.
+       MOVE 'N' TO WS-NUMERIC.
+       PERFORM UNTIL WS-NUMERIC = 'Y'
+           DISPLAY 'ENTER YOUR 4 DIGIT RECORD NUMBER: ' NO ADVANCING
+           ACCEPT USER-RECORD *&gt; Noncompliant
+</pre>
+<h2>Exceptions</h2>
+<p>This rule ignores uses of &lt;code&gt;ACCEPT FROM&lt;/code&gt; with date/time-related inputs.</p>
+<h2>See</h2>
+<ul>
+<li><a href="https://www.owasp.org/index.php/Top_10-2017_A1-Injection">OWASP Top 10 2017 Category A1</a> - Injection</li>
+</ul>

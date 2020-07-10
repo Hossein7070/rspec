@@ -1,0 +1,22 @@
+<p>Because &lt;code&gt;CX_ROOT&lt;/code&gt; is the base exception type, catching it directly probably casts a wider net than you intended. Catching &lt;code&gt;CX_ROOT&lt;/code&gt; could mask far more serious system errors that your &lt;code&gt;CATCH&lt;/code&gt; logic was intended to deal with.</p>
+<p>Some smaller, more specific exception type should be caught instead.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+  try.
+    if ABS( NUMBER ) &gt; 100.
+      write / 'Number is large'.
+    endif.
+  catch CX_ROOT into OREF.
+    write / OREF-&gt;GET_TEXT( ).
+  endtry.
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+  try.
+    if ABS( NUMBER ) &gt; 100.
+      write / 'Number is large'.
+    endif.
+  catch CX_SY_ARITHMETIC_ERROR into OREF.
+    write / OREF-&gt;GET_TEXT( ).
+  endtry.
+</pre>

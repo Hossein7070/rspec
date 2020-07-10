@@ -1,0 +1,14 @@
+<p>In the event of a system failure, application logs may be your only method of untangling what happened. However, if you log user input verbatim, your logs may not be entirely reliable: a malicious user could use specially crafted inputs to insert false log entries or otherwise corrupt the logs' accurate use by log processing applications or manual audit.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+public void doGet(HttpServletRequest request, HttpServletResponse response) {
+  LOGGER.log(Level.INFO, request.getParameter("user"));  // Noncompliant
+  // ...
+
+}
+</pre>
+<h2>See</h2>
+<ul>
+<li><a href="https://www.owasp.org/index.php/Top_10-2017_A1-Injection">OWASP Top 10 2017 Category A1</a> - Injection</li>
+<li><a href="http://cwe.mitre.org/data/definitions/117">MITRE, CWE-117</a> - Improper Output Neutralization for Logs</li>
+</ul>

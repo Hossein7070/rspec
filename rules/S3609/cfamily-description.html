@@ -1,0 +1,17 @@
+<p>Since C++11, declaring a variable, class, or function in an unnamed &lt;code&gt;namespace&lt;/code&gt; gives it internal linkage. Similarly, marking a declaration &lt;code&gt;static&lt;/code&gt; also gives it internal linkage. Because both mechanisms have the same effect (although &lt;code&gt;static&lt;/code&gt; has a narrower application) using them together is clearly redundant.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+namespace {
+  static int i = 3;  // Noncompliant
+}
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+namespace {
+  int i = 3;
+}
+</pre>
+<h2>See</h2>
+<ul>
+<li>ISO/IEC 14882:2011 §3.5 paragraph 4</li>
+</ul>

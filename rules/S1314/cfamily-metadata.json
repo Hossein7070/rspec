@@ -1,0 +1,32 @@
+{
+  "title": "Octal values should not be used",
+  "type": "CODE_SMELL",
+  "status": "ready",
+  "remediation": {
+    "func": "Constant/Issue",
+    "constantCost": "5min"
+  },
+  "tags": [
+    "based-on-misra",
+    "pitfall"
+  ],
+  "defaultSeverity": "Blocker",
+  "ruleSpecification": "RSPEC-1314",
+  "sqKey": "OctalConstantAndSequence",
+  "scope": "All",
+  "all_languages": [
+    "cfamily",
+    "csharp",
+    "flex",
+    "go",
+    "java",
+    "javascript",
+    "php",
+    "ruby"
+  ],
+  "allKeys": [
+    "OctalConstantAndSequence",
+    "S1314",
+    "OctalNumber"
+  ]
+}

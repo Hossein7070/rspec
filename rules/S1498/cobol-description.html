@@ -1,0 +1,8 @@
+<p>Using the &lt;code&gt;LIKE&lt;/code&gt; operator in SQL &lt;code&gt;WHERE&lt;/code&gt; conditions can highly impact the performance of the request. The use of this operator should be strongly indicated.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+SELECT *
+       FROM doktl
+       INTO TABLE text_tab
+       WHERE doktext LIKE srch_str.
+</pre>

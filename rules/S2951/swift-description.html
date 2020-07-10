@@ -1,0 +1,24 @@
+<p>Because &lt;code&gt;case&lt;/code&gt; statements in a Swift &lt;code&gt;switch&lt;/code&gt; do not fall through, there is no need to use &lt;code&gt;break&lt;/code&gt; at the end of a &lt;code&gt;case&lt;/code&gt; unless it would otherwise be empty. Since an empty &lt;code&gt;case&lt;/code&gt; isn’t allowed, an explicit &lt;code&gt;break&lt;/code&gt; is needed to make such code compilable. There is no other reason to use &lt;code&gt;break&lt;/code&gt; in a &lt;code&gt;case&lt;/code&gt;.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+switch weekday {
+  case sunday:
+    break
+  case monday:
+    getUpEarly()
+    break  // Noncompliant
+  case tuesday
+    // ...
+}
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+switch weekday {
+  case sunday:
+    break
+  case monday:
+    getUpEarly()
+  case tuesday
+    // ...
+}
+</pre>

@@ -1,0 +1,18 @@
+<p>Security through obscurity is no security at all, and the use of Base64 encoding to obscure a password will only slow an attacker down for seconds, at the most. Instead, passwords should be encrypted with private keys that are at least 128 bits in length.</p>
+<p>This rule checks for the use of Base64 decoding on values that are then used in database and LDAP connections.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+String password = Base64.decode(retrievePassword());
+DriverManager.getConnection(url, usr, password);  // Noncompliant
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+Cipher cipher = Cipher.getInstance("RSA/ECB/OAEPWithMD5AndMGF1Padding");
+cipher.init(Cipher.DECRYPT_MODE, privateKey);  // key management out of scope for this example
+cipher.doFinal(retrievePassword()));
+</pre>
+<h2>See</h2>
+<ul>
+<li><a href="https://www.owasp.org/index.php/Top_10-2017_A3-Sensitive_Data_Exposure">OWASP Top 10 2017 Category A3</a> - Sensitive Data Exposure</li>
+<li><a href="http://cwe.mitre.org/data/definitions/261">MITRE, CWE-261</a> - Weak Cryptography for Passwords</li>
+</ul>

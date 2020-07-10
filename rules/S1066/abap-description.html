@@ -1,0 +1,15 @@
+<p>Merging collapsible &lt;code&gt;if&lt;/code&gt; statements increases the code’s readability.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+IF something.
+  IF somethingElse.
+    WRITE / 'hello'.
+  ENDIF.
+ENDIF.
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+IF something and somethingElse.
+  WRITE / 'hello'.
+ENDIF.
+</pre>

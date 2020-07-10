@@ -1,0 +1,19 @@
+<p>Making a &lt;code&gt;public&lt;/code&gt; constant just &lt;code&gt;final&lt;/code&gt; as opposed to &lt;code&gt;static final&lt;/code&gt; leads to duplicating its value for every instance of the class, uselessly increasing the amount of memory required to execute the application.</p>
+<p>Further, when a non-&lt;code&gt;public&lt;/code&gt;, &lt;code&gt;final&lt;/code&gt;  field isn’t also &lt;code&gt;static&lt;/code&gt;, it implies that different instances can have different values. However, initializing a non-&lt;code&gt;static final&lt;/code&gt; field in its declaration forces every instance to have the same value. So such fields should either be made &lt;code&gt;static&lt;/code&gt; or initialized in the constructor.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+public class Myclass {
+  public final int THRESHOLD = 3;
+}
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+public class Myclass {
+  public static final int THRESHOLD = 3;    // Compliant
+}
+</pre>
+<h2>Exceptions</h2>
+<p>No issues are reported on final fields of inner classes whose type is not a primitive or a String. Indeed according to the Java specification:
+{quote}
+An inner class is a nested class that is not explicitly or implicitly declared static. Inner classes may not declare static initializers (§8.7) or member interfaces. Inner classes may not declare static members, unless they are compile-time constant fields (§15.28).
+{quote}</p>

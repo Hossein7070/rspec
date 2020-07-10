@@ -1,0 +1,65 @@
+<p><em>Pointer arithmetic</em> is a way of calculating the address of objects in memory, especially in arrays.
+ It features operators &lt;code&gt;+&lt;/code&gt;, &lt;code&gt;---&lt;/code&gt;, &lt;code&gt;--=&lt;/code&gt;, &lt;code&gt;=&lt;/code&gt; and subscript operator &lt;code&gt;[]&lt;/code&gt;.
+ Pointer arithmetic relies on the type of the pointer to calculate the actual address in memory.
+ Using the wrong type to do pointer arithmetic leads to wrong result and can corrupt memory.
+ &lt;code&gt;static_cast&lt;/code&gt;&nbsp;can be used to change the type of a pointer. As a result, doing arithmetic on its return value would result in wrong arithmetic.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+#include&lt;iostream&gt;
+
+using namespace std;
+
+struct Base {
+  int iBase = 0;
+};
+
+struct Derived : public Base {
+  int iDerived = 0;
+};
+
+int main() {
+  const size_t size = 4;
+  Derived derivedArray[size];
+  Base* basePointer = static_cast&lt;Base*&gt;(derivedArray);
+  for(int i=0; i&lt;size; ++i) {
+    derivedArray[i].iBase = i;                                           // store : 0 1 2 3
+    derivedArray[i].iDerived = i*1000;
+  }
+  for(int i=0; i&lt;size; ++i) {
+    cout&lt;&lt;"derivedArray["&lt;&lt;i&lt;&lt;"].iBase="&lt;&lt;derivedArray[i].iBase&lt;&lt;endl;   // display : 0 1 2 3
+    cout&lt;&lt;"basePointer["&lt;&lt;i&lt;&lt;"].iBase="&lt;&lt;basePointer[i].iBase&lt;&lt;endl;     // display : 0 0 1 1000
+  }
+  return 0;
+}
+</pre>
+<p>Pointer arithmetic should carried on with the initial pointer type and then the static cast should be applied.</p>
+<h2>Compliant Solution</h2>
+<pre>
+#include&lt;iostream&gt;
+
+using namespace std;
+
+struct Base {
+  int iBase = 0;
+};
+
+struct Derived : public Base {
+  int iDerived = 0;
+};
+
+int main() {
+  const size_t size = 4;
+  Derived derivedArray[size];
+  for(int i=0; i&lt;size; ++i) {
+    derivedArray[i].iBase = i;                                           // store : 0 1 2 3
+    derivedArray[i].iDerived = i*1000;
+  }
+  for(int i=0; i&lt;size; ++i) {
+    cout&lt;&lt;"derivedArray["&lt;&lt;i&lt;&lt;"].iBase="&lt;&lt;derivedArray[i].iBase&lt;&lt;endl;   // display : 0 1 2 3
+    cout&lt;&lt;"base of derivedArray["&lt;&lt;i&lt;&lt;"].iBase="&lt;&lt;static_cast&lt;Base*&gt;(derivedArray+i)-&gt;iBase&lt;&lt;endl;     // display : 0 1 2 3
+  }
+  return 0;
+}
+</pre>
+<h2>Exceptions</h2>
+<p>&lt;code&gt;void*&lt;/code&gt; is a special type of pointer as it is not typed. It is usually used in some complex schemes. This rule does not apply for a &lt;code&gt;static_cast&lt;/code&gt; from a &lt;code&gt;void*&lt;/code&gt;.</p>

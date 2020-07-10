@@ -1,0 +1,24 @@
+{
+  "title": "\"out\" and \"ref\" parameters should not be used",
+  "type": "CODE_SMELL",
+  "status": "ready",
+  "remediation": {
+    "func": "Constant/Issue",
+    "constantCost": "20min"
+  },
+  "tags": [
+    "suspicious"
+  ],
+  "defaultSeverity": "Critical",
+  "ruleSpecification": "RSPEC-3874",
+  "sqKey": "S3874",
+  "scope": "All",
+  "all_languages": [
+    "csharp",
+    "plsql"
+  ],
+  "allKeys": [
+    "S3874",
+    "FunctionOutParametersCheck"
+  ]
+}

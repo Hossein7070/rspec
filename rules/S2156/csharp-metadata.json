@@ -1,0 +1,24 @@
+{
+  "title": "\"sealed\" classes should not have \"protected\" members",
+  "type": "CODE_SMELL",
+  "status": "ready",
+  "remediation": {
+    "func": "Constant/Issue",
+    "constantCost": "5min"
+  },
+  "tags": [
+    "confusing"
+  ],
+  "defaultSeverity": "Minor",
+  "ruleSpecification": "RSPEC-2156",
+  "sqKey": "S2156",
+  "scope": "All",
+  "all_languages": [
+    "cfamily",
+    "csharp",
+    "java"
+  ],
+  "allKeys": [
+    "S2156"
+  ]
+}

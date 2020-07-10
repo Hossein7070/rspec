@@ -1,0 +1,29 @@
+<p>User provided data, such as URL parameters, POST data payloads, or cookies, should always be considered untrusted and tainted. Applications performing HTTP redirects based on tainted data could enable an attacker to redirect users to a malicious site to, for example, steal login credentials.</p>
+<p>This problem could be mitigated in any of the following ways:</p>
+<ul>
+<li>Validate the user provided data based on a whitelist and reject input not matching.</li>
+<li>Redesign the application to not perform redirects based on user provided data.</li>
+</ul>
+<h2>Noncompliant Code Example</h2>
+<pre>
+$url = $this-&gt;request-&gt;getQuery("url");
+return $this-&gt;redirect($url); // Noncompliant
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+$whitelist = array(
+  "https://www.sonarsource.com/"
+);
+$url = $this-&gt;request-&gt;getQuery("url");
+if (in_array($url, $whitelist)) {
+  return $this-&gt;redirect($url);
+} else {
+  throw new ForbiddenException();
+}
+</pre>
+<h2>See</h2>
+<ul>
+<li><a href="https://www.owasp.org/index.php/Top_10-2017_A5-Broken_Access_Control">OWASP Top 10 2017 Category A5</a> - Broken Access Control</li>
+<li><a href="https://cwe.mitre.org/data/definitions/601.html">MITRE, CWE-601</a> - URL Redirection to Untrusted Site ('Open Redirect')</li>
+<li><a href="https://www.sans.org/top25-software-errors/#cat2">SANS Top 25</a> - Risky Resource Management</li>
+</ul>

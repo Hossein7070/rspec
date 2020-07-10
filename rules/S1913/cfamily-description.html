@@ -1,0 +1,31 @@
+<p>A call to &lt;code&gt;sizeof(sizeof(…​))&lt;/code&gt; is equivalent to &lt;code&gt;sizeof(size_t)&lt;/code&gt;, and indicates a misuse or misunderstanding of the &lt;code&gt;sizeof&lt;/code&gt; construct.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+#include &lt;string.h&gt;
+
+int main(int argc, char* argv[])
+{
+  char buffer[42];
+  char buffer2[sizeof(sizeof(buffer))]; /* Noncompliant - a single sizeof() was intended */
+
+  memcpy(buffer, "Hello, world!", strlen("Hello, world!")+1);
+  memcpy(buffer2, buffer, sizeof(buffer)); /* Buffer overflow */
+
+  return 0;
+}
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+#include &lt;string.h&gt;
+
+int main(int argc, char* argv[])
+{
+  char buffer[42];
+  char buffer2[sizeof(buffer)]; /* Compliant */
+
+  memcpy(buffer, "Hello, world!", strlen("Hello, world!")+1);
+  memcpy(buffer2, buffer, sizeof(buffer));
+
+  return 0;
+}
+</pre>

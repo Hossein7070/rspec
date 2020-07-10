@@ -1,0 +1,13 @@
+<p>While working with bitwise operators &lt;code&gt;&amp;&lt;/code&gt; or &lt;code&gt;|&lt;/code&gt; it is easy to make a typo and&nbsp;write the equivalent logical operators &lt;code&gt;&amp;&amp;&lt;/code&gt; or &lt;code&gt;||&lt;/code&gt;. This rule is raising issues when the right operand of a logical expression  &lt;code&gt;&amp;&amp;&lt;/code&gt; or &lt;code&gt;||&lt;/code&gt; is a constant of integral type, as the developer probably meant to use the corresponding bitwise operator &lt;code&gt;&amp;&lt;/code&gt; or &lt;code&gt;|&lt;/code&gt;.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+int fun(int a) {
+  return a || 4; // Noncompliant, did you mean to use bitwise operator '|'?
+}
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+int fun(int a) {
+ return a | 4;
+}
+</pre>

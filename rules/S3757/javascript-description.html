@@ -1,0 +1,11 @@
+<p>The result of an expression with an arithmetic operator &lt;code&gt;/, *, %, +\+, --, -, +=, -=, *=, /=, %=, \+&lt;/code&gt; or unary operator &lt;code&gt;+, -&lt;/code&gt; when at least one operand is &lt;code&gt;Object&lt;/code&gt; or &lt;code&gt;Undefined&lt;/code&gt; will be always a &lt;code&gt;NaN&lt;/code&gt; (Not a Number).</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+x = [1, 2];
+var y = x / 4;  //Noncompliant
+</pre>
+<h2>Exceptions</h2>
+<ul>
+<li>&lt;code&gt;Date&lt;/code&gt; operands: they are implicitly converted to numbers.</li>
+<li>The binary &lt;code&gt;+&lt;/code&gt; operator with &lt;code&gt;Object&lt;/code&gt; operand (concatenation).</li>
+</ul>

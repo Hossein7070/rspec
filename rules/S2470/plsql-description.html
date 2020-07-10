@@ -1,0 +1,19 @@
+<p>Not every data type supports the &lt;code&gt;RANGE&lt;/code&gt; or scale constraints. Using these constraints on incompatible types results in an &lt;code&gt;PLS-00572: improper constraint form used&lt;/code&gt; exception being raised.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+DECLARE
+  foo INTEGER RANGE 0 .. 42; -- Non-Compliant - raises PLS-00572 as NUMBER does not support the RANGE constraint
+BEGIN
+  NULL;
+END;
+/
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+DECLARE
+  foo INTEGER; -- Compliant
+BEGIN
+  NULL;
+END;
+/
+</pre>

@@ -1,0 +1,20 @@
+{
+  "title": "Deprecated jQuery methods should not be used",
+  "type": "CODE_SMELL",
+  "status": "deprecated",
+  "remediation": {
+    "func": "Constant/Issue",
+    "constantCost": "20min"
+  },
+  "tags": [],
+  "defaultSeverity": "Major",
+  "ruleSpecification": "RSPEC-2770",
+  "sqKey": "S2770",
+  "scope": "Main",
+  "all_languages": [
+    "javascript"
+  ],
+  "allKeys": [
+    "S2770"
+  ]
+}

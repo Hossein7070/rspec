@@ -1,0 +1,29 @@
+<p>The &lt;code&gt;await&lt;/code&gt; keyword can only be used on <a href="https://docs.python.org/3/library/asyncio-task.html#awaitables">"Awaitable" objects</a>. Python has three types of awaitables: Future, Task and Coroutines. Calling await on any other object will raise a &lt;code&gt;TypeError&lt;/code&gt;.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+import asyncio
+
+def myfunction():
+    print("myfunction")
+
+async def otherfunction():
+    await myfunction()  # Noncompliant. myfunction is not marked as "async"
+
+asyncio.run(otherfunction())
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+import asyncio
+
+async def myfunction():
+    print("myfunction")
+
+async def otherfunction():
+    await myfunction()
+
+asyncio.run(otherfunction())
+</pre>
+<h2>See</h2>
+<ul>
+<li><a href="https://docs.python.org/3/library/asyncio-task.html">Python documentation - Coroutines and Tasks</a></li>
+</ul>

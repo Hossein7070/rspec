@@ -1,0 +1,20 @@
+{
+  "title": "A for loop shall contain a single loop-counter which shall not have floating type",
+  "type": "CODE_SMELL",
+  "status": "ready",
+  "remediation": {
+    "func": "Constant/Issue",
+    "constantCost": "5min"
+  },
+  "tags": [],
+  "defaultSeverity": "Minor",
+  "ruleSpecification": "RSPEC-5311",
+  "sqKey": "S5311",
+  "scope": "All",
+  "all_languages": [
+    "cfamily"
+  ],
+  "allKeys": [
+    "S5311"
+  ]
+}

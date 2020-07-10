@@ -1,0 +1,16 @@
+<p>Naming a thread won’t make it run faster or more reliably, but it will make it easier to deal with if you need to debug the application.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+Thread t1 = new Thread(new Runnable() {
+  // ...
+};
+t1.start();   // Noncompliant; this thread wasn't named
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+Thread t1 = new Thread(new Runnable() {
+  // ...
+};
+t1.setName("t1");
+t1.start();
+</pre>

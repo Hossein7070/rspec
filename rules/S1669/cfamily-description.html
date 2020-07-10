@@ -1,0 +1,9 @@
+<p>The C++ standard defines some identifiers as having special meaning in some contexts. These are &lt;code&gt;audit&lt;/code&gt;, &lt;code&gt;axiom&lt;/code&gt;, &lt;code&gt;final&lt;/code&gt; and &lt;code&gt;override&lt;/code&gt;. While it is technically possible to use them as normal identifiers, it’s clearer for the reader of the code to consider them as if they were keywords, and only use them with their special meaning.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+void axiom(int final); // Noncompliant
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+void precept(int finalValue); // Compliant
+</pre>

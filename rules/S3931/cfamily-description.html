@@ -1,0 +1,21 @@
+<p>Using the output of a non-boolean assignment as a condition is highly suspicious. Either it was done accidentally, and the assignment operator &lt;code&gt;=&lt;/code&gt; was used in place of the equality operator &lt;code&gt;==&lt;/code&gt;, or it was done with the intent to rely on the automatic conversion of the non-boolean value to a boolean, which could be confusing for maintainers.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+void process(int a) {
+   if(a = BAD_OPS) {...}
+}
+</pre>
+<h2>Exceptions</h2>
+<p>In C++, it is common to null-check a pointer by using it as a condition. In such cases, if the pointer is &lt;code&gt;NULL&lt;/code&gt;, the condition evaluates to &lt;code&gt;false&lt;/code&gt;, and otherwise it is &lt;code&gt;true&lt;/code&gt;. Such pointer assignments are ignored:</p>
+<pre>
+int *ip;
+if (ip = get_status() ) {...}
+</pre>
+<p>CLang is able to detect the same kind of quality issues and allows to switch-off those issues by surrounding the non-boolean assignment with some parentheses. To prevent raising some issues which were intentionally switched off, this rule supports the same coding convention:</p>
+<pre>
+if((my_status = get_status())) {...}
+</pre>
+<h2>See</h2>
+<ul>
+<li>MISRA C:2004, 13.1 - Assignment operators shall not be used in expressions that yield a Boolean value</li>
+</ul>

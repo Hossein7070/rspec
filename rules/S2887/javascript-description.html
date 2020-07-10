@@ -1,0 +1,10 @@
+<p>Unsigned right shift (&lt;code&gt;&gt;&gt;&gt;&lt;/code&gt;) fills from the left with 0’s, versus signed right shift (&lt;code&gt;&gt;&gt;&lt;/code&gt;), which fills with the sign bit. There’s no point in using &lt;code&gt;&gt;&gt;&gt;&lt;/code&gt; unless you care about the upper bits of the result, so casting a &lt;code&gt;&gt;&gt;&gt;&lt;/code&gt;-ed value to a smaller type (which discards the upper bits) is likely a mistake. Either &lt;code&gt;&gt;&gt;&lt;/code&gt; should have been used, or the cast was made in error.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+int i = -1;
+short s = (short)i &gt;&gt;&gt; 4; /// Noncompliant
+</pre>
+<h2>See</h2>
+<ul>
+<li><a href="https://www.securecoding.cert.org/confluence/x/SAHEAw">CERT, NUM52-J.</a> - Be aware of numeric promotion behavior</li>
+</ul>

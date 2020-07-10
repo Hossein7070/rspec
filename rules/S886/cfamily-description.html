@@ -1,0 +1,38 @@
+<p>The &lt;code&gt;for&lt;/code&gt; statement provides a general-purpose looping facility. Using a restricted form of loop makes code easier to review and to analyse.</p>
+<p>The three clauses of a for statement are the:</p>
+<ul>
+<li><p>First clause which should</p>
+<ul>
+<li>be empty, or</li>
+<li>assign a value to the loop counter, or</li>
+<li>define and initialize the loop counter (C99).</li>
+</ul></li>
+<li><p>Second clause which should</p>
+<ul>
+<li>be an expression that has no persistent side effects, and</li>
+<li>not use objects that are modified in the for loop body.</li>
+</ul></li>
+<li><p>Third clause which should</p>
+<ul>
+<li>be an expression whose only persistent side effect is to modify the value of the loop counter, and</li>
+<li>not use objects that are modified in the for loop body.</li>
+</ul></li>
+</ul>
+<h2>Noncompliant Code Example</h2>
+<pre>
+for( int i = 0 ; i++ &lt; 10 ; i += 1 ) { // Noncompliant, loop counter is updated in the condition
+}
+
+for( int i = 0 ; ; ) { // Noncompliant, initialized variable i is not used in the condition
+}
+
+for( int i = 0 , j = 0 ; i &lt; 10 ; i += j) { // Noncompliant, j is modified in the body
+  j = i + 1;
+}
+</pre>
+<h2>See</h2>
+<ul>
+<li>MISRA C:2004, 13.5 - The three expressions of a for statement shall be concerned only with loop control.</li>
+<li>MISRA C++:2008, 6-5-5 - A <em>loop-control-variable</em> other than the <em>loop-counter</em> shall not be modified within <em>condition</em> or <em>expression</em>.</li>
+<li>MISRA C:2012, 14.2 - A for loop shall be well-formed</li>
+</ul>

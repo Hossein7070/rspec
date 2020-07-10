@@ -1,0 +1,18 @@
+<p>While it is possible to manually set a primary key value, doing so almost guarantees a key clash at some point. Instead, primary key values should be set by (in descending order of desirability):</p>
+<ul>
+<li>automatic generation by the database via a column definition such as &lt;code&gt;PROD_ID INT NOT NULL GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1, NO CACHE)&lt;/code&gt;</li>
+<li>the &lt;code&gt;Generate_Unique()&lt;/code&gt; function</li>
+<li>a value pulled directly from a sequence, like so: &lt;code&gt;nextval for SEQ_PRODUCT&lt;/code&gt;</li>
+</ul>
+<p>This rule raises an issue when an &lt;code&gt;INSERT&lt;/code&gt; statement assigns values to identity columns that are configured to always generate their values.</p>
+<p><strong>Note</strong> That this rule raises issues only when a database catalog is provided during the SonarQube analysis.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+CREATE table my_table (
+     column_a integer GENERATED ALWAYS AS IDENTITY primary key not null,
+     column_b varchar(50)
+);
+
+INSERT into my_table (column_a, column_b)
+VALUES (1, 'Hello World');  -- Noncompliant
+</pre>

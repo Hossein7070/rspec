@@ -1,0 +1,32 @@
+<p>Using the same name for multiple purposes reduces the understandability of the code and might eventually lead to bugs.</p>
+<p>This rule verifies that no label is reused in an inner scope.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+&lt;&lt;foo&gt;&gt;
+DECLARE
+  a CONSTANT PLS_INTEGER := 0;
+BEGIN
+  &lt;&lt;foo&gt;&gt;                                  -- Noncompliant
+  DECLARE
+    b CONSTANT PLS_INTEGER := 42;
+  BEGIN
+    DBMS_OUTPUT.PUT_LINE('x = ' || foo.b); -- Confusing
+  END;
+END;
+/
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+&lt;&lt;foo&gt;&gt;
+DECLARE
+  a CONSTANT PLS_INTEGER := 0;
+BEGIN
+  &lt;&lt;bar&gt;&gt;
+  DECLARE
+    b CONSTANT PLS_INTEGER := 42;
+  BEGIN
+    DBMS_OUTPUT.PUT_LINE('x = ' || bar.b);
+  END;
+END;
+/
+</pre>

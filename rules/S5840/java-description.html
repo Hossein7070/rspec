@@ -1,0 +1,44 @@
+<p>Using certain features of regular expressions, it is possible to create regular expressions that can never match or contain subpatterns that can never match. Since a pattern or sub-pattern that can never match any input is pointless, this is a sign that the pattern does not work as intended and needs to be fixed.</p>
+<p>This rule finds such regular expressions and subpatterns. Possible causes of this could be:</p>
+<ul>
+<li>A <a href="https://www.regular-expressions.info/possessive.html">possessive quantifier</a> (such as &lt;code&gt;*+&lt;/code&gt;) is applied to a sub-pattern that matches the same thing as (or a superset of) the pattern that follows the quantifier. In that case the subsequent pattern will always fail because anything it could match would be already consumed by the possessive quantifier, causing the whole pattern to fail. In that case possible fixes might be to make the quantifier non-possessive or to rewrite the sub-patterns so that they do not overlap.</li>
+<li>A positive lookahead is followed by a pattern that does not match it or a negative lookahead is followed by a pattern that does match it (similarly for lookbehinds preceded by other patterns).</li>
+<li>A back reference refers to a capturing group that will never be matched before the back reference</li>
+</ul>
+<h2>Noncompliant Code Example</h2>
+<h3>Possessive Quantifiers</h3>
+<pre>
+[a-z]*+a
+</pre>
+<h3>Lookahead</h3>
+<pre>
+^(?:[a-z]+\d+(?=a))*$
+</pre>
+<p>(when the lookahead for &lt;code&gt;a&lt;/code&gt; succeeds, the following &lt;code&gt;$&lt;/code&gt; will fail).</p>
+<h3>Backreference</h3>
+<pre>
+\1(.)
+</pre>
+<h2>Compliant Solution</h2>
+<h3>Possessive Quantifiers</h3>
+<pre>
+[a-z]*a
+</pre>
+<p>(removed the possessive quantifier)</p>
+<p>or</p>
+<pre>
+[b-z]*+a
+</pre>
+<p>(changed the character class to not overlap with the following pattern)</p>
+<h3>Lookahead</h3>
+<pre>
+^(?:[a-z]+\d+(?=a|$))*$
+</pre>
+<p>or</p>
+<pre>
+^(?:[a-z]+\d+(?:a[a-z]*\d+)*)?$
+</pre>
+<h3>Backreference</h3>
+<pre>
+(.)\1
+</pre>

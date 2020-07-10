@@ -1,0 +1,34 @@
+<p>The &lt;code&gt;case&lt;/code&gt; statement should be used only to clearly define some new branches in the control flow. As soon as a &lt;code&gt;when&lt;/code&gt; clause contains too many statements this highly decreases the readability of the overall control flow statement. In such case, the content of the case clause should be extracted into a dedicated function.</p>
+<h2>Noncompliant Code Example</h2>
+<p>With the threshold set at 5:</p>
+<pre>
+case myVariable
+when 0 then # Noncompliant: 6 lines till next "when"
+    methodCall1("")
+    methodCall2("")
+    methodCall3("")
+    methodCall4("")
+    methodCall5("")
+    methodCall6("")
+when 1
+   # ...
+end
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+case myVariable
+when 0 then
+  doSomething()
+when 1
+   # ...
+end
+...
+def doSomething()
+    methodCall1("")
+    methodCall2("")
+    methodCall3("")
+    methodCall4("")
+    methodCall5("")
+    methodCall6("")
+end
+</pre>

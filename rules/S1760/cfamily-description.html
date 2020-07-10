@@ -1,0 +1,20 @@
+<p>While keywords introduced in later standards can legally be used as identifiers in code compiled to earlier standards, doing so will eventually cause problems. Such code will cause compile errors if (when) the compiler is upgraded, and fixing those errors could be difficult and painful.</p>
+<p>Additionally, such misuse of keywords has the potential to thoroughly confuse people who are unfamiliar with the code base, possibly leading them to introduce additional errors.</p>
+<p>For these reasons, the earlier this practice is stopped, the better.</p>
+<p>This rule flags instances of the following keywords used as identifiers:
+<strong>C99</strong>
+&lt;code&gt;inline&lt;/code&gt;, &lt;code&gt;restrict&lt;/code&gt;, &lt;code&gt;_Bool&lt;/code&gt;, &lt;code&gt;_Complex&lt;/code&gt;, &lt;code&gt;_Noreturn&lt;/code&gt;, &lt;code&gt;_Static_assert&lt;/code&gt;, &lt;code&gt;_Thread_local&lt;/code&gt;
+<strong>C11</strong>
+&lt;code&gt;_Alignas&lt;/code&gt;, &lt;code&gt;_Alignof&lt;/code&gt;, &lt;code&gt;_Atomic&lt;/code&gt;, &lt;code&gt;_Generic&lt;/code&gt;, &lt;code&gt;_Imaginary&lt;/code&gt;
+<strong>C11*
+&lt;code&gt;alignas&lt;/code&gt;, &lt;code&gt;alignof&lt;/code&gt;, &lt;code&gt;char16_t&lt;/code&gt;, &lt;code&gt;char32_t&lt;/code&gt;, &lt;code&gt;constexpr&lt;/code&gt;, &lt;code&gt;decltype&lt;/code&gt;, &lt;code&gt;noexcept&lt;/code&gt;, &lt;code&gt;nullptr&lt;/code&gt;, &lt;code&gt;static_assert&lt;/code&gt;, &lt;code&gt;thread_local&lt;/code&gt;
+*C20</strong>
+&lt;code&gt;concept&lt;/code&gt;, &lt;code&gt;requires&lt;/code&gt;</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+int inline = 0;
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+int inline_count = 0;
+</pre>

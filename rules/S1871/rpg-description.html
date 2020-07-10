@@ -1,0 +1,58 @@
+<p>Having two &lt;code&gt;WHEN&lt;/code&gt; in the same &lt;code&gt;SELECT&lt;/code&gt; statement or branches in the same &lt;code&gt;IF&lt;/code&gt; structure  with the same implementation is at best duplicate code, and at worst a coding error. If the same logic is truly needed for both instances, they should be combined.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+     C                   IF        X = 1
+     C                   EXSR      SR01
+     C                   EXSR      SR01
+     C                   ELSEIF    X = 2
+     C                   EXSR      SR02
+     C                   ELSEIF    X = 3
+     C                   EXSR      SR01                                         Noncompliant; duplicates first condition
+     C                   EXSR      SR01
+     C                   ENDIF
+</pre>
+<pre>
+select;
+  when i = 1;
+    doFirst();
+    doSomething();
+  when i = 2;
+    doSomethingDifferent();
+  when i = 3:  // Noncompliant; duplicates first when's implementation
+    doFirst();
+    doSomething();
+endsl;
+
+if (a &gt;= 0 and a &lt; 10);
+  doFirst();
+  doTheThing();
+elseif (a &gt;= 10 and a &lt; 20);
+  doTheOtherThing();
+elseif (a &gt;= 20 and a &lt; 50);
+  doFirst();       // Noncompliant; duplicates first condition
+  doTheThing();
+else;
+  doTheRest();
+endif;
+</pre>
+<h2>Exceptions</h2>
+<p>Blocks in an &lt;code&gt;if&lt;/code&gt; chain or &lt;code&gt;select&lt;/code&gt; statement that contain a single line of code are ignored.</p>
+<pre>
+if (a &gt;= 0 and a &lt; 10);
+  doTheThing();
+elseif (a &gt;= 10 and a &lt; 20);
+  doTheOtherThing();
+elseif (a &gt;= 20 and a &lt; 50);
+  doTheThing();   //no issue, usually this is done on purpose to increase the readability
+else;
+  doTheRest();
+endif;
+</pre>
+<p>But this exception does not apply to &lt;code&gt;if&lt;/code&gt; chains without &lt;code&gt;else&lt;/code&gt;-s, or to &lt;code&gt;select&lt;/code&gt;-s without &lt;code&gt;other&lt;/code&gt; clauses when all branches have the same single line of code. In case of &lt;code&gt;if&lt;/code&gt; chains with &lt;code&gt;else&lt;/code&gt;-s, or of &lt;code&gt;select&lt;/code&gt;-s with &lt;code&gt;other&lt;/code&gt; clauses, rule S3923 raises a bug.</p>
+<pre>
+if (a &gt;= 0 and a &lt; 10);
+  doTheThing();
+elseif (a &gt;= 20 and a &lt; 50);
+  doTheThing();   //Noncompliant, this might have been done on purpose but probably not
+endif;
+</pre>

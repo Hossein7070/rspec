@@ -1,0 +1,30 @@
+<p>Jump statements, such as &lt;code&gt;return&lt;/code&gt;, &lt;code&gt;break&lt;/code&gt; and &lt;code&gt;continue&lt;/code&gt; let you change the default flow of program execution, but jump statements that direct the control flow to the original direction are just a waste of keystrokes.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+def redundant_jump(x):
+    if x == 1:
+        print(True)
+        return  # NonCompliant
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+def redundant_jump(x):
+    if x == 1:
+        print(True)
+</pre>
+<h2>Exceptions</h2>
+<ul>
+<li>No issue is raised if the jump statement is the only statement of a statement suite:</li>
+</ul>
+<pre>
+def my_function(x):
+    if x &gt; 5:
+        do_something()
+    elif x == 0:
+        return # ok even it could be changed to "pass"
+    else:
+        do_something_else()
+</pre>
+<ul>
+<li>No issue is raised for &lt;code&gt;return None&lt;/code&gt; because this was certainly done on purpose to be explicit that a function is really returning &lt;code&gt;None&lt;/code&gt;.</li>
+</ul>

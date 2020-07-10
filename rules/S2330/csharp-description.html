@@ -1,0 +1,49 @@
+<p>Array covariance is the principle that if an implicit or explicit reference conversion exits from type &lt;code&gt;A&lt;/code&gt; to &lt;code&gt;B&lt;/code&gt;, then the same conversion exists from the array type &lt;code&gt;A[]&lt;/code&gt; to &lt;code&gt;B[]&lt;/code&gt;.</p>
+<p>While this array conversion can be useful in readonly situations to pass instances of &lt;code&gt;A[]&lt;/code&gt; where &lt;code&gt;B[]&lt;/code&gt; is expected, it must be used with care, since assigning an instance of &lt;code&gt;B&lt;/code&gt; into an array of &lt;code&gt;A&lt;/code&gt; will cause an &lt;code&gt;ArrayTypeMismatchException&lt;/code&gt; to be thrown at runtime.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+abstract class Fruit { }
+class Apple : Fruit { }
+class Orange : Fruit { }
+
+class Program
+{
+  static void Main(string[] args)
+  {
+    Fruit[] fruits = new Apple[1]; // Noncompliant - array covariance is used
+    FillWithOranges(fruits);
+  }
+
+  // Just looking at the code doesn't reveal anything suspicious
+  static void FillWithOranges(Fruit[] fruits)
+  {
+    for (int i = 0; i &lt; fruits.Length; i++)
+    {
+      fruits[i] = new Orange(); // Will throw an ArrayTypeMismatchException
+    }
+  }
+}
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+abstract class Fruit { }
+class Apple : Fruit { }
+class Orange : Fruit { }
+
+class Program
+{
+  static void Main(string[] args)
+  {
+    Orange[] fruits = new Orange[1]; // Compliant
+    FillWithOranges(fruits);
+  }
+
+  static void FillWithOranges(Orange[] fruits)
+  {
+    for (int i = 0; i &lt; fruits.Length; i++)
+    {
+      fruits[i] = new Orange();
+    }
+  }
+}
+</pre>

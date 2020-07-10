@@ -1,0 +1,29 @@
+<p>According to Oracle Javadoc:
+{quote}
+&lt;code&gt;IllegalMonitorStateException&lt;/code&gt; is thrown when a thread has attempted to wait on an object’s monitor or to notify other threads waiting on an object’s monitor without owning the specified monitor.
+{quote}</p>
+<p>In other words, this exception can be thrown only in case of bad design because &lt;code&gt;Object.wait(…​)&lt;/code&gt;, &lt;code&gt;Object.notify()&lt;/code&gt; and &lt;code&gt;Object.notifyAll()&lt;/code&gt; methods should never be called on an object whose monitor is not held.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+public void doSomething(){
+  ...
+  try {
+    ...
+    anObject.notify();
+    ...
+  } catch(IllegalMonitorStateException e) {
+    ...
+  }
+}
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+public void doSomething(){
+  ...
+  synchronized(anObject) {
+    ...
+    anObject.notify();
+    ...
+  }
+}
+</pre>

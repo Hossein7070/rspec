@@ -1,0 +1,31 @@
+{
+  "title": "Inappropriate casts should not be made",
+  "type": "CODE_SMELL",
+  "status": "ready",
+  "remediation": {
+    "func": "Constant/Issue",
+    "constantCost": "20min"
+  },
+  "tags": [
+    "cwe",
+    "suspicious"
+  ],
+  "defaultSeverity": "Critical",
+  "ruleSpecification": "RSPEC-1944",
+  "sqKey": "S1944",
+  "scope": "All",
+  "securityStandards": {
+    "CWE": [
+      588,
+      704
+    ]
+  },
+  "all_languages": [
+    "cfamily",
+    "csharp",
+    "java"
+  ],
+  "allKeys": [
+    "S1944"
+  ]
+}

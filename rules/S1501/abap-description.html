@@ -1,0 +1,11 @@
+<p>Whenever more than one line needs to be read, inserted or deleted from a database table, it is more efficient to work with an internal table than to read, insert or delete the lines one by one inside a loop.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+LOOP AT TAB INTO TAB_WA.
+  INSERT INTO CUSTOMERS VALUES TAB_WA.
+ENDLOOP.
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+INSERT CUSTOMERS FROM TABLE TAB.
+</pre>

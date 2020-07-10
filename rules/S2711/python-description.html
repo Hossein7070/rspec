@@ -1,0 +1,7 @@
+<p>&lt;code&gt;yield&lt;/code&gt; and &lt;code&gt;return&lt;/code&gt; only make sense in the context of functions. Using them outside a function raises a &lt;code&gt;SyntaxError&lt;/code&gt;. To break out of a loop, use &lt;code&gt;break&lt;/code&gt; instead.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+class MyClass:
+    while True:
+        return False #Noncompliant
+</pre>

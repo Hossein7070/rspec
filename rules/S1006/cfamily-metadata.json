@@ -1,0 +1,23 @@
+{
+  "title": "Parameters in an overriding virtual function shall either use the same default arguments as the function they override, or else shall not specify any default arguments",
+  "type": "CODE_SMELL",
+  "status": "ready",
+  "remediation": {
+    "func": "Constant/Issue",
+    "constantCost": "5min"
+  },
+  "tags": [
+    "pitfall"
+  ],
+  "defaultSeverity": "Major",
+  "ruleSpecification": "RSPEC-1006",
+  "sqKey": "S1006",
+  "scope": "All",
+  "all_languages": [
+    "cfamily",
+    "csharp"
+  ],
+  "allKeys": [
+    "S1006"
+  ]
+}

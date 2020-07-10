@@ -1,0 +1,15 @@
+<p>Some implementations of &lt;code&gt;java.sql.ResultSet#getMetaData()&lt;/code&gt; suffer from performance issue and should not be called in a loop. Instead, multiple calls in a row should be replaced by a single cached call.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+ResultSetMetaData rsmd = rs.getMetaData();
+for (int i=1; i&lt;rsmd.getColumnCount(); i++) {
+  System.out.println(rs.getMetaData().getAutoIncrement()); // Noncompliant; "rs.getMetaData()" will be called for each columns
+}
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+ResultSetMetaData rsmd = rs.getMetaData(); // Compliant; result of "rs.getMetaData()" is cached
+for (int i=1; i&lt;rsmd.getColumnCount(); i++) {
+  System.out.println(rsmd.getAutoIncrement());
+}
+</pre>

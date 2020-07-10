@@ -1,0 +1,23 @@
+{
+  "title": "Preprocessor operators \"#\" and \"##\" should not be used",
+  "type": "CODE_SMELL",
+  "status": "ready",
+  "remediation": {
+    "func": "Constant/Issue",
+    "constantCost": "30min"
+  },
+  "tags": [
+    "based-on-misra",
+    "lock-in"
+  ],
+  "defaultSeverity": "Minor",
+  "ruleSpecification": "RSPEC-968",
+  "sqKey": "PPStringifyAndPastingUsage",
+  "scope": "Main",
+  "all_languages": [
+    "cfamily"
+  ],
+  "allKeys": [
+    "PPStringifyAndPastingUsage"
+  ]
+}

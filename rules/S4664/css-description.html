@@ -1,0 +1,21 @@
+<p>Order of instructions in CSS is important: instructions with equal specificity that occur later in the file take the priority. But when a selector with a higher specificity (e.g. &lt;code&gt;p a  { color: green;}&lt;/code&gt;) comes before the selector it overrides (e.g.:  &lt;code&gt;a  { color: green;}&lt;/code&gt;), the priority is given to the first one. Even if it works properly, this is harder to anticipate the behaviour of the stylesheet while reading as it goes against the principle that the last instruction takes the priority.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+p a {
+  color: green;
+}
+
+a {
+  color: blue;
+}
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+a {
+  color: blue;
+}
+
+p a {
+  color: green;
+}
+</pre>

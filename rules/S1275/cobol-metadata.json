@@ -1,0 +1,24 @@
+{
+  "title": "Cursors should not be closed inside loops",
+  "type": "CODE_SMELL",
+  "status": "ready",
+  "remediation": {
+    "func": "Constant/Issue",
+    "constantCost": "1h"
+  },
+  "tags": [
+    "performance",
+    "pitfall",
+    "sql"
+  ],
+  "defaultSeverity": "Critical",
+  "ruleSpecification": "RSPEC-1275",
+  "sqKey": "SQL.CursorClosedInsideLoopCheck",
+  "scope": "Main",
+  "all_languages": [
+    "cobol"
+  ],
+  "allKeys": [
+    "SQL.CursorClosedInsideLoopCheck"
+  ]
+}

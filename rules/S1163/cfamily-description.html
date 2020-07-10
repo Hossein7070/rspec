@@ -1,0 +1,36 @@
+<p>Throwing an exception from within a finally block will mask any exception which was previously thrown in the &lt;code&gt;try&lt;/code&gt; or &lt;code&gt;catch&lt;/code&gt; block, and the masked’s exception message and stack trace will be lost.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+void openResource() {
+  @throw [NSException exceptionWithName:@"FileNotFoundException" reason:@"File Not Found on System" userInfo:nil];
+}
+
+void fun() {
+  @try {
+    openResource();
+  }
+  @finally {
+    closeResource();
+    @throw ... ; // Noncompliant - will mask previous exception
+  }
+}
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+void openResource() {
+  @throw [NSException exceptionWithName:@"FileNotFoundException" reason:@"File Not Found on System" userInfo:nil];
+}
+
+void fun() {
+  @try {
+    openResource();
+  }
+  @finally {
+    closeResource();
+  }
+}
+</pre>
+<h2>See</h2>
+<ul>
+<li><a href="https://www.securecoding.cert.org/confluence/x/soUbAQ">CERT, ERR05-J.</a> - Do not let checked exceptions escape from a finally block</li>
+</ul>

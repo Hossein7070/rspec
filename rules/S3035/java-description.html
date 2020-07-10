@@ -1,0 +1,30 @@
+<p>Swing interfaces should be constructed and shown from the Swing event dispatch thread. Doing so from any other thread, such as from &lt;code&gt;main&lt;/code&gt; risks deadlocks since you run the risk of multiple threads accessing things which are inherently not thread-safe.</p>
+<p>Instead, use &lt;code&gt;SwingUtilities.invokeLater&lt;/code&gt; or &lt;code&gt;SwingUtilities.invokeAndWait&lt;/code&gt; to kick off a &lt;code&gt;new Runnable&lt;/code&gt; that handles your GUI creation.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+public static void main(String args[]) {
+  makeGui(); // Noncompliant
+}
+
+public void makeGui() {
+  JFrame frame = new JFrame();
+  // ...
+  frame.show();
+}
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+public static void main(String args[]) {
+  SwingUtilities.invokeAndWait(new Runnable() {
+    public void run() {
+      makeGui();
+    }
+  }
+}
+
+public void makeGui() {
+  JFrame frame = new JFrame();
+  // ...
+  frame.show();
+}
+</pre>

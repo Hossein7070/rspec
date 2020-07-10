@@ -1,0 +1,48 @@
+<p>Importing every public name from a module using a wildcard (&lt;code&gt;from mymodule import *&lt;/code&gt;) is a bad idea because:</p>
+<ul>
+<li>It could lead to conflicts between names defined locally and the ones imported.</li>
+<li>It reduces code readability as developers will have a hard time knowing where names come from.</li>
+<li>It clutters the local namespace, which makes debugging more difficult.</li>
+</ul>
+<p>Remember that imported names can change when you update your dependencies. A wildcard import which works today might be broken tomorrow.</p>
+<p>There are two ways to avoid a wildcard import:</p>
+<ul>
+<li>Replace it with &lt;code&gt;import mymodule&lt;/code&gt; and access module members as &lt;code&gt;mymodule.myfunction&lt;/code&gt;. If the module name is too long, alias it to a shorter name. Example: &lt;code&gt;import pandas as pd&lt;/code&gt;</li>
+<li>List every imported name. If necessary import statements can be split on multiple lines using parentheses (preferred solution) or backslashes.</li>
+</ul>
+<h2>Noncompliant Code Example</h2>
+<pre>
+from math import *  # Noncompliant
+def exp(x):
+    pass
+print(exp(0))   # "None" will be printed
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+import math
+def exp(x):
+    pass
+print(math.exp(0))   # "1.0" will be printed
+</pre>
+<p>Or</p>
+<pre>
+from math import exp as m_exp
+def exp(x):
+    pass
+print(m_exp(0))   # "1.0" will be printed
+</pre>
+<h2>Exceptions</h2>
+<p>No issue will be raised in &lt;code&gt;_\_init\_\_.py&lt;/code&gt; files. Wildcard imports are a common way of populating these modules.
+No issue will be raised in modules doing only imports. Local modules are sometimes created as a proxy for third-party modules.</p>
+<pre>
+# file: mylibrary/pyplot.py
+try:
+    from guiqwt.pyplot import *  # Ok
+except Exception:
+    from matplotlib.pyplot import *  # Ok
+</pre>
+<p>Just keep in mind that wildcard imports might still create issues in these cases. It’s always better to import only what you need.</p>
+<h2>See</h2>
+<ul>
+<li><a href="https://docs.python.org/3.8/reference/simple_stmts.html#import">Python documentation - The import statement</a></li>
+</ul>

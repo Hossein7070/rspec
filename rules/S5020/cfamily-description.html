@@ -1,0 +1,38 @@
+<p>The use of &lt;code&gt;srand&lt;/code&gt; together with &lt;code&gt;rand&lt;/code&gt; to seed the random number generator and then generate numbers usually produces low-quality randomness. Further, &lt;code&gt;rand&lt;/code&gt; can only provide a number between &lt;code&gt;0&lt;/code&gt; and &lt;code&gt;RAND_MAX&lt;/code&gt;, and it is left to the caller  to transform the result into what is actually required (E.G. a &lt;code&gt;float&lt;/code&gt; between 0 and 1 for a random percentage, an &lt;code&gt;int&lt;/code&gt; between 1 and 6 for a dice game, …​), and that transformation might introduce additional biases.</p>
+<p>C++11 introduced the &lt;code&gt;&lt;random&gt;&lt;/code&gt; library, which contains several high quality random value generators as well as statistical distributions you can use to put the results in the form you need. Those mechanisms should be used instead of &lt;code&gt;rand&lt;/code&gt; and &lt;code&gt;srand&lt;/code&gt;.</p>
+<p>Additionally, &lt;code&gt;std::random_shuffle&lt;/code&gt;, which is deprecated in C14 and removed in C17, uses &lt;code&gt;rand&lt;/code&gt; and should be replaced by &lt;code&gt;std::shuffle&lt;/code&gt;, which uses the random number generators provided by &lt;code&gt;&lt;random&gt;&lt;/code&gt;.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+#include &lt;stdlib.h&gt;
+#include &lt;algorithm&gt;
+// ...
+
+void f() {
+  srand(time(nullptr)); // Noncompliant
+  vector&lt;int&gt; v;
+  int size = rand() % 1000 + 1000; // Noncompliant, note that this way of coercing the result introduces extra bias
+  for (auto i = 0; i &lt; size; ++i) {
+    v.push_back(i);
+  }
+  random_shuffle(v.begin(), v.end()); // Noncompliant
+  for (auto i : v) { cout &lt;&lt; i &lt;&lt; " "; }
+}
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+#include &lt;algorithm&gt;
+#include &lt;random&gt;
+// ...
+
+void f() {
+  random_device rd;  // Will be used to obtain a seed for the random number engine
+  mt19937 gen(rd()); // Standard mersenne_twister_engine seeded with rd()
+  uniform_int_distribution&lt;&gt; dis(1000, 1999); // Same distribution as before, but explicit and without bias
+  vector&lt;int&gt; v;
+  for (auto i = 0; i &lt; dis(gen); ++i) {
+    v.push_back(i);
+  }
+  shuffle(v.begin(), v.end(), gen);
+  for (auto i : v) { cout &lt;&lt; i &lt;&lt; " "; }
+}
+</pre>

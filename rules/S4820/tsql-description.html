@@ -1,0 +1,54 @@
+<p>SQL Server can be tuned at &lt;code&gt;PROCEDURE&lt;/code&gt; and &lt;code&gt;TRIGGER&lt;/code&gt; levels thanks to several &lt;code&gt;SET&lt;/code&gt; statements that change the current session handling of specific information.
+This rule raises an issue when expected configuration is not set or is set with an unexpected value between the beginning of the &lt;code&gt;PROCEDURE&lt;/code&gt; (or &lt;code&gt;TRIGGER&lt;/code&gt;) definition and the first statement that is not a &lt;code&gt;SET&lt;/code&gt;, &lt;code&gt;IF&lt;/code&gt; or &lt;code&gt;DECLARE&lt;/code&gt;.</p>
+<h2>Noncompliant Code Example</h2>
+<p>When this rule is configured with ARITHABORT and ON.</p>
+<pre>
+CREATE PROCEDURE dbo.MyProc
+AS
+BEGIN
+  SET ARITHABORT OFF; -- Noncompliant; ARITHABORT is OFF
+  SELECT COUNT(*) FROM MY_TABLE
+END;
+</pre>
+<pre>
+ALTER PROCEDURE dbo.MyProc
+AS
+BEGIN
+  SELECT COUNT(*) FROM MY_TABLE
+  SET ARITHABORT ON; -- Noncompliant; ARITHABORT is not set at the beginning of the procedure definition
+  [...]
+END;
+</pre>
+<pre>
+CREATE PROCEDURE dbo.MyProc
+AS
+BEGIN
+  -- Noncompliant; ARITHABORT is not set at all, so default value of SQL Server will be applied
+  SELECT COUNT(*) FROM MY_TABLE
+END;
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+CREATE PROCEDURE dbo.MyProc(@setConfig INT)
+AS
+BEGIN
+  IF @setConfig=1
+    BEGIN
+      SET ARITHABORT ON;
+    END
+  SELECT COUNT(*) FROM MY_TABLE
+END;
+</pre>
+<pre>
+ALTER PROCEDURE dbo.MyProc
+AS
+BEGIN
+  DECLARE @var INT;
+  SET ARITHABORT ON;
+  [...]
+END;
+</pre>
+<h2>See</h2>
+<ul>
+<li><a href="https://docs.microsoft.com/en-us/sql/t-sql/statements/set-statements-transact-sql?view=sql-server-2017">SET Statements</a> - SQL Server (Transact-SQL) Documentation</li>
+</ul>

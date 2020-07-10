@@ -1,0 +1,25 @@
+<p>It is needlessly complex to invert the result of a boolean comparison. The opposite comparison should be made instead.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+IF NOT (@a = 2) -- Noncompliant
+BEGIN
+  ...
+END
+
+IF NOT (@b &lt; 10) -- Noncompliant
+BEGIN
+  ...
+END
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+IF @a &lt;&gt; 2
+BEGIN
+  ...
+END
+
+IF @b &gt;= 10
+BEGIN
+  ...
+END
+</pre>

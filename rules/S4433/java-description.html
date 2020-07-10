@@ -1,0 +1,43 @@
+<p>An LDAP client authenticates to an LDAP server with a "bind request" which provides, among other, a <a href="https://ldapwiki.com/wiki/Simple%20Authentication">simple authentication method</a>.
+Simple authentication in LDAP can be used with three different mechanisms:</p>
+<ul>
+<li><em>Anonymous Authentication Mechanism</em> by performing a bind request with a username and password value of zero length.</li>
+<li><em>Unauthenticated Authentication Mechanism</em> by performing a bind request with a password value of zero length.</li>
+<li><em>Name/Password Authentication Mechanism</em> by performing a bind request with a password value of non-zero length.</li>
+</ul>
+<p>Anonymous binds and unauthenticated binds allow access to information in the LDAP directory without providing a password, their use is therefore strongly discouraged.</p>
+<h2>Noncompliant Code Example</h2>
+<p>This rule raises an issue when an LDAP connection is created with &lt;code&gt;Context.SECURITY_AUTHENTICATION&lt;/code&gt; set to &lt;code&gt;"none"&lt;/code&gt;.</p>
+<pre>
+// Set up the environment for creating the initial context
+Hashtable&lt;String, Object&gt; env = new Hashtable&lt;String, Object&gt;();
+env.put(Context.INITIAL_CONTEXT_FACTORY, "com.sun.jndi.ldap.LdapCtxFactory");
+env.put(Context.PROVIDER_URL, "ldap://localhost:389/o=JNDITutorial");
+
+// Use anonymous authentication
+env.put(Context.SECURITY_AUTHENTICATION, "none"); // Noncompliant
+
+// Create the initial context
+DirContext ctx = new InitialDirContext(env);
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+// Set up the environment for creating the initial context
+Hashtable&lt;String, Object&gt; env = new Hashtable&lt;String, Object&gt;();
+env.put(Context.INITIAL_CONTEXT_FACTORY, "com.sun.jndi.ldap.LdapCtxFactory");
+env.put(Context.PROVIDER_URL, "ldap://localhost:389/o=JNDITutorial");
+
+// Use simple authentication
+env.put(Context.SECURITY_AUTHENTICATION, "simple");
+env.put(Context.SECURITY_PRINCIPAL, "cn=S. User, ou=NewHires, o=JNDITutorial");
+env.put(Context.SECURITY_CREDENTIALS, getLDAPPassword());
+
+// Create the initial context
+DirContext ctx = new InitialDirContext(env);
+</pre>
+<h2>See</h2>
+<ul>
+<li><a href="https://www.owasp.org/index.php/Top_10-2017_A2-Broken_Authentication">OWASP Top 10 2017 Category A2</a> - Broken Authentication</li>
+<li><a href="https://cwe.mitre.org/data/definitions/521.html">CWE-521</a> - Weak Password Requirements</li>
+<li><a href="https://ldapwiki.com/wiki/Simple%20Authentication">ldapwiki.com</a>- Simple Authentication</li>
+</ul>

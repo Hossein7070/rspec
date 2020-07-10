@@ -1,0 +1,13 @@
+<p>Declaring a variable without specifying its data type leaves the compiler to assign the type that seems the most appropriate - whether it’s what you need or not. Therefore you should always specify the data type.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+Const MyVar = "459"
+'...
+Dim NumberOfEmployees
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+Const MyVar as String = "459"
+'...
+Dim NumberOfEmployees As Integer
+</pre>

@@ -1,0 +1,26 @@
+{
+  "title": "Neither DES (Data Encryption Standard) nor DESede (3DES) should be used",
+  "type": "VULNERABILITY",
+  "status": "ready",
+  "remediation": {
+    "func": "Constant/Issue",
+    "constantCost": "20min"
+  },
+  "tags": [],
+  "defaultSeverity": "Blocker",
+  "ruleSpecification": "RSPEC-2278",
+  "sqKey": "S2278",
+  "scope": "Main",
+  "all_languages": [
+    "cfamily",
+    "csharp",
+    "java",
+    "php",
+    "plsql",
+    "python",
+    "swift"
+  ],
+  "allKeys": [
+    "S2278"
+  ]
+}

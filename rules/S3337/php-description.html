@@ -1,0 +1,18 @@
+<p>&lt;code&gt;enable_dl&lt;/code&gt; is on by default and allows &lt;code&gt;open_basedir&lt;/code&gt; restrictions, which limit the files a script can access, to be ignored. For that reason, it’s a dangerous option and should be explicitly turned off.</p>
+<p>This rule raises an issue when &lt;code&gt;enable_dl&lt;/code&gt; is not explicitly set to 0 in <em>php.ini</em>.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+; php.ini
+enable_dl=1  ; Noncompliant
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+; php.ini
+enable_dl=0
+</pre>
+<h2>See</h2>
+<ul>
+<li><a href="https://www.owasp.org/index.php/Top_10-2017_A6-Security_Misconfiguration">OWASP Top 10 2017 Category A6</a> - Security Misconfiguration</li>
+<li><a href="https://cwe.mitre.org/data/definitions/23.html">MITRE, CWE-23</a> - Relative Path Traversal</li>
+<li><a href="https://cwe.mitre.org/data/definitions/36.html">MITRE, CWE-36</a> - Absolute Path Traversal</li>
+</ul>

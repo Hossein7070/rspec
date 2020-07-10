@@ -1,0 +1,15 @@
+<p>&lt;code&gt;RAISE_APPLICATION_ERROR&lt;/code&gt; may only be called with an error code from &lt;code&gt;-20,000&lt;/code&gt; to &lt;code&gt;-20,999&lt;/code&gt;, which is the range reserved for application errors. When called with another value, Oracle raises the exception: &lt;code&gt;ORA-21000: error number argument to raise_application_error of 0 is out of range.&lt;/code&gt;</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+BEGIN
+  RAISE_APPLICATION_ERROR(0, 'This is an application error'); -- Non-Compliant - raises ORA-21000
+END;
+/
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+BEGIN
+  RAISE_APPLICATION_ERROR(-20000, 'This is an application error'); -- Compliant
+END;
+/
+</pre>

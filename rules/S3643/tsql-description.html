@@ -1,0 +1,20 @@
+<p>The use of &lt;code&gt;LIKE&lt;/code&gt; in a SQL query without one or more wildcards in the sought value is suspicious. A maintainer can suppose that either &lt;code&gt;=&lt;/code&gt; was meant instead, or that the wildcard was unintentionally omitted.</p>
+<p>Note that in some cases using &lt;code&gt;LIKE&lt;/code&gt; without a wildcard may return different results than the use of &lt;code&gt;=&lt;/code&gt;. Thus, the use of &lt;code&gt;LIKE&lt;/code&gt; without a wildcard may be intentional. However, it is highly likely to confuse maintainers who either are unaware of this fact, or don’t understand that such circumstances apply to the query in question.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+SELECT name
+FROM product
+WHERE name LIKE 'choc'
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+SELECT name
+FROM product
+WHERE name LIKE 'choc%'
+</pre>
+<p>or</p>
+<pre>
+SELECT name
+FROM product
+WHERE name = 'choc'
+</pre>

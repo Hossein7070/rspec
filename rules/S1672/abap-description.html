@@ -1,0 +1,9 @@
+<p>Internal tables can be sorted without specifying the specific fields on which to sort. However, doing so is inefficient because when a sort key is not specified, the entire row is used in the sort, which can be markedly inefficient.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+SORT ITAB.
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+SORT ITAB BY LAND WEIGHT.
+</pre>

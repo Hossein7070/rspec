@@ -1,0 +1,17 @@
+<p>Since databases don’t offer "Are you sure?" dialogs, it’s best to be very certain of what you’re changing before you do it. &lt;code&gt;UPDATE&lt;/code&gt; and &lt;code&gt;DELETE&lt;/code&gt; statements that don’t precisely limit their effects to single rows risk changing more than was intended. That’s why they should be reviewed carefully.</p>
+<p>This rule raises an issue when an &lt;code&gt;UPDATE&lt;/code&gt; or &lt;code&gt;DELETE&lt;/code&gt; statement’s &lt;code&gt;WHERE&lt;/code&gt; clause does not use precisely either a unique index or all parts of the table’s primary key. That includes both cases where they are omitted in whole or in part, and when they are used but could still describe multiple rows. E.G. &lt;code&gt;WHERE AGE = 34&lt;/code&gt;, and &lt;code&gt;WHERE TABLE_ID &gt; 0 AND TABLE_ID &lt; 40&lt;/code&gt;.</p>
+<p><strong>Note</strong> That this rule raises issues only when a database catalog is provided during the SonarQube analysis.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+CREATE table my_table (
+     compound_a integer not null,
+     compound_b integer not null,
+     column_c varchar(50),
+     primary key (compound_a, compound_b)
+);
+
+DELETE FROM my_table
+WHERE compound_b=4;  -- Noncompliant
+</pre>
+<h2>Exceptions</h2>
+<p>Statements using a cursor and &lt;code&gt;WHERE CURRENT OF&lt;/code&gt; are ignored.</p>

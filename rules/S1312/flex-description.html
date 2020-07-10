@@ -1,0 +1,15 @@
+<p>Loggers should be:</p>
+<ul>
+<li>&lt;code&gt;private&lt;/code&gt;: not accessible outside of their parent classes. If another class needs to log something, it should instantiate its own logger.</li>
+<li>&lt;code&gt;static&lt;/code&gt;: not dependent on an instance of a class (an object). When logging something, contextual information can of course be provided in the messages but the logger should be created at class level to prevent creating a logger along with each object.</li>
+<li>&lt;code&gt;const&lt;/code&gt;: created once and only once per class.</li>
+</ul>
+<h2>Noncompliant Code Example</h2>
+<p>With the default regular expression &lt;code&gt;LOG(?:GER)?&lt;/code&gt;:</p>
+<pre>
+public const logger:ILogger = LogUtil.getLogger(MyClass);
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+private static const LOG:ILogger = LogUtil.getLogger(MyClass);
+</pre>

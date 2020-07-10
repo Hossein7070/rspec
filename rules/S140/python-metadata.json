@@ -1,0 +1,26 @@
+{
+  "title": "Track breaches of an XPath rule",
+  "type": "CODE_SMELL",
+  "status": "ready",
+  "tags": [],
+  "defaultSeverity": "Major",
+  "ruleSpecification": "RSPEC-140",
+  "sqKey": "XPath",
+  "scope": "Main",
+  "all_languages": [
+    "cfamily",
+    "cobol",
+    "flex",
+    "java",
+    "pli",
+    "plsql",
+    "python",
+    "xml"
+  ],
+  "allKeys": [
+    "S140",
+    "XPathCheckPlSql",
+    "XPath",
+    "XPathCheck"
+  ]
+}

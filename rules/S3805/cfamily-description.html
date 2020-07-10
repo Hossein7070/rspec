@@ -1,0 +1,9 @@
+<p>&lt;code&gt;#import&lt;/code&gt; comes from Objective-C and is a variant of &lt;code&gt;#include&lt;/code&gt;. GCC does support it, but it requires the users of a header file to know that it should only be included once. It is much better for the header file’s implementor to write the file so that users don’t need to know this. Using a wrapper &lt;code&gt;#ifndef&lt;/code&gt; accomplishes this goal.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+#import "foo.h" // Noncompliant
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+#include "foo.h"
+</pre>

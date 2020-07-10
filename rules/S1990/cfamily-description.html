@@ -1,0 +1,30 @@
+<p>There is no need to use the &lt;code&gt;final&lt;/code&gt; specifier inside a &lt;code&gt;final&lt;/code&gt; class. Everything in it is &lt;code&gt;final&lt;/code&gt; by default.</p>
+<p>Similarly, there is no need to use the &lt;code&gt;final&lt;/code&gt; specifier for &lt;code&gt;union&lt;/code&gt;, because &lt;code&gt;union&lt;/code&gt;s can neither extend other classes nor be extended.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+class Base {
+  virtual void fun();
+};
+
+class Derived final : Base {
+  void fun() final;  // Noncompliant
+};
+
+union MyUnion final { // Noncompliant
+  // ...
+};
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+class Base {
+  virtual void fun();
+};
+
+class Derived final : Base {
+  void fun() override;
+};
+
+union MyUnion {
+  // ...
+};
+</pre>

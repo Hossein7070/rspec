@@ -1,0 +1,46 @@
+{
+  "title": "\"CASE\" expressions should end with \"ELSE\" clauses",
+  "type": "CODE_SMELL",
+  "status": "ready",
+  "remediation": {
+    "func": "Constant/Issue",
+    "constantCost": "5min"
+  },
+  "tags": [
+    "cwe"
+  ],
+  "defaultSeverity": "Critical",
+  "ruleSpecification": "RSPEC-131",
+  "sqKey": "S131",
+  "scope": "All",
+  "securityStandards": {
+    "CWE": [
+      478
+    ]
+  },
+  "all_languages": [
+    "abap",
+    "apex",
+    "cfamily",
+    "cobol",
+    "csharp",
+    "flex",
+    "go",
+    "java",
+    "javascript",
+    "kotlin",
+    "php",
+    "pli",
+    "plsql",
+    "ruby",
+    "scala",
+    "tsql",
+    "vb6",
+    "vbnet"
+  ],
+  "allKeys": [
+    "S131",
+    "SwitchWithoutDefault",
+    "COBOL.EvaluateStatementUsageCheck"
+  ]
+}

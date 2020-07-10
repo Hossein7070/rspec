@@ -1,0 +1,12 @@
+<p>Shared naming conventions allow teams to collaborate efficiently. This rule checks that all [report/]program names match a provided regular expression.</p>
+<h2>Noncompliant Code Example</h2>
+<p>With the regular expression &lt;code&gt;^(<strong>|[a-z0-9_]</strong>)$&lt;/code&gt;:</p>
+<pre>
+    IDENTIFICATION DIVISION.
+       PROGRAM-ID. MY-PROGRAM.      *&gt; Noncompliant
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+    IDENTIFICATION DIVISION.
+       PROGRAM-ID. MY_PROGRAM.
+</pre>

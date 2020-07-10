@@ -1,0 +1,47 @@
+<p>Using regular expressions is security-sensitive. It has led in the past to the following vulnerabilities:</p>
+<ul>
+<li><a href="http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2017-16021">CVE-2017-16021</a></li>
+<li><a href="http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2018-13863">CVE-2018-13863</a></li>
+<li><a href="http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2018-8926">CVE-2018-8926</a></li>
+</ul>
+<p>Evaluating regular expressions against input strings is potentially an extremely CPU-intensive task. Specially crafted regular expressions such as &lt;code&gt;/(a+)+s/&lt;/code&gt; will take several seconds to evaluate the input string &lt;code&gt;aaaaaaaaaaaaaaaaaaaaaaaaaaaaaabs&lt;/code&gt;. The problem is that with every additional &lt;code&gt;a&lt;/code&gt; character added to the input, the time required to evaluate the regex doubles. However, the equivalent regular expression, &lt;code&gt;a\+s&lt;/code&gt; (without grouping) is efficiently evaluated in milliseconds and scales linearly with the input size.</p>
+<p>Evaluating such regular expressions opens the door to <a href="https://www.owasp.org/index.php/Regular_expression_Denial_of_Service_-_ReDoS">Regular expression Denial of Service (ReDoS)</a> attacks. In the context of a web application, attackers can force the web server to spend all of its resources evaluating regular expressions thereby making the service inaccessible to genuine users.</p>
+<p>This rule flags any execution of a hardcoded regular expression which has at least 3 characters and contains at at least two instances of any of the following characters &lt;code&gt;*\{&lt;/code&gt;.
+Example: &lt;code&gt;(a)\*&lt;/code&gt;</p>
+<p>The following functions are detected as executing regular expressions:</p>
+<ul>
+<li><a href="http://php.net/manual/en/book.pcre.php">PCRE</a>: Perl style regular expressions: <a href="http://php.net/manual/en/function.preg-filter.php">preg_filter</a>, <a href="http://php.net/manual/en/function.preg-grep.php">preg_grep</a>, <a href="http://php.net/manual/en/function.preg-match-all.php">preg_match_all</a>, <a href="http://php.net/manual/en/function.preg-match.php">preg_match</a>, <a href="http://php.net/manual/en/function.preg-replace-callback.php">preg_replace_callback</a>, <a href="http://php.net/manual/en/function.preg-replace.php">preg_replace</a>, <a href="http://php.net/manual/en/function.preg-split.php">preg_split</a></li>
+<li><a href="http://php.net/manual/en/book.regex.php">POSIX extended</a>, which are deprecated: <a href="http://php.net/manual/en/function.ereg-replace.php">ereg_replace</a>, <a href="http://php.net/manual/en/function.ereg.php">ereg</a>, <a href="http://php.net/manual/en/function.eregi-replace.php">eregi_replace</a>, <a href="http://php.net/manual/en/function.eregi.php">eregi</a>, <a href="http://php.net/manual/en/function.split.php">split</a>, <a href="http://php.net/manual/en/function.spliti.php">spliti</a>.</li>
+<li><a href="http://php.net/manual/en/function.fnmatch.php">fnmatch</a></li>
+<li>Any of the multibyte string regular expressions: <a href="http://php.net/manual/en/function.mb-eregi-replace.php">mb_eregi_replace</a>, <a href="http://php.net/manual/en/function.mb-ereg-match.php">mb_ereg_match</a>, <a href="http://php.net/manual/en/function.mb-ereg-replace-callback.php">mb_ereg_replace_callback</a>, <a href="http://php.net/manual/en/function.mb-ereg-replace.php">mb_ereg_replace</a>, <a href="http://php.net/manual/en/function.mb-ereg-search-init.php">mb_ereg_search_init</a>, <a href="http://php.net/manual/en/function.mb-ereg-search-pos.php">mb_ereg_search_pos</a>, <a href="http://php.net/manual/en/function.mb-ereg-search-regs.php">mb_ereg_search_regs</a>, <a href="http://php.net/manual/en/function.mb-ereg-search.php">mb_ereg_search</a>, <a href="http://php.net/manual/en/function.mb-ereg.php">mb_ereg</a>, <a href="http://php.net/manual/en/function.mb-eregi-replace.php">mb_eregi_replace</a>, <a href="http://php.net/manual/en/function.mb-eregi.php">mb_eregi</a></li>
+</ul>
+<p>Note that &lt;code&gt;ereg*&lt;/code&gt; functions have been removed in PHP 7 and <strong>PHP 5 end of life date is the 1st of January 2019. Using PHP 5 is dangerous as there will be no security fix</strong>.</p>
+<p>This rule’s goal is to guide security code reviews.</p>
+<h2>Ask Yourself Whether</h2>
+<ul>
+<li>the executed regular expression is sensitive and a user can provide a string which will be analyzed by this regular expression.</li>
+<li>your regular expression engine performance decrease with specially crafted inputs and regular expressions.</li>
+</ul>
+<p>There is a risk if you answered yes to any of those questions.</p>
+<h2>Recommended Secure Coding Practices</h2>
+<p>Do not set the constant &lt;code&gt;pcre.backtrack_limit&lt;/code&gt; to a high value as it will increase the resource consumption of PCRE functions.
+Check the error codes of PCRE functions via &lt;code&gt;preg_last_error&lt;/code&gt;.</p>
+<p>Check whether your regular expression engine (the algorithm executing your regular expression) has any known vulnerabilities. Search for vulnerability reports mentioning the one engine you’re are using. Do not run vulnerable regular expressions on user input.</p>
+<p>Use if possible a library which is not vulnerable to Redos Attacks such as <a href="https://github.com/google/re2">Google Re2</a>.</p>
+<p>Remember also that a ReDos attack is possible if a user-provided regular expression is executed. This rule won’t detect this kind of injection.
+Avoid executing a user input string as a regular expression or use at least &lt;code&gt;preg_quote&lt;/code&gt; to escape regular expression characters.</p>
+<h2>Exceptions</h2>
+<p>An issue will be created for the functions &lt;code&gt;mb_ereg_search_pos&lt;/code&gt;, &lt;code&gt;mb_ereg_search_regs&lt;/code&gt; and &lt;code&gt;mb_ereg_search&lt;/code&gt; if and only if at least the first argument, i.e. the $pattern, is provided.</p>
+<p>The current implementation does not follow variables. It will only detect regular expressions hard-coded directly in the function call.</p>
+<pre>
+$pattern = "/(a+)+/";
+$result = eregi($pattern, $input);  // No issue will be raised even if it is Sensitive
+</pre>
+<p>Some corner-case regular expressions will not raise an issue even though they might be vulnerable. For example: &lt;code&gt;(a|aa)&lt;/code&gt;, &lt;code&gt;(a|a?)&lt;/code&gt;.
+It is a good idea to test your regular expression if it has the same pattern on both side of a "&lt;code&gt;|&lt;/code&gt;".</p>
+<h2>See</h2>
+<ul>
+<li><a href="https://www.owasp.org/index.php/Top_10-2017_A1-Injection">OWASP Top 10 2017 Category A1</a> - Injection</li>
+<li><a href="https://www.owasp.org/index.php/Regular_expression_Denial_of_Service_-_ReDoS">MITRE, CWE-624</a> - Executable Regular Expression Error</li>
+<li>OWASP Regular expression Denial of Service - ReDoS</li>
+</ul>

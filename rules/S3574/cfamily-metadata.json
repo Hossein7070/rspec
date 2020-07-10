@@ -1,0 +1,23 @@
+{
+  "title": "Lambda return types should be implicit",
+  "type": "CODE_SMELL",
+  "status": "ready",
+  "remediation": {
+    "func": "Constant/Issue",
+    "constantCost": "2min"
+  },
+  "tags": [
+    "cpp11",
+    "bad-practice"
+  ],
+  "defaultSeverity": "Minor",
+  "ruleSpecification": "RSPEC-3574",
+  "sqKey": "S3574",
+  "scope": "Main",
+  "all_languages": [
+    "cfamily"
+  ],
+  "allKeys": [
+    "S3574"
+  ]
+}

@@ -1,0 +1,33 @@
+<p>Having all branches in a &lt;code&gt;switch&lt;/code&gt; or &lt;code&gt;if&lt;/code&gt; chain with the same implementation is an error. Either a copy-paste error was made and something different should be executed, or there shouldn’t be a &lt;code&gt;switch&lt;/code&gt;/&lt;code&gt;if&lt;/code&gt; chain at all.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+if (b == 0) {  // Noncompliant
+  doOneMoreThing();
+} else {
+  doOneMoreThing();
+}
+
+switch on i {  // Noncompliant
+  when 1 {
+    doSomething();
+  }
+  when 2 {
+    doSomething();
+  }
+  when 3 {
+    doSomething();
+  }
+  when else {
+    doSomething();
+  }
+}
+</pre>
+<h2>Exceptions</h2>
+<p>This rule does not apply to &lt;code&gt;if&lt;/code&gt; chains without &lt;code&gt;else&lt;/code&gt;-s, or to &lt;code&gt;switch&lt;/code&gt;-es without &lt;code&gt;default&lt;/code&gt; clauses.</p>
+<pre>
+if(b == 0) {    //no issue, this could have been done on purpose to make the code more readable
+  doSomething();
+} else if(b == 1) {
+  doSomething();
+}
+</pre>

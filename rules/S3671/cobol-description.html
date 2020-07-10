@@ -1,0 +1,17 @@
+<p>When the size of a variable-length table is &lt;code&gt;DEPENDING ON&lt;/code&gt; a non-&lt;code&gt;BINARY&lt;/code&gt;/&lt;code&gt;COMP&lt;/code&gt; variable, use of that table is inefficient because a conversion must be done every time the table is used.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+01 VARS
+    05 TABLE_SIZE   PIC 9(4).
+    05 MY_TABLE OCCURS 1 TO 10
+                        DEPENDING ON TABLE_SIZE  *&gt; Noncompliant; TABLE-SIZE isn't BINARY or COMP
+                        PIC X(10).
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+01 VARS
+    05 TABLE_SIZE   PIC 9(4) BINARY.
+    05 MY_TABLE OCCURS 1 TO 10
+                        DEPENDING ON TABLE_SIZE
+                        PIC X(10).
+</pre>

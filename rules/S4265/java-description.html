@@ -1,0 +1,18 @@
+<p>Both &lt;code&gt;FixedSizeList&lt;/code&gt; from the Commons library, and the list returned from &lt;code&gt;Arrays.asList&lt;/code&gt; offer &lt;code&gt;add&lt;/code&gt; and &lt;code&gt;remove&lt;/code&gt; methods (as required by the &lt;code&gt;List&lt;/code&gt; interface they implement), but neither truly supports their use. Both list types have fixed lengths and will throw errors if an &lt;code&gt;add&lt;/code&gt; or &lt;code&gt;remove&lt;/code&gt; method, or any of their variations, is called.</p>
+<p>This rule raises an issue when one of the following methods is invoked on a &lt;code&gt;FixedSizeList&lt;/code&gt; instance:</p>
+<ul>
+<li>&lt;code&gt;add&lt;/code&gt;</li>
+<li>&lt;code&gt;addAll&lt;/code&gt;</li>
+<li>&lt;code&gt;clear&lt;/code&gt;</li>
+<li>&lt;code&gt;remove&lt;/code&gt;</li>
+<li>&lt;code&gt;removeAll&lt;/code&gt;</li>
+</ul>
+<h2>Noncompliant Code Example</h2>
+<pre>
+List&lt;String&gt; strings = Arrays.asList("Hello");
+strings.add("world");  // Noncompliant
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+List&lt;String&gt; strings = Arrays.asList("Hello", "world");
+</pre>

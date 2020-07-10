@@ -1,0 +1,27 @@
+{
+  "title": "Exceptions should not be created without being raised",
+  "type": "BUG",
+  "status": "ready",
+  "remediation": {
+    "func": "Constant/Issue",
+    "constantCost": "2min"
+  },
+  "tags": [
+    "error-handling"
+  ],
+  "defaultSeverity": "Major",
+  "ruleSpecification": "RSPEC-3984",
+  "sqKey": "S3984",
+  "scope": "All",
+  "all_languages": [
+    "csharp",
+    "java",
+    "javascript",
+    "php",
+    "python",
+    "vbnet"
+  ],
+  "allKeys": [
+    "S3984"
+  ]
+}

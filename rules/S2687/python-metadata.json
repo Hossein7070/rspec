@@ -1,0 +1,22 @@
+{
+  "title": "Variables named as constants should not be reassigned",
+  "type": "CODE_SMELL",
+  "status": "ready",
+  "remediation": {
+    "func": "Constant/Issue",
+    "constantCost": "15min"
+  },
+  "tags": [
+    "suspicious"
+  ],
+  "defaultSeverity": "Blocker",
+  "ruleSpecification": "RSPEC-2687",
+  "sqKey": "S2687",
+  "scope": "Main",
+  "all_languages": [
+    "python"
+  ],
+  "allKeys": [
+    "S2687"
+  ]
+}

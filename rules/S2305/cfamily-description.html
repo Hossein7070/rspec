@@ -1,0 +1,13 @@
+<p>The &lt;code&gt;iostream.h&lt;/code&gt; header was provided with the first C compiler, CFront, and became the de facto standard. During the formal standardization process of C, many shortcomings in &lt;code&gt;iostream.h&lt;/code&gt; were fixed, but at the cost of introducing incompatibilities. Therefore, it was decided not to change the existing &lt;code&gt;iostream.h&lt;/code&gt; and introduce the standard version as a new &lt;code&gt;iostream&lt;/code&gt; header.</p>
+<p>Modern compilers tend to remove the support of the legacy &lt;code&gt;iostream.h&lt;/code&gt; header, and migrating to the standard version is encouraged.</p>
+<p>This rule applies not only to &lt;code&gt;iostream&lt;/code&gt;, but to all standard C++ headers.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+#include &lt;iostream.h&gt; // Noncompliant
+#include &lt;fstream.h&gt;  // Noncompliant
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+#include &lt;iostream&gt;
+#include &lt;fstream&gt;
+</pre>

@@ -1,0 +1,24 @@
+<p>Perhaps counter-intuitively, a &lt;code&gt;compareTo&lt;/code&gt; method is <em>expected</em> to throw a &lt;code&gt;NullPointerException&lt;/code&gt; if passed a null argument, and a &lt;code&gt;ClassCastException&lt;/code&gt; if the argument is of the wrong type. So there’s no need to null-test or type-test the argument.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+public int compareTo(Object obj) {
+
+  if (obj == null) { // Noncompliant
+    return -1;
+  }
+  if (! obj instanceof MyClass.class) { // Noncompliant
+    return -1;
+  }
+
+  MyObject myObj = (MyObject) obj;
+  // ...
+}
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+public int compareTo(Object obj) {
+
+  MyObject myObj = (MyObject) obj;
+  // ...
+}
+</pre>

@@ -1,0 +1,24 @@
+<p>Classes defined inside functions, called local classes, are only visible within those functions. They have advantages in some situations, but if they’re just being used as functors, lambdas are preferred.</p>
+<p>This rule raises an issue when a &lt;code&gt;class&lt;/code&gt; or &lt;code&gt;struct&lt;/code&gt; is defined inside a function.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+void doSomething() {
+
+  struct something {  // Noncompliant
+    int a;
+  };
+
+  //...
+}
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+struct something {  // Noncompliant
+  int a;
+};
+
+void doSomething() {
+
+  //...
+}
+</pre>

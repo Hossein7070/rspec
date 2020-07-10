@@ -1,0 +1,19 @@
+<p>Declaring a variable with the NOT NULL constraint incurs a small performance cost - while this constraint may not really be required. Using such a constraint should be avoided.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+DECLARE
+  counter PLS_INTEGER NOT NULL := 0; -- Noncompliant
+BEGIN
+  NULL;
+END;
+/
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+DECLARE
+  counter PLS_INTEGER := 0; -- Compliant
+BEGIN
+  NULL;
+END;
+/
+</pre>

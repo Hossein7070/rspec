@@ -1,0 +1,25 @@
+<p>&lt;code&gt;null&lt;/code&gt; and &lt;code&gt;undefined&lt;/code&gt; are similar but not synonymous concepts in Javascript. Use a "hard" test (&lt;code&gt;===&lt;/code&gt; or &lt;code&gt;!==&lt;/code&gt;) for one, and you’ll miss the other. Soft tests (&lt;code&gt;==&lt;/code&gt;, and &lt;code&gt;!=&lt;/code&gt;) on the other hand, will pick up both non-values, as well as empty string.</p>
+<p>Even if you mean to make the distinction in your code between &lt;code&gt;null&lt;/code&gt; and &lt;code&gt;undefined&lt;/code&gt;, doing so is an extremely questionable practice that is likely to confuse both users and maintainers. Instead, use one or the other and test for both using soft tests.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+function func1(p1, p2) {
+
+  if (p1 === null) {  // Noncompliant
+    return;
+  }
+  if (p1 === undefined) { // Noncompliant
+    return;
+  }
+  // ...
+}
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+function func1(p1, p2) {
+
+  if (p1 == null) {  // true for null, undefined
+    return;
+  }
+  // ...
+}
+</pre>

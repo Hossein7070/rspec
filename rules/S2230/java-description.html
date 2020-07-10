@@ -1,0 +1,9 @@
+<p>Marking a non-public method &lt;code&gt;@Transactional&lt;/code&gt; is both useless and misleading because Spring doesn’t "see" non-&lt;code&gt;public&lt;/code&gt; methods, and so makes no provision for their proper invocation. Nor does Spring make provision for the methods invoked by the method it called.</p>
+<p>Therefore marking a &lt;code&gt;private&lt;/code&gt;  method, for instance, &lt;code&gt;@Transactional&lt;/code&gt; can only result in a runtime error or exception if the method is actually written to be &lt;code&gt;@Transactional&lt;/code&gt;.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+@Transactional  // Noncompliant
+private void doTheThing(ArgClass arg) {
+  // ...
+}
+</pre>

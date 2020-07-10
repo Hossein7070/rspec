@@ -1,0 +1,34 @@
+<p>Setting the wrong Content-Type for a response can leave an application vulnerable to cross-site scripting attacks. Specifically, JSON should always be served with the &lt;code&gt;application/json&lt;/code&gt; Content-Type.</p>
+<p>This rule checks the Content-Type of responses containing classes in the &lt;code&gt;org.json&lt;/code&gt; and &lt;code&gt;javax.json&lt;/code&gt; packages.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+public void doGet(HttpServletRequest request, HttpServletResponse response) {
+  JSONObject jsonRespone = getJsonResponse(request);
+
+  try {
+    response.setContentType("text/html");  // Noncompliant; wrong type
+    PrintWriter out = response.getWriter();
+    out.println(jsonResponse.toJSONString());
+    out.close();
+  } catch (IOException e) {
+    e.printStackTrace();
+  }
+}
+
+public void doPost(HttpServletRequest request, HttpServletResponse response) {  // Noncompliant; response type not set
+  JSONObject jsonRespone = getJsonResponse(request);
+
+  try {
+    PrintWriter out = response.getWriter();
+    out.println(jsonResponse.toJSONString());
+    out.close();
+  } catch (IOException e) {
+    e.printStackTrace();
+  }
+}
+</pre>
+<h2>See</h2>
+<ul>
+<li><a href="https://www.owasp.org/index.php/Top_10-2017_A7-Cross-Site_Scripting_(XSS)">OWASP Top 10 2017 Category A7</a> - Cross-Site Scripting (XSS)</li>
+<li><a href="https://www.owasp.org/index.php/XSS_(Cross_Site_Scripting">https://www.owasp.org/index.php/XSS_(Cross_Site_Scripting</a>)<em>Prevention_Cheat_Sheet#RULE</em>.233.1_-_HTML_escape_JSON_values_in_an_HTML_context_and_read_the_data_with_JSON.parse[OWASP, XSS (Cross Site Scripting) Prevention Cheat Sheet] - Rule #3.1</li>
+</ul>

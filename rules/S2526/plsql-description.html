@@ -1,0 +1,45 @@
+<p>Variables and fields declared as &lt;code&gt;NOT NULL&lt;/code&gt; must be immediately initialized, since they cannot be implicitly initialized to &lt;code&gt;NULL&lt;/code&gt;. This rule prevents &lt;code&gt;PLS-00218&lt;/code&gt; exceptions from being raised at runtime.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+SET SERVEROUTPUT ON
+
+DECLARE
+  test PLS_INTEGER; -- This variable is implicitly initialized to NULL
+
+  foo PLS_INTEGER NOT NULL; -- Noncompliant PLS-00218 a variable declared NOT NULL must have an initialization assignment
+
+  TYPE myType IS RECORD(
+    foo PLS_INTEGER NOT NULL, -- Non-Compliant PLS-00218 a variable declared NOT NULL must have an initialization assignment
+    bar PLS_INTEGER NULL
+  );
+BEGIN
+  IF test IS NULL
+    DBMS_OUTPUT.PUT_LINE('test is NULL');
+  ELSE
+    DBMS_OUTPUT.PUT_LINE('test is NOT NULL');
+  END IF;
+END;
+/
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+SET SERVEROUTPUT ON
+
+DECLARE
+  test PLS_INTEGER; -- This variable is implicitly initialized to NULL
+
+  foo PLS_INTEGER NOT NULL := 42; -- Compliant
+
+  TYPE myType IS RECORD(
+    foo PLS_INTEGER NOT NULL := 42, -- Compliant
+    bar PLS_INTEGER NULL
+  );
+BEGIN
+  IF test IS NULL
+    DBMS_OUTPUT.PUT_LINE('test is NULL');
+  ELSE
+    DBMS_OUTPUT.PUT_LINE('test is NOT NULL');
+  END IF;
+END;
+/
+</pre>

@@ -1,0 +1,21 @@
+<p>The number of distinct data items used in a condition (&lt;code&gt;IF&lt;/code&gt;, &lt;code&gt;EVALUATE&lt;/code&gt;, …​) should not exceed a defined threshold.</p>
+<h2>Noncompliant Code Example</h2>
+<p>With the default default threshold of 3:</p>
+<pre>
+IF WS-FOO(1) = 1 OR *&gt; 1st data item
+WS-FOO(2) = 2 OR
+WS-FOO(3) = 3 OR
+WS-BAR = 4 OR *&gt; 2nd data item
+WS-BAZ = 5 OR *&gt; 3rd data item
+WS-QUX = 42 *&gt; Noncompliant; 4th data item
+END-IF.
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+IF WS-FOO(1) = 1 OR
+WS-FOO(2) = 2 OR
+WS-FOO(3) = 3 OR
+WS-BAR = 4 OR
+WS-BAZ = 42
+END-IF.
+</pre>

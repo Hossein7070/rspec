@@ -1,0 +1,85 @@
+<p>A &lt;code&gt;polymorphic class&lt;/code&gt; defines or inherits at least one virtual function. In some circumstances, copy-construction or assignment of such a class can inadvertently lead to casting from the derived class to the base class, which is a cause of slicing.</p>
+<p>In most cases, you will prevent copying in a whole class hierarchy by preventing it in the base class only:
+- You can define an &lt;code&gt;=delete&lt;/code&gt; copy constructor and assignment operator in the base class.
+- You can define an &lt;code&gt;=delete&lt;/code&gt; move assignment operator, which will disable all other copy/move operations (this is less explicit, but since you only have to explicitly disable one function, some authors recommend this approach)
+- Copy can be implicitly disabled by some existing members of the base class</p>
+<p>This rule reports an issue if a polymorphic class is publicly copyable.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+class B { // Noncompliant: B is copyable
+public:
+  virtual ~B() = default;
+  virtual char m() { return 'B'; }
+  // ... nothing about copy operations, so uses default ...
+};
+
+class D : public B { // Noncompliant: D is copyable
+public:
+  char m() override { return 'D'; }
+  // ...
+};
+
+char f(B&amp; b) {
+  auto b2 = b;
+  return b.m();
+}
+
+void test() {
+  D d;
+  char c = f(d); // c=='B', not what was expected
+}
+</pre>
+<h2>Compliant Solution</h2>
+<p>To avoid such bugs, first disable copy.
+Then, if you want to still be able to duplicate an object using the right polymorphic type, you can implement a virtual &lt;code&gt;clone()&lt;/code&gt; function, which contrary to the copy-constructor can be overridden.</p>
+<pre>
+class B {
+public:
+  B() = default;
+  virtual ~B() = default;
+  B(const B&amp;) = delete;
+  B&amp; operator=(const B&amp;) = delete;
+  virtual char m() { return 'B'; }
+  virtual unique_ptr&lt;B&gt; clone() const {
+    auto retptr = make_unique&lt;B&gt;();
+    // some cloning code
+    return retptr;
+  };
+  // ...
+};
+
+class D : public B {
+public:
+  char m() override { return 'D'; }
+  D() = default;
+  unique_ptr&lt;B&gt; clone() const override {
+    auto retptr = make_unique&lt;D&gt;();
+    // some cloning code
+    return retptr;
+    }
+    // ...
+};
+
+// char f_compile_error(B&amp; b) {
+//   auto b2 = b; // ok, compiler will detect inadvertent copying, and protest
+//   return b2.m();
+// }
+
+char f(B&amp; b) {
+  auto b2 = b.clone();
+  char c = b2-&gt;m();
+  return c;
+}
+
+void test() {
+  D d;
+  char c = f(d);  // c=='D'
+}
+</pre>
+<h2>Exceptions</h2>
+<p>Exceptions classes must be copyable. Hence, this rule does not apply to exceptions.</p>
+<h2>See</h2>
+<ul>
+<li><a href="https://www.fluentcpp.com/2017/09/08/make-polymorphic-copy-modern-cpp/">Make polymorphic copy modern</a></li>
+<li><a href="https://github.com/isocpp/CppCoreGuidelines/blob/036324/CppCoreGuidelines.md#c67-a-polymorphic-class-should-suppress-copying">C++ Core Guidelines C.67</a>: A polymorphic class should suppress copying</li>
+</ul>

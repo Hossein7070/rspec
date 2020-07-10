@@ -1,0 +1,14 @@
+<p>It is simpler and clearer to return a variable than it is to test the variable and then return its value as a literal.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+  if (var == null) {
+    return null;
+  }
+  return var;
+}
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+  return var;
+}
+</pre>

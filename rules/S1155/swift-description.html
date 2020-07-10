@@ -1,0 +1,13 @@
+<p>Using &lt;code&gt;[Int]().count&lt;/code&gt; to test for emptiness works, but using &lt;code&gt;[Int]().isEmpty&lt;/code&gt; makes the code more readable and can be more performant. The time complexity of any &lt;code&gt;isEmpty&lt;/code&gt; implementation should be &lt;code&gt;O(1)&lt;/code&gt; whereas some implementations of &lt;code&gt;count()&lt;/code&gt; can be &lt;code&gt;O(n)&lt;/code&gt;.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+if (arr.count == 0) {  // Noncompliant
+  /* ... */
+}
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+if (arr.isEmpty) {
+  /* ... */
+}
+</pre>

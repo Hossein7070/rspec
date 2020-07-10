@@ -1,0 +1,36 @@
+<p>This rule raises an issue when reflection is used to change the visibility of a class, method or field, and when it is used to directly update a field value. Altering or bypassing the accessibility of classes, methods, or fields violates the encapsulation principle and could lead to run-time errors.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+class A
+    def mymethod
+        puts "I got called"
+    end
+    private :mymethod
+end
+
+a = A.new()
+# =&gt; false
+puts a.respond_to?(:mymethod)
+
+class &lt;&lt; a
+    public :mymethod # NonCompliant: method was private
+end
+# =&gt; true
+puts a.respond_to?(:mymethod)
+
+b = A.new()
+# =&gt; false
+puts b.respond_to?(:mymethod)
+
+A.class_eval do
+    public :mymethod # NonCompliant: method was private
+end
+
+c = A.new()
+# =&gt; true
+puts c.respond_to?(:mymethod)
+</pre>
+<h2>See</h2>
+<ul>
+<li><a href="https://www.securecoding.cert.org/confluence/x/3YEVAQ">CERT, SEC05-J.</a> - Do not use reflection to increase accessibility of classes, methods, or fields</li>
+</ul>

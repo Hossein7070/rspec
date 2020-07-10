@@ -1,0 +1,21 @@
+<p>Unused parameters are misleading. Whatever the values passed to such parameters, the behavior will be the same.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+CREATE PROCEDURE say_hello(name VARCHAR2) AS -- Noncompliant; name is not used
+BEGIN
+  DBMS_OUTPUT.PUT_LINE('Hello World');
+END;
+/
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+CREATE PROCEDURE say_hello(name VARCHAR2) AS -- Compliant
+BEGIN
+  DBMS_OUTPUT.PUT_LINE('Hello ' || name);
+END;
+/
+</pre>
+<h2>See</h2>
+<ul>
+<li><a href="https://www.securecoding.cert.org/confluence/x/NYA5">CERT, MSC12-C.</a> - Detect and remove code that has no effect or is never executed</li>
+</ul>

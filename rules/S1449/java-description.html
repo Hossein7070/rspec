@@ -1,0 +1,14 @@
+<p>Failure to specify a locale when calling the methods &lt;code&gt;toLowerCase()&lt;/code&gt;, &lt;code&gt;toUpperCase()&lt;/code&gt; or &lt;code&gt;format()&lt;/code&gt; on &lt;code&gt;String&lt;/code&gt; objects means the system default encoding will be used, possibly creating problems with international characters or number representations. For instance with the Turkish language, when converting the small letter 'i' to upper case, the result is capital letter 'I' with a dot over it.</p>
+<p>Case conversion without a locale may work fine in its "home" environment, but break in ways that are extremely difficult to diagnose for customers who use different encodings. Such bugs can be nearly, if not completely, impossible to reproduce when it’s time to fix them. For locale-sensitive strings, the correct locale should always be used, but &lt;code&gt;Locale.ENGLISH&lt;/code&gt; can be used for case-insensitive ones.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+myString.toLowerCase()
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+myString.toLowerCase(Locale.TR)
+</pre>
+<h2>See</h2>
+<ul>
+<li><a href="https://www.securecoding.cert.org/confluence/x/EwAiAg">CERT, STR02-J.</a> - Specify an appropriate locale when comparing locale-dependent data</li>
+</ul>

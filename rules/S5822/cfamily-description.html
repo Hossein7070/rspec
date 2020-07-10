@@ -1,0 +1,28 @@
+<p>C11 introduced "Attributes". They provide a unified syntax to specify additional information about your code.
+ They can be applied to various things like types, variables, functions, names, blocks, and translation units.
+ C defines some standard attributes like <a></a>, <a></a>, <a></a>, <a></a>…​</p>
+<p>Unfortunately, it is possible to use unknown attributes: attributes that are not defined. Your code will compile, but the unknown attribute will be silently ignored. This means that your code will not behave in the way you expected.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+void test1(int p) {
+  switch (p) {
+    case 0:
+    case 1:;
+      [[std::fallthrough]]; // Noncompliant [[std::fallthrough]] isn't a defined attribute
+    default:
+      break;
+  }
+}
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+void test1(int p) {
+  switch (p) {
+    case 0:
+    case 1:;
+      [[fallthrough]];
+    default:
+      break;
+  }
+}
+</pre>

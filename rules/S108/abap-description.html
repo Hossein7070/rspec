@@ -1,0 +1,10 @@
+<p>Most of the time a block of code is empty when a piece of code is really missing. So such empty block must be either filled or removed.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+IF A = 0. " Noncompliant
+ELSEIF A &gt; 1. " Noncompliant
+ELSE. " Noncompliant
+ENDIF.
+</pre>
+<h2>Exceptions</h2>
+<p>When a block contains a comment, this block is not considered to be empty.</p>

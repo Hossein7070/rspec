@@ -1,0 +1,21 @@
+<p>Because the use of initializers to set properties and values makes for clearer, more communicative code, it should be preferred for initializing objects and collections.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+var p = new Person();
+p.Age = 5;  // Noncompliant
+p.Name = "John";  // Noncompliant
+
+var l = new List&lt;int&gt;();
+l.Add(5);  // Noncompliant
+l.Add(10);  // Noncompliant
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+var p = new Person
+  {
+    Age = 5,
+    Name = "John"
+  };
+
+var l = new List&lt;int&gt; {5, 10};
+</pre>

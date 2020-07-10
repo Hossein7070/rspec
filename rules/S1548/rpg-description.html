@@ -1,0 +1,31 @@
+<p>Every subroutine should be commented to explain its goal and how it works. This non-empty comment must be located before or after the subroutine definition.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+C     SR012         BEGSR
+C                         ...
+C                   ENDSR
+</pre>
+<pre>
+ /free
+  begsr SR012;
+   ...
+  endsr;
+ /end-free
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+C********************************************************************
+C* SR012- Here is my comment
+C********************************************************************
+C     SR012         BEGSR
+C                         ...
+C                   ENDSR
+</pre>
+<pre>
+ /free
+  // SR012- Here is my comment
+  begsr SR012;
+   ...
+  endsr;
+ /end-free
+</pre>

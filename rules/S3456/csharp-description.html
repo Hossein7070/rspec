@@ -1,0 +1,17 @@
+<p>&lt;code&gt;ToCharArray&lt;/code&gt; can be omitted when the operation on the array could have been done directly on the string, such as when iterating over the characters in a string, and when accessing a character in a string via an array index. In those cases, explicit &lt;code&gt;ToCharArray&lt;/code&gt; calls should be omitted.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+string str = "some string";
+foreach (var c in str.ToCharArray()) // Noncompliant
+{
+  // ...
+}
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+string str = "some string";
+foreach (var c in str)
+{
+  // ...
+}
+</pre>

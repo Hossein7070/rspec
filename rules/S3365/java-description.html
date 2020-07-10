@@ -1,0 +1,25 @@
+<p>Once set, the value of a Hibernate &lt;code&gt;@Entity&lt;/code&gt;'s &lt;code&gt;@Id&lt;/code&gt; field/column should never be updated. Therefore, setters for such fields should always be &lt;code&gt;private&lt;/code&gt;.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+public class Book {
+
+  @Id
+  @GeneratedValue
+  private int id;
+
+  public void setId(int id) {  // Noncompliant
+    this.id = id;
+  }
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+public class Book {
+
+  @Id
+  @GeneratedValue
+  private int id;
+
+  private void setId(int id) {
+    this.id = id;
+  }
+</pre>

@@ -1,0 +1,16 @@
+<p>Shared naming conventions allow teams to collaborate efficiently. This rule checks that all attribute names match a provided regular expression.</p>
+<h2>Noncompliant Code Example</h2>
+<p>With the default regular expression:</p>
+<pre>
+&lt;xs:element name="fruit"&gt;
+  ...
+  &lt;xs:attribute name="FLESH_COLOR" type="xs:string"&gt;     &lt;!-- Noncompliant --&gt;
+&lt;/xs:element&gt;
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+&lt;xs:element name="fruit"&gt;
+  ...
+  &lt;xs:attribute name="fleshColor" type="xs:string"&gt;
+&lt;/xs:element&gt;
+</pre>

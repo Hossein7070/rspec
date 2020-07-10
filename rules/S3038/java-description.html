@@ -1,0 +1,13 @@
+<p>There’s no point in redundantly defining an &lt;code&gt;abstract&lt;/code&gt; method with the same signature as a method in an &lt;code&gt;interface&lt;/code&gt; that the class &lt;code&gt;implements&lt;/code&gt;. Any concrete child classes will have to implement the method either way.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+public interface Reportable {
+  String getReport();
+}
+
+public abstract class AbstractRuleReport implements Reportable{
+  public abstract String getReport();  // Noncompliant
+
+  // ...
+}
+</pre>

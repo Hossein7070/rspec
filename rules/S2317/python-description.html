@@ -1,0 +1,9 @@
+<p>Use of the &lt;code&gt;exec&lt;/code&gt; statement could be dangerous, and should be avoided. Moreover, the &lt;code&gt;exec&lt;/code&gt; statement was removed in Python 3.0. Instead, the built-in &lt;code&gt;exec()&lt;/code&gt; function can be used.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+exec 'print 1' # Noncompliant
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+exec('print 1')
+</pre>

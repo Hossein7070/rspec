@@ -1,0 +1,39 @@
+<p>Once you modify a closure, any use of it could provide unexpected results.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+var x = 0;
+Func&lt;int&gt; f1 = () =&gt; x;  // Noncompliant
+x = 1;
+Console.WriteLine(f1());
+
+var input = new[] { 1, 2, 3 };
+var fs = new List&lt;Func&lt;int&gt;&gt;();
+for (var i = 0; i &lt; input.Length; i++) {
+  Func&lt;int&gt; f = () =&gt; input[i];  // Noncompliant
+  fs.Add(f);
+}
+Console.WriteLine(fs[0]()); //Access to modified closure yields Exception
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+var x = 0;
+var xx = x;
+Func&lt;int&gt; f = () =&gt; xx;
+x = 1;
+Console.WriteLine(f());
+
+var input = new[] { 1, 2, 3 };
+var fs = new List&lt;Func&lt;int&gt;&gt;();
+for (var i = 0; i &lt; input.Length; i++) {
+  var ii = i;
+  Func&lt;int&gt; f = () =&gt; input[ii];
+  fs.Add(f);
+}
+Console.WriteLine(fs[0]());
+</pre>
+<p>or</p>
+<pre>
+var input = new[] { 1, 2, 3 };
+var fs = input.Select(t =&gt; (Func&lt;int&gt;) (() =&gt; t)).ToList();
+Console.WriteLine(fs[0]());
+</pre>

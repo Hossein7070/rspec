@@ -1,0 +1,25 @@
+{
+  "title": "Exposing HTTP endpoints is security-sensitive",
+  "type": "SECURITY_HOTSPOT",
+  "status": "deprecated",
+  "remediation": {
+    "func": "Constant/Issue",
+    "constantCost": "15min"
+  },
+  "tags": [],
+  "defaultSeverity": "Critical",
+  "ruleSpecification": "RSPEC-4529",
+  "sqKey": "S4529",
+  "scope": "Main",
+  "all_languages": [
+    "csharp",
+    "java",
+    "javascript",
+    "php",
+    "python",
+    "vbnet"
+  ],
+  "allKeys": [
+    "S4529"
+  ]
+}

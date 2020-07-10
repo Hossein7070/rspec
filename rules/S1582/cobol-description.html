@@ -1,0 +1,18 @@
+<p>Shared coding conventions allow teams to collaborate efficiently. This rule checks that logical file names conform to a provided regular expression.</p>
+<h2>Noncompliant Code Example</h2>
+<p>Given the regular expression &lt;code&gt;FILE-.*&lt;/code&gt;:</p>
+<pre>
+ INPUT-OUTPUT SECTION.
+ FILE-CONTROL.
+
+     SELECT Y27MVTS       ASSIGN  TO     S1       &gt;Noncompliant
+                          FILE STATUS IS FS-S1.
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+ INPUT-OUTPUT SECTION.
+ FILE-CONTROL.
+
+     SELECT FILE-X345      ASSIGN  TO     S1
+                          FILE STATUS IS FS-S1.
+</pre>

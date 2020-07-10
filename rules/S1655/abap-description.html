@@ -1,0 +1,10 @@
+<p>Procedural development in general, and &lt;code&gt;FORM…​ ENDFORM&lt;/code&gt;, and &lt;code&gt;PERFORM&lt;/code&gt; specifically, have been been classified as obsolete by SAP and should be avoided. Classes and methods should be used for all new development.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+FORM fill_table USING    wa   TYPE any
+                CHANGING ptab TYPE INDEX TABLE.
+  APPEND wa TO ptab.
+ENDFORM.
+* ...
+PERFORM fill_table IN PROGRAM my_prog.
+</pre>

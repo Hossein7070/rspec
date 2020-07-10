@@ -1,0 +1,20 @@
+<p>&lt;code&gt;NCHAR&lt;/code&gt; and &lt;code&gt;NVARCHAR2&lt;/code&gt; lengths must be given in characters, not bytes. This is partly because a single character may occupy more than a single byte in memory. Specify the field length in bytes, and theoretically your value could overrun the field, but instead Oracle simply refuses to run the code. Specify it in characters, and Oracle will allocate the appropriate number of bytes to store the requested number of characters. Trying to specify the length semantics in bytes will result in the &lt;code&gt;PLS-00639: NCHAR/NVARCHAR2 cannot be byte length semantics&lt;/code&gt; exception being raised.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+DECLARE
+  foo NCHAR(42 BYTE); -- Noncompliant - raises PLS-00639
+BEGIN
+  NULL;
+END;
+/
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+DECLARE
+  foo NCHAR(42);      -- Compliant
+  bar NCHAR(42 CHAR); -- Also compliant, as an alternative
+BEGIN
+  NULL;
+END;
+/
+</pre>

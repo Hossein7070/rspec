@@ -1,0 +1,9 @@
+<p>&lt;code&gt;Collection.removeIf&lt;/code&gt; is more readable and less verbose than using the &lt;code&gt;Iterator.remove&lt;/code&gt; idiom. It might also be more performant in some cases, particularly for &lt;code&gt;ArrayList&lt;/code&gt; instances.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+for (Iterator it = items.iterator(); it.hasNext();) {
+  if (this.predicate(it.next())) {
+    it.remove();
+  }
+}
+</pre>

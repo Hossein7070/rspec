@@ -1,0 +1,19 @@
+<p>From the Java API documentation:
+{quote}
+&lt;code&gt;Condition&lt;/code&gt; factors out the &lt;code&gt;Object&lt;/code&gt; monitor methods (&lt;code&gt;wait&lt;/code&gt;, &lt;code&gt;notify&lt;/code&gt; and &lt;code&gt;notifyAll&lt;/code&gt;) into distinct objects to give the effect of having multiple wait-sets per object, by combining them with the use of arbitrary Lock implementations. Where a &lt;code&gt;Lock&lt;/code&gt; replaces the use of &lt;code&gt;synchronized&lt;/code&gt; methods and statements, a &lt;code&gt;Condition&lt;/code&gt; replaces the use of the &lt;code&gt;Object&lt;/code&gt; monitor methods.
+{quote}</p>
+<p>The purpose of implementing the &lt;code&gt;Condition&lt;/code&gt; interface is to gain access to its more nuanced &lt;code&gt;await&lt;/code&gt; methods. Therefore, calling the method &lt;code&gt;Object.wait(…​)&lt;/code&gt; on a class implementing the &lt;code&gt;Condition&lt;/code&gt; interface is silly and confusing.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+final Lock lock = new ReentrantLock();
+final Condition notFull  = lock.newCondition();
+...
+notFull.wait();
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+final Lock lock = new ReentrantLock();
+final Condition notFull  = lock.newCondition();
+...
+notFull.await();
+</pre>

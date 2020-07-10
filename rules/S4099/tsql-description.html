@@ -1,0 +1,19 @@
+<p>Theoretically, &lt;code&gt;CASE&lt;/code&gt;, &lt;code&gt;COALESCE&lt;/code&gt;, and &lt;code&gt;IIF&lt;/code&gt; evaluate conditions sequentially, stopping with the first one that evaluates to &lt;code&gt;TRUE&lt;/code&gt;. In reality, these expressions evaluate aggregate functions and non-native service calls such as &lt;code&gt;CONTAIN&lt;/code&gt; and &lt;code&gt;FREETEXT&lt;/code&gt; first, and <em>then</em> pass the results into the expression. That means that if you’re relying on short-circuit behavior to avoid runtime errors with these arguments, you will not get it. You can work around the issue by wrapping such calls in a subselect.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+SELECT
+  CASE
+    WHEN @i = 0
+      THEN 1
+    ELSE MIN(1/@i)  -- Noncompliant
+  END;
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+SELECT
+  CASE
+    WHEN @i = 0
+      THEN 1
+    ELSE (SELECT MIN(1/@i))
+  END;
+</pre>

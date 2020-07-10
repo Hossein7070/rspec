@@ -1,0 +1,45 @@
+<p>Having two &lt;code&gt;WHEN&lt;/code&gt; in a &lt;code&gt;CASE&lt;/code&gt; statement or two branches in an &lt;code&gt;IF&lt;/code&gt; chain  with the same implementation is at best duplicate code, and at worst a coding error. If the same logic is truly needed for both cases, they should be combined.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+CASE i.
+  WHEN 1.
+    doFirst.
+    doSomething.
+  WHEN 2.
+    doSomethingDifferent.
+  WHEN 3.  // Noncompliant; duplicates case 1's implementation
+    doFirst.
+    doSomething.
+  WHEN OTHERS.
+    doTheRest.
+ENDCASE.
+
+IF a &gt;= 0 AND a &lt; 10.
+  doFirst.
+  doTheThing.
+ELSEIF a &gt;= 10 AND a &lt; 20.
+  doTheOtherThing.
+ELSEIF a &gt;= 20 AND a &lt; 50.
+  doFirst.       // Noncompliant; duplicates first condition
+  doTheThing.
+ENDIF.
+</pre>
+<h2>Exceptions</h2>
+<p>Blocks in an &lt;code&gt;IF&lt;/code&gt; chain or in &lt;code&gt;CASE&lt;/code&gt; statement that contain a single line of code are ignored.</p>
+<pre>
+IF a &gt;= 0 AND a &lt; 10.
+  doTheThing.
+ELSEIF a &gt;= 10 AND a &lt; 20.
+  doTheOtherThing.
+ELSEIF a &gt;= 20 AND a &lt; 50.
+  doTheThing.  // no issue, usually this is done on purpose to increase the readability
+ENDIF.
+</pre>
+<p>But this exception does not apply to &lt;code&gt;IF&lt;/code&gt; chains without final &lt;code&gt;ELSE&lt;/code&gt;-s, or to &lt;code&gt;CASE&lt;/code&gt;-s without &lt;code&gt;WHEN OTHERS&lt;/code&gt; clauses when all branches have the same single line of code. In case of &lt;code&gt;IF&lt;/code&gt; chains with &lt;code&gt;ELSE&lt;/code&gt;-s, or of &lt;code&gt;CASE&lt;/code&gt;-s with &lt;code&gt;WHEN OTHERS&lt;/code&gt; clauses, rule S3923 raises a bug.</p>
+<pre>
+if a &gt;= 0 AND a &lt; 10. //Noncompliant, this might have been done on purpose but probably not
+  doTheThing.
+elseif a &gt;= 10 AND a &lt; 20.
+  doTheThing.
+endif.
+</pre>

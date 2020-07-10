@@ -1,0 +1,10 @@
+<p>An &lt;code&gt;INSERT&lt;/code&gt; statement that does not explicitly list the columns being inserted into, as well as the values being inserted, is dependent for correct functioning on the structure of the table not changing. Additionally, not having the explicit column list degrades the readability and understandability of the code. Therefore, &lt;code&gt;INSERT&lt;/code&gt; statements should always contain an explicit column list.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+INSERT INTO PERSONS VALUES (1, 'DUPONT', 'Marcel')
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+INSERT INTO PERSONS (ID, LAST_NAME, FIRST_NAME)
+VALUES (1, 'DUPONT', 'Marcel')
+</pre>

@@ -1,0 +1,36 @@
+<p>The &lt;code&gt;FOR&lt;/code&gt; loop at first seems like a convenient way of iterating over the elements of a collection, but doing so will raise a &lt;code&gt;VALUE_ERROR&lt;/code&gt; exception if the collection is empty. Looping instead from 1 to &lt;code&gt;COUNT&lt;/code&gt; doesn’t work either if the collection is sparse; that leads to a &lt;code&gt;ORA-01403: no data found&lt;/code&gt; error.</p>
+<p>Instead, a &lt;code&gt;WHILE&lt;/code&gt; loop should be used.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+DECLARE
+  TYPE fooType IS TABLE OF VARCHAR2(42);
+  foo fooType := new fooType('Strawberry', 'Apple', 'Banana');
+BEGIN
+  foo.DELETE(2);                                -- The collection is now sparse
+
+  FOR i IN 1 .. foo.COUNT                       -- Noncompliant - leads to ORA-01403: no data found
+  LOOP
+    DBMS_OUTPUT.PUT_LINE(i || ' = ' || foo(i));
+  END LOOP;
+END;
+/
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+DECLARE
+  TYPE fooType IS TABLE OF VARCHAR2(42);
+  foo fooType := new fooType('Strawberry', 'Apple', 'Banana');
+  i PLS_INTEGER;
+BEGIN
+  foo.DELETE(2);                                -- The collection is now sparse
+
+  i := foo.FIRST;
+
+  WHILE (i IS NOT NULL)                         -- Compliant - works as expected
+  LOOP
+    DBMS_OUTPUT.PUT_LINE(i || ' = ' || foo(i));
+    i := foo.NEXT(i);
+  END LOOP;
+END;
+/
+</pre>

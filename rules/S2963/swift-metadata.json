@@ -1,0 +1,22 @@
+{
+  "title": "\"self\" should only be used when required",
+  "type": "CODE_SMELL",
+  "status": "ready",
+  "remediation": {
+    "func": "Constant/Issue",
+    "constantCost": "2min"
+  },
+  "tags": [
+    "clumsy"
+  ],
+  "defaultSeverity": "Minor",
+  "ruleSpecification": "RSPEC-2963",
+  "sqKey": "S2963",
+  "scope": "Main",
+  "all_languages": [
+    "swift"
+  ],
+  "allKeys": [
+    "S2963"
+  ]
+}

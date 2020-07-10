@@ -1,0 +1,17 @@
+<p>There are two main reasons to ban dynamic clauses in &lt;code&gt;SELECT&lt;/code&gt; statements.</p>
+<p>The first relates to maintainability. One of the nice features of ABAP Design Time is the connection to the data dictionary; you get syntax errors if you try to address table fields that are not present anymore or that have typos. With dynamic SQL, the ability to statically check the code for this type of error is lost.</p>
+<p>The other more critical reason relates to security. By definition, dynamic clauses make an application susceptible to SQL injection attacks.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+SELECT (select_clause)
+ FROM (from_clause) CLIENT SPECIFIED INTO &lt;fs&gt;
+ WHERE (where_clause)
+ GROUP BY (groupby_clause) HAVING (having_clause)
+ ORDER BY (orderby_clause).
+</pre>
+<h2>See</h2>
+<ul>
+<li><a href="https://www.owasp.org/index.php/Top_10-2017_A1-Injection">OWASP Top 10 2017 Category A1</a> - Injection</li>
+<li><a href="http://cwe.mitre.org/data/definitions/89.html">MITRE, CWE-89</a> - SQL Injection</li>
+<li><a href="https://www.sans.org/top25-software-errors/#cat1">SANS Top 25</a> - Insecure Interaction Between Components</li>
+</ul>

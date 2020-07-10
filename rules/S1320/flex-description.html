@@ -1,0 +1,25 @@
+<p>Usage of statements, operators and keywords specific to ActionScript 2 does not allow to migrate to ActionScript 3. This includes "intrinsic" keyword, set variable statement and following list of operators:</p>
+<ul>
+<li>&lt;code&gt;&lt;&gt;&lt;/code&gt; (inequality) - use &lt;code&gt;!=&lt;/code&gt; instead</li>
+<li>&lt;code&gt;add&lt;/code&gt; (concatenation (strings)) - use &lt;code&gt;+&lt;/code&gt; instead</li>
+<li>&lt;code&gt;eq&lt;/code&gt; (equality (strings)) - use &lt;code&gt;==&lt;/code&gt; instead</li>
+<li>&lt;code&gt;ne&lt;/code&gt; (not equal (strings)) - use &lt;code&gt;!=&lt;/code&gt; instead</li>
+<li>&lt;code&gt;lt&lt;/code&gt; (less than (strings)) - use &lt;code&gt;&lt;&lt;/code&gt; instead</li>
+<li>&lt;code&gt;le&lt;/code&gt; (less than or equal to (strings)) - use &lt;code&gt;⇐&lt;/code&gt; instead</li>
+<li>&lt;code&gt;gt&lt;/code&gt; (greater than (strings)) - use &lt;code&gt;&gt;&lt;/code&gt; instead</li>
+<li>&lt;code&gt;ge&lt;/code&gt; (greater than or equal to (strings)) - use &lt;code&gt;&gt;=&lt;/code&gt; instead</li>
+<li>&lt;code&gt;and&lt;/code&gt; (logical and) - use &lt;code&gt;&amp;&amp;&lt;/code&gt; instead</li>
+<li>&lt;code&gt;or&lt;/code&gt; (logical or) - use &lt;code&gt;||&lt;/code&gt; instead</li>
+<li>&lt;code&gt;not&lt;/code&gt; (logical not) - use &lt;code&gt;!&lt;/code&gt; instead</li>
+</ul>
+<h2>Noncompliant Code Example</h2>
+<pre>
+if (true != false) { // Compliant
+}
+
+if (true &lt;&gt; false) { // Noncompliant
+}
+
+set("varName", value); // Noncompliant
+varName = value; // Compliant
+</pre>

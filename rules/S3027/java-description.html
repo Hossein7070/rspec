@@ -1,0 +1,19 @@
+<p>An &lt;code&gt;indexOf&lt;/code&gt; or &lt;code&gt;lastIndexOf&lt;/code&gt; call with a single letter &lt;code&gt;String&lt;/code&gt; can be made more performant by switching to a call with a &lt;code&gt;char&lt;/code&gt; argument.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+String myStr = "Hello World";
+// ...
+int pos = myStr.indexOf("W");  // Noncompliant
+// ...
+int otherPos = myStr.lastIndexOf("r"); // Noncompliant
+// ...
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+String myStr = "Hello World";
+// ...
+int pos = myStr.indexOf('W');
+// ...
+int otherPos = myStr.lastIndexOf('r');
+// ...
+</pre>

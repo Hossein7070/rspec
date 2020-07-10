@@ -1,0 +1,57 @@
+<p>Returning &lt;code&gt;null&lt;/code&gt; instead of an actual array or collection forces callers of the method to explicitly test for nullity, making them more complex and less readable.
+Moreover, in many cases, &lt;code&gt;null&lt;/code&gt; is used as a synonym for empty.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+public Result[] GetResults()
+{
+    return null; // Noncompliant
+}
+
+public IEnumerable&lt;Result&gt; GetResults()
+{
+    return null; // Noncompliant
+}
+
+public IEnumerable&lt;Result&gt; GetResults() =&gt; null; // Noncompliant
+
+public IEnumerable&lt;Result&gt; Results
+{
+    get
+    {
+        return null; // Noncompliant
+    }
+}
+
+public IEnumerable&lt;Result&gt; Results =&gt; null; // Noncompliant
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+public Result[] GetResults()
+{
+    return new Result[0];
+}
+
+public IEnumerable&lt;Result&gt; GetResults()
+{
+    return Enumerable.Empty&lt;Result&gt;();
+}
+
+public IEnumerable&lt;Result&gt; GetResults() =&gt; Enumerable.Empty&lt;Result&gt;();
+
+public IEnumerable&lt;Result&gt; Results
+{
+    get
+    {
+        return Enumerable.Empty&lt;Result&gt;();
+    }
+}
+
+public IEnumerable&lt;Result&gt; Results =&gt; Enumerable.Empty&lt;Result&gt;();
+</pre>
+<h2>Exceptions</h2>
+<p>Although &lt;code&gt;string&lt;/code&gt; is a collection, the rule won’t report on it.</p>
+<h2>See</h2>
+<ul>
+<li><a href="https://www.securecoding.cert.org/confluence/x/AgG7AQ">CERT, MSC19-C.</a> - For functions that return an array, prefer returning an empty array over a null value</li>
+<li><a href="https://www.securecoding.cert.org/confluence/x/zwHEAw">CERT, MET55-J.</a> - Return an empty array or collection instead of a null value for methods that return an array or collection</li>
+</ul>

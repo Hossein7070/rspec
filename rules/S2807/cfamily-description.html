@@ -1,0 +1,18 @@
+<p>Member functions can only be used with an instance of a class. But &lt;code&gt;friend&lt;/code&gt; functions can be used with an implicitly converted type. So loosening access privileges to &lt;code&gt;friend&lt;/code&gt; on overloaded binary operators makes them more flexible. Specifically, with a &lt;code&gt;friend&lt;/code&gt; function, the class instance can be on either the right or the left of the operator, but with a member function, it can only be on the left.</p>
+<p>This rule raises an issue for all non-&lt;code&gt;friend&lt;/code&gt; overloaded binary operators except:</p>
+<ul>
+<li>"&lt;code&gt;=&lt;/code&gt;", "&lt;code&gt;[ ]&lt;/code&gt;", and "&lt;code&gt;→&lt;/code&gt;", which cannot be overloaded as &lt;code&gt;friend&lt;/code&gt; functions.</li>
+<li>"&lt;code&gt;+=&lt;/code&gt;", "&lt;code&gt;-=&lt;/code&gt;", "&lt;code&gt;*=&lt;/code&gt;", "&lt;code&gt;/=&lt;/code&gt;", "&lt;code&gt;%=&lt;/code&gt;", "&lt;code&gt;^=&lt;/code&gt;", "&lt;code&gt;&amp;=&lt;/code&gt;", "&lt;code&gt;|=&lt;/code&gt;", "&lt;code&gt;&lt;⇐&lt;/code&gt;", and "&lt;code&gt;&gt;&gt;=&lt;/code&gt;", which are not symmetric operators.</li>
+</ul>
+<h2>Noncompliant Code Example</h2>
+<pre>
+bool operator==(const MyClass &amp;RHS);  // Noncompliant
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+friend bool operator==(const MyClass &amp;LHS, const MyClass &amp;RHS);
+</pre>
+<h2>See</h2>
+<ul>
+<li><a href="https://github.com/isocpp/CppCoreGuidelines/blob/036324/CppCoreGuidelines.md#c161-use-nonmember-functions-for-symmetric-operators">C++ Core Guidelines C.161</a> Use nonmember functions for symmetric operators</li>
+</ul>

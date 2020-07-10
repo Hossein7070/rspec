@@ -1,0 +1,20 @@
+<p>Jump statements, such as &lt;code&gt;CHECK&lt;/code&gt; and &lt;code&gt;CONTINUE&lt;/code&gt; let you change the default flow of program execution, but jump statements that direct the control flow to the original direction are just a waste of keystrokes.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+  LOOP AT myTable.
+    PERFORM form_open USING ...
+    CHECK retcode = 0.
+    ...
+    perform form_close.
+    CHECK retcode = 0. "Noncompliant; whatever the result of the check, the loop will continue to the next iteration
+  ENDLOOP.
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+  LOOP AT myTable.
+    PERFORM form_open USING ...
+    CHECK retcode = 0.
+    ...
+    PERFORM form_close.
+  ENDLOOP.
+</pre>

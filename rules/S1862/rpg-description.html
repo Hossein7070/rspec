@@ -1,0 +1,62 @@
+<p>A &lt;code&gt;Select&lt;/code&gt; or a chain of &lt;code&gt;If&lt;/code&gt;/&lt;code&gt;Elseif&lt;/code&gt; statements is evaluated from top to bottom. At most, only one branch will be executed: the first one with a condition that evaluates to &lt;code&gt;true&lt;/code&gt;.</p>
+<p>Therefore, duplicating a condition automatically leads to dead code. Usually, this is due to a copy/paste error. At best, it’s simply dead code and at worst, it’s a bug that is likely to induce further bugs as the code is maintained, and obviously it could lead to unexpected behavior.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+     C                   IF        X = 1
+     C                   EXSR      SR01
+     C                   ELSEIF    X = 1                                       Noncompliant
+     C                   EXSR      SR02
+     C                   ENDIF
+</pre>
+<pre>
+/free
+     IF param = 1;
+        doX();
+     ELSEIF param = 2;
+        doY();
+     ELSEIF param = 1; // Noncompliant
+        doZ();
+     ENDIF;
+
+     SELECT;
+       WHEN param = 1;
+         doX();
+       WHEN param = 2;
+         doY();
+       WHEN param = 1; // Noncompliant
+         doZ();
+     ENDSL;
+/end-free
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+     C                   IF        X = 1
+     C                   EXSR      SR01
+     C                   ELSEIF    X = 2
+     C                   EXSR      SR02
+     C                   ENDIF
+</pre>
+<pre>
+/free
+     IF param = 1;
+        doX();
+     ELSEIF param = 2;
+        doY();
+     ELSEIF param = 3;
+        doZ();
+     ENDIF;
+
+     SELECT;
+       WHEN param = 1;
+         doX();
+       WHEN param = 2;
+         doY();
+       WHEN param = 3;
+         doZ();
+     ENDSL;
+/end-free
+</pre>
+<h2>See</h2>
+<ul>
+<li><a href="https://www.securecoding.cert.org/confluence/x/NYA5">CERT, MSC12-C.</a> - Detect and remove code that has no effect or is never executed</li>
+</ul>

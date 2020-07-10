@@ -1,0 +1,30 @@
+{
+  "title": "Multiple variables should not be declared on the same line",
+  "type": "CODE_SMELL",
+  "status": "ready",
+  "remediation": {
+    "func": "Constant/Issue",
+    "constantCost": "2min"
+  },
+  "tags": [
+    "convention"
+  ],
+  "defaultSeverity": "Minor",
+  "ruleSpecification": "RSPEC-1659",
+  "sqKey": "S1659",
+  "scope": "All",
+  "all_languages": [
+    "cfamily",
+    "csharp",
+    "go",
+    "java",
+    "swift",
+    "tsql",
+    "vb6",
+    "vbnet"
+  ],
+  "allKeys": [
+    "SingleDeclarationPerStatement",
+    "S1659"
+  ]
+}

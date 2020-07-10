@@ -1,0 +1,41 @@
+<p>The purpose of synchronization is to ensure that only one thread executes a given block of code at a time. There’s no real problem with marking &lt;code&gt;writeObject&lt;/code&gt; &lt;code&gt;synchronized&lt;/code&gt;, but it’s highly suspicious if this serialization-related method is the only &lt;code&gt;synchronized&lt;/code&gt; code in a &lt;code&gt;class&lt;/code&gt;.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+public class RubberBall {
+
+  private Color color;
+  private int diameter;
+
+  public RubberBall(Color color, int diameter) {
+    // ...
+  }
+
+  public void bounce(float angle, float velocity) {
+    // ...
+  }
+
+  private synchronized void writeObject(ObjectOutputStream stream) throws IOException { // Noncompliant
+    // ...
+  }
+}
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+public class RubberBall {
+
+  private Color color;
+  private int diameter;
+
+   public RubberBall(Color color, int diameter) {
+    // ...
+  }
+
+  public void bounce(float angle, float velocity) {
+    // ...
+  }
+
+  private void writeObject(ObjectOutputStream stream) throws IOException {
+    // ...
+  }
+}
+</pre>

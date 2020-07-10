@@ -1,0 +1,30 @@
+<p>When multiple, adjacent &lt;code&gt;MONITOR&lt;/code&gt; statements have duplicate &lt;code&gt;ON-ERROR&lt;/code&gt; blocks, they should be merged to consolidate the &lt;code&gt;ON-ERROR&lt;/code&gt; logic for cleaner, more readable code. Note that this applies even when there is intervening code outside any &lt;code&gt;MONITOR&lt;/code&gt; block.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+ /free
+   monitor;
+      // do something...
+   on-error;
+      CALLP HandleError(*param);
+   endmon;
+
+   // do un-monitored thing
+
+   monitor;
+      // do something else...
+   on-error;  // Noncompliant
+      CALLP HandleError(*param);
+   endmon;
+ /end-free
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+ /free
+   monitor;
+      // do something...
+      // do un-monitored thing
+      // do something else...
+   on-error;
+      CALLP HandleError(*param);
+   endmon;
+</pre>

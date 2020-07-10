@@ -1,0 +1,23 @@
+{
+  "title": "Object and function types should be explicitly stated in their declarations and definitions",
+  "type": "CODE_SMELL",
+  "status": "ready",
+  "remediation": {
+    "func": "Constant/Issue",
+    "constantCost": "5min"
+  },
+  "tags": [
+    "based-on-misra"
+  ],
+  "defaultSeverity": "Critical",
+  "ruleSpecification": "RSPEC-820",
+  "sqKey": "S820",
+  "scope": "Main",
+  "all_languages": [
+    "cfamily",
+    "vb6"
+  ],
+  "allKeys": [
+    "S820"
+  ]
+}

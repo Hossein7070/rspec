@@ -1,0 +1,17 @@
+<p>There is no need to declare a type parameter when naming a type constraint is not required. Using wildcards makes it easier to read.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+&lt;T extends MyClass&gt; void foo(List&lt;T&gt; list) {  // Noncompliant, T is used only once
+  for (MyClass myObj : list) {
+    doSomething(myObj);
+  }
+}
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+void foo(List&lt;? extends MyClass&gt; list) {
+  for (MyClass myObj : list) {
+    doSomething(myObj);
+  }
+}
+</pre>

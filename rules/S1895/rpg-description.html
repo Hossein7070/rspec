@@ -1,0 +1,21 @@
+<p>Turning on the &lt;code&gt;*srcstmt&lt;/code&gt; header option means that any line numbers cited in error statements will actually correspond correctly to the code. Otherwise, object line numbers will be shown, making errors difficult to debug.</p>
+<p>The &lt;code&gt;*srcstmt&lt;/code&gt; option is also recommended for accurate line numbers during debugging, particularly in combination with &lt;code&gt;*nodebugio&lt;/code&gt;, (&lt;code&gt;H option(*srcstmt:*nodebugio)&lt;/code&gt;) which prevents debug operations from stopping on I/O.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+H*
+H* AMENDED BY : G. Ann Campbell
+H* DATE       : 16JUL2014
+H* H24 - Miscellaneous Online Maintenance/Enquiry/Printing
+H*
+F/EJECT
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+H*
+H* AMENDED BY : G. Ann Campbell
+H* DATE       : 16JUL2014
+H* H24 - Miscellaneous Online Maintenance/Enquiry/Printing
+H*
+H option(*srcstmt)
+F/EJECT
+</pre>

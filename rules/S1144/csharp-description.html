@@ -1,0 +1,37 @@
+<p>&lt;code&gt;private&lt;/code&gt; or &lt;code&gt;internal&lt;/code&gt; types or &lt;code&gt;private&lt;/code&gt; members that are never executed or referenced are dead code: unnecessary, inoperative code that should be removed. Cleaning out dead code decreases the size of the maintained codebase, making it easier to understand the program and preventing bugs from being introduced.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+public class Foo
+{
+    private void UnusedPrivateMethod() {...} // Noncompliant
+
+    private class UnusedClass {...} // Noncompliant
+}
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+public class Foo
+{
+    public Foo()
+    {
+        UsedPrivateMethod();
+    }
+
+    private void UsedPrivateMethod()
+    {
+        var c = new UsedClass();
+    }
+
+    private class UsedClass {...}
+}
+</pre>
+<h2>Exceptions</h2>
+<p>This rule doesn’t raise issues on:</p>
+<ul>
+<li>Empty constructors</li>
+<li>Attributed members</li>
+<li>&lt;code&gt;Main&lt;/code&gt; method</li>
+<li>Methods with event handler signature &lt;code&gt;void Foo(object, EventArgs)&lt;/code&gt; that are declared in partial class</li>
+<li>Empty serialization constructor on type with &lt;code&gt;System.SerializableAttribute&lt;/code&gt; attribute.</li>
+<li>Internals in assemblies that have a &lt;code&gt;System.Runtime.CompilerServices.InternalsVisibleToAttribute&lt;/code&gt; attribute.</li>
+</ul>

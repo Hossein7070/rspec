@@ -1,0 +1,23 @@
+<p>Some legacy geometry functions can be replaced with struct extension properties or methods.</p>
+<p>This rule raises an issue when any of the following substitutions can be made:</p>
+<p>||Legacy Function||Preferred Replacement||
+|&lt;code&gt;CGRectGetWidth(rect)&lt;/code&gt;|&lt;code&gt;rect.width&lt;/code&gt;|
+|&lt;code&gt;CGRectGetHeight(rect)&lt;/code&gt;|&lt;code&gt;rect.height&lt;/code&gt;|
+|&lt;code&gt;CGRectGetMinX(rect)&lt;/code&gt;|&lt;code&gt;rect.minX&lt;/code&gt;|
+|&lt;code&gt;CGRectGetMidX(rect)&lt;/code&gt;|&lt;code&gt;rect.midX&lt;/code&gt;|
+|&lt;code&gt;CGRectGetMaxX(rect)&lt;/code&gt;|&lt;code&gt;rect.maxX&lt;/code&gt;|
+|&lt;code&gt;CGRectGetMinY(rect)&lt;/code&gt;|&lt;code&gt;rect.minY&lt;/code&gt;|
+|&lt;code&gt;CGRectGetMidY(rect)&lt;/code&gt;|&lt;code&gt;rect.midY&lt;/code&gt;|
+|&lt;code&gt;CGRectGetMaxY(rect)&lt;/code&gt;|&lt;code&gt;rect.maxY&lt;/code&gt;|
+|&lt;code&gt;CGRectIsNull(rect)&lt;/code&gt;|&lt;code&gt;rect.isNull&lt;/code&gt;|
+|&lt;code&gt;CGRectIsEmpty(rect)&lt;/code&gt;|&lt;code&gt;rect.isEmpty&lt;/code&gt;|
+|&lt;code&gt;CGRectIsInfinite(rect)&lt;/code&gt;|&lt;code&gt;rect.isInfinite&lt;/code&gt;|
+|&lt;code&gt;CGRectStandardize&lt;/code&gt;|&lt;code&gt;rect.standardized&lt;/code&gt;|
+|&lt;code&gt;CGRectIntegral(rect)&lt;/code&gt;|&lt;code&gt;rect.integral&lt;/code&gt;|
+|&lt;code&gt;CGRectInset(rect, x, y)&lt;/code&gt;|&lt;code&gt;rect.insetBy(dx: x, dy: y)&lt;/code&gt;|
+|&lt;code&gt;CGRectOffset(rect, x, y&lt;/code&gt;|&lt;code&gt;rect.offsetBy(dx: x, dy: y&lt;/code&gt;|
+|&lt;code&gt;CGRectUnion(rect1, rect2)&lt;/code&gt;|&lt;code&gt;rect1.union(rect2)&lt;/code&gt;|
+|&lt;code&gt;CGRectIntersection( rect1 ,rect2)&lt;/code&gt;|&lt;code&gt;rect1.intersect(rect2)&lt;/code&gt;|
+|&lt;code&gt;CGRectContainsRect(rect1, rect2)&lt;/code&gt;|&lt;code&gt;rect1.contains(rect2)&lt;/code&gt;|
+|&lt;code&gt;CGRectContainsPoint(rect, point)&lt;/code&gt;|&lt;code&gt;rect.contains(point)&lt;/code&gt;|
+|&lt;code&gt;CGRectIntersectsRect(rect1, rect2)&lt;/code&gt;|&lt;code&gt;rect1.intersects(rect2)&lt;/code&gt;|</p>

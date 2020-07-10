@@ -1,0 +1,44 @@
+<p>Deprecated language features are those that have been retained temporarily for backward compatibility, but which will eventually be removed from the language. In effect, deprecation announces a grace period to allow the smooth transition from the old features to the new ones. In that period, no use of the deprecated features should be added to the code, and all existing uses should be gradually removed.</p>
+<p>The following functions were deprecated in PHP 5:
+||Deprecated||Use Instead||
+|&lt;code&gt;call_user_method()&lt;/code&gt;|&lt;code&gt;call_user_func()&lt;/code&gt;|
+|&lt;code&gt;call_user_method_array()&lt;/code&gt;|&lt;code&gt;call_user_func_array()&lt;/code&gt;|
+|&lt;code&gt;define_syslog_variables()&lt;/code&gt;||
+|&lt;code&gt;dl()&lt;/code&gt;||
+|&lt;code&gt;ereg()&lt;/code&gt;|&lt;code&gt;preg_match()&lt;/code&gt;|
+|&lt;code&gt;ereg_replace()&lt;/code&gt;|&lt;code&gt;preg_replace()&lt;/code&gt; (note that this is deprecated in PHP 5.5)|
+|&lt;code&gt;eregi()&lt;/code&gt;|&lt;code&gt;preg_match()&lt;/code&gt; with 'i' modifier|
+|&lt;code&gt;eregi_replace()&lt;/code&gt;|&lt;code&gt;preg_replace()&lt;/code&gt; with 'i' modifier|
+|&lt;code&gt;set_magic_quotes_runtime()&lt;/code&gt; and its alias, &lt;code&gt;magic_quotes_runtime()&lt;/code&gt;||
+|&lt;code&gt;session_register()&lt;/code&gt;|&lt;code&gt;$<em>SESSION&lt;/code&gt; superglobal|
+|&lt;code&gt;session_unregister()&lt;/code&gt;|&lt;code&gt;$_SESSION&lt;/code&gt; superglobal|
+|&lt;code&gt;session_is_registered()&lt;/code&gt;|&lt;code&gt;$_SESSION&lt;/code&gt; superglobal|
+|&lt;code&gt;set_socket_blocking()&lt;/code&gt;|&lt;code&gt;stream_set_blocking()&lt;/code&gt;|
+|&lt;code&gt;split()&lt;/code&gt;|&lt;code&gt;preg_split()&lt;/code&gt;|
+|&lt;code&gt;spliti()&lt;/code&gt;|&lt;code&gt;preg_split()&lt;/code&gt; with 'i' modifier|
+|&lt;code&gt;sql_regcase()&lt;/code&gt;||
+|&lt;code&gt;mysql_db_query()&lt;/code&gt;|&lt;code&gt;mysql_select_db()&lt;/code&gt; and &lt;code&gt;mysql_query()&lt;/code&gt;|
+|&lt;code&gt;mysql_escape_string()&lt;/code&gt;|&lt;code&gt;mysql_real_escape_string()&lt;/code&gt;|
+|Passing locale category names as strings|Use the LC</em>* family of constants|</p>
+<p>The following functions were deprecated in PHP 7:
+||Deprecated||Use Instead||
+|&lt;code&gt;__autoload()&lt;/code&gt;|&lt;code&gt;spl_autoload_register()&lt;/code&gt;|
+|&lt;code&gt;create_function()&lt;/code&gt;|anonymous function|
+|&lt;code&gt;parse_str()&lt;/code&gt; without second argument|&lt;code&gt;parse_str()&lt;/code&gt; with second argument|
+|&lt;code&gt;gmp_random()&lt;/code&gt;|&lt;code&gt;gmp_random_bits()&lt;/code&gt; or &lt;code&gt;gmp_random_range()&lt;/code&gt;|
+|&lt;code&gt;each()&lt;/code&gt;|&lt;code&gt;foreach&lt;/code&gt;|
+|&lt;code&gt;assert()&lt;/code&gt; with string argument| |
+|Defining case-insensitive constants by calling &lt;code&gt;define()&lt;/code&gt; with &lt;code&gt;true&lt;/code&gt; as third parameter|&lt;code&gt;define("myconst", $value)&lt;/code&gt; or &lt;code&gt;define("myconst", $value, false)&lt;/code&gt;|
+|&lt;code&gt;FILTER_FLAG_SCHEME_REQUIRED&lt;/code&gt; and &lt;code&gt;FILTER_FLAG_HOST_REQUIRED&lt;/code&gt; flags|&lt;code&gt;FILTER_VALIDATE_URL&lt;/code&gt; flag|
+|&lt;code&gt;fgetss()&lt;/code&gt; function, &lt;code&gt;"string.strip_tags"&lt;/code&gt; stream filter name, &lt;code&gt;SplFileObject::fgetss()&lt;/code&gt; method and &lt;code&gt;gzgetss()&lt;/code&gt; function| |
+|&lt;code&gt;mbregex_encoding()&lt;/code&gt;, &lt;code&gt;mbereg()&lt;/code&gt;, &lt;code&gt;mberegi()&lt;/code&gt;, &lt;code&gt;mbereg_replace()&lt;/code&gt;, &lt;code&gt;mberegi_replace()&lt;/code&gt;, &lt;code&gt;mbsplit()&lt;/code&gt;, &lt;code&gt;mbereg_match()&lt;/code&gt;, &lt;code&gt;mbereg_search()&lt;/code&gt;, &lt;code&gt;mbereg_search_pos()&lt;/code&gt;, &lt;code&gt;mbereg_search_regs()&lt;/code&gt;, &lt;code&gt;mbereg_search_init()&lt;/code&gt;, &lt;code&gt;mbereg_search_getregs()&lt;/code&gt;, &lt;code&gt;mbereg_search_getpos()&lt;/code&gt;, &lt;code&gt;mbereg_search_setpos()&lt;/code&gt;|Use the
+    corresponding &lt;code&gt;mb_ereg_*()&lt;/code&gt; variants instead|
+|string search functions with integer needle (&lt;code&gt;stristr&lt;/code&gt;, &lt;code&gt;strrchr&lt;/code&gt;, &lt;code&gt;strstr&lt;/code&gt;, &lt;code&gt;strripos&lt;/code&gt;, &lt;code&gt;stripos&lt;/code&gt;, &lt;code&gt;strrpos&lt;/code&gt;, &lt;code&gt;strpos&lt;/code&gt;, &lt;code&gt;strchr&lt;/code&gt;) |use a string needle instead|
+|&lt;code&gt;image2wbmp()&lt;/code&gt;|&lt;code&gt;imagewbmp()&lt;/code&gt;|
+|&lt;code&gt;Normalizer::NONE&lt;/code&gt;| |
+|Defining an &lt;code&gt;assert()&lt;/code&gt; function inside a namespace|use the standard &lt;code&gt;assert()&lt;/code&gt; function|</p>
+<h2>See</h2>
+<ul>
+<li><a href="https://wiki.php.net/rfc/deprecations_php_7_3">PHP RFC: Deprecations for PHP 7.3</a></li>
+<li><a href="https://wiki.php.net/rfc/case_insensitive_constant_deprecation">PHP RFC: Deprecate and Remove Case-Insensitive Constants</a></li>
+</ul>

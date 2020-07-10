@@ -1,0 +1,64 @@
+<p>The number of columns in a &lt;code&gt;FETCH&lt;/code&gt; statement should match the number actually selected in the relevant cursor. Use more columns in the &lt;code&gt;FETCH&lt;/code&gt; than the cursor, and you’ve got a data problem, because the variables you expect to be updated by the cursor are never actually touched, and neither are their null indicators. Instead, they retain whatever value they had before the fetch. Meaning you’re operating with bad data.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+      EXEC SQL
+        DECLARE C-SQL-CURSOR CURSOR
+          SELECT COLUMN1
+                ,COLUMN2
+                ,COLUMN3
+            FROM TBLWTABLE
+          WITH UR
+      END-EXEC.
+
+      …
+
+      EXEC SQL
+        FETCH C-SQL-CURSOR
+        INTO  :H-COLUMN1 :H-COLUMN1-IND  -- Noncompliant
+             ,:H-COLUMN2 :H-COLUMN2-IND
+             ,:H-COLUMN3 :H-COLUMN3-IND
+             ,:H-COLUMN4 :H-COLUMN4-IND  -- Not selected
+             ,:H-COLUMN5 :H-COLUMN5-IND  -- Not selected
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+      EXEC SQL
+        DECLARE C-SQL-CURSOR CURSOR
+          SELECT COLUMN1
+                ,COLUMN2
+                ,COLUMN3
+                ,COLUMN4
+                ,COLUMN5
+            FROM TBLWTABLE
+          WITH UR
+      END-EXEC.
+
+      …
+
+      EXEC SQL
+        FETCH C-SQL-CURSOR
+        INTO  :H-COLUMN1 :H-COLUMN1-IND
+             ,:H-COLUMN2 :H-COLUMN2-IND
+             ,:H-COLUMN3 :H-COLUMN3-IND
+             ,:H-COLUMN4 :H-COLUMN4-IND
+             ,:H-COLUMN5 :H-COLUMN5-IND
+</pre>
+<p>or</p>
+<pre>
+      EXEC SQL
+        DECLARE C-SQL-CURSOR CURSOR
+          SELECT COLUMN1
+                ,COLUMN2
+                ,COLUMN3
+            FROM TBLWTABLE
+          WITH UR
+      END-EXEC.
+
+      …
+
+      EXEC SQL
+        FETCH C-SQL-CURSOR
+        INTO  :H-COLUMN1 :H-COLUMN1-IND
+             ,:H-COLUMN2 :H-COLUMN2-IND
+             ,:H-COLUMN3 :H-COLUMN3-IND
+</pre>

@@ -1,0 +1,26 @@
+<p>Arrays in JavaScript have several methods for filtering, mapping or folding that require a callback. Not having a return statement in such a callback function is most likely a mistake.
+This rule applies for the following methods of an array:</p>
+<ul>
+<li>&lt;code&gt;Array.from&lt;/code&gt;</li>
+<li>&lt;code&gt;Array.prototype.every&lt;/code&gt;</li>
+<li>&lt;code&gt;Array.prototype.filter&lt;/code&gt;</li>
+<li>&lt;code&gt;Array.prototype.find&lt;/code&gt;</li>
+<li>&lt;code&gt;Array.prototype.findIndex&lt;/code&gt;</li>
+<li>&lt;code&gt;Array.prototype.map&lt;/code&gt;</li>
+<li>&lt;code&gt;Array.prototype.reduce&lt;/code&gt;</li>
+<li>&lt;code&gt;Array.prototype.reduceRight&lt;/code&gt;</li>
+<li>&lt;code&gt;Array.prototype.some&lt;/code&gt;</li>
+<li>&lt;code&gt;Array.prototype.sort&lt;/code&gt;</li>
+</ul>
+<h2>Noncompliant Code Example</h2>
+<pre>
+var merged = arr.reduce(function(a, b) {
+  a.concat(b);
+}); // Noncompliant: No return statement
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+var merged = arr.reduce(function(a, b) {
+  return a.concat(b);
+});
+</pre>

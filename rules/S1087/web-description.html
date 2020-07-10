@@ -1,0 +1,25 @@
+<p>The &lt;code&gt;&lt;object&gt;&lt;/code&gt; tag is used by Internet Explorer 3.0 or later on Windows platforms or any browser that supports the use of the Flash ActiveX control. The &lt;code&gt;&lt;embed&gt;&lt;/code&gt; tag is used by Netscape Navigator 2.0 or later, or browsers that support the use of the Netscape-compatible plug-in version of Flash Player.</p>
+<p>When an ActiveX-enabled browser loads the HTML page, it reads the values set on the &lt;code&gt;&lt;object&gt;&lt;/code&gt; and ignores the &lt;code&gt;&lt;embed&gt;&lt;/code&gt; tag. When browsers using the Flash plug-in load the HTML page, they read the values set on the &lt;code&gt;&lt;embed&gt;&lt;/code&gt; tag and ignore the &lt;code&gt;&lt;object&gt;&lt;/code&gt; tag.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+&lt;object classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000" width="100" height="100"&gt;      &lt;!-- Non-Compliant --&gt;
+  &lt;param name="movie" value="movie_name.swf" /&gt;
+&lt;/object&gt;
+
+&lt;embed src="movie_name.swf"                                                                 &lt;!-- Non-Compliant --&gt;
+       width="550"
+       height="400"
+       type="application/x-shockwave-flash"
+       pluginspage="http://www.macromedia.com/go/getflashplayer" /&gt;
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+&lt;object classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000" width="100" height="100"&gt;      &lt;!-- Compliant --&gt;
+  &lt;param name="movie" value="movie_name.swf" /&gt;
+  &lt;embed src="movie_name.swf"                                                               &lt;!-- Compliant --&gt;
+       width="550"
+       height="400"
+       type="application/x-shockwave-flash"
+       pluginspage="http://www.macromedia.com/go/getflashplayer" /&gt;
+&lt;/object&gt;
+</pre>

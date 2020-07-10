@@ -1,0 +1,9 @@
+<p>Because the value returned never changes, it is inefficient to call &lt;code&gt;Asc&lt;/code&gt;/&lt;code&gt;AscW&lt;/code&gt; on a String constant. Use the numeric value instead.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+intCode = Asc("*")
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+intCode = 42
+</pre>

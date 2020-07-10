@@ -1,0 +1,38 @@
+<p>&lt;code&gt;StringBuffer&lt;/code&gt; and &lt;code&gt;StringBuilder&lt;/code&gt; instances that are &lt;code&gt;append&lt;/code&gt;ed but never &lt;code&gt;toString&lt;/code&gt;ed needlessly clutter the code, and worse are a drag on performance. Either they should be removed, or the missing &lt;code&gt;toString&lt;/code&gt; call added.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+public void doSomething(List&lt;String&gt; strings) {
+
+  StringBuilder sb = new StringBuilder();  // Noncompliant
+  sb.append("Got: ");
+  for (String str : strings) {
+    sb.append(str).append(", ");
+    // ...
+  }
+}
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+public void doSomething(List&lt;String&gt; strings) {
+
+  for (String str : strings) {
+    // ...
+  }
+}
+</pre>
+<p>or</p>
+<pre>
+public void doSomething(List&lt;String&gt; strings) {
+
+  StringBuilder sb = new StringBuilder();
+  sb.append("Got: ");
+  for (String str : strings) {
+    sb.append(str).append(", ");
+    // ...
+  }
+
+  LOGGER.info(sb.toString);
+}
+</pre>
+<h2>Exceptions</h2>
+<p>This rule ignores &lt;code&gt;StringBuffer&lt;/code&gt;s and &lt;code&gt;StringBuilder&lt;/code&gt;s that are passed as method arguments on the grounds that they are likely &lt;code&gt;toString&lt;/code&gt;ed there.</p>

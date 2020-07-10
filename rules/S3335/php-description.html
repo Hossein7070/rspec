@@ -1,0 +1,12 @@
+<p>The &lt;code&gt;cgi.force_redirect&lt;/code&gt; <em>php.ini</em> configuration is on by default, and it prevents unauthenticated access to scripts when PHP is running as a CGI. Unfortunately, it must be disabled on IIS, OmniHTTPD and Xitami, but in all other cases it should be on.</p>
+<p>This rule raises an issue when when &lt;code&gt;cgi.force_redirect&lt;/code&gt; is explicitly disabled.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+; php.ini
+cgi.force_redirect=0  ; Noncompliant
+</pre>
+<h2>See</h2>
+<ul>
+<li><a href="https://www.owasp.org/index.php/Top_10-2017_A6-Security_Misconfiguration">OWASP Top 10 2017 Category A6</a> - Security Misconfiguration</li>
+<li><a href="http://cwe.mitre.org/data/definitions/305">MITRE, CWE-305</a> - Authentication Bypass by Primary Weakness</li>
+</ul>

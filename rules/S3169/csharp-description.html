@@ -1,0 +1,16 @@
+<p>There’s no point in chaining multiple &lt;code&gt;OrderBy&lt;/code&gt; calls in a LINQ; only the last one will be reflected in the result because each subsequent call  completely reorders the list. Thus, calling &lt;code&gt;OrderBy&lt;/code&gt; multiple times is a performance issue as well, because all of the sorting will be executed, but only the result of the last sort will be kept.</p>
+<p>Instead, use &lt;code&gt;ThenBy&lt;/code&gt; for each call after the first.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+var x = personList
+  .OrderBy(person =&gt; person.Age)
+  .OrderBy(person =&gt; person.Name)  // Noncompliant
+  .ToList();  // x is sorted by Name, not sub-sorted
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+var x = personList
+  .OrderBy(person =&gt; person.Age)
+  .ThenBy(person =&gt; person.Name)
+  .ToList();
+</pre>

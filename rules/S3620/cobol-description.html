@@ -1,0 +1,31 @@
+<p>There’s no point in including the default value of a column in an insert statement. It simply clutters the code to no additional benefit.</p>
+<p><strong>Note</strong> that this rule raises issues only when a database catalog is provided during the SonarQube analysis.</p>
+<h2>Noncompliant Code Example</h2>
+<p>With the table &lt;code&gt;PRODUCT&lt;/code&gt; having a column &lt;code&gt;INV_COUNT&lt;/code&gt; with default &lt;code&gt;0&lt;/code&gt;:</p>
+<pre>
+EXEC SQL
+  INSERT INTO PRODUCT
+  (
+    NAME,
+    INV_COUNT  -- Noncompliant
+  )
+  VALUES
+  (
+    :PROD-NAME,
+    0  -- this is the default value
+  )
+END-EXEC
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+EXEC SQL
+  INSERT INTO PRODUCT
+  (
+    NAME
+  )
+  VALUES
+  (
+    :PROD-NAME
+  )
+END-EXEC
+</pre>

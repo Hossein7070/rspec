@@ -1,0 +1,22 @@
+<p>Assertions comparing an object to itself are more likely to be bugs due to developer’s carelessness.</p>
+<p>This rule raises an issue when the actual expression matches the expected expression.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+assertThat(actual).isEqualTo(actual); // Noncompliant
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+assertThat(actual).isEqualTo(expected);
+</pre>
+<h2>Exceptions</h2>
+<p>In a unit test validating the &lt;code&gt;equals(…​)&lt;/code&gt; and &lt;code&gt;hashCode()&lt;/code&gt; methods, it’s legitimate to compare an object to itself. This rule does not raise an issue for &lt;code&gt;isEqualTo&lt;/code&gt;, &lt;code&gt;assertEquals&lt;/code&gt; or &lt;code&gt;hasSameHashCodeAs&lt;/code&gt; when the unit test name contains (case insensitive): &lt;code&gt;equal&lt;/code&gt;, &lt;code&gt;hash_?code&lt;/code&gt;, &lt;code&gt;object_?method&lt;/code&gt;. For example, in tests with the following names: &lt;code&gt;test_equals&lt;/code&gt;, &lt;code&gt;testEqual&lt;/code&gt;, &lt;code&gt;test_hashCode&lt;/code&gt;, &lt;code&gt;test_hash_code&lt;/code&gt;, &lt;code&gt;test_object_methods&lt;/code&gt;.</p>
+<pre>
+class MyClassTest {
+  @Test
+  void test_equals_and_hash_code() {
+    MyClass obj = new MyClass();
+    assertThat(obj).isEqualTo(obj); // Compliant
+    assertThat(obj).hasSameHashCodeAs(obj); // Compliant
+  }
+}
+</pre>

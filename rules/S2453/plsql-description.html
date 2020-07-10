@@ -1,0 +1,36 @@
+<p>For fixed-length values, a &lt;code&gt;CHAR&lt;/code&gt; field occupies the same amount of disk space as a &lt;code&gt;VARCHAR2&lt;/code&gt; field, but for variable-length values &lt;code&gt;CHAR&lt;/code&gt; fields use more storage space and make searching more difficult by right-padding values with whitespaces. Therefore &lt;code&gt;VARCHAR2&lt;/code&gt; fields are preferred. Similarly, &lt;code&gt;NCHAR&lt;/code&gt; should be replaced by &lt;code&gt;NVARCHAR2&lt;/code&gt;.</p>
+<p>Note that for 1-character fields, &lt;code&gt;CHAR&lt;/code&gt; is naturally equivalent to &lt;code&gt;VARCHAR2&lt;/code&gt;, but the latter is still preferred for consistency.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+DECLARE
+  var1 CHAR; -- Noncompliant
+
+  var2 CHAR(42); -- Noncompliant
+
+  var3 NCHAR; -- Noncompliant
+
+  var4 NCHAR(42); -- Noncompliant
+BEGIN
+  NULL;
+END;
+/
+</pre>
+<h2>Compliant Solution</h2>
+<p>{code}DECLARE
+  var1 VARCHAR2(42);</p>
+<pre>
+var2 VARCHAR2(42);
+</pre>
+<pre>
+var3 NVARCHAR2(42);
+</pre>
+<pre>
+  var4 NVARCHAR2(42);
+BEGIN
+  NULL;
+END;
+/
+</pre>
+<pre>
+
+</pre>

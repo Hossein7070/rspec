@@ -1,0 +1,40 @@
+{
+  "title": "Files should not have too many lines",
+  "type": "CODE_SMELL",
+  "status": "ready",
+  "remediation": {
+    "func": "Constant/Issue",
+    "constantCost": "1h"
+  },
+  "tags": [
+    "brain-overload"
+  ],
+  "defaultSeverity": "Major",
+  "ruleSpecification": "RSPEC-104",
+  "sqKey": "FileLengthCheck",
+  "scope": "All",
+  "all_languages": [
+    "abap",
+    "cfamily",
+    "csharp",
+    "go",
+    "java",
+    "javascript",
+    "kotlin",
+    "php",
+    "plsql",
+    "python",
+    "rpg",
+    "ruby",
+    "scala",
+    "swift",
+    "tsql",
+    "vbnet",
+    "web"
+  ],
+  "allKeys": [
+    "S104",
+    "FileLoc",
+    "FileLengthCheck"
+  ]
+}

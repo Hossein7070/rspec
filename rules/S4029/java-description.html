@@ -1,0 +1,14 @@
+<p>With Java 8, there’s no need to write &lt;code&gt;Comparator&lt;/code&gt;s that compare primitive values or other &lt;code&gt;Comparable&lt;/code&gt;s; they can be generated for you using the &lt;code&gt;Comparator.comparing*&lt;/code&gt; functions: &lt;code&gt;comparing&lt;/code&gt;, &lt;code&gt;comparingDouble&lt;/code&gt;, &lt;code&gt;comparingInt&lt;/code&gt;, &lt;code&gt;comparingLong&lt;/code&gt;.</p>
+<p><strong>Note</strong> that this rule is automatically disabled when the project’s &lt;code&gt;sonar.java.source&lt;/code&gt; is lower than &lt;code&gt;8&lt;/code&gt;.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+unparsedFiles.stream()
+   .sorted((f1, f2) -&gt; f1.lines - f2.lines)  // Noncompliant
+   .limit(30);
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+unparsedFiles.stream()
+   .sorted(Comparator.comparingInt(UnparsedFile::getLines()))
+   .limit(30);
+</pre>

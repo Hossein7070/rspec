@@ -1,0 +1,33 @@
+<p>Using &lt;code&gt;Thread.sleep&lt;/code&gt; in a test is just generally a bad idea. It creates brittle tests that can fail unpredictably depending on environment ("Passes on my machine!") or load. Don’t rely on timing (use mocks) or use libraries such as &lt;code&gt;Awaitility&lt;/code&gt; for asynchroneous testing.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+@Test
+public void testDoTheThing(){
+
+  MyClass myClass = new MyClass();
+  myClass.doTheThing();
+
+  Thread.sleep(500);  // Noncompliant
+  // assertions...
+}
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+@Test
+public void testDoTheThing(){
+
+  MyClass myClass = new MyClass();
+  myClass.doTheThing();
+
+  await().atMost(2, Duration.SECONDS).until(didTheThing());  // Compliant
+  // assertions...
+}
+
+private Callable&amp;lt;Boolean&amp;gt; didTheThing() {
+  return new Callable&amp;lt;Boolean&amp;gt;() {
+    public Boolean call() throws Exception {
+      // check the condition that must be fulfilled...
+    }
+  };
+}
+</pre>

@@ -1,0 +1,17 @@
+<p>When creating a function, procedure, package, package body, type, type body, trigger or library, it is a good practice replace the existing one to avoid errors.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+CREATE FUNCTION my_function RETURN PLS_INTEGER AS -- Noncompliant
+BEGIN
+  RETURN 42;
+END;
+/
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+CREATE OR REPLACE FUNCTION my_function RETURN PLS_INTEGER AS -- Compliant, no error even if the function already exists
+BEGIN
+  RETURN 42;
+END;
+/
+</pre>

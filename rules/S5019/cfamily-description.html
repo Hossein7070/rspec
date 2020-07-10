@@ -1,0 +1,25 @@
+<p>A lambda can only capture local variables. When a lambda is defined within a member function, you may believe that you are capturing a member variable of the current class, but in fact, what you are capturing is &lt;code&gt;this&lt;/code&gt;. This may be very surprising, and lead to bugs if the lambda is then used after the current object has been destroyed.</p>
+<p>Therefore, it’s better to be explicit about exactly what is captured as soon as &lt;code&gt;this&lt;/code&gt; is captured.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+class A {
+  int i;
+  void f(int j) {
+    auto l = [=](int k) { return i+j+k;}; // Noncompliant, someone reading the code might believe that i is captured by copy
+  }
+};
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+class A {
+  int i;
+  void f(int j) {
+    auto l = [this, j](int k) { return i+j+k;}; // It is now clearer that i is not directly captured
+    // auto l = [i, j](int k) { return i+j+k;}; // Would not compile
+  }
+};
+</pre>
+<h2>See</h2>
+<ul>
+<li><a href="https://github.com/isocpp/CppCoreGuidelines/blob/036324/CppCoreGuidelines.md#f54-if-you-capture-this-capture-all-variables-explicitly-no-default-capture">C++ Core Guidelines F.54</a> If you capture &lt;code&gt;this&lt;/code&gt;, capture all variables explicitly (no default capture)</li>
+</ul>

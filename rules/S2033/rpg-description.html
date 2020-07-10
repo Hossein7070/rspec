@@ -1,0 +1,12 @@
+<p>Because library names could change from environment to environment, they should never be hard-coded in a program. Instead, you should use a variable to specify the library name and set that variable with data external to the program.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+CLRPFM   FILE(XPJLIB/FILE01)
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+CHGVAR     VAR(&amp;LIB01) VALUE(&amp;PREFIX *CAT 'LIB')
+CLRPFM      FILE(&amp;LIB01/FILE01)
+</pre>
+<h2>Exceptions</h2>
+<p>Hard-coding references to QTEMP, which is a temporary library, is allowed.</p>

@@ -1,0 +1,60 @@
+<p>The requirement for a final &lt;code&gt;default&lt;/code&gt; clause is defensive programming. The clause should either take appropriate action, or contain a suitable comment as to why no action is taken.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+switch (param) {  //missing default clause
+  case 0:
+    doSomething();
+    break;
+  case 1:
+    doSomethingElse();
+    break;
+}
+
+switch (param) {
+  default: // default clause should be the last one
+    error();
+    break;
+  case 0:
+    doSomething();
+    break;
+  case 1:
+    doSomethingElse();
+    break;
+}
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+switch (param) {
+  case 0:
+    doSomething();
+    break;
+  case 1:
+    doSomethingElse();
+    break;
+  default:
+    error();
+    break;
+}
+</pre>
+<h2>Exceptions</h2>
+<p>If the &lt;code&gt;switch&lt;/code&gt; parameter is an &lt;code&gt;Enum&lt;/code&gt; and if all the constants of this enum are used in the &lt;code&gt;case&lt;/code&gt; statements, then no &lt;code&gt;default&lt;/code&gt; clause is expected.</p>
+<p>Example:</p>
+<pre>
+public enum Day {
+    SUNDAY, MONDAY
+}
+...
+switch(day) {
+  case SUNDAY:
+    doSomething();
+    break;
+  case MONDAY:
+    doSomethingElse();
+    break;
+}
+</pre>
+<h2>See</h2>
+<ul>
+<li><a href="http://cwe.mitre.org/data/definitions/478.html">MITRE, CWE-478</a> - Missing Default Case in Switch Statement</li>
+<li><a href="https://www.securecoding.cert.org/confluence/x/YgE">CERT, MSC01-C.</a> - Strive for logical completeness</li>
+</ul>

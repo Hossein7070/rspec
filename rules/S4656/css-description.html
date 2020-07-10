@@ -1,0 +1,17 @@
+<p>CSS allows duplicate property names but only the last instance of a duplicated name determines the actual value that will be used for it. Therefore, changing values of other occurrences of a duplicated name will have no effect and may cause misunderstandings and bugs.</p>
+<p>This rule ignores &lt;code&gt;$sass&lt;/code&gt;, &lt;code&gt;@less&lt;/code&gt;, and &lt;code&gt;var(--custom-property)&lt;/code&gt; variable syntaxes.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+a {
+  color: pink;
+  background: orange;
+  color: orange
+}
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+a {
+  color: pink;
+  background: orange
+}
+</pre>

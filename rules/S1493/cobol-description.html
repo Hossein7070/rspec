@@ -1,0 +1,13 @@
+<p>It is a bad practice to use Dynamic SQL. It differs from static embedded SQL in that part or all of the actual SQL commands may be stored in a host variable that is built on the fly during execution of the program. In the extreme case, the SQL commands are generated in their entirety by the application program at run time. While dynamic SQL is more flexible than static embedded SQL, it does require additional overhead and is much more difficult to understand and to maintain.</p>
+<p>Moreover, dynamic SQL may expose the application to SQL injection vulnerabilities.</p>
+<p>This rule raises an issue when &lt;code&gt;PREPARE&lt;/code&gt; or &lt;code&gt;EXECUTE IMMEDIATE&lt;/code&gt; is used.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+EXEC SQL PREPARE SEL INTO :SQLDA FROM :STMTBUF END-EXEC.
+</pre>
+<h2>See</h2>
+<ul>
+<li><a href="https://www.owasp.org/index.php/Top_10-2017_A1-Injection">OWASP Top 10 2017 Category A1</a> - Injection</li>
+<li><a href="http://cwe.mitre.org/data/definitions/89.html">MITRE, CWE-89</a> - SQL Injection</li>
+<li><a href="https://www.sans.org/top25-software-errors/#cat1">SANS Top 25</a> - Insecure Interaction Between Components</li>
+</ul>

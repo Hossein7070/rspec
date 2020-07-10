@@ -1,0 +1,47 @@
+<p>User provided data such as URL parameters, POST data payloads or cookies should always be considered untrusted and tainted. Deserialization based on data supplied by the user could result in two types of attacks:</p>
+<ul>
+<li>Remote code execution attacks, where the structure of the serialized data is changed to modify the behavior of the object being unserialized.</li>
+<li>Parameter tampering attacks, where data is modified to escalate privileges or change for example quantity or price of products.</li>
+</ul>
+<p>The best way to protect against deserialization attacks is probably to challenge the use of the deserialization mechanism in the application. They are cases were the use of deserialization mechanism was not justified and created breaches (CVE-2017-9785).</p>
+<p>If the use of deserialization mechanisms is valid in your context, the problem could be mitigated in any of the following ways:</p>
+<ul>
+<li>Since the <a href="https://docs.python.org/3/library/pickle.html">pickle module</a> is not secure, never use it to deserialize untrusted data.</li>
+<li>Only use the <a href="https://pyyaml.org/wiki/PyYAMLDocumentation">PyYAML module</a> with the default safe loader.</li>
+<li>Instead of using a native data interchange format, use a safe, standard format such as untyped JSON or structured data approaches such as Google Protocol Buffers.</li>
+<li>To ensure integrity is not compromised, add a digital signature (HMAC) to the serialized data that is validated before deserialization (this is only valid if the client doesn’t need to modify the serialized data)</li>
+<li>As a last resort, restrict deserialization to be possible only to specific, whitelisted classes.</li>
+</ul>
+<h2>Noncompliant Code Example</h2>
+<pre>
+from flask import request
+import pickle
+import yaml
+
+@app.route('/pickle')
+def pickle_loads():
+    file = request.files['pickle']
+    pickle.load(file) # Noncompliant; Never use pickle module to deserialize user inputs
+
+@app.route('/yaml')
+def yaml_load():
+    data = request.GET.get("data")
+    yaml.load(data, Loader=yaml.Loader) # Noncompliant; Avoid using yaml.load with unsafe yaml.Loader
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+from flask import request
+import yaml
+
+@app.route('/yaml')
+def yaml_load():
+    data = request.GET.get("data")
+    yaml.load(data) # Compliant;  Prefer using yaml.load with the default safe loader
+</pre>
+<h2>See</h2>
+<ul>
+<li><a href="https://www.owasp.org/index.php/Top_10-2017_A8-Insecure_Deserialization">OWASP Top 10 2017 Category A8</a> - Insecure Deserialization</li>
+<li><a href="https://cwe.mitre.org/data/definitions/134.html">MITRE, CWE-134</a> - Use of Externally-Controlled Format String</li>
+<li><a href="https://cwe.mitre.org/data/definitions/502.html">MITRE, CWE-502</a> - Deserialization of Untrusted Data</li>
+<li><a href="https://www.sans.org/top25-software-errors/#cat2">SANS Top 25</a> - Risky Resource Management</li>
+</ul>

@@ -1,0 +1,22 @@
+<p>Classes can register themselves to receive notifications using &lt;code&gt;NotificationCenter.add&lt;/code&gt;. Having done so, it seems suspicious that a class would opt to stop receiving notifications before de-initialization. For that reason, this rule raises an issue when &lt;code&gt;NotificationCenter.default.removeObserver(self)&lt;/code&gt; is called anywhere but in &lt;code&gt;deinit&lt;/code&gt;</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+class MyClass {
+  func doTheThing() {
+    //...
+    NotificationCenter.default.removeObserver(self)  // Noncompliant
+  }
+}
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+class MyClass {
+  func doTheThing() {
+    //...
+  }
+
+  func deinit() {
+    NotificationCenter.default.removeObserver(self)
+  }
+}
+</pre>

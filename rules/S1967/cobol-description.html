@@ -1,0 +1,28 @@
+<p>Moving a large number into a small field will result in data truncation. Generally, numeric values are truncated from the left. However, in the case of floating point values, when the target field has too little precision to hold the value being moved to it, decimals will be truncated (not rounded!) from the right.</p>
+<p>In any case, data loss is always the result when too-large values are moved to too-small fields.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+01 NUM-A   PIC 9(2)V9.
+*&gt; ...
+
+    MOVE 88.89   TO NUM-A  *&gt; Noncompliant. Becomes 88.8
+    MOVE 178.7   TO NUM-A  *&gt; Noncompliant. Becomes 78.7
+    MOVE 999.99 TO NUM-A  *&gt; Noncompliant. Truncated on both ends; becomes 99.9
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+01 NUM-A   PIC 9(3)V99.
+*&gt; ...
+
+    MOVE 88.89   TO NUM-A
+    MOVE 178.7   TO NUM-A
+    MOVE 999.99 TO NUM-A
+</pre>
+<h2>See</h2>
+<ul>
+<li><a href="http://cwe.mitre.org/data/definitions/704">MITRE, CWE-704</a> - Incorrect Type Conversion or Cast</li>
+</ul>
+<h3>See Also</h3>
+<ul>
+<li>S3921 - for truncation of string values</li>
+</ul>

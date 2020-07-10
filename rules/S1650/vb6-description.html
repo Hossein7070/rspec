@@ -1,0 +1,10 @@
+<p>Appending '$' to any identifier forces it to the String data type, but this usage is obsolete and should only appear when differentiating string-specific functions from variant functions, such as &lt;code&gt;Left$()&lt;/code&gt; versus &lt;code&gt;Left()&lt;/code&gt;.</p>
+<p>Instead, Strings should be explicitly declared with the String datatype.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+Dim Text$ As String
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+Dim Text As String
+</pre>

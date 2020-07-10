@@ -1,0 +1,10 @@
+<p>It is unsafe to have &lt;code&gt;const&lt;/code&gt; string reference members as they can be created from a temporary quite easily.</p>
+<pre>
+struct Foo {
+  Foo(const string &amp;Str) : Str(Str) {}
+  const string &amp;Str;
+};
+Foo instance("string");
+</pre>
+<p>When the constructor is called, a string temporary is created from &lt;code&gt;const char *&lt;/code&gt; and destroyed immediately after. This results in a dangling reference.</p>
+<p>This rule applies for both &lt;code&gt;std::string&lt;/code&gt; and &lt;code&gt;::string&lt;/code&gt; &lt;code&gt;const&lt;/code&gt; reference members.</p>

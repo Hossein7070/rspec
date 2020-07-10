@@ -1,0 +1,31 @@
+<p>Spring &lt;code&gt;@Component&lt;/code&gt;, &lt;code&gt;@Controller&lt;/code&gt;, &lt;code&gt;@Service&lt;/code&gt;, and &lt;code&gt;@Repository&lt;/code&gt; classes are singletons by default, meaning only one instance of the class is ever instantiated in the application. Typically such a class might have a few &lt;code&gt;static&lt;/code&gt; members, such as a logger, but all non-&lt;code&gt;static&lt;/code&gt; members should be managed by Spring. That is, they should have one of these annotations: &lt;code&gt;@Resource&lt;/code&gt;, &lt;code&gt;@Inject&lt;/code&gt;, &lt;code&gt;@Autowired&lt;/code&gt; or &lt;code&gt;@Value&lt;/code&gt;.</p>
+<p>Having non-injected members in one of these classes could indicate an attempt to manage state. Because they are singletons, such an attempt is almost guaranteed to eventually expose data from User1’s session to User2.</p>
+<p>This rule raises an issue when a singleton &lt;code&gt;@Component&lt;/code&gt;, &lt;code&gt;@Controller&lt;/code&gt;, &lt;code&gt;@Service&lt;/code&gt;, or &lt;code&gt;@Repository&lt;/code&gt; has non-&lt;code&gt;static&lt;/code&gt; members that are not annotated with one of:</p>
+<ul>
+<li>&lt;code&gt;org.springframework.beans.factory.annotation.Autowired&lt;/code&gt;</li>
+<li>&lt;code&gt;org.springframework.beans.factory.annotation.Value&lt;/code&gt;</li>
+<li>&lt;code&gt;javax.annotation.Inject&lt;/code&gt;</li>
+<li>&lt;code&gt;javax.annotation.Resource&lt;/code&gt;</li>
+</ul>
+<h2>Noncompliant Code Example</h2>
+<pre>
+@Controller
+public class HelloWorld {
+
+  private String name = null;
+
+  @RequestMapping("/greet", method = GET)
+  public String greet(String greetee) {
+
+    if (greetee != null) {
+      this.name = greetee;
+    }
+
+    return "Hello " + this.name;  // if greetee is null, you see the previous user's data
+  }
+}
+</pre>
+<h2>See</h2>
+<ul>
+<li><a href="https://www.owasp.org/index.php/Top_10-2017_A3-Sensitive_Data_Exposure">OWASP Top 10 2017 Category A3</a> - Sensitive Data Exposure</li>
+</ul>

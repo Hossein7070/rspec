@@ -1,0 +1,66 @@
+<p>&lt;code&gt;object.Equals()&lt;/code&gt; overrides can be optimized by checking first for reference equality between &lt;code&gt;this&lt;/code&gt; and the parameter. This check can be implemented by calling &lt;code&gt;object.ReferenceEquals()&lt;/code&gt; or &lt;code&gt;base.Equals()&lt;/code&gt;, where &lt;code&gt;base&lt;/code&gt; is &lt;code&gt;object&lt;/code&gt;. However, using &lt;code&gt;base.Equals()&lt;/code&gt; is a maintenance hazard because while it works if you extend &lt;code&gt;Object&lt;/code&gt; directly, if you introduce a new base class that overrides &lt;code&gt;Equals&lt;/code&gt;, it suddenly stops working.</p>
+<p>This rule raises an issue if &lt;code&gt;base.Equals()&lt;/code&gt; is used but &lt;code&gt;base&lt;/code&gt; is not &lt;code&gt;object&lt;/code&gt;.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+class Base
+{
+  private int baseField;
+
+  public override bool Equals(object other)
+  {
+    if (base.Equals(other)) // Okay; base is object
+    {
+      return true;
+    }
+
+    return this.baseField == ((Base)other).baseField;
+  }
+}
+
+class Derived : Base
+{
+  private int derivedField;
+
+  public override bool Equals(object other)
+  {
+    if (base.Equals(other))  // Noncompliant
+    {
+      return true;
+    }
+
+    return this.derivedField == ((Derived)other).derivedField;
+  }
+}
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+class Base
+{
+  private int baseField;
+
+  public override bool Equals(object other)
+  {
+    if (object.ReferenceEquals(this, other))  // base.Equals is okay here, but object.ReferenceEquals is better
+    {
+      return true;
+    }
+
+    return this.baseField == ((Base)other).baseField;
+  }
+}
+
+class Derived : Base
+{
+  private int derivedField;
+
+  public override bool Equals(object other)
+  {
+    if (object.ReferenceEquals(this, other))
+    {
+      return true;
+    }
+
+    return base.Equals(other) &amp;&amp; this.derivedField == ((Derived)other).derivedField;
+  }
+}
+</pre>

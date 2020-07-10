@@ -1,0 +1,15 @@
+{
+  "title": "Collection constructors should not be used as java.util.function.Function",
+  "type": "BUG",
+  "status": "ready",
+  "tags": [],
+  "ruleSpecification": "RSPEC-5329",
+  "sqKey": "S5329",
+  "scope": "All",
+  "all_languages": [
+    "java"
+  ],
+  "allKeys": [
+    "S5329"
+  ]
+}

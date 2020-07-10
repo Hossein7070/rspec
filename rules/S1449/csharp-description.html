@@ -1,0 +1,19 @@
+<p>&lt;code&gt;string.ToLower()&lt;/code&gt;, &lt;code&gt;ToUpper&lt;/code&gt;, &lt;code&gt;IndexOf&lt;/code&gt;, &lt;code&gt;LastIndexOf&lt;/code&gt;, and &lt;code&gt;Compare&lt;/code&gt; are all culture-dependent, as are some (floating point number and &lt;code&gt;DateTime&lt;/code&gt;-related) calls to &lt;code&gt;ToString&lt;/code&gt;. Fortunately, all have variants which accept an argument specifying the culture or formatter to use. Leave that argument off and the call will use the system default culture, possibly creating problems with international characters.</p>
+<p>&lt;code&gt;string.CompareTo()&lt;/code&gt; is also culture specific, but has no overload that takes a culture information, so instead it’s better to use &lt;code&gt;CompareOrdinal&lt;/code&gt;, or &lt;code&gt;Compare&lt;/code&gt; with culture.</p>
+<p>Calls without a culture may work fine in the system’s "home" environment, but break in ways that are extremely difficult to diagnose for customers who use different encodings. Such bugs can be nearly, if not completely, impossible to reproduce when it’s time to fix them.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+var lowered = someString.ToLower(); //Noncompliant
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+var lowered = someString.ToLower(CultureInfo.InvariantCulture);
+</pre>
+<p>or</p>
+<pre>
+var lowered = someString.ToLowerInvariant();
+</pre>
+<h2>See</h2>
+<ul>
+<li><a href="https://www.securecoding.cert.org/confluence/x/EwAiAg">CERT, STR02-J.</a> - Specify an appropriate locale when comparing locale-dependent data</li>
+</ul>

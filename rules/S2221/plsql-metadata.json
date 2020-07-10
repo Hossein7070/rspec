@@ -1,0 +1,32 @@
+{
+  "title": "\"WHEN OTHERS\" should not be the only exception handler",
+  "type": "CODE_SMELL",
+  "status": "ready",
+  "remediation": {
+    "func": "Constant/Issue",
+    "constantCost": "1h"
+  },
+  "tags": [
+    "cwe",
+    "error-handling",
+    "bug"
+  ],
+  "defaultSeverity": "Critical",
+  "ruleSpecification": "RSPEC-2221",
+  "sqKey": "WhenOthersAsOnlyExceptionHandlerCheck",
+  "scope": "Main",
+  "securityStandards": {
+    "CWE": [
+      396
+    ]
+  },
+  "all_languages": [
+    "csharp",
+    "java",
+    "plsql"
+  ],
+  "allKeys": [
+    "S2221",
+    "WhenOthersAsOnlyExceptionHandlerCheck"
+  ]
+}

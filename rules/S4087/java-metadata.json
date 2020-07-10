@@ -1,0 +1,22 @@
+{
+  "title": "\"close()\" calls should not be redundant",
+  "type": "CODE_SMELL",
+  "status": "ready",
+  "remediation": {
+    "func": "Constant/Issue",
+    "constantCost": "2min"
+  },
+  "tags": [
+    "redundant"
+  ],
+  "defaultSeverity": "Minor",
+  "ruleSpecification": "RSPEC-4087",
+  "sqKey": "S4087",
+  "scope": "All",
+  "all_languages": [
+    "java"
+  ],
+  "allKeys": [
+    "S4087"
+  ]
+}

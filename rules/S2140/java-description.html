@@ -1,0 +1,13 @@
+<p>There is no need to multiply the output of &lt;code&gt;Random&lt;/code&gt;'s &lt;code&gt;nextDouble&lt;/code&gt; method to get a random integer. Use the &lt;code&gt;nextInt&lt;/code&gt; method instead.</p>
+<p>This rule raises an issue when the return value of any of &lt;code&gt;Random&lt;/code&gt;'s methods that return a floating point value is converted to an integer.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+Random r = new Random();
+int rand = (int)r.nextDouble() * 50;  // Noncompliant way to get a pseudo-random value between 0 and 50
+int rand2 = (int)r.nextFloat(); // Noncompliant; will always be 0;
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+Random r = new Random();
+int rand = r.nextInt(50);  // returns pseudo-random value between 0 and 50
+</pre>

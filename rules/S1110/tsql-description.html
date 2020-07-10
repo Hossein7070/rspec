@@ -1,0 +1,17 @@
+<p>The use of parentheses, even those not required to enforce a desired order of operations, can clarify the intent behind a piece of code. But redundant pairs of parentheses could be misleading, and should be removed.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+DECLARE @x INT = (@y / 2 + 1); -- Compliant even if the parentheses are ignored
+IF (@x &gt; 0) AND ((@x+@y &gt; 0)) -- Noncompliant
+BEGIN
+  -- ...
+END
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+DECLARE @x INT = (@y / 2 + 1);
+IF (@x &gt; 0) AND (@x+@y &gt; 0)
+BEGIN
+  -- ...
+END
+</pre>

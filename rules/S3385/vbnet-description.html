@@ -1,0 +1,48 @@
+<p>Other than &lt;code&gt;Exit Select&lt;/code&gt;, using an &lt;code&gt;Exit&lt;/code&gt; statement is never a good idea.</p>
+<p>&lt;code&gt;Exit Do&lt;/code&gt;, &lt;code&gt;Exit For&lt;/code&gt;, &lt;code&gt;Exit Try&lt;/code&gt;, and &lt;code&gt;Exit While&lt;/code&gt; will all result in unstructured control flow, i.e. spaghetti code.</p>
+<p>&lt;code&gt;Exit Function&lt;/code&gt;, &lt;code&gt;Exit Property&lt;/code&gt;, and &lt;code&gt;Exit Sub&lt;/code&gt; are all poor, less-readable substitutes for a simple &lt;code&gt;return&lt;/code&gt;, and if used with code that should return a value (&lt;code&gt;Exit Function&lt;/code&gt; and in some cases &lt;code&gt;Exit Property&lt;/code&gt;) they could result in a &lt;code&gt;NullReferenceException&lt;/code&gt;.</p>
+<p>This rule raises an issue for all uses of &lt;code&gt;Exit&lt;/code&gt;  except &lt;code&gt;Exit Select&lt;/code&gt; and &lt;code&gt;Exit Do&lt;/code&gt; statements in loops without condition.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+Public Class Sample
+  Dim condition As Boolean
+
+  Public Sub MySub()
+    If condition Then
+      Exit Sub                  ' Noncompliant
+    End If
+
+    For index = 1 To 10
+      If index = 5 Then
+          Exit For               ' Noncompliant
+      End If
+      ' ...
+    Next
+  End Sub
+  Function MyFunction() As Object
+    ' ...
+    MyFunction = 42
+    Exit Function              ' Noncompliant
+  End Function
+End Class
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+Public Class Sample
+  Dim condition As Boolean
+
+  Public Sub MySub()
+    If condition Then
+        Return
+    End If
+
+    For index = 1 To 4
+        ' ...
+    Next
+  End Sub
+  Function MyFunction() As Object
+    ' ...
+    Return 42
+  End Function
+End Class
+</pre>

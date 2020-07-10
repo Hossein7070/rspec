@@ -1,0 +1,15 @@
+<p>Parentheses are not required after the &lt;code&gt;assert&lt;/code&gt;, &lt;code&gt;del&lt;/code&gt;, &lt;code&gt;elif&lt;/code&gt;, &lt;code&gt;except&lt;/code&gt;, &lt;code&gt;for&lt;/code&gt;, &lt;code&gt;if&lt;/code&gt;, &lt;code&gt;in&lt;/code&gt;, &lt;code&gt;not&lt;/code&gt;, &lt;code&gt;raise&lt;/code&gt;, &lt;code&gt;return&lt;/code&gt;, &lt;code&gt;while&lt;/code&gt;, and &lt;code&gt;yield&lt;/code&gt; keywords, and using them unnecessarily impairs readability. They should therefore be omitted.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+x = 1
+while (x &lt; 10):
+    print "x is now %d" % (x)
+    x += 1
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+x = 1
+while x &lt; 10:
+    print "x is now %d" % (x)
+    x += 1
+</pre>

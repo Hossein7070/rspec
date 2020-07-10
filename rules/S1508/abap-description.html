@@ -1,0 +1,6 @@
+<p>ABAP provides the ability to manipulate programs dynamically during execution for instance with statements like &lt;code&gt;INSERT REPORT&lt;/code&gt; and &lt;code&gt;GENERATE SUBROUTINE POOL&lt;/code&gt;. Most of those statements are for internal use within SAP Technology Development and incompatible changes are possible at any time without prior warning or notice.</p>
+<p>This rule raises an issue when any of the following source code processing statements is used: &lt;code&gt;INSERT REPORT&lt;/code&gt;,  &lt;code&gt;READ REPORT&lt;/code&gt;, &lt;code&gt;DELETE REPORT&lt;/code&gt;, &lt;code&gt;EDITOR-CALL FOR REPORT&lt;/code&gt;, &lt;code&gt;SYNTAX-CHECK FOR itab&lt;/code&gt;, &lt;code&gt;GENERATE REPORT/SUBROUTINE POOL&lt;/code&gt;, &lt;code&gt;LOAD REPORT&lt;/code&gt;, &lt;code&gt;SCAN&lt;/code&gt;, &lt;code&gt;INSERT TEXTPOOL&lt;/code&gt;, &lt;code&gt;READ TEXTPOOL&lt;/code&gt;, &lt;code&gt;DELETE TEXTPOOL&lt;/code&gt;, &lt;code&gt;EXPORT DYNPRO&lt;/code&gt;, &lt;code&gt;IMPORT DYNPRO&lt;/code&gt;, &lt;code&gt;DELETE DYNPRO&lt;/code&gt;, &lt;code&gt;SYNTAX-CHECK FOR DYNPRO&lt;/code&gt;, and &lt;code&gt;GENERATE DYNPRO&lt;/code&gt;.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+GENERATE REPORT MY_PROG.
+</pre>

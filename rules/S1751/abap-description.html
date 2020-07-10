@@ -1,0 +1,19 @@
+<p>A loop with at most one iteration is equivalent to the use of an &lt;code&gt;IF&lt;/code&gt; statement to conditionally execute one piece of code. No developer expects to find such usage of a loop statement. If the initial intention of the author was really to conditionally execute one piece of code, an &lt;code&gt;IF&lt;/code&gt; statement should be used in place.
+At worst that was not the initial intention of the author and so the body of the loop should be fixed to use the nested &lt;code&gt;STOP&lt;/code&gt;, &lt;code&gt;RETURN&lt;/code&gt; or &lt;code&gt;EXIT&lt;/code&gt; statements in a more appropriate way.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+DATA remainder TYPE i.
+DO 20 TIMES.
+  remainder = sy-index MOD 2.
+  cl_demo_output=&gt;write_text().
+  EXIT.  " noncompliant, loop only executes once
+ENDDO.
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+DATA remainder TYPE i.
+DO 20 TIMES.
+  remainder = sy-index MOD 2.
+  cl_demo_output=&gt;write_text().
+ENDDO.
+</pre>

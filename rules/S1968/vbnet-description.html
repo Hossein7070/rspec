@@ -1,0 +1,14 @@
+<p>Comparisons of objects of different types are likely programming errors since the comparisons will always return false.</p>
+<p>This rule raises an issue when objects with no common ancestor closer than &lt;code&gt;Object&lt;/code&gt; are compared.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+public class MyClass {
+  private Mountain mountain = new Mountain("Saint Helens");
+
+  public doSomething(Apple apple) {
+    if (mountain.equals(apple)) {  // Noncompliant. Huh?
+      // ...
+    }
+  }
+}
+</pre>

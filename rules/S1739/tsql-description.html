@@ -1,0 +1,6 @@
+<p>When the value of a &lt;code&gt;LIKE&lt;/code&gt; clause starts with '%', '[…​]' or '_', indexes on the searched column are ignored, and a full table scan is performed instead.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+SELECT FIRST_NAME, LAST_NAME FROM PERSONS
+WHERE LAST_NAME LIKE '%PONT'
+</pre>

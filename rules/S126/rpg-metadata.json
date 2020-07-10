@@ -1,0 +1,36 @@
+{
+  "title": "\"IF ... ELSEIF\" constructs should end with \"ELSE\" clauses",
+  "type": "CODE_SMELL",
+  "status": "ready",
+  "remediation": {
+    "func": "Constant/Issue",
+    "constantCost": "5min"
+  },
+  "tags": [],
+  "defaultSeverity": "Critical",
+  "ruleSpecification": "RSPEC-126",
+  "sqKey": "S126",
+  "scope": "All",
+  "all_languages": [
+    "abap",
+    "apex",
+    "cfamily",
+    "csharp",
+    "go",
+    "java",
+    "javascript",
+    "kotlin",
+    "php",
+    "plsql",
+    "rpg",
+    "ruby",
+    "scala",
+    "swift",
+    "tsql",
+    "vbnet"
+  ],
+  "allKeys": [
+    "S126",
+    "ElseIfWithoutElse"
+  ]
+}

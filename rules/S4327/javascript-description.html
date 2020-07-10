@@ -1,0 +1,28 @@
+<p>Assigning &lt;code&gt;this&lt;/code&gt; to a local variable is a way to reference parent context inside inner functions. In TypeScript when using arrow functions this happens automatically.
+This rule raises an issue when &lt;code&gt;this&lt;/code&gt; is assigned to a local variable.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+function Foo() {
+  let that = this;  // Noncompliant
+  that.val = 0;
+
+  setInterval(function() {
+    that.val++;
+  }, 1000);
+}
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+function Foo() {
+  this.val = 0;
+
+  setInterval(() =&gt; {
+    this.val++;
+  }, 1000);
+}
+</pre>
+<h2>Exceptions</h2>
+<p>This rule ignores &lt;code&gt;this&lt;/code&gt; used for destructuring.</p>
+<pre>
+const { foo, bar } = this;
+</pre>

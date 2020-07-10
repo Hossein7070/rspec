@@ -1,0 +1,16 @@
+<p>Using &lt;code&gt;FETCH FIRST n ROWS ONLY&lt;/code&gt; in a &lt;code&gt;SELECT&lt;/code&gt; without ordering the results from which the "n first" results are chosen will return a seemingly random set of rows, and is surely a mistake.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+SELECT fname, lname, city
+  FROM people
+  WHERE city IS NOT NULL
+  FETCH FIRST 10 ROWS ONLY; -- Noncompliant selects 10 random rows
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+SELECT fname, lname, city
+  FROM people
+  WHERE city IS NOT NULL
+  ORDER BY birthdate DESC
+  FETCH FIRST 10 ROWS ONLY;
+</pre>

@@ -1,0 +1,63 @@
+<p>Nested &lt;code&gt;switch&lt;/code&gt; structures are difficult to understand because you can easily confuse the cases of an inner &lt;code&gt;switch&lt;/code&gt; as belonging to an outer statement. Therefore nested &lt;code&gt;switch&lt;/code&gt; statements should be avoided.</p>
+<p>Specifically, you should structure your code to avoid the need for nested &lt;code&gt;switch&lt;/code&gt; statements, but if you cannot, then consider moving the inner &lt;code&gt;switch&lt;/code&gt; to another function.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+public function func(foo:Number, bar:Number):void
+{
+  switch (foo)
+  {
+    case 1:
+      // do something
+      break;
+    case 2:
+      switch (bar)  // Noncompliant
+      {
+        case 89:  // It's easy to lose sight of what's being tested; is it foo or bar?
+          // ...
+          break;
+        case 90:
+          // ...
+          break;
+      }
+      break;
+    case 3:
+      // do something
+      break;
+    default:
+      break;
+  }
+}
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+public function func(foo:Number, bar:Number):void
+{
+  switch (foo)
+  {
+    case 1:
+      // ...
+      break;
+    case 2:
+      handleBar(bar);
+      break;
+    case 3:
+      // ...
+      break;
+    default:
+      break;
+  }
+}
+
+public function handleBar(bar:Number):void
+{
+  switch (bar)
+  {
+    case 89:
+      // ...
+      break;
+    case 90:
+      // ...
+      break;
+  }
+}
+</pre>

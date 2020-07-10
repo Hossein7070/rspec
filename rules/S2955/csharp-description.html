@@ -1,0 +1,34 @@
+<p>When constraints have not been applied to restrict a generic type parameter to be a reference type, then a value type, such as a &lt;code&gt;struct&lt;/code&gt;, could also be passed. In such cases, comparing the type parameter to &lt;code&gt;null&lt;/code&gt; would always be false, because a &lt;code&gt;struct&lt;/code&gt; can be empty, but never &lt;code&gt;null&lt;/code&gt;. If a value type is truly what’s expected, then the comparison should use &lt;code&gt;default()&lt;/code&gt;. If it’s not, then constraints should be added so that no value type can be passed.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+private bool IsDefault&lt;T&gt;(T value)
+{
+  if (value == null) // Noncompliant
+  {
+    // ...
+  }
+  // ...
+}
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+private bool IsDefault&lt;T&gt;(T value)
+{
+  if(object.Equals(value, default(T)))
+  {
+    // ...
+  }
+  // ...
+}
+</pre>
+<p>or</p>
+<pre>
+private bool IsDefault&lt;T&gt;(T value) where T : class
+{
+  if (value == null)
+  {
+    // ...
+  }
+  // ...
+}
+</pre>

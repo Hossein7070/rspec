@@ -1,0 +1,33 @@
+<p>The &lt;code&gt;switch&lt;/code&gt; statement should be used only to clearly define some new branches in the control flow. As soon as a &lt;code&gt;case&lt;/code&gt; clause contains too many statements this highly decreases the readability of the overall control flow statement. In such case, the content of the &lt;code&gt;case&lt;/code&gt; clause should be extracted into a dedicated method.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+CASE SY-INDEX.
+  WHEN ONE. // 6 lines till next WHEN
+    PERFORM sub1.
+    PERFORM sub2.
+    PERFORM sub3.
+    PERFORM sub4.
+    PERFORM sub5.
+  WHEN 2.
+...
+ENDCASE.
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+CASE SY-INDEX.
+  WHEN ONE.
+    PERFORM extractedSub.
+  WHEN 2.
+...
+ENDCASE.
+
+...
+
+FORM extractedSub.
+  PERFORM sub1.
+  PERFORM sub2.
+  PERFORM sub3.
+  PERFORM sub4.
+  PERFORM sub5.
+ENDFORM.
+</pre>

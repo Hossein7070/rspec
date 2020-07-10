@@ -1,0 +1,15 @@
+<p>Because messages sent to &lt;code&gt;nil&lt;/code&gt; (or a pointer with a &lt;code&gt;nil&lt;/code&gt; value) will return zero, it is often not necessary to explicitly &lt;code&gt;nil&lt;/code&gt;-check a pointer, and doing so  simply adds unnecessary code.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+if (foo != nil) { // Noncomliant; explicit nil check
+  [foo aMethod];
+}
+
+if (foo) {  // Noncompliant; implicit nil check
+  [foo aMethod];
+}
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+[foo aMethod];
+</pre>

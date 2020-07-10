@@ -1,0 +1,12 @@
+<p>The standard, predefined macros, such as &lt;code&gt;<em>FILE</em>&lt;/code&gt; and &lt;code&gt;<em>LINE</em>&lt;/code&gt;, are primarily intended for use by the implementation, and changing them could result in undefined behavior.</p>
+<p>This rule checks that the following predefined macros are not defined, undefined, or redefined: &lt;code&gt;assert&lt;/code&gt;, &lt;code&gt;errno&lt;/code&gt;, &lt;code&gt;<em>FILE</em>&lt;/code&gt;, &lt;code&gt;<em>LINE</em>&lt;/code&gt;, &lt;code&gt;<em>TIME</em>&lt;/code&gt;, &lt;code&gt;<em>DATE</em>&lt;/code&gt;, &lt;code&gt;<em>TIMESTAMP</em>&lt;/code&gt;, &lt;code&gt;<em>COUNTER</em>&lt;/code&gt;, &lt;code&gt;<em>INCLUDE_LEVEL</em>&lt;/code&gt;, &lt;code&gt;<em>BASE_FILE</em>&lt;/code&gt;, and &lt;code&gt;_Pragma&lt;/code&gt;.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+#undef __LINE__
+</pre>
+<h2>See</h2>
+<ul>
+<li>MISRA C:2004, 20.1 - Reserved identifiers, macros and functions in the standard library shall not be defined, redefined, or undefined</li>
+<li>MISRA C++:2008, 17-0-1 - Reserved identifiers, macros and functions in the standard library shall not be defined, redefined, or undefined</li>
+<li>MISRA C:2012, 21.1 - #define and #undef shall not be used on a reserved identifier or reserved macro name</li>
+</ul>

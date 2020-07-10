@@ -1,0 +1,21 @@
+<p>Since Oracle 11.2, &lt;code&gt;RELIES_ON&lt;/code&gt; has been deprecated because the dependencies of result cache-enabled functions are automatically computed.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+CREATE OR REPLACE FUNCTION foo RETURN PLS_INTEGER RESULT_CACHE RELIES_ON(DUAL) AS -- Noncompliant
+BEGIN
+  RETURN 0;
+END;
+/
+
+DROP FUNCTION foo;
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+CREATE OR REPLACE FUNCTION foo RETURN PLS_INTEGER RESULT_CACHE AS
+BEGIN
+  RETURN 0;
+END;
+/
+
+DROP FUNCTION foo;
+</pre>

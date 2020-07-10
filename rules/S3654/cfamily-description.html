@@ -1,0 +1,40 @@
+<p>Throwing an exception from a destructor results in undefined behavior, meaning that your program could be terminated abruptly without neatly destroying others objects.</p>
+<p>Thus destructors should never &lt;code&gt;throw&lt;/code&gt; exceptions. Instead, they should catch and handle those thrown by the functions they call, and be &lt;code&gt;noexcept&lt;/code&gt;.</p>
+<p>This rule raises an issue when a destructor is not &lt;code&gt;noexcept&lt;/code&gt;. By default, destructors are &lt;code&gt;noexcept&lt;/code&gt;, therefore most of the time, nothing needs to be written in the source code. A destructor is not &lt;code&gt;noexcept&lt;/code&gt; if:</p>
+<ul>
+<li>the base class or a data member has a non &lt;code&gt;noexcept&lt;/code&gt; destructor,</li>
+<li>the destructor is decorated with the &lt;code&gt;noexcept&lt;/code&gt; keyword followed by something that evaluates to false.</li>
+</ul>
+<h2>Noncompliant Code Example</h2>
+<pre>
+struct A {
+  ~A() noexcept(false) {} // Noncompliant
+};
+
+struct C {
+  /* ... */
+  A a; // This member data prevents automatic declaration of the destructor as noexcept
+  ~C() { // Noncompliant
+    /* ... */
+  }
+};
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+struct A {
+  ~A() noexcept(true) {}
+};
+
+struct C {
+  /* ... */
+  A a;
+  ~C() { // Compliant, noexcept by default
+    /* ... */
+  }
+};
+</pre>
+<h2>See</h2>
+<ul>
+<li><a href="https://github.com/isocpp/CppCoreGuidelines/blob/036324/CppCoreGuidelines.md#c36-a-destructor-may-not-fail">C++ Core Guidelines C.36</a> A destructor may not fail</li>
+<li><a href="https://github.com/isocpp/CppCoreGuidelines/blob/036324/CppCoreGuidelines.md#c37-make-destructors-noexcept">C++ Core Guidelines C.37</a> Make destructors noexcept</li>
+</ul>

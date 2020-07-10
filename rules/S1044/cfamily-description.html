@@ -1,0 +1,40 @@
+<p>When exception classes are caught by value, rather than by reference, slicing occurs, yielding an instance of the exception’s base class, rather than the potentially more specific exception class that was actually thrown. This means that only the base class' functions will be available; any additional data or functionality that is offered by the extended class will not be accessible.</p>
+<p>You might also be tempted to catch an exception by pointer, but this causes issues related to the exception lifetime, and should also be avoided. This situation is detected by rule S1035.</p>
+<p>Therefore exception classes should always be caught by reference.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+try
+{
+  // ...
+}
+catch(ExceptionClass ex)
+{
+  //...
+}
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+try
+{
+  // ...
+}
+catch(ExceptionClass &amp;ex)
+{
+  //...
+}
+</pre>
+<h2>Exceptions</h2>
+<p>This rule doesn’t raise an issue when no parameter name is provided for the exception.</p>
+<pre>
+try {
+  // ...
+} catch(ExceptionClass) {
+  // ...
+}
+</pre>
+<h2>See</h2>
+<ul>
+<li>MISRA C++:2008, 15-3-5 - A class type exception shall always be caught by reference</li>
+<li><a href="https://www.securecoding.cert.org/confluence/x/TAD5CQ">CERT, ERR61-CPP.</a> - Catch exceptions by lvalue reference</li>
+<li><a href="https://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines#e15-catch-exceptions-from-a-hierarchy-by-reference">C++ Core Guidelines - E.15</a> - Catch exceptions from a hierarchy by reference</li>
+</ul>

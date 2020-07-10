@@ -1,0 +1,9 @@
+<p>If a closure expression is provided as the function or method’s only argument and you provide that expression as a trailing closure, you do not need to write a pair of parentheses &lt;code&gt;()&lt;/code&gt; after the function or method’s name when you call the function. This makes the code somewhat easier to read.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+reversedNames = names.sorted() { $0 &gt; $1 } // Noncompliant
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+eversedNames = names.sorted { $0 &gt; $1 }
+</pre>

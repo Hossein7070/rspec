@@ -1,0 +1,22 @@
+{
+  "title": "Files opened in append mode should not be used with ObjectOutputStream",
+  "type": "BUG",
+  "status": "ready",
+  "remediation": {
+    "func": "Constant/Issue",
+    "constantCost": "1h"
+  },
+  "tags": [
+    "serialization"
+  ],
+  "defaultSeverity": "Blocker",
+  "ruleSpecification": "RSPEC-2689",
+  "sqKey": "S2689",
+  "scope": "Main",
+  "all_languages": [
+    "java"
+  ],
+  "allKeys": [
+    "S2689"
+  ]
+}

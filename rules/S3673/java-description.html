@@ -1,0 +1,11 @@
+<p>Calling &lt;code&gt;Class.newInstance&lt;/code&gt; invokes the class' default constructor. Unfortunately, since it’s not a direct call to the constructor, compile-time checking will be unable to detect the possibility. This means that your code will compile even if you haven’t put the invocation in a &lt;code&gt;try&lt;/code&gt; block.</p>
+<p>On the other hand, &lt;code&gt;Construtor.newInstance&lt;/code&gt; handles exceptions by wrapping them in an &lt;code&gt;InvocationTargetException&lt;/code&gt; and explicitly throwing them.</p>
+<p>This rule raises an issue when &lt;code&gt;Class.newInstance&lt;/code&gt; is used to invoke a constructor that throws checked exceptions.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+Foo f = Foo.class.newInstance();  // Noncompliant
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+Foo f = Foo.class.getConstructor().newInstance();
+</pre>

@@ -1,0 +1,14 @@
+<p>While you can use either &lt;code&gt;forEach(list::add)&lt;/code&gt; or &lt;code&gt;collect&lt;/code&gt; with a &lt;code&gt;Stream&lt;/code&gt;, &lt;code&gt;collect&lt;/code&gt; is by far the better choice because it’s automatically thread-safe and parallellizable.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+List&lt;String&gt; bookNames = new ArrayList&lt;&gt;();
+books.stream().filter(book -&gt; book.getIsbn().startsWith("0"))
+                .map(Book::getTitle)
+                .forEach(bookNames::add);  // Noncompliant
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+List&lt;String&gt; bookNames = books.stream().filter(book -&gt; book.getIsbn().startsWith("0"))
+                .map(Book::getTitle)
+                .collect(Collectors.toList());
+</pre>

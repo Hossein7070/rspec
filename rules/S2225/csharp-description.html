@@ -1,0 +1,34 @@
+<p>Calling &lt;code&gt;ToString()&lt;/code&gt; on an object should always return a string. Returning &lt;code&gt;null&lt;/code&gt; instead contravenes the method’s implicit contract.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+public override string ToString ()
+{
+  if (this.collection.Count == 0)
+  {
+    return null; // Noncompliant
+  }
+  else
+  {
+    // ...
+  }
+}
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+public override string ToString ()
+{
+  if (this.collection.Count == 0)
+  {
+    return string.Empty;
+  }
+  else
+  {
+    // ...
+  }
+}
+</pre>
+<h2>See</h2>
+<ul>
+<li><a href="http://cwe.mitre.org/data/definitions/476.html">MITRE CWE-476</a> - NULL Pointer Dereference</li>
+<li><a href="https://www.securecoding.cert.org/confluence/x/ZwDOAQ">CERT, EXP01-J.</a> - Do not use a null in a case where an object is required</li>
+</ul>

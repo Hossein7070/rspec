@@ -1,0 +1,29 @@
+<p>This rule applies to expressions of the form:</p>
+<ul>
+<li>integer_expression + pointer_expression</li>
+<li>pointer_expression + integer_expression</li>
+<li>pointer_expression - integer_expression</li>
+<li>++pointer_expression</li>
+<li>pointer_expression++</li>
+<li>--pointer_expression</li>
+<li>pointer_expression--</li>
+<li>pointer_expression [ integer_expression ]</li>
+</ul>
+<p>where pointer_expression is a pointer to an array element.</p>
+<p>It is undefined behaviour if the result obtained from one of the above expressions is not a pointer to an element of the array pointed to by pointer_expression or an element one beyond the end of that array.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+void f1 ( const int32_t * a1 )
+{
+  int32_t a2[ 10 ];
+  const int32_t * p1 = &amp;a1 [ 1 ]; // Noncompliant - a1 is not an array
+  int32_t * p2 = &amp;a2 [ 9 ]; // Compliant
+  int32_t * p3 = &amp;a2 [ 10 ]; // Noncompliant, 10 is out of bound
+}
+</pre>
+<h2>See</h2>
+<ul>
+<li>MISRA C:2004, 17.1</li>
+<li>MISRA C++:2008, 5-0-16</li>
+<li><a href="https://www.securecoding.cert.org/confluence/x/LIDp">CERT, ARR36-C.</a> - Do not subtract or compare two pointers that do not refer to the same array</li>
+</ul>

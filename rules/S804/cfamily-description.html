@@ -1,0 +1,15 @@
+<p>Regardless of scope, no identifier with &lt;code&gt;static&lt;/code&gt; storage duration should be re-used across any source files in the project. This includes objects or functions with external linkage and any objects or functions with the static storage class specifier.</p>
+<p>While the compiler can understand this and is in no way confused, the possibility exists for the developer to incorrectly associate unrelated variables with the same name.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+// file1.c
+extern int value;
+
+// file2.c
+static int value = 0; // Noncompliant
+</pre>
+<h2>See</h2>
+<ul>
+<li>MISRA C:2004, 5.5</li>
+<li>MISRA C++:2008, 2-10-5</li>
+</ul>

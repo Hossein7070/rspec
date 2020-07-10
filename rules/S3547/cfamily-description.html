@@ -1,0 +1,10 @@
+<p>C++11 improves the specification of the parser so that at the end of a template, multiple &lt;code&gt;&gt;&lt;/code&gt;s will be interpreted as closing the template argument list rather than as the right shift operator or stream extraction operator. It is no longer required to place a space between the two &lt;code&gt;&gt;&lt;/code&gt;s.</p>
+<p>This rule raises an issue when such useless spaces exist.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+vector&lt;pair&lt;int,int&gt; &gt; s; // Noncompliant
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+vector&lt;pair&lt;int,int&gt;&gt; s;
+</pre>

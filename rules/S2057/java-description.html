@@ -1,0 +1,35 @@
+<p>A &lt;code&gt;serialVersionUID&lt;/code&gt; field is strongly recommended in all &lt;code&gt;Serializable&lt;/code&gt; classes. If you do not provide one, one will be calculated for you by the compiler. The danger in not explicitly choosing the value is that when the class changes, the compiler will generate an entirely new id, and you will be suddenly unable to deserialize (read from file) objects that were serialized with the previous version of the class.</p>
+<p>&lt;code&gt;serialVersionUID&lt;/code&gt;'s should be declared with all of these modifiers: &lt;code&gt;static final long&lt;/code&gt;.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+public class Raspberry extends Fruit  // Noncompliant; no serialVersionUID.
+        implements Serializable {
+  private String variety;
+
+  public Raspberry(Season ripe, String variety) { ...}
+  public void setVariety(String variety) {...}
+  public String getVarity() {...}
+}
+
+public class Raspberry extends Fruit
+        implements Serializable {
+  private final int serialVersionUID = 1; // Noncompliant; not static &amp; int rather than long
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+public class Raspberry extends Fruit
+        implements Serializable {
+  private static final long serialVersionUID = 1;
+  private String variety;
+
+  public Raspberry(Season ripe, String variety) { ...}
+  public void setVariety(String variety) {...}
+  public String getVarity() {...}
+}
+</pre>
+<h2>Exceptions</h2>
+<p>Swing and AWT classes, &lt;code&gt;abstract&lt;/code&gt; classes, &lt;code&gt;Throwable&lt;/code&gt; and its subclasses (&lt;code&gt;Exception&lt;/code&gt;s and &lt;code&gt;Error&lt;/code&gt;s), and classes marked with &lt;code&gt;@SuppressWarnings("serial")&lt;/code&gt; are ignored.</p>
+<h2>See</h2>
+<ul>
+<li><a href="https://www.securecoding.cert.org/confluence/x/NYCpAQ">CERT, SER00-J.</a> - Enable serialization compatibility during class evolution</li>
+</ul>

@@ -1,0 +1,18 @@
+{
+  "title": "Expressions creating sets should not have duplicate values",
+  "type": "CODE_SMELL",
+  "status": "ready",
+  "tags": [
+    "suspicious"
+  ],
+  "defaultSeverity": "Major",
+  "ruleSpecification": "RSPEC-5781",
+  "sqKey": "S5781",
+  "scope": "All",
+  "all_languages": [
+    "python"
+  ],
+  "allKeys": [
+    "S5781"
+  ]
+}

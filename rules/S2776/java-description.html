@@ -1,0 +1,31 @@
+<p>Passing user input into a command is always a potentially risky proposition, but it is particularly risky when you’re allowing the user to name where control should be transferred.</p>
+<p>This rule raises an issue any time user input or web input is used in the transfer of control.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+ACCEPT NAME.
+EXEC CICS
+  LINK PROGRAM(NAME)  *&gt; Noncompliant
+  COMMAREA(COMM)
+  LENGTH(LEN)
+  DATALENGTH(LEND)
+  SYSID('HELP')
+END-EXEC.
+
+*&gt; ...
+
+EXEC CICS
+  WEB READ
+  FORMFIELD(NAME)
+  VALUE(PNAME)
+END-EXEC.
+
+EXEC CICS
+  LINK PROGRAM(pNAME)  *&gt; Noncompliant
+  *&gt; ...
+END-EXEC
+</pre>
+<h2>See</h2>
+<ul>
+<li><a href="https://www.owasp.org/index.php/Top_10-2017_A1-Injection">OWASP Top 10 2017 Category A1</a> - Injection</li>
+<li><a href="http://cwe.mitre.org/data/definitions/114">MITRE, CWE-114</a> - Process Control</li>
+</ul>

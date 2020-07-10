@@ -1,0 +1,18 @@
+<p>Shared naming conventions allow teams to collaborate effectively. This rule raises an issue when a local variable or function parameter name does not match the provided regular expression.</p>
+<h2>Noncompliant Code Example</h2>
+<p>With the default regular expression &lt;code&gt;^[a-z][a-zA-Z0-9]*$&lt;/code&gt;:</p>
+<pre>
+void doSomething(int my_param) {
+  int LOCAL;
+  ...
+}
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+void doSomething(int myParam) {
+  int local;
+  ...
+}
+</pre>
+<h2>Exceptions</h2>
+<p>Loop counters and &lt;code&gt;const&lt;/code&gt; variables are ignored by this rule.</p>

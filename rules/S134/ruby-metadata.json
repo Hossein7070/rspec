@@ -1,0 +1,43 @@
+{
+  "title": "Control flow statements \"if\", \"for\", \"while\", \"until\", \"case\" and \"begin...rescue\" should not be nested too deeply",
+  "type": "CODE_SMELL",
+  "status": "ready",
+  "remediation": {
+    "func": "Constant/Issue",
+    "constantCost": "10min"
+  },
+  "tags": [
+    "brain-overload"
+  ],
+  "defaultSeverity": "Critical",
+  "ruleSpecification": "RSPEC-134",
+  "sqKey": "S134",
+  "scope": "All",
+  "all_languages": [
+    "abap",
+    "apex",
+    "cfamily",
+    "cobol",
+    "csharp",
+    "flex",
+    "go",
+    "java",
+    "javascript",
+    "kotlin",
+    "php",
+    "pli",
+    "plsql",
+    "python",
+    "rpg",
+    "ruby",
+    "scala",
+    "swift",
+    "tsql",
+    "vbnet"
+  ],
+  "allKeys": [
+    "S134",
+    "COBOL.IfStatementNestedUsageCheck",
+    "NestedIf"
+  ]
+}

@@ -1,0 +1,15 @@
+<p>Changing the configuration of database options &lt;code&gt;ANSI_NULLS&lt;/code&gt;, &lt;code&gt;ANSI_PADDING&lt;/code&gt; and &lt;code&gt;CONCAT_NULL_YIELDS_NULL&lt;/code&gt; is deprecated. The future versions of SQL Server will only support the &lt;code&gt;ON&lt;/code&gt; value, and the &lt;code&gt;SET&lt;/code&gt; statement for those options to &lt;code&gt;OFF&lt;/code&gt; will eventually generate an error.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+SET ANSI_NULLS OFF -- Noncompliant
+SELECT column1 FROM table1 WHERE id = NULL
+
+SET ANSI_PADDING OFF -- Noncompliant
+SET CONCAT_NULL_YIELDS_NULL ON -- Noncompliant
+
+SET ANSI_PADDING ON -- "ON" is ignored
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+SELECT column1 FROM table1 WHERE id IS NULL
+</pre>

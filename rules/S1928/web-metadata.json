@@ -1,0 +1,20 @@
+{
+  "title": "Disallowed \"taglibs\" should not be used",
+  "type": "CODE_SMELL",
+  "status": "ready",
+  "remediation": {
+    "func": "Constant/Issue",
+    "constantCost": "1h"
+  },
+  "tags": [],
+  "defaultSeverity": "Blocker",
+  "ruleSpecification": "RSPEC-1928",
+  "sqKey": "IllegalTagLibsCheck",
+  "scope": "Main",
+  "all_languages": [
+    "web"
+  ],
+  "allKeys": [
+    "IllegalTagLibsCheck"
+  ]
+}

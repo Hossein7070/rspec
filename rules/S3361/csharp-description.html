@@ -1,0 +1,38 @@
+<p>Perhaps no one ever said "idle sessions are the devil’s workshop", but they should have. Sessions that users have abandoned are vulnerable to being hijacked. To keep the window of danger as small as possible, any application which authenticates users should also time them out after as small as practical a period of inactivity.</p>
+<p>This rule raises an issue when session timeout is set higher than the provided value.</p>
+<h2>Noncompliant Code Example</h2>
+<p>With the default threshold of 15:</p>
+<pre>
+// web.xml
+&lt;session-config&gt;
+  &lt;session-timeout&gt;60&lt;/session-timeout&gt;  &lt;!-- Noncompliant  --&gt;
+&lt;/session-config&gt;
+</pre>
+<p>or</p>
+<pre>
+public class MySessionListener implements HttpSessionListener{
+  public void sessionCreated(HttpSessionEvent event){
+    event.getSession().setMaxInactiveInterval(30*60);  // Noncompliant; 30 min &gt; 15
+  }
+}
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+// web.xml
+&lt;session-config&gt;
+  &lt;session-timeout&gt;15&lt;/session-timeout&gt;
+&lt;/session-config&gt;
+</pre>
+<p>or</p>
+<pre>
+public class MySessionListener implements HttpSessionListener{
+  public void sessionCreated(HttpSessionEvent event){
+    event.getSession().setMaxInactiveInterval(15*60);
+  }
+}
+</pre>
+<h2>See</h2>
+<ul>
+<li><a href="https://cwe.mitre.org/data/definitions/613.html">MITRE, CWE-613</a> - Insufficient Session Expiration</li>
+<li><a href="https://www.owasp.org/index.php/Session_Management_Cheat_Sheet">OWASP, Session Management Cheat Sheet</a></li>
+</ul>

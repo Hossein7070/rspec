@@ -1,0 +1,16 @@
+<p>This includes file and I/O functions &lt;code&gt;fgetpos&lt;/code&gt;, &lt;code&gt;fopen&lt;/code&gt;, &lt;code&gt;ftell&lt;/code&gt;, &lt;code&gt;gets&lt;/code&gt;, &lt;code&gt;perror&lt;/code&gt;, &lt;code&gt;remove&lt;/code&gt;, &lt;code&gt;rename&lt;/code&gt;, etc.</p>
+<p>Streams and file I/O have a large number of unspecified, undefined and implementation-defined behaviors associated with them.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+#include &lt;cstdio&gt;  /* Noncompliant */
+
+void fn()
+{
+  char_t array[10];
+  gets(array);           /* Can lead to buffer over-run */
+}
+</pre>
+<h2>See</h2>
+<ul>
+<li>MISRA C++:2008, 27-0-1 - The stream input/output library <em>&lt;cstdio&gt;</em> shall not be used.</li>
+</ul>

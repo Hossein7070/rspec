@@ -1,0 +1,31 @@
+<p>&lt;code&gt;@ComponentScan&lt;/code&gt; is used to determine which Spring Beans are available in the application context. The packages to scan can be configured thanks to the &lt;code&gt;basePackageClasses&lt;/code&gt; or &lt;code&gt;basePackages&lt;/code&gt; (or its alias &lt;code&gt;value&lt;/code&gt;) parameters. If neither parameter is configured, &lt;code&gt;@ComponentScan&lt;/code&gt; will consider only the package of the class annotated with it. When &lt;code&gt;@ComponentScan&lt;/code&gt; is used on a class belonging to the default package, the entire classpath will be scanned.
+This will slow-down the start-up of the application and it is likely the application will fail to start with an &lt;code&gt;BeanDefinitionStoreException&lt;/code&gt; because you ended up scanning the Spring Framework package itself.</p>
+<p>This rule raises an issue when:
+- &lt;code&gt;@ComponentScan&lt;/code&gt;, &lt;code&gt;@SpringBootApplication&lt;/code&gt; and &lt;code&gt;@ServletComponentScan&lt;/code&gt; are used on a class belonging to the default package
+- &lt;code&gt;@ComponentScan&lt;/code&gt; is explicitly configured with the default package</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+import org.springframework.boot.SpringApplication;
+
+@SpringBootApplication // Noncompliant; RootBootApp is declared in the default package
+public class RootBootApp {
+...
+}
+</pre>
+<pre>
+@ComponentScan("")
+public class Application {
+...
+}
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+package hello;
+
+import org.springframework.boot.SpringApplication;
+
+@SpringBootApplication // Compliant; RootBootApp belongs to the "hello" package
+public class RootBootApp {
+...
+}
+</pre>

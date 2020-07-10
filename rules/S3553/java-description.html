@@ -1,0 +1,23 @@
+<p>The Java language authors have been quite frank that &lt;code&gt;Optional&lt;/code&gt; was intended for use only as a return type, as a way to convey that a method may or may not return a value.</p>
+<p>And for that, it’s valuable but using &lt;code&gt;Optional&lt;/code&gt; on the input side increases the work you have to do in the method without really increasing the value. With an &lt;code&gt;Optional&lt;/code&gt; parameter, you go from having 2 possible inputs: null and not-null, to three: null, non-null-without-value, and non-null-with-value. Add to that the fact that overloading has long been available to convey that some parameters are optional, and there’s really no reason to have &lt;code&gt;Optional&lt;/code&gt; parameters.</p>
+<p>The rule also checks for Guava’s &lt;code&gt;Optional&lt;/code&gt;, as it was the inspiration for the JDK &lt;code&gt;Optional&lt;/code&gt;. Although it is different in some aspects (serialization, being recommended for use as collection elements), using it as a parameter type causes exactly the same problems as for JDK &lt;code&gt;Optional&lt;/code&gt;.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+public String sayHello(Optional&lt;String&gt; name) {  // Noncompliant
+  if (name == null || !name.isPresent()) {
+    return "Hello World";
+  } else {
+    return "Hello " + name;
+  }
+}
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+public String sayHello(String name) {
+  if (name == null) {
+    return "Hello World";
+  } else {
+    return "Hello " + name;
+  }
+}
+</pre>

@@ -1,0 +1,19 @@
+<p>When using the &lt;code&gt;Stream&lt;/code&gt; API, call chains should be simplified as much as possible to improve readability and maintainability.</p>
+<p>This rule raises an issue when one of the following substitution can be made:
+||Original||Preferred||
+|&lt;code&gt;stream.collect(counting())&lt;/code&gt;|&lt;code&gt;stream.count()&lt;/code&gt;|
+|&lt;code&gt;stream.collect(maxBy(comparator))&lt;/code&gt;|&lt;code&gt;stream.max(comparator)&lt;/code&gt;|
+|&lt;code&gt;stream.collect(minBy(comparator))&lt;/code&gt;|&lt;code&gt;stream.min(comparator)&lt;/code&gt;|
+|&lt;code&gt;stream.collect(mapping(mapper))&lt;/code&gt;|&lt;code&gt;stream.map(mapper).collect()&lt;/code&gt;|
+|&lt;code&gt;stream.collect(reducing(…​))&lt;/code&gt;|&lt;code&gt;stream.reduce(…​)&lt;/code&gt;|
+|&lt;code&gt;stream.collect(summingInt(mapper))&lt;/code&gt;|&lt;code&gt;stream.mapToInt(mapper).sum()&lt;/code&gt;|
+|&lt;code&gt;stream.collect(summingLong(mapper))&lt;/code&gt;|&lt;code&gt;stream.mapToLong(mapper).sum()&lt;/code&gt;|
+|&lt;code&gt;stream.collect(summingDouble(mapper))&lt;/code&gt;|&lt;code&gt;stream.mapToDouble(mapper).sum()&lt;/code&gt;|</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+int count = stream.collect(counting());  // Noncompliant
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+int count = stream.count();
+</pre>

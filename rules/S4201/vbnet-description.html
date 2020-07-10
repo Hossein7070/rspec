@@ -1,0 +1,21 @@
+<p>There’s no need to null test in conjunction with an &lt;code&gt;TypeOf …​ Is&lt;/code&gt; test. &lt;code&gt;Nothing&lt;/code&gt; is not an instance of anything, so a null check is redundant.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+If (x IsNot Nothing And TypeOf x Is MyClass)
+    ' ...
+End If
+
+If (x Is Nothing Or TypeOf x IsNot MyClass)
+    ' ...
+End If
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+If (TypeOf x Is MyClass)
+    ' ...
+End If
+
+If (TypeOf x IsNot MyClass)
+    ' ...
+End If
+</pre>

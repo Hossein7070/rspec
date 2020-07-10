@@ -1,0 +1,23 @@
+<p>Adding an access specifier that matches the class' current access level needlessly clutters the code.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+struct B {
+};
+
+struct S : public B { // Noncompliant; "struct" has public access for its base classes by default
+};
+
+class C : private B { // Noncompliant; "class" has private access for its base classes by default
+};
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+struct B {
+};
+
+struct S : B {
+};
+
+class C : B {
+};
+</pre>

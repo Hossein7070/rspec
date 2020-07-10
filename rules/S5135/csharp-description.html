@@ -1,0 +1,53 @@
+<p>User provided data such as URL parameters, POST data payloads or cookies should always be considered untrusted and tainted. Deserialization based on data supplied by the user could result in two types of attacks:</p>
+<ul>
+<li>Remote code execution attacks, where the structure of the serialized data is changed to modify the behavior of the object being unserialized.</li>
+<li>Parameter tampering attacks, where data is modified to escalate privileges or change for example quantity or price of products.</li>
+</ul>
+<p>The best way to protect against deserialization attacks is probably to challenge the use of the deserialization mechanism in the application. They are cases were the use of deserialization mechanism was not justified and created breaches (CVE-2017-9785).</p>
+<p>If the use of deserialization mechanisms is valid in your context, the problem could be mitigated in any of the following ways:</p>
+<ul>
+<li>Instead of using a native data interchange format, use a safe, standard format such as untyped JSON or structured data approaches such as Google Protocol Buffers.</li>
+<li>To ensure integrity is not compromised, add a digital signature (HMAC) to the serialized data that is validated before deserialization (this is only valid if the client doesn’t need to modify the serialized data)</li>
+<li>As a last resort, restrict deserialization to be possible only to specific, whitelisted classes.</li>
+</ul>
+<h2>Noncompliant Code Example</h2>
+<p>For <a href="https://docs.microsoft.com/en-us/dotnet/api/system.xml.serialization.xmlserializer?view=netframework-4.8">XmlSerializer </a> serializer, the expected type should not come from user-controlled input:</p>
+<pre>
+public class XmlSerializerTestCase : Controller
+{
+   public ActionResult unsecuredeserialization(string typeName)
+  {
+     // ....
+     ExpectedType obj = null;
+     Type t = Type.GetType(typeName); // typeName is user-controlled
+     XmlSerializer serializer = new XmlSerializer(t); // Noncompliant
+     obj = (ExpectedType) serializer.Deserialize(fs);
+     // ....
+   }
+}
+</pre>
+<h2>Compliant Solution</h2>
+<p>For <a href="https://docs.microsoft.com/en-us/dotnet/api/system.xml.serialization.xmlserializer?view=netframework-4.8">XmlSerializer </a> serializer:</p>
+<pre>
+public class XmlSerializerTestCase : Controller
+{
+   public ActionResult securedeserialization()
+  {
+     // ....
+     ExpectedType obj = null;
+     XmlSerializer serializer = new XmlSerializer(typeof(ExpectedType)); // Compliant
+     obj = (ExpectedType) serializer.Deserialize(fs);
+     // ....
+   }
+}
+</pre>
+<h2>See</h2>
+<ul>
+<li><a href="https://media.blackhat.com/bh-us-12/Briefings/Forshaw/BH_US_12_Forshaw_Are_You_My_Type_WP.pdf">Are You My Type?</a> - James Forshaw - BlackHat 2012</li>
+<li><a href="https://www.youtube.com/watch?v=oxlD8VWWHE8">BlueHat v17 - Dangerous Contents - Securing .Net Deserialization</a></li>
+<li><a href="https://www.youtube.com/watch?v=qDoBlLwREYk0">Alvaro Muñoz: .NET Serialization: Detecting and Defending Vulnerable Endpoints</a></li>
+<li><a href="https://www.owasp.org/index.php/Top_10-2017_A8-Insecure_Deserialization">OWASP Top 10 2017 Category A8</a> - Insecure Deserialization</li>
+<li><a href="https://cwe.mitre.org/data/definitions/134.html">MITRE, CWE-134</a> - Use of Externally-Controlled Format String</li>
+<li><a href="https://cwe.mitre.org/data/definitions/502.html">MITRE, CWE-502</a> - Deserialization of Untrusted Data</li>
+<li><a href="https://www.sans.org/top25-software-errors/#cat2">SANS Top 25</a> - Risky Resource Management</li>
+</ul>

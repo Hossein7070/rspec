@@ -1,0 +1,32 @@
+<p>Many functions in the standard C libraries are not required by the ISO/IEC 9899:1990 standard to check the validity of parameters passed to them. Even where checking is required by the standard, or where compiler writers claim to check parameters, there is no guarantee that adequate checking will take place.</p>
+<p>Therefore the programmer shall provide appropriate checks of input values for all library functions which have a restricted input domain (standard libraries, other bought-in libraries, and in-house libraries).</p>
+<p>Examples of functions that have a restricted domain and need checking are:</p>
+<ul>
+<li><p>many of the maths functions in &lt;code&gt;math.h&lt;/code&gt;, for example:</p>
+<ul>
+<li>negative numbers must not be passed to the &lt;code&gt;sqrt&lt;/code&gt; or &lt;code&gt;log&lt;/code&gt; functions;</li>
+<li>the second parameter of &lt;code&gt;fmod&lt;/code&gt; should not be zero</li>
+</ul></li>
+<li>&lt;code&gt;toupper&lt;/code&gt; and &lt;code&gt;tolower&lt;/code&gt;: some implementations can produce unexpected results when the function &lt;code&gt;toupper&lt;/code&gt; is passed a parameter which is not a lower case letter (and similarly for &lt;code&gt;tolower&lt;/code&gt;)</li>
+<li>the character testing functions in &lt;code&gt;ctype.h&lt;/code&gt; exhibit undefined behaviour if passed invalid values</li>
+<li>the &lt;code&gt;abs&lt;/code&gt; function applied to the most negative integer gives undefined behaviour</li>
+</ul>
+<p>Although most of the math library functions in &lt;code&gt;math.h&lt;/code&gt; define allowed input domains, the values they return when a domain error occurs may vary from one compiler to another. Therefore pre-checking the validity of the input values is particularly important for these functions.</p>
+<p>The programmer should identify any domain constraints which should sensibly apply to a function being used (which may or may not be documented in the standard), and provide appropriate checks that the input value(s) lies within this domain. Of course the value may be restricted further, if required, by knowledge of what the parameter represents and what constitutes a sensible range of values for the</p>
+<p>There are a number of ways in which the requirements of this rule might be satisfied, including the following:</p>
+<ul>
+<li>Check the values before calling the function</li>
+<li>Design checks into the function. This is particularly applicable for in-house designed libraries, though it could apply to bought-in libraries if the supplier can demonstrate that they have built in the checks</li>
+<li>Produce “wrapped” versions of functions, that perform the checks then call the original function</li>
+<li>Demonstrate statically that the input parameters can never take invalid values</li>
+</ul>
+<p>Note that when checking a floating-point parameter to a function, that has a singularity at zero, it may be appropriate to perform a test of equality to zero. This is an acceptable exception to MISRA C:2004 Rule 13.3 without the need to raise a deviation. However it will usually still be necessary to test to a tolerance around zero (or any other singularity) if the magnitude of the value of the function tends to infinity as the parameter tends to zero, so as to prevent overflow occurring.</p>
+<h2>See</h2>
+<ul>
+<li>MISRA C:2004, 20.3</li>
+</ul>
+<h3>See Also</h3>
+<ul>
+<li>MISRA C:2004, 13.3</li>
+<li>ISO/IEC 9899:1990</li>
+</ul>

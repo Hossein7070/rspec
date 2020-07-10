@@ -1,0 +1,41 @@
+<p>The <a href="https://docs.python.org/3/library/stdtypes.html#iterator-types">iterator protocol</a> specifies that the &lt;code&gt;_\_iter\__&lt;/code&gt; method can only return an iterator, i.e. an object with a &lt;code&gt;\__next\__&lt;/code&gt; and an &lt;code&gt;\__iter\_\_&lt;/code&gt; method (because iterators are also iterable). Returning anything else than an iterator will raise a &lt;code&gt;TypeError&lt;/code&gt; as soon as the iteration begins.</p>
+<p>Note that <a href="https://docs.python.org/3/tutorial/classes.html#generators">generators</a> and <a href="https://docs.python.org/3/tutorial/classes.html#generator-expressions">generator expressions</a> have both &lt;code&gt;_\_next\__&lt;/code&gt; and &lt;code&gt;\__iter\_\_&lt;/code&gt; methods generated automatically.</p>
+<p>This rule raises an issue when the object returned by an &lt;code&gt;_\_iter\__&lt;/code&gt; method does not have a method &lt;code&gt;\__next\_\_&lt;/code&gt;.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+class MyIterable:
+    def __init__(self, values):
+        self._values = values
+
+    def __iter__(self):
+        return None  # Noncompliant
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+class MyIterable:
+    def __init__(self, values):
+        self._values = values
+
+    def __iter__(self):
+        return MyIterator(self._values)
+
+class MyIterator:
+    def __init__(self, values):
+        self._values = values
+        self._index = 0
+
+    def __next__(self):
+        if self._index &gt;= len(self._values):
+            raise StopIteration()
+        value = self._values[self._index]
+        self._index += 1
+        return value
+
+    def __iter__(self):
+        return self
+</pre>
+<h2>See</h2>
+<ul>
+<li><a href="https://www.python.org/dev/peps/pep-0234/#python-api-specification">PEP 234 - Iterators</a></li>
+<li><a href="https://docs.python.org/3/library/stdtypes.html#iterator-types">Python documentation - Iterator Types</a></li>
+</ul>

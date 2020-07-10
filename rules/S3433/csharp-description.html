@@ -1,0 +1,24 @@
+<p>A method is detected as test method if marked with one of the following attributes &lt;code&gt;[TestMethod]&lt;/code&gt; or &lt;code&gt;[DataTestMethod]&lt;/code&gt; (for mstest), &lt;code&gt;[Fact]&lt;/code&gt; or &lt;code&gt;[Theory]&lt;/code&gt; (for xunit) or &lt;code&gt;[Test]&lt;/code&gt;, &lt;code&gt;[TestCase]&lt;/code&gt;, &lt;code&gt;[TestCaseSource]&lt;/code&gt; or &lt;code&gt;[Theory]&lt;/code&gt; (for nunit). However, whether or not they have a test attribute, non-&lt;code&gt;public&lt;/code&gt; methods are not recognized as tests, and therefore not executed. Neither are &lt;code&gt;async&lt;/code&gt; &lt;code&gt;void&lt;/code&gt; methods, or methods with generics anywhere in their signatures.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+[TestMethod]
+void TestNullArg()  // Noncompliant; method is not public
+{  /* ... */  }
+
+[TestMethod]
+public async void MyIgnoredTestMethod()  // Noncompliant; this is an 'async void' method
+{ /* ... */ }
+
+[TestMethod]
+public void MyIgnoredGenericTestMethod&lt;T&gt;(T foo)  // Noncompliant; method has generics in its signature
+{ /* ... */ }
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+[TestMethod]
+public void TestNullArg()
+{  /* ... */  }
+</pre>
+<h2>Exceptions</h2>
+<p>Accessibility is ignored for xUnit &lt;code&gt;Fact&lt;/code&gt; test methods, since they do not need to be &lt;code&gt;public&lt;/code&gt;.
+&lt;code&gt;[Theory]&lt;/code&gt; test methods in xUnit and &lt;code&gt;[TestCase]&lt;/code&gt; and &lt;code&gt;[TestCaseSource]&lt;/code&gt; test methods in nunit can be generic.</p>

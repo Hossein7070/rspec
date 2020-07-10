@@ -1,0 +1,15 @@
+<p>When a cycle exists between classes during their &lt;code&gt;static&lt;/code&gt; initialization, the results can be unpredictable because they depend on which class was initialized first.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+public class A {
+  public static int a = B.b + 1;  // Noncompliant; sometimes a = 1, others a = 2
+}
+
+public class B {
+  public static int b = A.a + 1;  // Noncompliant; sometimes b = 1, others b = 2
+}
+</pre>
+<h2>See</h2>
+<ul>
+<li><a href="https://www.securecoding.cert.org/confluence/display/java/DCL00-J.+Prevent+class+initialization+cycles">CERT, DCL00-J.</a> - Prevent class initialization cycles</li>
+</ul>

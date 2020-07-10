@@ -1,0 +1,25 @@
+<p>As a way of minimizing the network and database resources required by a query, only the minimum set of data required should be selected. Thus, when a column’s value is hard-coded in the &lt;code&gt;WHERE&lt;/code&gt; clause, there’s no need to include it in the list of selected columns. Similarly, when a column is included more than once in a &lt;code&gt;SELECT&lt;/code&gt; the additional instances are clearly superfluous, as are any values in an &lt;code&gt;EXISTS&lt;/code&gt; subquery &lt;code&gt;SELECT&lt;/code&gt; other than 1.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+SELECT id,   -- Noncompliant; we already know the value of id
+  name,
+  city,
+  name  -- Noncompliant; this is the second instance of name
+FROM employee
+WHERE id=1
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+SELECT name,
+  city
+FROM employee
+WHERE id=1
+</pre>
+<p>or</p>
+<pre>
+SELECT 1,
+  name,
+  city
+FROM employee
+WHERE id=1
+</pre>

@@ -1,0 +1,36 @@
+{
+  "title": "Functions and methods should not have identical implementations",
+  "type": "CODE_SMELL",
+  "status": "ready",
+  "remediation": {
+    "func": "Constant/Issue",
+    "constantCost": "15min"
+  },
+  "tags": [
+    "confusing",
+    "duplicate",
+    "suspicious"
+  ],
+  "defaultSeverity": "Major",
+  "ruleSpecification": "RSPEC-4144",
+  "sqKey": "S4144",
+  "scope": "All",
+  "all_languages": [
+    "apex",
+    "cfamily",
+    "csharp",
+    "go",
+    "java",
+    "javascript",
+    "kotlin",
+    "php",
+    "python",
+    "ruby",
+    "scala",
+    "swift",
+    "vbnet"
+  ],
+  "allKeys": [
+    "S4144"
+  ]
+}

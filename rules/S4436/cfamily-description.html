@@ -1,0 +1,36 @@
+<p>Network addresses have to be encoded in the network byte order, as specified by RFC-1700, which may be different from that of the host running the code, depending on the endianness of its architecture. This is usually done by using &lt;code&gt;ntohs&lt;/code&gt;, &lt;code&gt;ntohl&lt;/code&gt;, &lt;code&gt;htons&lt;/code&gt; or &lt;code&gt;htonl&lt;/code&gt;.</p>
+<p>This rule raises an issue when the following fields are assigned to or from without proper conversion:</p>
+<ul>
+<li>&lt;code&gt;struct sockaddr_in.sin_port&lt;/code&gt;</li>
+<li>&lt;code&gt;struct sockaddr_in.sin_addr.s_addr&lt;/code&gt;</li>
+<li>&lt;code&gt;struct sockaddr_in6.sin6_port&lt;/code&gt;</li>
+</ul>
+<h2>Noncompliant Code Example</h2>
+<pre>
+int16_t port = 80;
+
+sa-&gt;sin_port = port; // Noncompliant
+sa-&gt;sin_addr.s_addr = address; // Noncompliant
+sa-&gt;sin_family = AF_INET;
+
+// ...
+
+port = sa-&gt;sin_port; // Noncompliant
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+int16_t port = 80;
+
+sa-&gt;sin_port = htons(port);
+sa-&gt;sin_addr.s_addr = htonl(address);
+sa-&gt;sin_family = AF_INET;
+
+// ...
+
+port = ntohs(sa-&gt;sin_port);
+</pre>
+<h2>See</h2>
+<ul>
+<li><a href="https://tools.ietf.org/html/rfc1700">RFC-1700</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Endianness">Endianness</a></li>
+</ul>

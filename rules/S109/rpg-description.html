@@ -1,0 +1,19 @@
+<p>Using a named constant to refer to an indicator makes the content of the field clearer, and therefore makes the code easier to read and maintain.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+      /Free
+
+       If *In(25);  // Noncompliant
+        // Process contents...
+       EndIf;
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+     D accountTotal    c                   25
+
+      /Free
+
+       If *In(accountTotal);
+        // Process contents...
+       EndIf;
+</pre>

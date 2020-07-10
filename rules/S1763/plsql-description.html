@@ -1,0 +1,41 @@
+<p>Jump statements (&lt;code&gt;EXIT&lt;/code&gt;, &lt;code&gt;CONTINUE&lt;/code&gt;, &lt;code&gt;RETURN&lt;/code&gt;, &lt;code&gt;RAISE&lt;/code&gt;, and &lt;code&gt;RAISE_APPLICATION_ERROR&lt;/code&gt;), move control flow out of the current code block. So any statements that come after a jump are dead code.</p>
+<p>This rule detects for statements that follow:</p>
+<ul>
+<li>&lt;code&gt;EXIT&lt;/code&gt; without a &lt;code&gt;WHEN&lt;/code&gt;</li>
+<li>&lt;code&gt;CONTINUE&lt;/code&gt; without a &lt;code&gt;WHEN&lt;/code&gt;</li>
+<li>&lt;code&gt;RETURN&lt;/code&gt;</li>
+<li>&lt;code&gt;RAISE&lt;/code&gt;</li>
+<li>&lt;code&gt;RAISE_APPLICATION_ERROR&lt;/code&gt;</li>
+</ul>
+<h2>Noncompliant Code Example</h2>
+<pre>
+SET SERVEROUTPUT ON
+
+BEGIN
+  LOOP
+    DBMS_OUTPUT.PUT_LINE('This will be printed out');
+    EXIT;
+
+    DBMS_OUTPUT.PUT_LINE('This will NEVER be printed out'); -- Non-Compliant
+  END LOOP;
+END;
+/
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+SET SERVEROUTPUT ON
+
+BEGIN
+  LOOP
+    DBMS_OUTPUT.PUT_LINE('This will be printed out');
+    EXIT;
+  END LOOP;
+END;
+/
+</pre>
+<h2>See</h2>
+<ul>
+<li><a href="http://cwe.mitre.org/data/definitions/561.html">MITRE, CWE-561</a> - Dead Code</li>
+<li><a href="https://www.securecoding.cert.org/confluence/x/uQCSBg">CERT, MSC56-J.</a> - Detect and remove superfluous code and values</li>
+<li><a href="https://www.securecoding.cert.org/confluence/x/NYA5">CERT, MSC12-C.</a> - Detect and remove code that has no effect or is never executed</li>
+</ul>

@@ -1,0 +1,31 @@
+<p>Trying to assign a large character value to a smaller variable or column will raise an error.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+create table persons (id number, name varchar2(4));
+
+insert into persons (id, name) values (1, 'Alice'); -- Noncompliant, raises ORA-12899
+
+create or replace procedure sp1
+is
+  foo varchar2(2);
+begin
+  select name into foo from persons where id = 1; -- Noncompliant, may raise ORA-06502
+end;
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+create table persons (id number, name varchar2(8));
+
+insert into persons (id, name) values (1, 'Alice');
+
+create or replace procedure sp1
+is
+  foo varchar2(8);
+begin
+  select name into foo from persons where id = 1;
+end;
+</pre>
+<h2>See</h2>
+<ul>
+<li><a href="http://cwe.mitre.org/data/definitions/704">MITRE, CWE-704</a> - Incorrect Type Conversion or Cast</li>
+</ul>

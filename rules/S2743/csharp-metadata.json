@@ -1,0 +1,20 @@
+{
+  "title": "Static fields should not be used in generic types",
+  "type": "CODE_SMELL",
+  "status": "ready",
+  "remediation": {
+    "func": "Constant/Issue",
+    "constantCost": "10min"
+  },
+  "tags": [],
+  "defaultSeverity": "Major",
+  "ruleSpecification": "RSPEC-2743",
+  "sqKey": "S2743",
+  "scope": "All",
+  "all_languages": [
+    "csharp"
+  ],
+  "allKeys": [
+    "S2743"
+  ]
+}

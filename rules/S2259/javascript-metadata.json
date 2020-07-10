@@ -1,0 +1,31 @@
+{
+  "title": "Properties of variables with \"null\" or \"undefined\" values should not be accessed",
+  "type": "BUG",
+  "status": "ready",
+  "remediation": {
+    "func": "Constant/Issue",
+    "constantCost": "10min"
+  },
+  "tags": [
+    "cwe"
+  ],
+  "defaultSeverity": "Major",
+  "ruleSpecification": "RSPEC-2259",
+  "sqKey": "S2259",
+  "scope": "Main",
+  "securityStandards": {
+    "CWE": [
+      476
+    ]
+  },
+  "all_languages": [
+    "cfamily",
+    "csharp",
+    "java",
+    "javascript",
+    "python"
+  ],
+  "allKeys": [
+    "S2259"
+  ]
+}

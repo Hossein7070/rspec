@@ -1,0 +1,15 @@
+<p>The difficulty of understanding an expression increases for each of the &lt;code&gt;And&lt;/code&gt;, &lt;code&gt;Or&lt;/code&gt; and &lt;code&gt;Xor&lt;/code&gt; operators it contains.
+A single expression’s complexity should not become too high to keep the code readable.</p>
+<h2>Noncompliant Code Example</h2>
+<p>With the default threshold value of 3</p>
+<pre>
+If ( (condition1 And condition2) Or (condition3 And condition4) Or (condition5 And condition6) )
+...
+End If
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+If ( myFirstCondition() Or mySecondCondition() Or myThirdCondition() )
+...
+End If
+</pre>

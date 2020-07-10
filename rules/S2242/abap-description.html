@@ -1,0 +1,14 @@
+<p>&lt;code&gt;SELECT INTO TABLE&lt;/code&gt; is much more efficient than &lt;code&gt;SELECT …​ ENDSELECT&lt;/code&gt;. &lt;code&gt;SELECT INTO TABLE&lt;/code&gt; needs more memory to hold the result set, but in normal situations, this is not a concern. When memory is a concern, the result set can be divided into smaller sets.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+SELECT * FROM T006 INTO X006_WA.
+  ...
+ENDSELECT.
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+SELECT * FROM T006 INTO TABLE X006.
+LOOP AT X006 INTO X006_WA.
+  ...
+ENDLOOP.
+</pre>

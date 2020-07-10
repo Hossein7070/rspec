@@ -1,0 +1,23 @@
+<p>Certain mathematical comparisons will always return the same value, and should simply not be made.</p>
+<p>These comparisons will always return &lt;code&gt;false&lt;/code&gt;:</p>
+<ul>
+<li>comparing a &lt;code&gt;byte&lt;/code&gt; with an &lt;code&gt;int&lt;/code&gt; or &lt;code&gt;long&lt;/code&gt; constant that’s outside the &lt;code&gt;byte&lt;/code&gt; range</li>
+<li>comparing an &lt;code&gt;int&lt;/code&gt; with a &lt;code&gt;long&lt;/code&gt; constant that’s outside the &lt;code&gt;int&lt;/code&gt; range</li>
+<li>comparing a value guaranteed to be negative with a one that’s guaranteed to be non-negative</li>
+</ul>
+<p>These will always return &lt;code&gt;true&lt;/code&gt;:</p>
+<ul>
+<li>comparing &lt;code&gt;aByte ⇐ Byte.MAX_VALUE&lt;/code&gt; and &lt;code&gt;aByte &gt;= Byte.MIN_VALUE&lt;/code&gt;</li>
+<li>comparing &lt;code&gt;anInt ⇐ Integer.MAX_VALUE&lt;/code&gt; and &lt;code&gt;anInt &gt;= Integer.MIN_VALUE&lt;/code&gt;</li>
+<li>comparing &lt;code&gt;aLong ⇐ Long.MAX_VALUE&lt;/code&gt; and &lt;code&gt;aLong &gt;= Long.MIN_VALLUE&lt;/code&gt;</li>
+</ul>
+<h2>Noncompliant Code Example</h2>
+<pre>
+byte b = 1;
+int i = Integer.MAX_VALUE;
+long m = Integer.MAX_VALUE +1;
+
+if (b == i) {...} // Noncompliant
+if (i == m) {...} // Noncompliant
+if (i +1 == m) {...} // Noncompliant; iPos +1 == Integer.MIN_VALUE
+</pre>

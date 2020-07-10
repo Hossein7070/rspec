@@ -1,0 +1,31 @@
+<p>Since Java 7, &lt;code&gt;String&lt;/code&gt;s can be used as &lt;code&gt;switch&lt;/code&gt; arguments. So when a single &lt;code&gt;String&lt;/code&gt; is tested against three or more values in an &lt;code&gt;if&lt;/code&gt;/&lt;code&gt;else if&lt;/code&gt; structure, it should be converted to a switch instead for greater readability.</p>
+<p><strong>Note</strong> that this rule is automatically disabled when the project’s &lt;code&gt;sonar.java.source&lt;/code&gt; is lower than &lt;code&gt;7&lt;/code&gt;.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+if ("red".equals(choice)) {  // Noncompliant
+  dispenseRed();
+} else if ("blue".equals(choice)) {
+  dispenseBlue();
+} else if ("yellow".equals(choice)) {
+  dispenseYellow();
+} else {
+  promptUser();
+}
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+switch(choice) {
+  case "Red":
+    dispenseRed();
+    break;
+  case "Blue":
+    dispenseBlue():
+    break;
+  case "Yellow":
+    dispenseYellow();
+    break;
+  default:
+    promptUser();
+    break;
+}
+</pre>

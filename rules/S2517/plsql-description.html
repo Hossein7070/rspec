@@ -1,0 +1,36 @@
+<p>Shared coding conventions allow teams to collaborate efficiently. This rule checks that all cursor names match the provided regular expression.</p>
+<h2>Noncompliant Code Example</h2>
+<p>With the default regular expression, &lt;code&gt;[a-zA-Z]([a-zA-Z0-9_]*[a-zA-Z0-9])?&lt;/code&gt;:</p>
+<pre>
+CREATE TABLE employee(
+  name VARCHAR2(42)
+);
+
+DECLARE
+  CURSOR myCursor_ RETURN employee%ROWTYPE; -- Noncompliant
+
+  CURSOR myCursor_ RETURN employee%ROWTYPE IS SELECT * FROM employee; -- Noncompliant
+BEGIN
+  NULL;
+END;
+/
+
+DROP TABLE employee;
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+CREATE TABLE employee(
+  name VARCHAR2(42)
+);
+
+DECLARE
+  CURSOR myCursor RETURN employee%ROWTYPE;
+
+  CURSOR myCursor RETURN employee%ROWTYPE IS SELECT * FROM employee;
+BEGIN
+  NULL;
+END;
+/
+
+DROP TABLE employee;
+</pre>

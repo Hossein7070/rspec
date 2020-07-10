@@ -1,0 +1,15 @@
+<p>Using an unsanitized, externally-provided format string could lead to errors at runtime and open the door to attackers. This rule raises an issue when an externally-provided format string is used.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+public void formattedLog(String format, String message) {
+  String logLine = String.format(format, message);  // Noncompliant
+  LOGGER.info(logLine);
+}
+</pre>
+<h2>See</h2>
+<ul>
+<li><a href="https://www.owasp.org/index.php/Top_10-2017_A1-Injection">OWASP Top 10 2017 Category A1</a> - Injection</li>
+<li><a href="http://cwe.mitre.org/data/definitions/134">MITRE, CWE-134</a> - Use of Externally-Controlled Format String</li>
+<li><a href="https://www.securecoding.cert.org/confluence/x/WwE">CERT, FIO30-C.</a> - Exclude user input from format strings</li>
+<li><a href="https://www.sans.org/top25-software-errors/#cat2">SANS Top 25</a> - Risky Resource Management</li>
+</ul>

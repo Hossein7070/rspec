@@ -1,0 +1,11 @@
+<p>An unused section is never called explicitly with help of the GO TO or PERFORM statements.
+There can be only two reasons for having such a section:</p>
+<ul>
+<li>It is really unused and should be removed</li>
+<li>It is only used as a kind of comment to clearly delimit a block of code, which is a bad practice</li>
+</ul>
+<p>The remediation action should be:</p>
+<ul>
+<li>Replace the section by a comment line</li>
+<li>Refactor the code to make an explicit call to this section instead of letting the execution flow going through it implicitly</li>
+</ul>

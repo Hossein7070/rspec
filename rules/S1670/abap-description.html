@@ -1,0 +1,9 @@
+<p>Internal tables can quickly become a source of performance problems if not accessed correctly, &lt;code&gt;SORTED&lt;/code&gt; and &lt;code&gt;HASHED&lt;/code&gt; tables should always be accessed with the appropriate key or partial key.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+READ TABLE it INTO work_area INDEX 1.
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+READ TABLE it INTO work_area WITH KEY color = 'RED'.
+</pre>

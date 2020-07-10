@@ -1,0 +1,24 @@
+<p>There is no good reason to have a mutable object as the &lt;code&gt;public&lt;/code&gt; (by default), &lt;code&gt;static&lt;/code&gt; member of an &lt;code&gt;interface&lt;/code&gt;. Such variables should be moved into classes and their visibility lowered.</p>
+<p>Similarly, mutable &lt;code&gt;static&lt;/code&gt; members of classes and enumerations which are accessed directly, rather than through getters and setters, should be protected to the degree possible. That can be done by reducing visibility or making the field &lt;code&gt;final&lt;/code&gt; if appropriate.</p>
+<p>Note that making a mutable field, such as an array, &lt;code&gt;final&lt;/code&gt; will keep the variable from being reassigned, but doing so has no effect on the mutability of the internal state of the array (i.e. it doesn’t accomplish the goal).</p>
+<p>This rule raises issues for &lt;code&gt;public static&lt;/code&gt; array, &lt;code&gt;Collection&lt;/code&gt;, &lt;code&gt;Date&lt;/code&gt;, and &lt;code&gt;awt.Point&lt;/code&gt; members.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+public interface MyInterface {
+  public static String [] strings; // Noncompliant
+}
+
+public class A {
+  public static String [] strings1 = {"first","second"};  // Noncompliant
+  public static String [] strings2 = {"first","second"};  // Noncompliant
+  public static List&lt;String&gt; strings3 = new ArrayList&lt;&gt;();  // Noncompliant
+  // ...
+}
+</pre>
+<h2>See</h2>
+<ul>
+<li><a href="http://cwe.mitre.org/data/definitions/582.html">MITRE, CWE-582</a> - Array Declared Public, Final, and Static</li>
+<li><a href="http://cwe.mitre.org/data/definitions/607.html">MITRE, CWE-607</a> - Public Static Final Field References Mutable Object</li>
+<li><a href="https://www.securecoding.cert.org/confluence/x/rwBc">CERT, OBJ01-J.</a> - Limit accessibility of fields</li>
+<li><a href="https://www.securecoding.cert.org/confluence/x/JQLEAw">CERT, OBJ13-J.</a> - Ensure that references to mutable objects are not exposed</li>
+</ul>

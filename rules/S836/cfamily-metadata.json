@@ -1,0 +1,29 @@
+{
+  "title": "Variables should be initialized before use",
+  "type": "BUG",
+  "status": "ready",
+  "remediation": {
+    "func": "Constant/Issue",
+    "constantCost": "15min"
+  },
+  "tags": [
+    "cwe",
+    "based-on-misra"
+  ],
+  "defaultSeverity": "Major",
+  "ruleSpecification": "RSPEC-836",
+  "sqKey": "S836",
+  "scope": "Main",
+  "securityStandards": {
+    "CWE": [
+      457
+    ]
+  },
+  "all_languages": [
+    "cfamily",
+    "php"
+  ],
+  "allKeys": [
+    "S836"
+  ]
+}

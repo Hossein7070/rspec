@@ -1,0 +1,15 @@
+<p>Nesting too many control flow statements (such as &lt;code&gt;IF&lt;/code&gt;, &lt;code&gt;PERFORM&lt;/code&gt;, &lt;code&gt;EVALUATE&lt;/code&gt;…​) should be avoided as it makes the code complex and therefore difficult to maintain.</p>
+<h2>Noncompliant Code Example</h2>
+<p>With a threshold (maximum allowed control flow statement nesting depth) of 3:</p>
+<pre>
+IF A = 1
+    PERFORM
+        MOVE A TO B
+        PERFORM
+            IF B = 1 *&gt; Noncompliant
+              MOVE "HI" TO S1
+            END-IF
+        END-PERFORM
+    END-PERFORM
+END-IF.
+</pre>

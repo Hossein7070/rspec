@@ -1,0 +1,23 @@
+<p>Hibernate’s lazy loading allows you to retrieve just the data of the current class without being forced to load all its related classes. For instance with lazy loading, you can pull up an instance of a &lt;code&gt;Lecture&lt;/code&gt; &lt;code&gt;@Entity&lt;/code&gt; without being forced to load all its &lt;code&gt;Student&lt;/code&gt;s.</p>
+<p>But that’s only if you’re storing the &lt;code&gt;Student&lt;/code&gt;s in a collection. Store them in an array instead, and the benefits of lazy loading are no longer available.</p>
+<p>This rule raises an issue on each array in &lt;code&gt;@Entity&lt;/code&gt; classes.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+@Entity
+public class Lecture {
+
+  @OneToMany
+  private Student [] attendees;  // Noncompliant
+  // ...
+}
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+@Entity
+public class Lecture {
+
+  @OneToMany
+  private List&lt;Student&gt; attendees;
+  // ...
+}
+</pre>

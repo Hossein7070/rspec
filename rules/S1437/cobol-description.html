@@ -1,0 +1,24 @@
+<p>The &lt;code&gt;LINKAGE&lt;/code&gt; section describes data made available from another program through the CALL statement. The data structure defined in a &lt;code&gt;LINKAGE&lt;/code&gt; section should be located in a COPYBOOK. Otherwise, at runtime multiple COBOL programs may try to share data structures which are not similar.</p>
+<p>First level data items can also be defined in the main program as long as there are no structural pieces of information attached to this first level like the length, the format, and so on.</p>
+<p>This rule raises an issue only on the first invalid data item of a &lt;code&gt;LINKAGE&lt;/code&gt; section.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+LINKAGE SECTION.
+
+01 LK-DATA.  *&gt; Noncompliant
+  05 LK-LENGTH     PIC S9(04) COMP.
+   05 LK-VARIABLE  PIC X(08).
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+LINKAGE SECTION.
+
+COPY MY_COPYBOOK.
+</pre>
+<p>or</p>
+<pre>
+LINKAGE SECTION.
+
+01 LK-DATA.
+  COPY MY_COPYBOOK.
+</pre>

@@ -1,0 +1,25 @@
+<p>A magic number is a number that comes out of nowhere, and is directly used in a statement. Magic numbers are often used, for instance to limit the number of iterations of a loops, to test the value of a property, etc.</p>
+<p>Using magic numbers may seem obvious and straightforward when you’re writing a piece of code, but they are much less obvious and straightforward at debugging time.</p>
+<p>That is why magic numbers must be demystified by first being assigned to clearly named constants before being used.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+Class Foo
+  Sub DoSomething(Param As Integer)
+    If Param &gt; 100 Then ' Magic Number
+      ' Do something
+    End If
+  End Sub
+End Class
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+Class Foo
+  Private Const MaxOfSomething As Integer = 100
+
+  Sub DoSomething(Param As Integer)
+    If Param &gt; MaxOfSomething Then
+      ' Do something
+    End If
+  End Sub
+End Class
+</pre>

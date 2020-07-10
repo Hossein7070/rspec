@@ -1,0 +1,31 @@
+<p>Having all branches in a &lt;code&gt;Select Case&lt;/code&gt; or &lt;code&gt;If&lt;/code&gt; chain with the same implementation is an error. Either a copy-paste error was made and something different should be executed, or there shouldn’t be a &lt;code&gt;Select Case&lt;/code&gt; / &lt;code&gt;If&lt;/code&gt; chain at all.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+Dim b As Integer = If(a &gt; 12, 4, 4)
+
+If b = 0 Then
+    DoTheThing()
+Else
+    DoTheThing()
+End If
+
+Select Case i
+    Case 1
+        DoSomething()
+    Case 2
+        DoSomething()
+    Case 3
+        DoSomething()
+    Case Else
+        DoSomething()
+End Select
+</pre>
+<h2>Exceptions</h2>
+<p>This rule does not apply to &lt;code&gt;If&lt;/code&gt; chains without &lt;code&gt;Else&lt;/code&gt;-s, or to &lt;code&gt;Select Case&lt;/code&gt;-es without &lt;code&gt;Case Else&lt;/code&gt; clauses.</p>
+<pre>
+If b = 0 Then ' No issue, this could have been done on purpose to make the code more readable
+    DoTheThing()
+ElseIf
+    DoTheThing()
+End If
+</pre>

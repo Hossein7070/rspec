@@ -1,0 +1,14 @@
+<p>In a Zen-like manner, "NULL" is never equal to anything, even itself. Therefore comparisons using equality operators will always return &lt;code&gt;False&lt;/code&gt;, even when the value actually &lt;code&gt;IS NULL&lt;/code&gt;.</p>
+<p>For that reason, comparison operators should never be used to make comparisons with &lt;code&gt;NULL&lt;/code&gt;; &lt;code&gt;IS NULL&lt;/code&gt; and &lt;code&gt;IS NOT NULL&lt;/code&gt; should be used instead.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+UPDATE books
+SET title = 'unknown'
+WHERE title = NULL -- Noncompliant
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+UPDATE books
+SET title = 'unknown'
+WHERE title IS NULL
+</pre>

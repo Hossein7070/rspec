@@ -1,0 +1,20 @@
+<p>Naming conventions allow teams to collaborate effectively. This rule checks that exception names match a given regular expression.</p>
+<h2>Noncompliant Code Example</h2>
+<p>With the default regular expression &lt;code&gt;[a-zA-Z]([a-zA-Z0-9_]*[a-zA-Z0-9])?&lt;/code&gt;:</p>
+<pre>
+DECLARE
+  my-Exception_ EXCEPTION; -- Noncompliant
+BEGIN
+  NULL;
+END;
+/
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+DECLARE
+  myException EXCEPTION;
+BEGIN
+  NULL;
+END;
+/
+</pre>

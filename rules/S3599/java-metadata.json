@@ -1,0 +1,22 @@
+{
+  "title": "Double Brace Initialization should not be used",
+  "type": "BUG",
+  "status": "ready",
+  "remediation": {
+    "func": "Constant/Issue",
+    "constantCost": "5min"
+  },
+  "tags": [
+    "leak"
+  ],
+  "defaultSeverity": "Minor",
+  "ruleSpecification": "RSPEC-3599",
+  "sqKey": "S3599",
+  "scope": "All",
+  "all_languages": [
+    "java"
+  ],
+  "allKeys": [
+    "S3599"
+  ]
+}

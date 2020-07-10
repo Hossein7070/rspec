@@ -1,0 +1,11 @@
+<p>Portability issues may restrict which characters should be used in an identifier.</p>
+<p>This rule checks identifier names against a regular expression of disallowed characters. Due to a technical limitation, the COBOL analyzer is not able for the time-being to differentiate lowercase from uppercase characters.</p>
+<h2>Noncompliant Code Example</h2>
+<p>With the default regular expression &lt;code&gt;[^a-zA-Z0-9-]&lt;/code&gt;:</p>
+<pre>
+MOVE DATA-1 TO DATA_2 *&gt; Noncompliant; '_' not allowed
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+MOVE DATA-1 TO DATA-2
+</pre>

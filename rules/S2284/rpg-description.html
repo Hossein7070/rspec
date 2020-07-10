@@ -1,0 +1,15 @@
+<p>Free-format syntax is preferred because it is clearer, easier to write, and easier for newcomers to the language than fixed-format syntax.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+     C                   IF        A &gt; 10
+     C                   EVAL      B = 1
+     C                   ENDIF
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+      /free
+        if A &gt; 10;
+          B = 1;
+        endif;
+      /end-free
+</pre>

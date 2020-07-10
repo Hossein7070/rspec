@@ -1,0 +1,22 @@
+<p>While it’s possible for inheritance to be non-&lt;code&gt;public&lt;/code&gt;, it is rarely justified, and complicates the use of the derived class. For instance, inherited member visibility is diminished, and implicit and &lt;code&gt;static_cast&lt;/code&gt; casts from the base class to the derived class won’t work.</p>
+<p>It is sometimes used to limit the base class functionality available in the derived class. When that’s the desire, composition should be used instead.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+class B : private A {  // Noncompliant
+  // ...
+}
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+class B : public A {
+  // ...
+}
+</pre>
+<p>or</p>
+<pre>
+class B {
+  private:
+  A a;
+  // ...
+}
+</pre>

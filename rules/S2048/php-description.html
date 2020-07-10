@@ -1,0 +1,25 @@
+<p>Shared coding conventions allow teams to collaborate effectively.</p>
+<p>This rule checks that when</p>
+<ul>
+<li>an assignment is too long to fit on one line, the line break is inserted before the &lt;code&gt;=&lt;/code&gt; rather than after, and the second line of the statement is indented from the first.</li>
+<li>an object operator is the first thing on the line, it is indented from the previous line.</li>
+</ul>
+<h2>Noncompliant Code Example</h2>
+<pre>
+$variable_with_a_very_very_long_name = classInstance.method1().method2().
+    method3(); // Noncompliant, linebreak after '='
+
+$variable_with_a_very_very_long_name
+= classInstance.method1().method2().method3(); // Noncompliant, 2nd line not indented
+
+$a = classInstance.method1().method2().method3()
+-&gt;property1; // Noncompliant,
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+$variable_with_a_very_very_long_name
+    = classInstance.method1().method2().method3();
+
+$a = classInstance.method1().method2().method3()
+    -&gt;property1;
+</pre>

@@ -1,0 +1,16 @@
+<p>C-style definitions should not be made inside Objective-C structures such as &lt;code&gt;@interface&lt;/code&gt;s. Doing so appears to limit their scope to the interface, but in fact, it imposes no such restriction. Such symbols are available globally, and may result in future confusion. Instead, such definitions should be moved to the top level, to make it clear that they’re globally available.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+@interface Example : NSObject
+typedef int T; // Noncompliant - defines type, which is visible outside of @interface
+void fun(); // Noncompliant - declares global function
+@end
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+typedef int T;
+void fun();
+
+@interface Example : NSObject
+@end
+</pre>

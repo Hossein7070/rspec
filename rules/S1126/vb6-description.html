@@ -1,0 +1,17 @@
+<p>Return of boolean literal statements wrapped into &lt;code&gt;If-Then-Else&lt;/code&gt; ones should be simplified.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+Function MyFunction
+  If condition Then
+    MyFunction = True
+  Else
+    MyFunction = False
+  End If
+End Function
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+Function MyFunction
+  MyFunction = condition
+End Function
+</pre>

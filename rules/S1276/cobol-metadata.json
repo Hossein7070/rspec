@@ -1,0 +1,22 @@
+{
+  "title": "\"CORRESPONDING\" should not be used in \"ADD\", \"SUBTRACT\", and \"MOVE\" statements",
+  "type": "BUG",
+  "status": "ready",
+  "remediation": {
+    "func": "Constant/Issue",
+    "constantCost": "2h"
+  },
+  "tags": [
+    "pitfall"
+  ],
+  "defaultSeverity": "Minor",
+  "ruleSpecification": "RSPEC-1276",
+  "sqKey": "COBOL.CorrespondingClauseUsageCheck",
+  "scope": "Main",
+  "all_languages": [
+    "cobol"
+  ],
+  "allKeys": [
+    "COBOL.CorrespondingClauseUsageCheck"
+  ]
+}

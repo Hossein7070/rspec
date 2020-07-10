@@ -1,0 +1,32 @@
+<p>In some cases a comparison with operators &lt;code&gt;==&lt;/code&gt;, or &lt;code&gt;!=&lt;/code&gt; will always return True or always return False. When this happens, the comparison and all its dependent code can simply be removed. This includes:</p>
+<ul>
+<li>comparing unrelated builtin types such as string and integer.</li>
+<li>comparing class instances which do not implement &lt;code&gt;_\_eq\__&lt;/code&gt; or &lt;code&gt;\__ne\__&lt;/code&gt; to an object of a different type (builtin or from an unrelated class which also doesn’t implement &lt;code&gt;\__eq\__&lt;/code&gt; or &lt;code&gt;\__ne\_\_&lt;/code&gt;).</li>
+</ul>
+<h2>Noncompliant Code Example</h2>
+<pre>
+foo = 1 == "1"  # Noncompliant. Always False.
+
+foo = 1 != "1"  # Noncompliant. Always True.
+
+class A:
+    pass
+
+myvar = A() == 1  # Noncompliant. Always False.
+myvar = A() != 1  # Noncompliant. Always True.
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+foo = 1 == int("1")
+
+foo = str(1) != "1"
+
+class Eq:
+    def __eq__(self, other):
+        return True
+
+myvar = Eq() == 1
+myvar = 1 == Eq()
+myvar = Eq() != 1  # Ok. "__ne__" calls "__eq__" by default
+myvar = 1 != Eq()
+</pre>

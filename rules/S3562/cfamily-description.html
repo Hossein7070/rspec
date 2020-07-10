@@ -1,0 +1,74 @@
+<p>For completeness, a &lt;code&gt;switch&lt;/code&gt; over the values of an &lt;code&gt;enum&lt;/code&gt; must either address each value in the &lt;code&gt;enum&lt;/code&gt; or contain a &lt;code&gt;default&lt;/code&gt; case. &lt;code&gt;switch&lt;/code&gt; statements that are not over &lt;code&gt;enum&lt;/code&gt; must end with a &lt;code&gt;default&lt;/code&gt; case.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+typedef enum {APPLE, GRAPE, KIWI} fruit;
+
+void example(fruit f, int i) {
+  switch (f) {  // Noncompliant; no case for KIWI
+    case APPLE:
+      //...
+    case GRAPE:
+      //...
+    case 3: // Noncompliant; case value not in enum
+      // ...
+  }
+
+  switch (i) { // Noncompliant; no default
+    case 0:
+      // ...
+    case 1:
+      // ...
+  }
+}
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+typedef enum {APPLE, GRAPE, KIWI} fruit;
+
+void example(fruit f) {
+  switch (f) {
+    case APPLE:
+      //...
+    case GRAPE:
+      //...
+    default:
+      // ...
+  }
+
+  switch (i) {
+    case 0:
+      // ...
+    case 1:
+      // ...
+    default:
+      // ...
+  }
+}
+</pre>
+<p>or</p>
+<pre>
+typedef enum {APPLE, GRAPE, KIWI} fruit;
+
+void example(fruit f) {
+  switch (f) {
+    case APPLE:
+      //...
+    case GRAPE:
+      //...
+    case KIWI:
+      //...
+  }
+
+  switch (i) {
+    case 0:
+    case 1:
+      // ...
+    default:
+      // ...
+  }
+}
+</pre>
+<h2>See</h2>
+<ul>
+<li><a href="https://github.com/isocpp/CppCoreGuidelines/blob/036324/CppCoreGuidelines.md#enum2-use-enumerations-to-represent-sets-of-related-named-constants">C++ Core Guidelines - Enum.2</a> - Use enumerations to represent sets of related named constants</li>
+</ul>

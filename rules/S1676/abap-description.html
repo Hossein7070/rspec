@@ -1,0 +1,20 @@
+<p>For readability, SAP recommends that asterisks (&lt;code&gt;*&lt;/code&gt;) only be used to comment out header lines and code. Commentary should be commented using a double quote (&lt;code&gt;"&lt;/code&gt;)</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+* GAC -  13 June 13 - output user data
+* WRITE: / 'Firstname'.
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+" GAC -  13 June 13 - output user data
+* WRITE: / 'Firstname'.
+</pre>
+<h2>Exceptions</h2>
+<p>This rule ignores code that is included in a commentary block and commented as commentary.</p>
+<pre>
+" This is a commentary block. It could go on for a number of lines.
+" As we see in the code sample below...
+" WRITE: / 'Firstname'.
+" It would have been better to comment the line above as code (i.e. with an asterisk)
+" but not doing so is accepted.
+</pre>

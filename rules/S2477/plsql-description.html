@@ -1,0 +1,63 @@
+<p>Labeled loops are useful, especially when the code is badly indented, to match the begin and end of each loop. When loops are nested, labeling them can improve the code’s readability. This rule detects nested loops which do not have a start label.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+BEGIN
+  LOOP
+    LOOP -- Noncompliant, this nested loop is not labeled
+      EXIT;
+    END LOOP;
+
+    EXIT;
+  END LOOP;
+
+  FOR i IN 1..10  LOOP
+    WHILE true LOOP -- Noncompliant, this nested loop has no start label
+      EXIT;
+    END LOOP nestedLoopLabel1;
+
+    EXIT;
+  END LOOP;
+
+  WHILE true LOOP
+    &lt;&lt;nestedLoopLabel2&gt;&gt;
+    LOOP -- Compliant, but better with an end label
+      EXIT;
+    END LOOP;
+
+    EXIT;
+  END LOOP;
+END;
+/
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+BEGIN
+  LOOP
+    &lt;&lt;nestedLoopLabel0&gt;&gt;
+    LOOP
+      EXIT;
+    END LOOP nestedLoopLabel0;
+
+    EXIT;
+  END LOOP;
+
+  FOR i IN 1..10  LOOP
+    &lt;&lt;nestedLoopLabel1&gt;&gt;
+    WHILE true LOOP
+      EXIT;
+    END LOOP nestedLoopLabel1;
+
+    EXIT;
+  END LOOP;
+
+  WHILE true LOOP
+    &lt;&lt;nestedLoopLabel2&gt;&gt;
+    LOOP
+      EXIT;
+    END LOOP nestedLoopLabel2;
+
+    EXIT;
+  END LOOP;
+END;
+/
+</pre>

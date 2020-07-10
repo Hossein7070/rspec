@@ -1,0 +1,14 @@
+<p>Restricting the number of &lt;code&gt;CONTINUE&lt;/code&gt;, &lt;code&gt;EXIT&lt;/code&gt; and &lt;code&gt;CHECK&lt;/code&gt; statements in a loop is done in the interest of good structured programming.</p>
+<p>One &lt;code&gt;CONTINUE&lt;/code&gt;, &lt;code&gt;EXIT&lt;/code&gt; and &lt;code&gt;CHECK&lt;/code&gt; statement is acceptable in a loop, since it facilitates optimal coding. If there is more than one, the code should be refactored to increase readability.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+DO counter TIMES.
+  IF sy-index = 2.
+    CONTINUE.
+  ENDIF.
+  IF sy-index = 10.
+    EXIT.
+  ENDIF.
+  WRITE sy-index.
+ENDDO.
+</pre>

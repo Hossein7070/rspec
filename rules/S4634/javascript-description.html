@@ -1,0 +1,15 @@
+<pre>
+When a &lt;code&gt;Promise&lt;/code&gt; needs to only "resolve" or "reject", it's more efficient and readable to use the methods specially created for such use cases: &lt;code&gt;Promise.resolve(value)&lt;/code&gt; and &lt;code&gt;Promise.reject(error)&lt;/code&gt;.
+</pre>
+<h2>Noncompliant Code Example</h2>
+<pre>
+let fulfilledPromise = new Promise(resolve =&gt; resolve(42));
+let rejectedPromise = new Promise(function(resolve, reject) {
+  reject('fail');
+});
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+let fulfilledPromise = Promise.resolve(42);
+let rejectedPromise = Promise.reject('fail');
+</pre>

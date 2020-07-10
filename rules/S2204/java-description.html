@@ -1,0 +1,16 @@
+<p>&lt;code&gt;AtomicInteger&lt;/code&gt;, and &lt;code&gt;AtomicLong&lt;/code&gt; extend &lt;code&gt;Number&lt;/code&gt;, but they’re distinct from &lt;code&gt;Integer&lt;/code&gt; and &lt;code&gt;Long&lt;/code&gt; and should be handled differently. &lt;code&gt;AtomicInteger&lt;/code&gt; and &lt;code&gt;AtomicLong&lt;/code&gt; are designed to support lock-free, thread-safe programming on single variables. As such, an &lt;code&gt;AtomicInteger&lt;/code&gt; will only ever be "equal" to itself. Instead, you should &lt;code&gt;.get()&lt;/code&gt; the value and make comparisons on it.</p>
+<p>This applies to all the atomic, seeming-primitive wrapper classes: &lt;code&gt;AtomicInteger&lt;/code&gt;, &lt;code&gt;AtomicLong&lt;/code&gt;, and &lt;code&gt;AtomicBoolean&lt;/code&gt;.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+AtomicInteger aInt1 = new AtomicInteger(0);
+AtomicInteger aInt2 = new AtomicInteger(0);
+
+if (aInt1.equals(aInt2)) { ... }  // Noncompliant
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+AtomicInteger aInt1 = new AtomicInteger(0);
+AtomicInteger aInt2 = new AtomicInteger(0);
+
+if (aInt1.get() == aInt2.get()) { ... }
+</pre>

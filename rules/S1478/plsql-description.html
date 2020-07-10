@@ -1,0 +1,13 @@
+<p>The &lt;code&gt;LONG&lt;/code&gt; and &lt;code&gt;LONG RAW&lt;/code&gt; datatypes are deprecated and Oracle recommends to migrate them to the LOB datatypes &lt;code&gt;CLOB&lt;/code&gt;, &lt;code&gt;NCLOB&lt;/code&gt; or &lt;code&gt;BLOB&lt;/code&gt;.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+CREATE TABLE images(
+  data LONG RAW
+);
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+CREATE TABLE images(
+  data BLOB
+);
+</pre>

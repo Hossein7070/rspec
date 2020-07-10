@@ -1,0 +1,11 @@
+<p>Deprecated language features are those that have been retained temporarily for backward compatibility, but which will eventually be removed from the language. In effect, deprecation announces a grace period to allow the smooth transition from the old features to the new ones. In that period, no use of the deprecated features should be added to the code, and all existing uses should be gradually removed.</p>
+<p>This rule raises an issue for the following functions, which were deprecated in PHP 5.5:</p>
+<p>||Deprecated||Use Instead||
+|&lt;code&gt;preg_replace()&lt;/code&gt;|&lt;code&gt;preg_replace_callback()&lt;/code&gt;|
+|&lt;code&gt;IntlDateFormatter::setTimeZoneID()&lt;/code&gt;|&lt;code&gt;IntlDateFormatter::setTimeZone()&lt;/code&gt;|
+|&lt;code&gt;datefmt_set_timezone_id()&lt;/code&gt;|&lt;code&gt;datefmt_set_timezone()&lt;/code&gt;|
+|&lt;code&gt;mysql_*&lt;/code&gt;|&lt;code&gt;MySQLi&lt;/code&gt; or &lt;code&gt;PDO_MySQL&lt;/code&gt; extensions|
+|&lt;code&gt;mcrypt_cbc()&lt;/code&gt;||
+|&lt;code&gt;mcrypt_cfb()&lt;/code&gt;||
+|&lt;code&gt;mcrypt_ecb()&lt;/code&gt;||
+|&lt;code&gt;mcrypt_ecb()&lt;/code&gt;||</p>

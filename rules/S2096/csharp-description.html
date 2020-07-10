@@ -1,0 +1,24 @@
+<p>There’s no reason for a &lt;code&gt;Main&lt;/code&gt; method to &lt;code&gt;throw&lt;/code&gt; anything. After all, what’s going to catch it?</p>
+<p>Instead, the method should itself gracefully handle any exceptions that may bubble up to it, attach as much contextual information as possible, and perform whatever logging or user communication is necessary, and &lt;code&gt;Exit&lt;/code&gt; with a non-zero (i.e. non-success) exit code if necessary.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+public static void Main(string[] args) { // Noncompliant
+  if (args.Length == 0)
+  {
+    throw new ArgumentException();
+  }
+  // do stuff
+}
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+private const int ERROR_INVALID_COMMAND_LINE = 0x667;
+public static void Main(string[] args) { // Noncompliant
+  if (args.Length == 0)
+  {
+    Console.WriteLine("Should provide at least one argument");
+    Environment.ExitCode = ERROR_INVALID_COMMAND_LINE;
+  }
+  // do stuff
+}
+</pre>

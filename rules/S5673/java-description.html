@@ -1,0 +1,44 @@
+<p>The Spring Framework provides several specializations of the generic &lt;code&gt;@Component&lt;/code&gt; stereotype annotation which better express the programmer’s intent. Using them should be preferred.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+@Component // Noncompliant; class name suggests it's a @Service
+public class CustomerServiceImpl {
+  // ...
+}
+
+@Component // Noncompliant; class name suggests it's a @Repository
+public class ProductRepository {
+    // ...
+}
+
+@Component // Noncompliant; class name suggests it's a @Controller or @RestController
+public class FooBarRestController {
+    // ...
+}
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+@Service // Compliant
+public class CustomerServiceImpl {
+  // ...
+}
+
+@Repository // Compliant
+public class ProductRepository {
+    // ...
+}
+
+@RestController // Compliant
+public class FooBarRestController {
+    // ...
+}
+
+@Component // Compliant
+public class SomeOtherComponent {
+   // ...
+}
+</pre>
+<h2>See</h2>
+<ul>
+<li><a href="https://docs.spring.io/spring-framework/docs/current/spring-framework-reference/core.html#beans-stereotype-annotations">https://docs.spring.io/spring-framework/docs/current/spring-framework-reference/core.html#beans-stereotype-annotations</a></li>
+</ul>

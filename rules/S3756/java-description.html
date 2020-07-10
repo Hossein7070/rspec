@@ -1,0 +1,18 @@
+<p>A cleanly coded web application will have a  clear separation of concerns, with business logic in the &lt;code&gt;@Service&lt;/code&gt; layer, and communication with other systems in the data access layer.</p>
+<p>To help enforce such a separation of concerns, this rule raises an issue when a &lt;code&gt;@Service&lt;/code&gt; class has &lt;code&gt;RestTemplate&lt;/code&gt;, &lt;code&gt;JmsTemplate&lt;/code&gt;, &lt;code&gt;WebServiceTemplate&lt;/code&gt;, &lt;code&gt;JdbcTemplate&lt;/code&gt;, or &lt;code&gt;DataSource&lt;/code&gt; member.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+@Service ("greetingmanager")
+public class GreetingManagerImpl implements GreetingManager
+{
+    @Autowired
+    DataSource ds;  // Noncompliant
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+@Service ("greetingmanager")
+public class GreetingManagerImpl implements GreetingManager
+{
+    @Autowired
+    GreetingDao gdao;  // DataSource and its use have been moved here
+</pre>

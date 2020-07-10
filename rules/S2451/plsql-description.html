@@ -1,0 +1,27 @@
+<p>Labeled blocks are useful, especially when the code is badly indented, to match the begin and end of each block. This check detects labeled blocks which are missing an ending label.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+&lt;&lt;myBlockLabel1&gt;&gt;
+BEGIN
+  NULL;
+END; -- Noncompliant; this labeled loop has no ending label
+/
+
+BEGIN
+  NULL; -- Compliant; not a labeled block
+END;
+/
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+&lt;&lt;myBlockLabel2&gt;&gt;
+BEGIN
+  NULL;
+END myBlockLabel2;
+/
+
+BEGIN
+  NULL;
+END;
+/
+</pre>

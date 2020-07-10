@@ -1,0 +1,33 @@
+<p>Checking if a variable or parameter is &lt;code&gt;None&lt;/code&gt; should only be done when you expect that it can be &lt;code&gt;None&lt;/code&gt;. Doing so when the variable is always None or never None is confusing at best. At worse, there is a bug and the variable is not updated properly.</p>
+<p>This rule raises an issue when expressions &lt;code&gt;X is None&lt;/code&gt;, &lt;code&gt;X is not None&lt;/code&gt;, &lt;code&gt;X == None&lt;/code&gt; or &lt;code&gt;X != None&lt;/code&gt; are constant, i.e. &lt;code&gt;X&lt;/code&gt; is always None or never None.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+mynone = None
+result = mynone is None: # Noncompliant. Always True.
+
+if mynone == None: # Noncompliant. Always True.
+    pass
+
+if mynone is not None:  # Noncompliant. Always False.
+    pass
+
+if mynone == None:  # Noncompliant. Always False.
+    pass
+
+myint = 42
+result = myint is None: # Noncompliant. Always False.
+
+if myint == None: # Noncompliant. Always False.
+    pass
+
+if myint is not None:  # Noncompliant. Always True.
+    pass
+
+if myint == None:  # Noncompliant. Always True.
+    pass
+</pre>
+<h2>See</h2>
+<ul>
+<li>Python documentation - <a href="https://docs.python.org/3/reference/expressions.html#is-not">Identity comparisons</a></li>
+<li>Python documentation - <a href="https://docs.python.org/3/reference/datamodel.html#object">https://docs.python.org/3/reference/datamodel.html#object</a>.<em>eq</em>[_\_eq\_\_ operator]</li>
+</ul>

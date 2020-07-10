@@ -1,0 +1,25 @@
+<p>When a non-existent variable is referenced a &lt;code&gt;ReferenceError&lt;/code&gt; is raised.</p>
+<p>Due to the dynamic nature of JavaScript this can happen in a number of scenarios:</p>
+<ul>
+<li>When typo was made in a symbol’s name.</li>
+<li>When using variable declared with &lt;code&gt;let&lt;/code&gt; or &lt;code&gt;const&lt;/code&gt; before declaration (unlike &lt;code&gt;var&lt;/code&gt;-declarations, they are not hoisted to the top of the scope).</li>
+<li>Due to confusion with scopes of &lt;code&gt;let&lt;/code&gt;- and &lt;code&gt;const&lt;/code&gt;-declarations (they have block scope, unlike &lt;code&gt;var&lt;/code&gt;-declarations, having function scope).</li>
+<li>When accessing a property in the wrong scope (e.g. forgetting to specify &lt;code&gt;this.&lt;/code&gt;).</li>
+</ul>
+<p>This rule does not raise issues on global variables which are defined with &lt;code&gt;sonar.javascript.globals&lt;/code&gt; and &lt;code&gt;sonar.javascript.environments&lt;/code&gt; properties.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+var john = {
+  firstName: "john",
+  show: function() { console.log(firstName); } // Noncompliant: firstName is not defined
+}
+john.show();
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+var john = {
+  firstName: "john",
+  show: function() { console.log(this.firstName); }
+}
+john.show();
+</pre>

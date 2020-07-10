@@ -1,0 +1,11 @@
+<p>While &lt;code&gt;NOT IN&lt;/code&gt; can be far more efficient than &lt;code&gt;NOT EXISTS&lt;/code&gt; in a query, it may return misleading results if the column in question contains null values.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+SELECT COUNT(*) FROM emp
+  WHERE empno NOT IN ( SELECT mgr FROM emp );
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+SELECT COUNT(*) FROM emp T1
+   WHERE NOT EXISTS ( SELECT NULL FROM emp T2 WHERE t2.mgr = t1.empno );
+</pre>

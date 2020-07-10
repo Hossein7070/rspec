@@ -1,0 +1,13 @@
+<p>Because force casting (&lt;code&gt;as!&lt;/code&gt;) does not perform any type safety validations, it is capable of performing dangerous conversions between unrelated types. When the types are truly unrelated, the cast will cause a system crash.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+foo as! MyClass  // Noncompliant
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+foo as? MyClass
+</pre>
+<h2>See</h2>
+<ul>
+<li>CppCoreGuidelines, Type safety profile - Type.1: Don’t use reinterpret_cast.</li>
+</ul>

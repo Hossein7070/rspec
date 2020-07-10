@@ -1,0 +1,41 @@
+{
+  "title": "\"NOSONAR\" comments should be relevant",
+  "type": "CODE_SMELL",
+  "status": "ready",
+  "remediation": {
+    "func": "Constant/Issue",
+    "constantCost": "1min"
+  },
+  "tags": [
+    "confusing"
+  ],
+  "defaultSeverity": "Minor",
+  "ruleSpecification": "RSPEC-4632",
+  "sqKey": "S4632",
+  "scope": "All",
+  "all_languages": [
+    "abap",
+    "cfamily",
+    "cobol",
+    "csharp",
+    "css",
+    "flex",
+    "go",
+    "java",
+    "javascript",
+    "php",
+    "pli",
+    "plsql",
+    "python",
+    "rpg",
+    "swift",
+    "tsql",
+    "vb6",
+    "vbnet",
+    "web",
+    "xml"
+  ],
+  "allKeys": [
+    "S4632"
+  ]
+}

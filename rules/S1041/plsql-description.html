@@ -1,0 +1,41 @@
+<p>Ensure that every possible exception is caught by using a &lt;code&gt;WHEN OTHERS&lt;/code&gt; clause.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+SET SERVEROUTPUT ON
+
+DECLARE
+  result PLS_INTEGER;
+  custom_exception EXCEPTION;
+BEGIN
+  result := 42 / 0;                            -- "Unexpected" division by 0
+
+  RAISE custom_exception;
+EXCEPTION                                      -- Non-Compliant
+  WHEN custom_exception THEN
+    DBMS_OUTPUT.PUT_LINE ('custom_exception: ' || DBMS_UTILITY.FORMAT_ERROR_STACK);
+END;
+/
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+SET SERVEROUTPUT ON
+
+DECLARE
+  result PLS_INTEGER;
+  custom_exception EXCEPTION;
+BEGIN
+  result := 42 / 0;                            -- "Unexpected" division by 0
+
+  RAISE custom_exception;
+EXCEPTION                                      -- Compliant
+  WHEN custom_exception THEN
+    DBMS_OUTPUT.PUT_LINE ('custom_exception: ' || DBMS_UTILITY.FORMAT_ERROR_STACK);
+  WHEN OTHERS THEN
+    DBMS_OUTPUT.PUT_LINE ('other: ' || DBMS_UTILITY.FORMAT_ERROR_STACK);
+END;
+/
+</pre>
+<h2>See</h2>
+<ul>
+<li><a href="http://cwe.mitre.org/data/definitions/391.html">MITRE, CWE-391</a> - Unchecked Error Condition</li>
+</ul>

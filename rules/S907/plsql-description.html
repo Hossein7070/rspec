@@ -1,0 +1,38 @@
+<p>A &lt;code&gt;GOTO&lt;/code&gt; statement is an unstructured change in the control flow. They should be avoided and replaced by structured constructs.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+SET SERVEROUTPUT ON
+
+DECLARE
+  i PLS_INTEGER := 42;
+BEGIN
+  IF i &lt; 0 THEN
+    GOTO negative; -- Noncompliant
+  END IF;
+
+  DBMS_OUTPUT.PUT_LINE('positive');
+  goto cleanup; -- Noncompliant
+
+  &lt;&lt;negative&gt;&gt;
+  DBMS_OUTPUT.PUT_LINE('negative!');
+
+  &lt;&lt;cleanup&gt;&gt;
+  NULL;
+END;
+/
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+SET SERVEROUTPUT ON
+
+DECLARE
+  i PLS_INTEGER := 42;
+BEGIN
+  IF i &lt; 0 THEN
+    DBMS_OUTPUT.PUT_LINE('negative!'); -- Compliant
+  ELSE
+    DBMS_OUTPUT.PUT_LINE('positive');
+  END IF;
+END;
+/
+</pre>

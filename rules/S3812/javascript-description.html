@@ -1,0 +1,23 @@
+<p>Mixing up the order of operations will almost always yield unexpected results.</p>
+<p>Similarly, mis-applied negation will also yield bad results. For instance consider the difference between &lt;code&gt;\!key in dict&lt;/code&gt; and &lt;code&gt;\!(key in dict)&lt;/code&gt;. The first looks for a boolean value (&lt;code&gt;!key&lt;/code&gt;) in &lt;code&gt;dict&lt;/code&gt;, and the other looks for a string and inverts the result. &lt;code&gt;\!obj instanceof SomeClass&lt;/code&gt; has the same problem.</p>
+<p>This rule raises an issue when the left operand of an &lt;code&gt;in&lt;/code&gt; or &lt;code&gt;instanceof&lt;/code&gt; operator is negated.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+if (!"prop" in myObj) {  // Noncompliant;  "in" operator is checking property "false"
+  doTheThing();  // this block will be never executed
+}
+
+if (!foo instanceof MyClass) {  // Noncompliant; "!foo" returns a boolean, which is not an instance of anything
+  doTheOtherThing();  // this block is never executed
+}
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+if (!("prop" in myObj)) {
+  doTheThing();
+}
+
+if (!(foo instanceof MyClass)) {
+  doTheOtherThing();
+}
+</pre>

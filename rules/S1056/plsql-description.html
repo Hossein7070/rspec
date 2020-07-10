@@ -1,0 +1,29 @@
+<p>Compound triggers were introduced to ease the implementation of multiple triggers which need to work in cooperation.</p>
+<p>Typically, a &lt;code&gt;FOR EACH ROW&lt;/code&gt; trigger accumulates facts, and an &lt;code&gt;AFTER STATEMENT&lt;/code&gt; trigger performs the actual changes.</p>
+<p>The compound trigger can hold a state common to all the triggers it defines, thereby removing the need to use package variables. This approach is sometimes the only possible one, as when avoiding a mutating table &lt;code&gt;ORA-04091&lt;/code&gt; error, or it can be used to get better performance.</p>
+<p>However, there is no point in defining a compound trigger which contains only a single trigger, since there is no state to be shared. In such cases, a simple trigger should be used instead.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+CREATE OR REPLACE TRIGGER my_trigger  -- Noncompliant; defines a single trigger
+FOR INSERT ON my_table
+COMPOUND TRIGGER
+
+AFTER EACH ROW IS
+BEGIN
+  DBMS_OUTPUT.PUT_LINE('New row inserted!');
+END AFTER EACH ROW;
+
+END;
+/
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+CREATE OR REPLACE TRIGGER my_trigger
+  AFTER INSERT
+  ON my_table
+  FOR EACH ROW
+BEGIN
+  DBMS_OUTPUT.PUT_LINE('New row inserted!');
+END;
+/
+</pre>

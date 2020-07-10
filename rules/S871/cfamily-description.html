@@ -1,0 +1,63 @@
+<p>C++ allows the traditional C-style casts  [E.G. &lt;code&gt;(int) f&lt;/code&gt;] and functional notation casts [E.G. &lt;code&gt;int(f)&lt;/code&gt;], but adds its own forms:</p>
+<ul>
+<li>&lt;code&gt;static_cast&lt;type&gt;(expression)&lt;/code&gt;</li>
+<li>&lt;code&gt;const_cast&lt;type&gt;(expression)&lt;/code&gt;</li>
+<li>&lt;code&gt;dynamic_cast&lt;type&gt;(expression)&lt;/code&gt;</li>
+<li>&lt;code&gt;reinterpret_cast&lt;type&gt;(expression)&lt;/code&gt;</li>
+</ul>
+<p>C-style casts and functional notation casts are largely functionally equivalent. However, when they do not invoke a converting constructor, C-style casts are capable of performing dangerous conversions between unrelated types and of changing a variable’s &lt;code&gt;const&lt;/code&gt;-ness. Attempt to do these things with an explicit C++-style cast, and the compiler will catch the error. Use a C-style or functional notation cast, and it cannot.</p>
+<p>Additionally, C-style casts are preferred because they are visually striking. The visual subtlety of a C-style or functional cast may mask that a cast has taken place, but a C-style cast draws attention to itself, and makes the the programmer’s intention explicit.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+#include &lt;iostream&gt;
+
+class Base { };
+
+class Derived: public Base
+{
+public:
+  int a;
+};
+
+void DoSomethingElse(Derived *ptr)
+{
+  ptr-&gt;a = 42;
+}
+
+void DoSomething(const Base *ptr)
+{
+  Derived* derived = (Derived*)ptr; // Noncompliant; inadvertently removes constness
+  DoSomethingElse(derived);
+}
+
+int main(int argc, char* argv[])
+{
+  Derived *ptr = new Derived();
+  ptr-&gt;a = 1337;
+
+  DoSomething(ptr);
+
+  std::cout &lt;&lt; ptr-&gt;a &lt;&lt; std::endl; /* 1337 was expected, but 42 is printed */
+
+  return 0;
+}
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+/* ... */
+
+void DoSomething(const Base *ptr)
+{
+  /* error: static_cast from type 'const Base*' to type 'Derived*' casts away qualifiers */
+  Derived* derived = static_cast&lt;Derived*&gt;(ptr); // Compliant. Compile fails with above error
+  DoSomethingElse(derived);
+}
+
+/* ... */
+</pre>
+<h2>Exceptions</h2>
+<p>Void casts and explicit constructor calls are allowed.</p>
+<h2>See</h2>
+<ul>
+<li>MISRA C++:2008, 5-2-4 - C-style casts (other than void casts) and functional notation casts (other than explicit constructor calls) shall not be used.</li>
+</ul>

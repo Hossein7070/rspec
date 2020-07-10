@@ -1,0 +1,58 @@
+<p>Protected member variables are similar to global variables; any derived class can modify them. When protected member variables are used, invariants cannot be enforced. Also, protected member variables are hard to maintain since they can be manipulated through multiple classes in different files.</p>
+<p>If a class is just a data store without logic, it can safely contain only &lt;code&gt;public&lt;/code&gt; member variables and no member functions. Otherwise, data members are tightly coupled to the class' logic, and encapsulation must be used. In this case, having only private member variables enforces invariants for data and ensures that logic is defined only in the member functions of the class. Structuring it this way makes It easier to guarantee integrity and easier for maintainers to understand the code.</p>
+<p>But when an object provides encapsulation by using &lt;code&gt;protected&lt;/code&gt; member variables, data integrity logic can be spread through the class and all its derived class, becoming a source of complexity and that will be error-prone for maintainers and extenders.</p>
+<p>That’s why &lt;code&gt;protected&lt;/code&gt; member variables should be changed to &lt;code&gt;private&lt;/code&gt; and manipulated exclusively through &lt;code&gt;public&lt;/code&gt; or &lt;code&gt;protected&lt;/code&gt; member functions of the base class.</p>
+<p>This rule raises an issue when a &lt;code&gt;class&lt;/code&gt; or &lt;code&gt;struct&lt;/code&gt; contains &lt;code&gt;protected&lt;/code&gt; member variables.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+class Stat {
+public:
+  long int getCount() {
+    return count;
+  }
+protected:
+  long int count = 0; // Noncompliant; expose a protected member variable.
+                      // By just looking at "Stat" class, it's not possible to be sure that "count"
+                      // is modified properly, we also need to check all derived classes
+};
+
+class EventStat : public Stat {
+public:
+  void onEvent() {
+    if (count &lt; LONG_MAX) {
+      count++;
+    }
+  }
+};
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+class Stat {
+public:
+  long int getCount() {
+    return count;
+  }
+protected:
+  void increment() { // Compliant; expose a protected member function
+    if (count &lt; LONG_MAX) {
+      count++;
+    }
+  }
+private:
+  long int count = 0; // member variable is private
+};
+
+class EventStat : public Stat {
+public:
+  void onEvent() {
+    increment();
+  }
+};
+</pre>
+<h2>Exceptions</h2>
+<p>Const member variables and reference member variables are ignored since they don’t break invariants.</p>
+<h2>See</h2>
+<ul>
+<li>MISRA C++:2008, 11-0-1 - Member data in non-POD class types shall be private.</li>
+<li><a href="https://github.com/isocpp/CppCoreGuidelines/blob/036324/CppCoreGuidelines.md#c133-avoid-protected-data">C++ Core Guidelines C.133</a>: Avoid protected data</li>
+</ul>

@@ -1,0 +1,31 @@
+<p>Dynamic memory allocation &amp; deallocation (e.g. &lt;code&gt;malloc&lt;/code&gt; / &lt;code&gt;free&lt;/code&gt;) is somewhat expensive. This is particularly true when it happens in a loop. It is good practice to allocate and deallocate memory only when it is needed.</p>
+<p>This rule raises an issue when one, or more, execution path results in unused allocated memory.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+int foo(int val) {
+  int ret;
+  char *buf = malloc(100);
+  if (!isPresent(val)) {
+    snprintf(buf, 100, "msg %d", val);
+    addToList(buf);
+    ret = 1;
+  } else { // Noncompliant: buf unused in this branch
+    ret = 2;
+  }
+  free(buf);
+  return ret;
+}
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+int foo(int val) {
+  if (!isPresent(val)) {
+    char *buf = malloc(100);
+    snprintf(buf, 100, "msg %d", val);
+    addToList(buf);
+    free(buf);
+    return 1;
+  }
+  return 2;
+}
+</pre>

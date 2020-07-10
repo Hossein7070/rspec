@@ -1,0 +1,12 @@
+<p>Any extensible class might have subclasses located in a different package. When that happens, the use of &lt;code&gt;this.getClass().getResource&lt;/code&gt; with a relative path would mean that the resource isn’t found for the child class.</p>
+<p>Instead, use an absolute path or make the class &lt;code&gt;final&lt;/code&gt;.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+public class MyClass {
+
+private URL url = null;
+
+  public MyClass(){
+    this.url = this.getClass().getResource("file.txt");  // Noncompliant
+  }
+</pre>

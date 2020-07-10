@@ -1,0 +1,13 @@
+<p>Using &lt;code&gt;string.Equals&lt;/code&gt; to determine if a string is empty is significantly slower than using &lt;code&gt;string.IsNullOrEmpty()&lt;/code&gt; or checking for &lt;code&gt;string.Length == 0&lt;/code&gt;. &lt;code&gt;string.IsNullOrEmpty()&lt;/code&gt; is both clear and concise, and therefore preferred to laborious, error-prone, manual null- and emptiness-checking.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+"".Equals(name); // Noncompliant
+!name.Equals(""); // Noncompliant
+name.Equals(string.Empty); // Noncompliant
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+name != null &amp;&amp; name.Length &gt; 0 // Compliant but more error prone
+!string.IsNullOrEmpty(name)
+string.IsNullOrEmpty(name)
+</pre>

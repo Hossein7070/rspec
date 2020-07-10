@@ -1,0 +1,16 @@
+<p>Concatenation of wide and narrow string literals leads to undefined behavior.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+wchar_t n_array[] = "Hello" L"World";     // Noncompliant
+wchar_t w_array[] = L"Hello" "World";     // Noncompliant
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+char_t n_array[] = "Hello" "World";     // Compliant
+wchar_t w_array[] = L"Hello" L"World";	// Compliant
+</pre>
+<h2>See</h2>
+<ul>
+<li>MISRA C++:2008, 2-13-5 - Narrow and wide string literals shall not be concatenated.</li>
+<li><a href="https://www.securecoding.cert.org/confluence/x/QIEzAg">CERT STR10-C.</a> - Do not concatenate different type of string literals</li>
+</ul>

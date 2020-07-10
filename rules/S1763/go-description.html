@@ -1,0 +1,20 @@
+<p>Some statements (&lt;code&gt;return&lt;/code&gt;, &lt;code&gt;break&lt;/code&gt;, &lt;code&gt;continue&lt;/code&gt;, &lt;code&gt;goto&lt;/code&gt;, &lt;code&gt;switch&lt;/code&gt;) and &lt;code&gt;throw&lt;/code&gt; expressions move control flow out of the current code block. So any unlabeled statements that come after such a jump are unreachable, and either this dead code should be removed, or the logic should be corrected.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+func add(x, y int) int {
+	return x + y // Noncompliant
+	z := x + y // dead code
+}
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+func add(x, y int) int {
+	return x + y // Compliant
+}
+</pre>
+<h2>See</h2>
+<ul>
+<li><a href="http://cwe.mitre.org/data/definitions/561.html">MITRE, CWE-561</a> - Dead Code</li>
+<li><a href="https://www.securecoding.cert.org/confluence/x/uQCSBg">CERT, MSC56-J.</a> - Detect and remove superfluous code and values</li>
+<li><a href="https://www.securecoding.cert.org/confluence/x/NYA5">CERT, MSC12-C.</a> - Detect and remove code that has no effect or is never executed</li>
+</ul>

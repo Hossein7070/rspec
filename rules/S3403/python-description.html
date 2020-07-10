@@ -1,0 +1,8 @@
+<p>Operators <a href="https://docs.python.org/3/reference/expressions.html#is-not">&lt;code&gt;is&lt;/code&gt;</a> and <a href="https://docs.python.org/3/reference/expressions.html#is-not">&lt;code&gt;is not&lt;/code&gt;</a> check if their operands point to the same instance, thus they will always return respectively True and False when they are used to compare objects of different type. Such comparisons can only be bugs.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+myint = 1
+mystring = "1"
+value = myint is mystring  # Noncompliant. Always False
+value = myint is not mystring  # Noncompliant. Always True
+</pre>

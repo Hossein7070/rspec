@@ -1,0 +1,56 @@
+<p>Proprietary compiler extensions can be handy, but they commit you to always using that compiler. This rule raises an issue when the following GNU extensions are used:</p>
+<ul>
+<li>A array initializer without &lt;code&gt;=&lt;/code&gt;, which has been obsolete since GCC 2.5</li>
+<li>A structure member initializer with a colon, which has been obsolete since GCC 2.5.</li>
+<li>Case ranges</li>
+<li>Ternary operator with omitted second operand</li>
+</ul>
+<h2>Noncompliant Code Example</h2>
+<pre>
+struct S {
+  int f;
+};
+
+struct S s[] = {
+  [0] { // Noncompliant
+    f : 0 // Noncompliant
+  }
+};
+
+int fun(int p) {
+  switch (p) {
+    case 0 ... 1: // Noncompliant
+      do_the_thing();
+      break;
+    case 2:
+      //...
+  }
+
+  return p ?: 0; // Noncompliant
+}
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+struct S {
+  int f;
+};
+
+struct S s[] = {
+  [0] = {
+    .f = 0
+  }
+};
+
+int fun(int p) {
+  switch (p) {
+    case 0:
+    case 1:
+      do_the_thing();
+      break;
+    case 2:
+      //...
+  }
+
+  return p ? p: 0;
+}
+</pre>

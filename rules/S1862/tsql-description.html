@@ -1,0 +1,48 @@
+<p>A &lt;code&gt;CASE&lt;/code&gt; and a chain of &lt;code&gt;IF&lt;/code&gt;/&lt;code&gt;ELSE IF&lt;/code&gt; statements is evaluated from top to bottom. At most, only one branch will be executed: the first one with a condition that evaluates to &lt;code&gt;true&lt;/code&gt;.</p>
+<p>Therefore, duplicating a condition automatically leads to dead code. Usually, this is due to a copy/paste error. At best, it’s simply dead code and at worst, it’s a bug that is likely to induce further bugs as the code is maintained, and obviously it could lead to unexpected behavior.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+IF @x = 1
+  PRINT 'A'
+ELSE IF @x = 2
+  PRINT 'B'
+ELSE IF @x = 1 -- Noncompliant
+  PRINT 'C'
+
+SELECT
+  CASE col1
+    WHEN 1
+      THEN 'A'
+    WHEN 2
+      THEN 'B'
+    WHEN 1  -- Noncompliant
+      THEN 'C'
+    ELSE 'D'
+  END
+FROM table1
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+IF @x = 1
+  PRINT 'A'
+ELSE IF @x = 2
+  PRINT 'B'
+ELSE IF @x = 3
+  PRINT 'C'
+
+SELECT
+  CASE col1
+    WHEN 1
+      THEN 'A'
+    WHEN 2
+      THEN 'B'
+    WHEN 3
+      THEN 'C'
+    ELSE 'D'
+  END
+FROM table1
+</pre>
+<h2>See</h2>
+<ul>
+<li><a href="https://www.securecoding.cert.org/confluence/x/NYA5">CERT, MSC12-C.</a> - Detect and remove code that has no effect or is never executed</li>
+</ul>

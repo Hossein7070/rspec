@@ -1,0 +1,13 @@
+<p>PHP has two sets of logical operators: &lt;code&gt;&amp;&amp;&lt;/code&gt; / &lt;code&gt;||&lt;/code&gt;, and &lt;code&gt;and&lt;/code&gt; / &lt;code&gt;or&lt;/code&gt;. The difference between the sets is precedence. Because &lt;code&gt;and&lt;/code&gt; / &lt;code&gt;or&lt;/code&gt; have a lower precedence than almost any other operator, using them instead of &lt;code&gt;&amp;&amp;&lt;/code&gt; / &lt;code&gt;||&lt;/code&gt; may not have the result you expect.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+$have_time = true;
+$have_money = false;
+$take_vacation = $have_time and $have_money;  // Noncompliant. $take_vacation == true.
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+$have_time = true;
+$have_money = false;
+$take_vacation = $have_time &amp;&amp; $have_money;  // $take_vacation == false.
+</pre>

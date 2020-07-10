@@ -1,0 +1,8 @@
+<p>As stated in the Glibc documentation:
+{quote}
+The behavior of the 's[n]printf()' functions are undefined if copying takes place between objects that overlap—for example, if s is also given as an argument to be printed under control of the ‘%s’ conversion
+{quote}</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+sprintf(buf, "%s Entry: %d\n", buf, i); //Noncompliant
+</pre>

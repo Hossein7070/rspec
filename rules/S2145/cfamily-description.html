@@ -1,0 +1,45 @@
+<p>When a single primitive is tested against three or more values in an &lt;code&gt;if&lt;/code&gt;/&lt;code&gt;else if&lt;/code&gt; structure, it should be converted to a switch instead for greater readability.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+public void doSomething(int i) {
+  if (i == 0) {
+    // ...
+  }
+  else if (i == 1) {
+    // ...
+  }
+  else if (i == 2) {
+    // ...
+  }
+  else if (i == 3) {
+    // ...
+  }
+  else {
+    // ...
+  }
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+public void doSomething(int i) {
+  switch(i) {
+    case 0:
+      // ...
+      break;
+    case 1:
+      // ...
+      break;
+    case 2:
+      // ...
+      break;
+    case 3:
+      // ...
+      break;
+    default:
+      // ...
+      break;
+  }
+</pre>
+<h2>See</h2>
+<ul>
+<li><a href="https://github.com/isocpp/CppCoreGuidelines/blob/036324/CppCoreGuidelines.md#es70-prefer-a-switch-statement-to-an-if-statement-when-there-is-a-choice">C++ Core Guidelines ES.70</a>: Prefer a switch-statement to an if-statement when there is a choice</li>
+</ul>

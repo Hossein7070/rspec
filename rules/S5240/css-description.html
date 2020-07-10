@@ -1,0 +1,20 @@
+<p>Text should provide enough contrast with its background so that it can be read easily by people with moderately low vision, including colorblind people.</p>
+<p>This rule raises an issue when a CSS selector defines both the &lt;code&gt;background-color&lt;/code&gt; and &lt;code&gt;color&lt;/code&gt; properties with a contrast ratio of less than 4.5:1, which is the contrast required to meet WCAG AA level. It applies only when the selector is not on a heading (&lt;code&gt;h1&lt;/code&gt;, &lt;code&gt;h2&lt;/code&gt;,…​) or &lt;code&gt;title&lt;/code&gt;</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+body {
+    font-size: 17pt;
+}
+.myclass {
+    color: #777;  // NonCompliant
+    background-color: #888;
+}
+
+.header h4 {
+    font-size: 22pt;
+}
+</pre>
+<h2>See</h2>
+<ul>
+<li><a href="https://www.w3.org/TR/WCAG21/#contrast-minimum">WCAG2 - minimum contrast</a></li>
+</ul>

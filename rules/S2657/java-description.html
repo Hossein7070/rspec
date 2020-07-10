@@ -1,0 +1,12 @@
+<p>According to the EJB specification, EJB’s:
+bq. …​must not attempt to create a class loader; obtain the current class loader; set the context class loader…​</p>
+<p>This rule raises an issue each time an EJB obtains a class loader.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+ClassLoader loader = this.getClass().getClassLoader();  // Noncompliant
+ClassLoader loader = new MyClassLoader();  // Noncompliant
+</pre>
+<h2>See</h2>
+<ul>
+<li><a href="http://cwe.mitre.org/data/definitions/578.html">MITRE, CWE-578</a> - EJB Bad Practices: Use of Class Loader</li>
+</ul>

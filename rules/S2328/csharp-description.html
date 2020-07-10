@@ -1,0 +1,30 @@
+<p>&lt;code&gt;GetHashCode&lt;/code&gt; is used to file an object in a &lt;code&gt;Dictionary&lt;/code&gt; or &lt;code&gt;Hashtable&lt;/code&gt;. If &lt;code&gt;GetHashCode&lt;/code&gt; uses non-&lt;code&gt;readonly&lt;/code&gt; fields and those fields change after the object is stored, the object immediately becomes mis-filed in the &lt;code&gt;Hashtable&lt;/code&gt;. Any subsequent test to see if the object is in the &lt;code&gt;Hashtable&lt;/code&gt; will return a false negative.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+public class Person
+{
+  public int age;
+  public string name;
+
+  public override int GetHashCode()
+  {
+    int hash = 12;
+    hash += this.age.GetHashCode(); // Noncompliant
+    hash += this.name.GetHashCode(); // Noncompliant
+    return hash;
+  }
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+public class Person
+{
+  public readonly DateTime birthday;
+  public string name;
+
+  public override int GetHashCode()
+  {
+    int hash = 12;
+    hash += this.birthday.GetHashCode();
+    return hash;
+  }
+</pre>

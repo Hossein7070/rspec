@@ -1,0 +1,25 @@
+<p>Constructors for &lt;code&gt;String&lt;/code&gt;, &lt;code&gt;BigInteger&lt;/code&gt;, &lt;code&gt;BigDecimal&lt;/code&gt; and the objects used to wrap primitives should never be used. Doing so is less clear and uses more memory than simply using the desired value in the case of strings, and using &lt;code&gt;valueOf&lt;/code&gt; for everything else.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+String empty = new String(); // Noncompliant; yields essentially "", so just use that.
+String nonempty = new String("Hello world"); // Noncompliant
+Double myDouble = new Double(1.1); // Noncompliant; use valueOf
+Integer integer = new Integer(1); // Noncompliant
+Boolean bool = new Boolean(true); // Noncompliant
+BigInteger bigInteger1 = new BigInteger("3"); // Noncompliant
+BigInteger bigInteger2 = new BigInteger("9223372036854775807"); // Noncompliant
+BigInteger bigInteger3 = new BigInteger("111222333444555666777888999"); // Compliant, greater than Long.MAX_VALUE
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+String empty = "";
+String nonempty = "Hello world";
+Double myDouble = Double.valueOf(1.1);
+Integer integer = Integer.valueOf(1);
+Boolean bool = Boolean.valueOf(true);
+BigInteger bigInteger1 = BigInteger.valueOf(3);
+BigInteger bigInteger2 = BigInteger.valueOf(9223372036854775807L);
+BigInteger bigInteger3 = new BigInteger("111222333444555666777888999");
+</pre>
+<h2>Exceptions</h2>
+<p>&lt;code&gt;BigDecimal&lt;/code&gt; constructor with &lt;code&gt;double&lt;/code&gt; argument is ignored as using &lt;code&gt;valueOf&lt;/code&gt; instead might change resulting value. See S2111 .</p>

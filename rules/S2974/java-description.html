@@ -1,0 +1,25 @@
+<p>Classes with only &lt;code&gt;private&lt;/code&gt; constructors should be marked &lt;code&gt;final&lt;/code&gt; to prevent any mistaken extension attempts.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+public class PrivateConstructorClass {  // Noncompliant
+  private PrivateConstructorClass() {
+    // ...
+  }
+
+  public static int magic(){
+    return 42;
+  }
+}
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+public final class PrivateConstructorClass {  // Compliant
+  private PrivateConstructorClass() {
+    // ...
+  }
+
+  public static int magic(){
+    return 42;
+  }
+}
+</pre>

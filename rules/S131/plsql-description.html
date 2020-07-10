@@ -1,0 +1,25 @@
+<p>The requirement for a final &lt;code&gt;ELSE&lt;/code&gt; clause is defensive programming. The &lt;code&gt;CASE&lt;/code&gt; expression should always provide a value.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+SELECT
+  CASE category
+    WHEN 'A' THEN 21
+    WHEN 'B' THEN 33
+END shipping_cost
+FROM product
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+SELECT
+  CASE category
+    WHEN 'A' THEN 21
+    WHEN 'B' THEN 33
+    ELSE 42
+END shipping_cost
+FROM product
+</pre>
+<h2>See</h2>
+<ul>
+<li><a href="http://cwe.mitre.org/data/definitions/478.html">MITRE, CWE-478</a> - Missing Default Case in Switch Statement</li>
+<li><a href="https://www.securecoding.cert.org/confluence/x/YgE">CERT, MSC01-C.</a> - Strive for logical completeness</li>
+</ul>

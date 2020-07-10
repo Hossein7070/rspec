@@ -1,0 +1,20 @@
+<p>Shared coding conventions allow teams to collaborate efficiently. This rule checks that first level data item names match a provided regular expression.</p>
+<h2>Noncompliant Code Example</h2>
+<p>Given an regular expression of &lt;code&gt;WS-.*&lt;/code&gt;:</p>
+<pre>
+       WORKING-STORAGE SECTION.
+            01 WRONG.                                       &gt; Noncompliant; name doesn't match the pattern "WS-.*"
+              02  LINK.                                     &gt; Compliant; this is not first level
+
+       LINKAGE SECTION.
+             01     DFHCOMMAREA PIC X(1500).                &gt; Compliant; the data item is defined in the LINKAGE SECTION
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+       WORKING-STORAGE SECTION.
+            01 WS-LINK.
+              02  LINK.
+
+       LINKAGE SECTION.
+             01     DFHCOMMAREA PIC X(1500).
+</pre>

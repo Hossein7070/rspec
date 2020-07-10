@@ -1,0 +1,34 @@
+<p>Nested &lt;code&gt;case&lt;/code&gt; structures are difficult to understand because you can easily confuse the cases of an inner &lt;code&gt;case&lt;/code&gt; as belonging to an outer statement. Therefore nested &lt;code&gt;case&lt;/code&gt; statements should be avoided.</p>
+<p>Specifically, you should structure your code to avoid the need for nested &lt;code&gt;case&lt;/code&gt; statements, but if you cannot, then consider moving the inner &lt;code&gt;case&lt;/code&gt; to another function.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+def foo(n, m)
+  case n
+  when 0
+      case m  # Noncompliant; nested case
+      when 0 then puts "0"
+        # ...
+      end
+  when 1 then puts "1"
+  else puts "2"
+  end
+end
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+def foo(n, m)
+  case n
+  when 0
+    bar(m)
+  when 1 then puts "1"
+  else puts "2"
+  end
+end
+
+def bar(m)
+  case m
+  when 0 then puts "0"
+    # ...
+  end
+end
+</pre>

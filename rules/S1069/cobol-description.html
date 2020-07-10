@@ -1,0 +1,39 @@
+<p>Allowing an application to dynamically change the structure of a database at runtime is very dangerous because the application can become unstable under unexpected conditions. Best practices dictate that applications only manipulate data.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+EXEC SQL
+  CREATE TABLE INVENTORY
+                 (PARTNO         SMALLINT     NOT NULL,
+                  DESCR          VARCHAR(24 ),
+                  PRIMARY KEY(PARTNO))
+END-EXEC.
+
+EXEC SQL
+  DROP TABLE EMPLOYEE RESTRICT
+END-EXEC.
+
+EXEC SQL
+  ALTER TABLE EQUIPMENT
+     DROP COLUMN LOCATION CASCADE
+END-EXEC.
+</pre>
+<h2>Exceptions</h2>
+<p>Creating global temporary tables, creating indexes on those tables, and then dropping those indices and tables is allowed.</p>
+<pre>
+EXEC SQL
+   DECLARE GLOBAL TEMPORARY TABLE SESSION.TBT09SCO ...
+END-EXEC.
+
+EXEC SQL
+   CREATE UNIQUE INDEX X1T09SCO ON SESSION.TBT09SCO ...
+END-EXEC.
+
+...
+EXEC SQL
+   DROP INDEX X1T09SCO
+END-EXEC.
+
+EXEC SQL
+   DROP TABLE SESSION.TBT09SCO
+END-EXEC.
+</pre>

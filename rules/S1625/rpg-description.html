@@ -1,0 +1,11 @@
+<p>A results indicator should be used on a &lt;code&gt;CHAIN&lt;/code&gt; statement because it leads to cleaner, more readable, and more correct code. Using an indicator results in the conditions &lt;code&gt;record not found&lt;/code&gt;, and &lt;code&gt;end of file&lt;/code&gt; being automatically handled correctly, without the need for further error handling.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+C     K0GMCP        CHAIN     SSGMCPR
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+C     K0GMCP        CHAIN     SSGMCPR                            81
+</pre>
+<h2>Exceptions</h2>
+<p>Free-form &lt;code&gt;CHAIN&lt;/code&gt; statements cannot have indicators, and are ignored.</p>

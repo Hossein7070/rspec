@@ -1,0 +1,9 @@
+<p>&lt;code&gt;vbNullString&lt;/code&gt; is a special constant that denotes a null string (0), while &lt;code&gt;""&lt;/code&gt; is a  literal empty string. For most purposes, the two are equivalent, but &lt;code&gt;vbNullString&lt;/code&gt; is faster to assign and process, and takes less memory. &lt;code&gt;vbNullString&lt;/code&gt; is therefore preferred, however some non-VB APIs or components may not properly handle null strings, and their use should be tested.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+Text = ""
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+Text = vbNullString
+</pre>

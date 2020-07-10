@@ -1,0 +1,16 @@
+<p>The point of using an optional is to signal that the value may be &lt;code&gt;nil&lt;/code&gt; and to provide graceful ways of dealing with it if it is &lt;code&gt;nil&lt;/code&gt;. While implicitly unwrapped optionals still provide means of dealing with &lt;code&gt;nil&lt;/code&gt; values, they also signal that the value won’t be &lt;code&gt;nil&lt;/code&gt;, and unwrap it automatically. In addition to sending a decidedly mixed signal, this could lead to runtime errors if the value ever is &lt;code&gt;nil&lt;/code&gt;.</p>
+<p>It is safest, and clearest to use either an optional or a plain type and avoid the boggy middle ground of implicitly unwrapped optionals.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+var greeting : String!  // Noncompliant
+
+println(greeting)  // At this point the value is nil. Runtime error results
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+var greeting : String?
+
+if let howdy = greeting {
+  println(howdy)
+}
+</pre>

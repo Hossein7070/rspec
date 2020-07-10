@@ -1,0 +1,27 @@
+{
+  "title": "Overriding members should do more than simply call the same member in the base class",
+  "type": "CODE_SMELL",
+  "status": "ready",
+  "remediation": {
+    "func": "Constant/Issue",
+    "constantCost": "2min"
+  },
+  "tags": [
+    "redundant",
+    "clumsy"
+  ],
+  "defaultSeverity": "Minor",
+  "ruleSpecification": "RSPEC-1185",
+  "sqKey": "S1185",
+  "scope": "All",
+  "all_languages": [
+    "cfamily",
+    "csharp",
+    "flex",
+    "java",
+    "php"
+  ],
+  "allKeys": [
+    "S1185"
+  ]
+}

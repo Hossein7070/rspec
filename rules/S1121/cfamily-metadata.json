@@ -1,0 +1,35 @@
+{
+  "title": "Assignments should not be made from within sub-expressions",
+  "type": "CODE_SMELL",
+  "status": "ready",
+  "remediation": {
+    "func": "Constant/Issue",
+    "constantCost": "5min"
+  },
+  "tags": [
+    "cwe",
+    "based-on-misra",
+    "suspicious"
+  ],
+  "defaultSeverity": "Major",
+  "ruleSpecification": "RSPEC-1121",
+  "sqKey": "AssignmentInSubExpression",
+  "scope": "All",
+  "securityStandards": {
+    "CWE": [
+      481
+    ]
+  },
+  "all_languages": [
+    "cfamily",
+    "csharp",
+    "java",
+    "javascript",
+    "php",
+    "swift"
+  ],
+  "allKeys": [
+    "AssignmentInSubExpression",
+    "S1121"
+  ]
+}

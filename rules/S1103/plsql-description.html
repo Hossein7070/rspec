@@ -1,0 +1,15 @@
+<p>PL/SQL does not support nested C-style (&lt;code&gt;/* …​ */&lt;/code&gt;) comments.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+/*
+  This is a comment block, for which the ending tag was omitted
+  It may be difficult to figure out that the following line of code is actually commented
+
+
+variable = function_call();
+/* variable contains the result, this is not allowed, as it is an attempt to create an inner comment */
+</pre>
+<h2>See</h2>
+<ul>
+<li><a href="https://wiki.sei.cmu.edu/confluence/x/k9YxBQ">CERT, MSC04-C.</a> - Use comments consistently and in a readable fashion</li>
+</ul>

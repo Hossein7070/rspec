@@ -1,0 +1,22 @@
+<p>When the &lt;code&gt;FILE STATUS&lt;/code&gt; is not specified on a file, any read operations on the file should handle the "AT END" or "INVALID KEY" conditions.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+SELECT MY_FILE
+  ASSIGN TO 'foobar.txt'
+  ORGANIZATION IS SEQUENTIAL.
+...
+READ MY_FILE
+  NOT AT END PERFORM COMPUTE_LINE
+END-READ.
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+SELECT MY_FILE
+  ASSIGN TO 'foobar.txt'
+  ORGANIZATION IS SEQUENTIAL.
+...
+READ MY_FILE
+  NOT AT END PERFORM COMPUTE_LINE
+  AT END MOVE 'Y' TO EOF-FLAG
+END-READ.
+</pre>

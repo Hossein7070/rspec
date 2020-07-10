@@ -1,0 +1,36 @@
+<p>Every &lt;code&gt;AUTHORITY-CHECK&lt;/code&gt; statement sets the fields &lt;code&gt;SY-SUBRC&lt;/code&gt; (also accessible as &lt;code&gt;SYST-SUBRC&lt;/code&gt;) to the authorization check result. Thus &lt;code&gt;SY-SUBRC&lt;/code&gt; value should be checked just after every &lt;code&gt;AUTHORITY-CHECK&lt;/code&gt; statement.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+AUTHORITY-CHECK OBJECT 'S_MYOBJ' "Noncompliant
+    ID 'ID1' FIELD myvalue.
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+AUTHORITY-CHECK OBJECT 'S_MYOBJ'  "Compliant
+    ID 'ID1' FIELD myvalue.
+
+  IF sy-subrc &lt;&gt; 0.
+    MESSAGE 'NOT AUTHORIZED' TYPE 'E'.
+  ENDIF.
+</pre>
+<h2>Exceptions</h2>
+<p>No issue will be raised in the following cases:</p>
+<ul>
+<li>One or more &lt;code&gt;WRITE&lt;/code&gt; operation are performed between the &lt;code&gt;AUTHORITY-CHECK&lt;/code&gt; statement and &lt;code&gt;SY-SUBRC&lt;/code&gt; check. An exception will be however raised if the &lt;code&gt;WRITE&lt;/code&gt; operation is a &lt;code&gt;WRITE …​ TO&lt;/code&gt; statement, as this will set again &lt;code&gt;SY-SUBRC&lt;/code&gt;.</li>
+<li>&lt;code&gt;SY-SUBRC&lt;/code&gt;'s value is assigned to a variable. We then assume that it will be checked later.</li>
+</ul>
+<pre>
+AUTHORITY-CHECK OBJECT 'S_MYOBJ'  "Compliant
+    ID 'ID1' FIELD myvalue.
+WRITE 'Test' " WRITE is accepted before checking SY-SUBRC
+IF SY-SUBRC &lt;&gt; 0.
+    EXIT.
+ENDIF.
+
+AUTHORITY-CHECK OBJECT 'S_MYOBJ'  "Compliant
+    ID 'ID1' FIELD myvalue.
+Tmp = SY-SUBRC " Assigning SY-SUBRC value to a variable. We assume that it will be checked later.
+IF Tmp &lt;&gt; 0.
+    EXIT.
+ENDIF.
+</pre>

@@ -1,0 +1,22 @@
+<p>In a file mixing PHP and HTML, all PHP tags should be closed. Failure to close a tag in this type of file could lead to unexpected output when the file is processed.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+&lt;?=   // Noncompliant; never closed
+$name = "George";
+
+&lt;p&gt; Hello &lt;?= $name ?&gt;.&lt;/p&gt;
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+&lt;?=
+$name = "George";
+?&gt;
+
+&lt;p&gt; Hello &lt;?= $name ?&gt;.&lt;/p&gt;
+</pre>
+<h2>Exceptions</h2>
+<p>This rule does not apply to files that contain only a single opening tag and no inline HTML.</p>
+<h2>See</h2>
+<ul>
+<li>Related: S1780 - Closing tag "?&gt;" should be omitted on files containing only PHP</li>
+</ul>

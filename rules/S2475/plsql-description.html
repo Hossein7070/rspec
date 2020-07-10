@@ -1,0 +1,62 @@
+<p>Labeled blocks are useful, especially when the code is badly indented, to match the begin and end of each block. This rule verifies that block start and end labels match, when both are specified.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+BEGIN
+  NULL;
+END; -- Compliant, no labels at all
+/
+
+&lt;&lt;myBlockLabel1&gt;&gt;
+BEGIN
+  NULL;
+END; -- Compliant, only starting label
+/
+
+BEGIN
+  NULL;
+END myBlockLabel2; -- Compliant, only ending label
+/
+
+&lt;&lt;myBlockLabel3&gt;&gt;
+BEGIN
+  NULL;
+END myBlockLabel4; -- Noncompliant, labels mismatch
+/
+
+&lt;&lt;myBlockLabel6&gt;&gt;
+&lt;&lt;myBlockLabel6&gt;&gt;
+BEGIN
+  NULL;
+END myBlockLabel6; -- Noncompliant, several starting labels
+/
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+BEGIN
+  NULL;
+END;
+/
+
+&lt;&lt;myBlockLabel1&gt;&gt;
+BEGIN
+  NULL;
+END;
+/
+
+BEGIN
+  NULL;
+END myBlockLabel2;
+/
+
+&lt;&lt;myBlockLabel3&gt;&gt;
+BEGIN
+  NULL;
+END myBlockLabel3;
+/
+
+&lt;&lt;myBlockLabel6&gt;&gt;
+BEGIN
+  NULL;
+END myBlockLabel6;
+/
+</pre>

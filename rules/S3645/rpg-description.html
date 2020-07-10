@@ -1,0 +1,19 @@
+<p>&lt;code&gt;HAVING&lt;/code&gt; was introduced to limit the result set after selection because &lt;code&gt;WHERE&lt;/code&gt; clause conditions cannot be used on aggregated values. &lt;code&gt;HAVING&lt;/code&gt; conditions that don’t operate on aggregated values can safely be moved into the &lt;code&gt;WHERE&lt;/code&gt; clause for increased efficiency.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+SELECT p.id, p.name, count(o.id)
+FROM product p
+JOIN order_row o on p.id=o.product_id
+GROUP BY p.id
+HAVING count(o.id) &gt; 10
+  p.name like "t-shirt%"  -- Noncompliant
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+SELECT p.id, p.name, count(o.id)
+FROM product p
+JOIN order_row o on p.id=o.product_id
+WHERE p.name like "t-shirt%"
+GROUP BY p.id
+HAVING count(o.id) &gt; 10
+</pre>

@@ -1,0 +1,32 @@
+<p>When arithmetic is performed on integers, the result will always be an integer. You can assign that result to a &lt;code&gt;long&lt;/code&gt;, &lt;code&gt;double&lt;/code&gt;, or &lt;code&gt;float&lt;/code&gt; with automatic type conversion, but having started as an &lt;code&gt;int&lt;/code&gt; or &lt;code&gt;long&lt;/code&gt;, the result will likely not be what you expect.</p>
+<p>For instance, if the result of &lt;code&gt;int&lt;/code&gt; division is assigned to a floating-point variable, precision will have been lost before the assignment. Likewise, if the result of multiplication is assigned to a &lt;code&gt;long&lt;/code&gt;, it may have already overflowed before the assignment.</p>
+<p>In either case, the result will not be what was expected. Instead, at least one operand should be cast or promoted to the final type before the operation takes place.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+void nonCompliant ( ) {
+  float twoThirds = 2 / 3;
+  long millisInYear = 1000 * 3600 * 24 * 365;
+}
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+void compliant1() {
+  float twoThirds = 2.F / 3;
+  long millisInYear = 1000L * 3600 * 24 * 365;
+}
+</pre>
+<p>or</p>
+<pre>
+void compliant2() {
+  float twoThirds = ((float) 2) / 3;
+  long millisInYear = ((long) 1000) * 3600 * 24 * 365;
+}
+</pre>
+<h2>See</h2>
+<ul>
+<li>MISRA C++:2008, 5-0-8 - An explicit integral or floating-point conversion shall not increase the size of the underlying type of a cvalue expression.</li>
+<li><a href="http://cwe.mitre.org/data/definitions/190">MITRE, CWE-190</a> - Integer Overflow or Wraparound</li>
+<li><a href="https://www.securecoding.cert.org/confluence/x/woIyAQ">CERT, NUM50-J.</a> - Convert integers to floating point for floating-point operations</li>
+<li><a href="https://www.securecoding.cert.org/confluence/x/AxE">CERT, INT18-C.</a> - Evaluate integer expressions in a larger size before comparing or assigning to that size</li>
+<li><a href="https://www.sans.org/top25-software-errors/#cat2">SANS Top 25</a> - Risky Resource Management</li>
+</ul>

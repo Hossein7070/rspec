@@ -1,0 +1,16 @@
+<p>When using the &lt;code&gt;Stream&lt;/code&gt; API, call chains should be simplified as much as possible. Not only does it make the code easier to read, it also avoid creating unnecessary temporary objects.</p>
+<p>This rule raises an issue when one of the following substitution is possible:
+||Original||Preferred||
+|&lt;code&gt;stream.filter(predicate).findFirst().isPresent()&lt;/code&gt;|&lt;code&gt;stream.anyMatch(predicate)&lt;/code&gt;|
+|&lt;code&gt;stream.filter(predicate).findAny().isPresent()&lt;/code&gt;|&lt;code&gt;stream.anyMatch(predicate)&lt;/code&gt;|
+|&lt;code&gt;!stream.anyMatch(predicate)&lt;/code&gt;|&lt;code&gt;stream.noneMatch(predicate)&lt;/code&gt;|
+|&lt;code&gt;!stream.anyMatch(x → !(…​))&lt;/code&gt;|&lt;code&gt;stream.allMatch(…​)&lt;/code&gt;|
+|&lt;code&gt;stream.map(mapper).anyMatch(Boolean::booleanValue)&lt;/code&gt;|&lt;code&gt;stream.anyMatch(predicate)&lt;/code&gt;|</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+boolean hasRed = widgets.stream().filter(w -&gt; w.getColor() == RED).findFirst().isPresent(); // Noncompliant
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+boolean hasRed = widgets.stream().anyMatch(w -&gt; w.getColor() == RED);
+</pre>

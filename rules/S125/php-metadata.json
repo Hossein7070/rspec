@@ -1,0 +1,41 @@
+{
+  "title": "Sections of code should not be commented out",
+  "type": "CODE_SMELL",
+  "status": "ready",
+  "remediation": {
+    "func": "Constant/Issue",
+    "constantCost": "5min"
+  },
+  "tags": [
+    "unused"
+  ],
+  "defaultSeverity": "Major",
+  "ruleSpecification": "RSPEC-125",
+  "sqKey": "S125",
+  "scope": "All",
+  "all_languages": [
+    "abap",
+    "cfamily",
+    "cobol",
+    "csharp",
+    "flex",
+    "java",
+    "javascript",
+    "kotlin",
+    "php",
+    "plsql",
+    "python",
+    "rpg",
+    "scala",
+    "swift",
+    "tsql",
+    "web",
+    "xml"
+  ],
+  "allKeys": [
+    "S125",
+    "CommentedCode",
+    "COBOL.CommentedOutCodeCheck",
+    "AvoidCommentedOutCodeCheck"
+  ]
+}

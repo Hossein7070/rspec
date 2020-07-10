@@ -1,0 +1,23 @@
+{
+  "title": "String constants should not span multiple lines",
+  "type": "CODE_SMELL",
+  "status": "ready",
+  "remediation": {
+    "func": "Constant/Issue",
+    "constantCost": "10min"
+  },
+  "tags": [
+    "bad-practice"
+  ],
+  "defaultSeverity": "Minor",
+  "ruleSpecification": "RSPEC-1516",
+  "sqKey": "S1516",
+  "scope": "Main",
+  "all_languages": [
+    "javascript",
+    "pli"
+  ],
+  "allKeys": [
+    "S1516"
+  ]
+}

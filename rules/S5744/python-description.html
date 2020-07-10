@@ -1,0 +1,38 @@
+<p>Implementing the special method &lt;code&gt;_\_ne\__&lt;/code&gt; is not equivalent to implementing the special method &lt;code&gt;\__eq\__&lt;/code&gt;. By default &lt;code&gt;\__ne\__&lt;/code&gt; will call &lt;code&gt;\__eq\__&lt;/code&gt;, but the default implementation of &lt;code&gt;\__eq\__&lt;/code&gt; does not call &lt;code&gt;\__ne\_\_&lt;/code&gt;.</p>
+<p>This rule raises an issue when the special method &lt;code&gt;_\_ne\__&lt;/code&gt; is implemented but not the &lt;code&gt;\__eq\_\_&lt;/code&gt; method.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+class Ne:
+    def __ne__(self, other):   # Noncompliant.
+        return False
+
+myvar = Ne() == 1  # False. __ne__ is not called
+myvar = 1 == Ne()  # False. __ne__ is not called
+myvar = Ne() != 1  # False
+myvar = 1 != Ne()  # False
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+# Recommended, as __ne__ delegates to __eq__ by default
+class Eq:
+    def __eq__(self, other):
+        return True
+
+myvar = Eq() == 1  # True
+myvar = 1 == Eq()  # True
+myvar = Eq() != 1  # False. __eq__ is called
+myvar = 1 != Eq()  # False. __eq__ is called
+
+# OR if __ne__ needs a special implementation
+
+class Eq:
+    def __eq__(self, other):
+        return True
+
+    def __ne__(self, other):
+        return False
+</pre>
+<h2>See</h2>
+<ul>
+<li>Python documentation - <a href="https://docs.python.org/3/reference/datamodel.html#object">https://docs.python.org/3/reference/datamodel.html#object</a>.<em>ne</em>[the _\_ne\_\_ special method]</li>
+</ul>

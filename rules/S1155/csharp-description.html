@@ -1,0 +1,32 @@
+<p>Using &lt;code&gt;.Count()&lt;/code&gt; to test for emptiness works, but using &lt;code&gt;.Any()&lt;/code&gt; makes the intent clearer, and the code more readable. However, there are some cases where special attention should be paid:
+- if the collection is an &lt;code&gt;EntityFramework&lt;/code&gt; or other ORM query, calling &lt;code&gt;.Count()&lt;/code&gt; will cause executing a potentially massive SQL query and could put a large overhead on the application database. Calling &lt;code&gt;.Any()&lt;/code&gt; will also connect to the database, but will generate much more efficient SQL.
+- if the collection is part of a LINQ query that contains &lt;code&gt;.Select()&lt;/code&gt; statements that create objects, a large amount of memory could be unnecessarily allocated. Calling &lt;code&gt;.Any()&lt;/code&gt; will be much more efficient because it will execute fewer iterations of the enumerable.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+private static bool HasContent(IEnumerable&lt;string&gt; strings)
+{
+  return strings.Count() &gt; 0;  // Noncompliant
+}
+
+private static bool HasContent2(IEnumerable&lt;string&gt; strings)
+{
+  return strings.Count() &gt;= 1;  // Noncompliant
+}
+
+private static bool IsEmpty(IEnumerable&lt;string&gt; strings)
+{
+  return strings.Count() == 0;  // Noncompliant
+}
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+private static bool HasContent(IEnumerable&lt;string&gt; strings)
+{
+  return strings.Any();
+}
+
+private static bool IsEmpty(IEnumerable&lt;string&gt; strings)
+{
+  return !strings.Any();
+}
+</pre>

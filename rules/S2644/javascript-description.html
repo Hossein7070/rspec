@@ -1,0 +1,17 @@
+<p>Proper use of the &lt;code&gt;angular&lt;/code&gt; object is crucial when using the AngularJS framework. Misspell an &lt;code&gt;angular&lt;/code&gt; function, and depending on the browser you may not get any errors at all, or the error you do get will be distinctly unhelpful.</p>
+<p>This rule is intended to catch misspellings of the recognized &lt;code&gt;angular&lt;/code&gt; functions. It checks that only the following functions are used:</p>
+<ul>
+<li>&lt;code&gt;directive&lt;/code&gt;</li>
+<li>&lt;code&gt;module&lt;/code&gt;</li>
+<li>&lt;code&gt;controller&lt;/code&gt;</li>
+<li>&lt;code&gt;provider&lt;/code&gt;</li>
+<li>&lt;code&gt;filter&lt;/code&gt;</li>
+</ul>
+<h2>Noncompliant Code Example</h2>
+<pre>
+angular.moudle('docsSimpleDirectiveLD', []);  // Noncompliant
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+angular.module('docsSimpleDirectiveLD', []);  // Compliant
+</pre>

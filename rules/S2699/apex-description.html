@@ -1,0 +1,28 @@
+<p>A test case without assertions ensures only that no exceptions are thrown. Beyond basic runnability, it ensures nothing about the behavior of the code under test.</p>
+<p>This rule raises an issue when a function with an &lt;code&gt;@isTest&lt;/code&gt; annotation does not call at least one of the following functions once:</p>
+<ul>
+<li>&lt;code&gt;System.assert&lt;/code&gt;</li>
+<li>&lt;code&gt;System.assertEquals&lt;/code&gt;</li>
+<li>&lt;code&gt;System.assertNotEquals&lt;/code&gt;</li>
+</ul>
+<h2>Noncompliant Code Example</h2>
+<pre>
+@isTest()
+class ApexTests {
+    @isTest
+    private static void mytest() { // Noncompliant
+        MyClass.createTask();
+    }
+}
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+@isTest()
+class ApexTests {
+    @isTest
+    private static void mytest() {
+        Task task = MyClass.createTask();
+        System.assert("expected subject", task.subject, "task has not the expected subject");
+    }
+}
+</pre>

@@ -1,0 +1,10 @@
+<p>&lt;code&gt;Symbol&lt;/code&gt; is a primitive type introduced in ECMAScript2015. Its instances are mainly used as unique property keys.
+An instance can only be created by using &lt;code&gt;Symbol&lt;/code&gt; as a function. Using &lt;code&gt;Symbol&lt;/code&gt; with the &lt;code&gt;new&lt;/code&gt; operator will raise a &lt;code&gt;TypeError&lt;/code&gt;.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+const sym = new Symbol("foo");   // Noncompliant
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+const sym = Symbol("foo");
+</pre>

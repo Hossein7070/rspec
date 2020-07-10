@@ -1,0 +1,48 @@
+<p>&lt;code&gt;Enumerable.Sum()&lt;/code&gt; always executes addition in a &lt;code&gt;checked&lt;/code&gt; context, so an &lt;code&gt;OverflowException&lt;/code&gt; will be thrown if the value exceeds &lt;code&gt;MaxValue&lt;/code&gt; even if an &lt;code&gt;unchecked&lt;/code&gt; context was specified. Using an &lt;code&gt;unchecked&lt;/code&gt; context anyway represents a misunderstanding of how &lt;code&gt;Sum&lt;/code&gt; works.</p>
+<p>This rule raises an issue when an &lt;code&gt;unchecked&lt;/code&gt; context is specified for a &lt;code&gt;Sum&lt;/code&gt; on integer types.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+void Add(List&lt;int&gt; list)
+{
+  int d = unchecked(list.Sum());  // Noncompliant
+
+  unchecked
+  {
+    int e = list.Sum();  // Noncompliant
+  }
+}
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+void Add(List&lt;int&gt; list)
+{
+  int d = list.Sum();
+
+  try
+  {
+    int e = list.Sum();
+  }
+  catch (System.OverflowException e)
+  {
+    // exception handling...
+  }
+}
+</pre>
+<h2>Exceptions</h2>
+<p>When the &lt;code&gt;Sum()&lt;/code&gt; call is inside a &lt;code&gt;try-catch&lt;/code&gt; block, no issues are reported.</p>
+<pre>
+void Add(List&lt;int&gt; list)
+{
+  unchecked
+  {
+    try
+    {
+      int e = list.Sum();
+    }
+    catch (System.OverflowException e)
+    {
+      // exception handling...
+    }
+  }
+}
+</pre>

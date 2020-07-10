@@ -1,0 +1,11 @@
+<p>Functions that use &lt;code&gt;yield&lt;/code&gt; are known as "generators". Before Python 3.3, generators cannot &lt;code&gt;return&lt;/code&gt; values. Similarly, functions that use &lt;code&gt;return&lt;/code&gt; cannot use &lt;code&gt;yield&lt;/code&gt;. Doing so will cause a &lt;code&gt;SyntaxError&lt;/code&gt;.</p>
+<p>Either upgrade your version of Python to a version &gt;= 3.3, or don’t use both return and yield in a function.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+def adder(n):
+     num = 0
+     while num &lt; n:
+         yield num
+         num += 1
+     return num  #Noncompliant
+</pre>

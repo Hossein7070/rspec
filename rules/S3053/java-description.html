@@ -1,0 +1,37 @@
+<p>If you’ve gone to the trouble of writing an &lt;code&gt;iterator&lt;/code&gt; method in a class that doesn’t implement &lt;code&gt;Iterable&lt;/code&gt;, that trivial omission is costing you half the benefit of the method because you can’t use the class in enhanced &lt;code&gt;for&lt;/code&gt; loops.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+public class MyList {  // Noncompliant
+  public Iterator iterator() {
+    //...
+  }
+}
+
+public class MyClass {
+
+  public void doSomething(MyList myList) {
+    Iterator itr = myList.iterator();
+    while (itr.hasNext() {
+      Object obj = itr.next();
+      processObj(obj);
+    }
+  }
+}
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+public class MyList implements Iterable{
+  public Iterator iterator() {
+    //...
+  }
+}
+
+public class MyClass {
+
+  public void doSomething(MyList myList) {
+    for(Object obj : myList) {
+      processObj(obj);
+    }
+  }
+}
+</pre>

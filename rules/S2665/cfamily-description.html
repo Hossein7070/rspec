@@ -1,0 +1,9 @@
+<p>Although some compilers will allow it, the use of &lt;code&gt;alignof&lt;/code&gt; with arguments that have a &lt;code&gt;void&lt;/code&gt; type is forbidden by both the C and C++ standards.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+void fun() {
+  void* p;
+  alignof(*p);  // Noncompliant
+  alignof(void);  // Noncompliant
+}
+</pre>

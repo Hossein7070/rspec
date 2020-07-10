@@ -1,0 +1,27 @@
+<p>The &lt;code&gt;IEquatable&lt;T&gt;&lt;/code&gt; interface has only one method in it: &lt;code&gt;Equals(&lt;T&gt;)&lt;/code&gt;. If you’ve already written &lt;code&gt;Equals(T)&lt;/code&gt;, there’s no reason not to explicitly implement &lt;code&gt;IEquatable&lt;T&gt;&lt;/code&gt;. Doing so expands the utility of your class by allowing it to be used where an &lt;code&gt;IEquatable&lt;/code&gt; is called for.</p>
+<p><strong>Note</strong>: Classes that implement &lt;code&gt;IEquatable&lt;T&gt;&lt;/code&gt; should also be &lt;code&gt;sealed&lt;/code&gt;.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+class MyClass  // Noncompliant
+{
+  public bool Equals(MyClass other)
+  {
+    //...
+  }
+}
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+sealed class MyClass : IEquatable&lt;MyClass&gt;
+{
+  public override bool Equals(object other)
+  {
+    return Equals(other as MyClass);
+  }
+
+  public bool Equals(MyClass other)
+  {
+    //...
+  }
+}
+</pre>

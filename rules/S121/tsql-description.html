@@ -1,0 +1,18 @@
+<p>While not technically incorrect, the omission of &lt;code&gt;BEGIN…​END&lt;/code&gt; can be misleading, and may lead to the introduction of errors during maintenance.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+IF @flag = 1 -- Noncompliant
+  EXEC something;
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+IF @flag = 1
+    BEGIN
+        EXEC something;
+    END;
+</pre>
+<h2>See</h2>
+<ul>
+<li><a href="https://www.securecoding.cert.org/confluence/x/1QGMAg">CERT, EXP19-C.</a> - Use braces for the body of an if, for, or while statement</li>
+<li><a href="https://www.securecoding.cert.org/confluence/x/3wHEAw">CERT, EXP52-J.</a> - Use braces for the body of an if, for, or while statement</li>
+</ul>

@@ -1,0 +1,37 @@
+<p>Classes without &lt;code&gt;public static&lt;/code&gt; members cannot be used without being instantiated, but classes with only &lt;code&gt;private&lt;/code&gt; constructors cannot be instantiated. When a class has only &lt;code&gt;private&lt;/code&gt; constructors and no &lt;code&gt;static&lt;/code&gt; members, it is useless and should be removed or refactored.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+public class MyClass {  // Noncompliant
+
+  private MyClass () {
+  }
+
+  public double getPi(){
+    return 3.14;
+  }
+}
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+public class MyClass {
+
+  public MyClass () {
+  }
+
+  public double getPi(){
+    return 3.14;
+  }
+}
+</pre>
+<p>or</p>
+<pre>
+public class MyClass {
+
+  private MyClass () {
+  }
+
+  public static double getPi(){
+    return 3.14;
+  }
+}
+</pre>

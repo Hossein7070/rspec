@@ -1,0 +1,39 @@
+<p>Unused function parameters are often due to design changes and can lead to mismatched parameter lists.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+class A
+{
+public:
+  virtual void f ( uint16_t * para1, int16_t unusedpara ) = 0; // Noncompliant, unusedpara not used in any of the overriding functions.
+};
+
+class B1: public A
+{
+public:
+  virtual void f ( uint16_t * para1, int16_t unusedpara ) // Noncompliant, unusedpara not used in any of the overriding functions.
+  {
+    *para1 = 1U;
+  }
+};
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+class A
+{
+public:
+  virtual void f ( uint16_t * para1 ) = 0; // Compliant, all parameters used at least once in an overriding function.
+};
+
+class B1: public A
+{
+public:
+  virtual void f ( uint16_t * para1 ) // Compliant, all parameters used at least once in an overriding function.
+  {
+    *para1 = 1U;
+  }
+};
+</pre>
+<h2>See</h2>
+<ul>
+<li>MISRA C++:2008, 0-1-12 - There shall be no unused parameters (named or unnamed) in the set of parameters for a virtual function and all the functions that override it.</li>
+</ul>

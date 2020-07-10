@@ -1,0 +1,32 @@
+<p>Simple loops, of the form &lt;code&gt;LOOP …​ END LOOP&lt;/code&gt;, behave by default as infinite ones, since they do not have a loop condition. They can often be replaced by other, safer, loop constructs.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+SET SERVEROUTPUT ON
+
+DECLARE
+  i PLS_INTEGER;
+BEGIN
+  i := 1;
+  LOOP -- Noncompliant, an infinite loop by default and therefore dangerous
+    DBMS_OUTPUT.PUT_LINE('First loop i: ' || i);
+
+    i := i + 1;
+    EXIT WHEN i &gt; 10;
+  END LOOP;
+
+END;
+/
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+SET SERVEROUTPUT ON
+
+DECLARE
+  i PLS_INTEGER;
+BEGIN
+  FOR i IN 1..10 LOOP -- Compliant, much safer equivalent alternative
+    DBMS_OUTPUT.PUT_LINE('Second loop i: ' || i);
+  END LOOP;
+END;
+/
+</pre>

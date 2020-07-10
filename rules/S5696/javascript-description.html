@@ -1,0 +1,50 @@
+<p>DOM-XSS attacks also called <a href="https://cwe.mitre.org/data/definitions/79.html">type-0 XSS</a> are malicious scripts injected on the client side and not on the server side as in the case of <em>stored</em> or <em>reflected</em> cross-site script attacks. In this kind of attack, the entire tainted data flow from source (eg: &lt;code&gt;document.location.href&lt;/code&gt;) to sink (eg: &lt;code&gt;document.write&lt;/code&gt;) takes place in the browser, so these attacks do not leave many traces and for example cannot be detected once the web application is in production by <a href="https://en.wikipedia.org/wiki/Intrusion_detection_system">IDS</a> systems which inspect the response of the server.</p>
+<p>DOM objects that can be influenced by users like &lt;code&gt;document.location.href&lt;/code&gt; should always be considered untrusted and validated or sanitized before being used to modify the DOM.</p>
+<h2>Noncompliant Code Example</h2>
+<p>Example of basic DOM-XSS attack (<a href="http://vulnerable/page.html#javascript:alert('xss')">http://vulnerable/page.html#javascript:alert('xss')</a>):</p>
+<pre>
+&lt;html&gt;
+&lt;body&gt;
+&lt;h5&gt;&lt;a id="example1"&gt;&lt;/a&gt;Example headline 1&lt;/h5&gt;
+&lt;h5&gt;&lt;a id="example2"&gt;&lt;/a&gt;Example headline 2&lt;/h5&gt;
+&lt;h5&gt;&lt;a id="example3"&gt;&lt;/a&gt;Example headline 3&lt;/h5&gt;
+&lt;h5&gt;&lt;a id="example4"&gt;&lt;/a&gt;Example headline 4&lt;/h5&gt;
+
+
+&lt;a id="xssexample1" href="https://vulnerable/page.html" target=_blank&gt;Open in another tab&lt;/a&gt;
+
+&lt;script language=javascript&gt;
+var hash = location.hash.substr(1);
+xssexample1.setAttribute('href', hash); // Noncompliant
+&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</pre>
+<h2>Compliant Solution</h2>
+<p><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/encodeURIComponent">encodeURIComponent</a> is a sanitizer that escape dangerous characters in this context (like &lt;code&gt;:&lt;/code&gt;):</p>
+<pre>
+&lt;html&gt;
+&lt;body&gt;
+&lt;h5&gt;&lt;a id="example1"&gt;&lt;/a&gt;Example headline 1&lt;/h5&gt;
+&lt;h5&gt;&lt;a id="example2"&gt;&lt;/a&gt;Example headline 2&lt;/h5&gt;
+&lt;h5&gt;&lt;a id="example3"&gt;&lt;/a&gt;Example headline 3&lt;/h5&gt;
+&lt;h5&gt;&lt;a id="example4"&gt;&lt;/a&gt;Example headline 4&lt;/h5&gt;
+
+
+&lt;a id="xssexample1" href="https://vulnerable/page.html" target=_blank&gt;Open in another tab&lt;/a&gt;
+
+&lt;script language=javascript&gt;
+var hash = location.hash.substr(1);
+xssexample1.setAttribute('href', encodeURIComponent(hash)); // Compliant
+&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</pre>
+<h2>See</h2>
+<ul>
+<li><a href="https://github.com/OWASP/CheatSheetSeries/blob/master/cheatsheets/Cross_Site_Scripting_Prevention_Cheat_Sheet.md">OWASP Cheat Sheet</a> - XSS Prevention Cheat Sheet</li>
+<li><a href="https://www.owasp.org/index.php/Top_10-2017_A7-Cross-Site_Scripting_(XSS)">OWASP Top 10 2017 Category A7</a> - Cross-Site Scripting (XSS)</li>
+<li><a href="http://www.webappsec.org/projects/articles/071105.shtml">webappsec.org</a> -  DOM Based Cross Site Scripting or XSS of the Third Kind</li>
+<li><a href="https://cwe.mitre.org/data/definitions/79.html">MITRE, CWE-79</a> - Improper Neutralization of Input During Web Page Generation ('Cross-site Scripting')</li>
+<li><a href="https://www.sans.org/top25-software-errors/#cat1">SANS Top 25</a> - Insecure Interaction Between Components</li>
+</ul>

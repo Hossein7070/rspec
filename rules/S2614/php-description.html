@@ -1,0 +1,14 @@
+<p>Locking an account which has had too many sequential, failed login attempts within a short time can help resist brute force attacks. This rule raises an issue on authentication code so that such controls can be verified.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+env.put(Context.SECURITY_PRINCIPAL, principal);
+env.put(Context.SECURITY_CREDENTIALS, password);
+
+DirContext ctx = new InitialDirContext(env);  // Noncompliant
+</pre>
+<h2>See</h2>
+<ul>
+<li><a href="https://www.owasp.org/index.php/Top_10-2017_A2-Broken_Authentication">OWASP Top 10 2017 Category A2</a> - Broken Authentication</li>
+<li><a href="http://cwe.mitre.org/data/definitions/307">MITRE, CWE-307</a> - Improper Restriction of Excessive Authentication Attempts</li>
+<li><a href="https://www.sans.org/top25-software-errors/#cat3">SANS Top 25</a> - Porous Defenses</li>
+</ul>

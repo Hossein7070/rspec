@@ -1,0 +1,38 @@
+{
+  "title": "Nested blocks of code should not be left empty",
+  "type": "CODE_SMELL",
+  "status": "ready",
+  "remediation": {
+    "func": "Constant/Issue",
+    "constantCost": "5min"
+  },
+  "tags": [
+    "suspicious"
+  ],
+  "defaultSeverity": "Major",
+  "ruleSpecification": "RSPEC-108",
+  "sqKey": "EmptyCompoundStatement",
+  "scope": "All",
+  "all_languages": [
+    "abap",
+    "apex",
+    "cfamily",
+    "csharp",
+    "flex",
+    "go",
+    "java",
+    "javascript",
+    "kotlin",
+    "php",
+    "python",
+    "rpg",
+    "ruby",
+    "scala",
+    "swift",
+    "vbnet"
+  ],
+  "allKeys": [
+    "S108",
+    "EmptyCompoundStatement"
+  ]
+}

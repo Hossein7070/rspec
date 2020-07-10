@@ -1,0 +1,14 @@
+<p>&lt;code&gt;UPDATE&lt;/code&gt; and &lt;code&gt;DELETE&lt;/code&gt; statements should contain &lt;code&gt;WHERE&lt;/code&gt; clauses to keep the modification of records under control. Otherwise unexpected data loss could result.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+DELETE FROM countries
+UPDATE employee SET status = 'retired' FROM table1 AS employee
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+TRUNCATE TABLE countries
+DELETE FROM countries WHERE CODE = @country_code
+UPDATE employee SET status = 'retired' FROM table1 AS employee WHERE age &gt; @maxAge
+</pre>
+<h2>Exceptions</h2>
+<p>No issue is reported for statements made on temporary tables.</p>

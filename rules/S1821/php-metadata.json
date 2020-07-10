@@ -1,0 +1,34 @@
+{
+  "title": "\"switch\" statements should not be nested",
+  "type": "CODE_SMELL",
+  "status": "ready",
+  "remediation": {
+    "func": "Constant/Issue",
+    "constantCost": "10min"
+  },
+  "tags": [
+    "pitfall"
+  ],
+  "defaultSeverity": "Critical",
+  "ruleSpecification": "RSPEC-1821",
+  "sqKey": "S1821",
+  "scope": "All",
+  "all_languages": [
+    "apex",
+    "cfamily",
+    "csharp",
+    "flex",
+    "go",
+    "java",
+    "javascript",
+    "kotlin",
+    "php",
+    "ruby",
+    "scala",
+    "swift",
+    "vbnet"
+  ],
+  "allKeys": [
+    "S1821"
+  ]
+}

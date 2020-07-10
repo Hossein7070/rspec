@@ -1,0 +1,11 @@
+<p>It is far faster to compare the length of a string to 0 than it is to compare the string itself to empty string. Further, the &lt;code&gt;LenB&lt;/code&gt; implementation is faster than the &lt;code&gt;Len&lt;/code&gt; implementation, and is therefore preferred.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+If Text = "" Then
+If Text &lt;&gt; "" Then
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+If LenB(Text) = 0 Then
+If LenB(Text) &lt;&gt; 0 Then
+</pre>

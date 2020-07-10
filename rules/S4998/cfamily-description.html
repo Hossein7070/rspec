@@ -1,0 +1,38 @@
+<p>If you use &lt;code&gt;std::unique_ptr&lt;T&gt; const &amp;&lt;/code&gt; for a function parameter type, it means that the function will not be able to alter the ownership of the pointed-to object by the &lt;code&gt;unique_ptr&lt;/code&gt;:</p>
+<ul>
+<li>It cannot acquire ownership of the pointed-to object (this would require a parameter of type &lt;code&gt;std::unique_ptr&lt;T&gt;&lt;/code&gt;)</li>
+<li>It cannot transfer the object ownership to someone else (this would require a &lt;code&gt;std::unique_ptr&lt;T&gt; &amp;&lt;/code&gt;).</li>
+</ul>
+<p>That means the function can only observe the pointed-to object, and in this case passing a &lt;code&gt;T*&lt;/code&gt; (if the &lt;code&gt;unique_ptr&lt;/code&gt; can be null) or a &lt;code&gt;T&amp;&lt;/code&gt; (if it cannot) provides the same features, while also allowing the function to work with objects that are not handled by a &lt;code&gt;unique_ptr&lt;/code&gt; (E.G. objects on the stack, in a &lt;code&gt;vector&lt;/code&gt;, or in another kind of smart pointer), thus making the function more general-purpose.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+using namespace std;
+void draw(unique_ptr&lt;Shape&gt; const &amp;shape); // Noncompliant
+
+void drawAll(vector&lt;unique_ptr&lt;Shape&gt;&gt; v)
+{
+  for (auto &amp;shape : v) {
+      if (shape) {
+        draw(shape);
+      }
+  }
+}
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+using namespace std;
+void draw(Shape const &amp;shape); // Compliant
+
+void drawAll(vector&lt;unique_ptr&lt;Shape&gt;&gt; v)
+{
+  for (auto &amp;shape : v) {
+      if (shape) {
+        draw(*shape);
+      }
+  }
+}
+</pre>
+<h2>See</h2>
+<ul>
+<li><a href="https://github.com/isocpp/CppCoreGuidelines/blob/036324/CppCoreGuidelines.md#r32-take-a-unique_ptrwidget-parameter-to-express-that-a-function-assumes-ownership-of-a-widget">C++ Core Guidelines - R.32</a> - Take a unique_ptr&lt;widget&gt; parameter to express that a function assumes ownership of a widget</li>
+</ul>

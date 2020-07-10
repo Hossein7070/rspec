@@ -1,0 +1,29 @@
+<p>The scope of objects shall be restricted to functions where possible. File scope shall only be used where objects need to have either internal or external linkage. Where objects are declared at file scope MISRA C 2004 Rule 8.10 applies. It is considered good practice to avoid making identifiers global except where necessary.</p>
+<p>Whether objects are declared at the outermost or innermost block is largely a matter of style.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+int temp;
+int function() {
+  temp = someFunction1();
+  temp += someFunction2();
+  // ...
+  return temp;
+}
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+int function() {
+  int temp;
+  temp = someFunction1();
+  temp += someFunction2();
+  // ...
+  return temp;
+}
+</pre>
+<h2>See</h2>
+<ul>
+<li>MISRA C:2004, 8.7 - Objects shall be defined at block scope if they are only accessed from within a single function.</li>
+<li>MISRA C:2012, 8.9 - An object should be defined at block scope if its identifier only appears in a single function</li>
+<li><a href="https://www.securecoding.cert.org/confluence/x/KgLEAw">CERT, DCL53-J.</a> - Minimize the scope of variables</li>
+<li><a href="https://www.securecoding.cert.org/confluence/x/DADAAQ">CERT, DCL19-C.</a> - Minimize the scope of variables and functions</li>
+</ul>

@@ -1,0 +1,17 @@
+<p>The use of comparison operators (&lt;code&gt;<a href="#/code>">&lt;code&gt;⇐&lt;/code&gt;, &lt;code</a>=&lt;/code&gt;, &lt;code&gt;&gt;&lt;/code&gt;) with strings is not likely to yield the expected results. Make sure the intention was to compare strings and not numbers.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+var appleNumber = "123";
+var orangeNumber = "45";
+if (appleNumber &lt; orangeNumber) {  // Noncompliant, this condition is true
+  alert("There are more oranges");
+}
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+var appleNumber = "123";
+var orangeNumber = "45";
+if (Number(appleNumber) &lt; Number(orangeNumber)) {
+  alert("There are more oranges");
+}
+</pre>

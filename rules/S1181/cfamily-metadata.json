@@ -1,0 +1,30 @@
+{
+  "title": "Generic exceptions should not be caught",
+  "type": "CODE_SMELL",
+  "status": "ready",
+  "remediation": {
+    "func": "Constant/Issue",
+    "constantCost": "20min"
+  },
+  "tags": [
+    "cwe",
+    "error-handling",
+    "bad-practice"
+  ],
+  "defaultSeverity": "Major",
+  "ruleSpecification": "RSPEC-1181",
+  "sqKey": "S1181",
+  "scope": "Main",
+  "securityStandards": {
+    "CWE": [
+      396
+    ]
+  },
+  "all_languages": [
+    "cfamily",
+    "java"
+  ],
+  "allKeys": [
+    "S1181"
+  ]
+}

@@ -1,0 +1,40 @@
+<p>Most checks against an &lt;code&gt;indexOf&lt;/code&gt; value compare it with -1 because 0 is a valid index. Any checks which look for values &gt;0 ignore the first element, which is likely a bug. If the intent is merely to check inclusion of a value in a &lt;code&gt;String&lt;/code&gt; or a &lt;code&gt;List&lt;/code&gt;, consider using the &lt;code&gt;contains&lt;/code&gt; method instead.</p>
+<p>This rule raises an issue when an &lt;code&gt;indexOf&lt;/code&gt; value retrieved either from a &lt;code&gt;String&lt;/code&gt; or a &lt;code&gt;List&lt;/code&gt; is tested against &lt;code&gt;&gt;0&lt;/code&gt;.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+String color = "blue";
+String name = "ishmael";
+
+List&lt;String&gt; strings = new ArrayList&lt;String&gt; ();
+strings.add(color);
+strings.add(name);
+
+if (strings.indexOf(color) &gt; 0) {  // Noncompliant
+  // ...
+}
+if (name.indexOf("ish") &gt; 0) { // Noncompliant
+  // ...
+}
+if (name.indexOf("ae") &gt; 0) { // Noncompliant
+  // ...
+}
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+String color = "blue";
+String name = "ishmael";
+
+List&lt;String&gt; strings = new ArrayList&lt;String&gt; ();
+strings.add(color);
+strings.add(name);
+
+if (strings.indexOf(color) &gt; -1) {
+  // ...
+}
+if (name.indexOf("ish") &gt;= 0) {
+  // ...
+}
+if (name.contains("ae") {
+  // ...
+}
+</pre>

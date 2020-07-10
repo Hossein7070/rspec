@@ -1,0 +1,20 @@
+<p>Assignments within sub-expressions are hard to spot and therefore make the code less readable. Ideally, sub-expressions should not have side-effects.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+if ((str = cont.substring(pos1, pos2)) != '') { // Noncompliant
+  //...
+}
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+str = cont.substring(pos1, pos2);
+if (str != '') {
+  //...
+}
+</pre>
+<h2>See</h2>
+<ul>
+<li><a href="http://cwe.mitre.org/data/definitions/481.html">MITRE, CWE-481</a> - Assigning instead of Comparing</li>
+<li><a href="https://www.securecoding.cert.org/confluence/x/nYFtAg">CERT, EXP45-C.</a> - Do not perform assignments in selection statements</li>
+<li><a href="https://www.securecoding.cert.org/confluence/x/1gCTAw">CERT, EXP51-J.</a> - Do not perform assignments in conditional expressions</li>
+</ul>

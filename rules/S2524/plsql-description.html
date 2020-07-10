@@ -1,0 +1,40 @@
+<p>Subqueries are nested when they appear in the &lt;code&gt;WHERE&lt;/code&gt; clause of the parent statement. When an Oracle database evaluates a statement with a nested subquery, it must evaluate the subquery portion multiple times and may overlook some efficient access paths or joins.</p>
+<p>Subquery unnesting unnests and merges the body of the subquery into the body of the statement that contains it, allowing the optimizer to consider the queries together when evaluating access paths and joins. The optimizer can unnest most subqueries, with some exceptions. Those exceptions include:</p>
+<ul>
+<li>hierarchical subqueries</li>
+<li>subqueries that contain a &lt;code&gt;ROWNUM&lt;/code&gt; pseudocolumn</li>
+<li>subqueries that contain one of the set operators</li>
+<li>subqueries that contain a nested aggregate function</li>
+<li>subqueries that contain a correlated reference to a query block that is not the immediate outer query block of the subquery.</li>
+</ul>
+<p>Assuming no restrictions exist, the optimizer automatically unnests some (but not all) of the following nested subqueries:</p>
+<ul>
+<li>Uncorrelated &lt;code&gt;IN&lt;/code&gt; subqueries</li>
+<li>&lt;code&gt;IN&lt;/code&gt; and &lt;code&gt;EXISTS&lt;/code&gt; correlated subqueries, as long as they do not contain aggregate functions or a &lt;code&gt;GROUP BY&lt;/code&gt; clause</li>
+</ul>
+<p>You can enable extended subquery unnesting by instructing the optimizer to unnest additional types of subqueries:</p>
+<ul>
+<li>You can unnest an uncorrelated &lt;code&gt;NOT IN&lt;/code&gt; subqueries by specifying the &lt;code&gt;HASH_AJ&lt;/code&gt; or &lt;code&gt;MERGE_AJ&lt;/code&gt; hint in the subquery.</li>
+<li>You can unnest other subqueries by specifying the &lt;code&gt;UNNEST&lt;/code&gt; hint in the subquery.</li>
+</ul>
+<p>Because these optimizations are dependant on the version of Oracle used, it is best to avoid using nested subqueries in the first place when possible.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+BEGIN
+  SELECT col1
+  BULK COLLECT INTO result
+  FROM table1
+  WHERE col2 IN (SELECT col3 FROM table2); -- Noncompliant
+END;
+/
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+BEGIN
+  SELECT col1                              -- Compliant
+  BULK COLLECT INTO result
+  FROM table1
+  JOIN table2 ON col2 = col3;
+END;
+/
+</pre>

@@ -1,0 +1,16 @@
+<p>The storage layout used for floating-point values may vary from one compiler to another, and therefore no floating-point comparisons or manipulations should be made which rely directly on the way the values are stored. The in-built operators and functions, which hide the storage details from the developer, should be used.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+float32_t My_fabs ( float32_t f )
+{
+  uint8_t * pB = reinterpret_cast&lt; uint8_t * &gt;( &amp;f );
+  *( pB + 3 ) &amp;= 0x7f; // Non-compliant – generate the absolute value of an IEEE-754 float value.
+  return f;
+}
+</pre>
+<h2>See</h2>
+<ul>
+<li>MISRA C:2004, 12.12 - The underlying bit representations of floating-point values shall not be used.</li>
+<li>MISRA C++:2008, 3-9-3 - The underlying big representations of floating-point values shall not be used.</li>
+<li><a href="https://www.securecoding.cert.org/confluence/x/J4DkC">CERT, FLP37-C.</a> - Do not use object representations to compare floating-point values</li>
+</ul>

@@ -1,0 +1,58 @@
+<p>By default all applications can read from and write to an exported content provider which has no permissions defined.</p>
+<p>As a consequence, sensitive data available through the content provider could be accessed by other applications.</p>
+<p>It’s highly recommended to implement permissions on content providers.</p>
+<h2>Noncompliant Code Example</h2>
+<p>On AndroidManifest.xml:</p>
+<pre>
+&lt;provider
+  android:authorities="com.example.myapp.MyProvider1"
+  android:name="com.example.myapp.MyProvider1"
+  android:exported="true" /&gt; &lt;!-- Noncompliant: by default content providers are accessible by any other applications --&gt;
+
+&lt;provider
+  android:authorities="com.example.myapp.MyProvider2"
+  android:name="com.example.myapp.MyProvider2"
+  android:exported="true"
+  android:readPermission="com.example.myapp.READ_PERMISSION" /&gt;  &lt;!-- Noncompliant: write permissions are not implemented --&gt;
+
+&lt;provider
+  android:authorities="com.example.myapp.MyProvider3"
+  android:name="com.example.myapp.MyProvider3"
+  android:exported="true"
+  android:writePermission="com.example.myapp.WRITE_PERMISSION" /&gt;  &lt;!-- Noncompliant: read permissions are not implemented --&gt;
+
+&lt;permission android:name="com.example.myapp.BAD_PERMISSION"
+  android:protectionLevel="dangerous" /&gt;
+
+&lt;provider
+  android:authorities="com.example.myapp.MyProvider4"
+  android:name="com.example.myapp.MyProvider4"
+  android:exported="true"
+  android:permission="com.example.myapp.BAD_PERMISSION"  /&gt;  &lt;!-- Noncompliant: non restrictive permissions are setted --&gt;
+</pre>
+<h2>Compliant Solution</h2>
+<p>On AndroidManifest.xml, if it is not needed to export your provider to other applications, set the &lt;code&gt;exported&lt;/code&gt; property to &lt;code&gt;false&lt;/code&gt;:</p>
+<pre>
+&lt;provider
+  android:authorities="com.example.myapp.MyProvider5"
+  android:name="com.example.myapp.MyProvider5"
+  android:exported="false" /&gt;  &lt;!-- Compliant --&gt;
+</pre>
+<p>Otherwise implement restrictive permissions:</p>
+<pre>
+&lt;permission android:name="com.example.myapp.GOOD_PERMISSION"
+  android:protectionLevel="signature" /&gt;
+
+&lt;provider
+  android:authorities="com.example.myapp.MyProvider6"
+  android:name="com.example.myapp.MyProvider6"
+  android:exported="true"
+  android:permission="com.example.myapp.GOOD_PERMISSION"  /&gt;  &lt;!-- Compliant --&gt;
+</pre>
+<h2>See</h2>
+<ul>
+<li><a href="https://www.owasp.org/index.php/Mobile_Top_10_2016-M2-Insecure_Data_Storage">OWASP Mobile Top 10 2016 Category M2</a> - Insecure Data Storage</li>
+<li><a href="https://cwe.mitre.org/data/definitions/926.html">MITRE, CWE-926</a> - Improper Export of Android Application Components</li>
+<li><a href="https://www.sans.org/top25-software-errors/#cat3">SANS Top 25</a> - Porous Defenses</li>
+<li><a href="https://developer.android.com/guide/topics/providers/content-provider-creating#Permissions">developer.android.com</a> - Implementing content provider permissions</li>
+</ul>

@@ -1,0 +1,13 @@
+<p>SQL queries that use &lt;code&gt;EXISTS&lt;/code&gt; subqueries are inefficient because the subquery is re-run for every row in the outer query’s table. There are more efficient ways to write most queries, ways that do not use the &lt;code&gt;EXISTS&lt;/code&gt; condition.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+SELECT name
+FROM employee
+WHERE EXISTS (SELECT * FROM department WHERE department_id = id AND name = 'Marketing');
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+SELECT name
+FROM employee INNER JOIN department AS d
+  ON department_id = d.id AND d.name = 'Marketing';
+</pre>

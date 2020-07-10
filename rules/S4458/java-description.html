@@ -1,0 +1,13 @@
+<p>In java 7 to 9, &lt;code&gt;FileInputStream&lt;/code&gt; and &lt;code&gt;FileOutputStream&lt;/code&gt; rely on finalization to perform final closes if the stream is not already closed. Whether or not the stream is already closed, the finalizer will be called, resulting in extra work for the garbage collector. This can easily be avoided using the &lt;code&gt;Files&lt;/code&gt; API.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+try(FileInputStream fis = new FileInputStream(...)) {  // Noncompliant
+} finally {
+}
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+try(FileInputStream fis = Files.newFileInputStream(...)) {
+} finally {
+}
+</pre>

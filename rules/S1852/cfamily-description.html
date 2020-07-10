@@ -1,0 +1,30 @@
+<p>&lt;code&gt;#pragma once&lt;/code&gt; is a preprocessor directive meant to ensure that a file is only included once in a compilation unit. However, there are several reasons to avoid it:</p>
+<ul>
+<li>While it is widely implemented, it’s not universally supported.</li>
+<li>It’s not part of the standard, so its behavior may vary from compiler to compiler.</li>
+<li>If the same file exists in two different locations, it will <em>not</em> prevent the second file from being included in the compilation.</li>
+</ul>
+<p>For these reasons, include guards, or include guards along with &lt;code&gt;#pragma once&lt;/code&gt; should be used instead.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+// my_header.h
+#pragma once
+...
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+// my_header.h
+#ifndef MY_HEADER
+#define MY_HEADER
+...
+#endif
+</pre>
+<p>or</p>
+<pre>
+// my_header.h
+#pragma once
+#ifndef MY_HEADER
+#define MY_HEADER
+...
+#endif
+</pre>

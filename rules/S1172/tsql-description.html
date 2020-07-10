@@ -1,0 +1,28 @@
+<p>Unused parameters are misleading. Whatever the values passed to such parameters, the behavior will be the same.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+CREATE PROCEDURE SalesByCustomer
+  @CustomerName nvarchar(50) -- Noncompliant
+AS
+SELECT c.customer_name, sum(ctr.amount) AS TotalAmount
+  FROM customers c, contracts ctr
+WHERE c.customer_id = ctr.customer_id
+GROUP BY c.customer_name
+ORDER BY c.customer_name
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+CREATE PROCEDURE SalesByCustomer
+  @CustomerName nvarchar(50)
+AS
+SELECT c.customer_name, sum(ctr.amount) AS TotalAmount
+  FROM customers c, contracts ctr
+WHERE c.customer_id = ctr.customer_id
+     AND c.customer_name = @CustomerName
+GROUP BY c.customer_name
+ORDER BY c.customer_name
+</pre>
+<h2>See</h2>
+<ul>
+<li><a href="https://www.securecoding.cert.org/confluence/x/NYA5">CERT, MSC12-C.</a> - Detect and remove code that has no effect or is never executed</li>
+</ul>

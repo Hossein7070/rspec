@@ -1,0 +1,23 @@
+{
+  "title": "Pass by reference to const should be used for large input parameters",
+  "type": "CODE_SMELL",
+  "status": "ready",
+  "remediation": {
+    "func": "Constant/Issue",
+    "constantCost": "5min"
+  },
+  "tags": [
+    "performance"
+  ],
+  "defaultSeverity": "Major",
+  "ruleSpecification": "RSPEC-1238",
+  "sqKey": "S1238",
+  "scope": "Main",
+  "all_languages": [
+    "abap",
+    "cfamily"
+  ],
+  "allKeys": [
+    "S1238"
+  ]
+}

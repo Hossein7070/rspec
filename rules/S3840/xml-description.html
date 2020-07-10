@@ -1,0 +1,15 @@
+<p>Schema versioning is a big topic, with best practices rather than hard-and-fast rules. One of these best practices is to include the &lt;code&gt;version&lt;/code&gt; attribute in the &lt;code&gt;xsd:schema&lt;/code&gt; and increment it to indicate minor changes. Nothing breaks if the value changes, but it does give the user a relatively prominent indication that something has changed.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+&lt;xs:schema targetNamespace="http://www.codeSamples.com/fruit"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           elementFormDefault="qualified"&gt;  &lt;!-- Noncompliant --&gt;
+...
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+&lt;xs:schema targetNamespace="http://www.codeSamples.com/fruit"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           elementFormDefault="qualified" version="1"&gt;
+...
+</pre>

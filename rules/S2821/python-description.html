@@ -1,0 +1,19 @@
+<p>The first argument to &lt;code&gt;super&lt;/code&gt; must be the name of the class making the call. If it’s not, the result will be a runtime error.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+class Person(object):
+  #...
+
+class PoliceOfficer(Person):
+  def __init__(self, name):
+    super().__init__(name)  // Noncompliant
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+class Person(object):
+  #...
+
+class PoliceOfficer(Person):
+  def __init__(self, name):
+    super(PoliceOfficer).__init__(name)
+</pre>

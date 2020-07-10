@@ -1,0 +1,21 @@
+<p>&lt;code&gt;IF&lt;/code&gt; statements with conditions that are always false have the effect of making blocks of code non-functional. This can be useful during debugging, but should not be checked in. &lt;code&gt;IF&lt;/code&gt; statements with conditions that are always true are completely redundant, and make the code less readable. In either case, unconditional &lt;code&gt;IF&lt;/code&gt; statements should be removed.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+IF TRUE THEN
+  do_something;
+END IF;
+
+IF FALSE THEN
+  do_something_else;
+END IF;
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+do_something;
+</pre>
+<h2>See</h2>
+<ul>
+<li><a href="http://cwe.mitre.org/data/definitions/489.html">MITRE, CWE-489</a> - Leftover Debug Code</li>
+<li><a href="http://cwe.mitre.org/data/definitions/570.html">MITRE, CWE-570</a> - Expression is Always False</li>
+<li><a href="http://cwe.mitre.org/data/definitions/571.html">MITRE, CWE-571</a> - Expression is Always True</li>
+</ul>

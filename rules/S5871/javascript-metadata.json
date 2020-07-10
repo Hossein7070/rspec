@@ -1,0 +1,42 @@
+{
+  "title": "Cognitive Complexity of expressions should not be too high",
+  "type": "CODE_SMELL",
+  "status": "ready",
+  "tags": [
+    "brain-overload"
+  ],
+  "defaultSeverity": "Critical",
+  "ruleSpecification": "RSPEC-5871",
+  "sqKey": "S5871",
+  "scope": "All",
+  "all_languages": [
+    "abap",
+    "apex",
+    "cfamily",
+    "cobol",
+    "csharp",
+    "css",
+    "flex",
+    "go",
+    "java",
+    "javascript",
+    "kotlin",
+    "php",
+    "pli",
+    "plsql",
+    "python",
+    "rpg",
+    "ruby",
+    "rust",
+    "scala",
+    "solidity",
+    "swift",
+    "tsql",
+    "vb6",
+    "vbnet",
+    "web"
+  ],
+  "allKeys": [
+    "S5871"
+  ]
+}

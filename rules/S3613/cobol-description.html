@@ -1,0 +1,53 @@
+<p>There’s no point in selecting columns in a cursor that aren’t actually referenced in the relevant &lt;code&gt;FETCH&lt;/code&gt; statement. Instead, either pare down the cursor to select only what you actually need, or &lt;code&gt;FETCH&lt;/code&gt; the other columns.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+      EXEC SQL
+        DECLARE C-SQL-CURSOR CURSOR
+          SELECT COLUMN1
+                ,COLUMN2  -- Not fetched
+                ,COLUMN3  -- Not fetched
+            FROM TBLWTABLE
+          WITH UR
+      END-EXEC.
+
+      …
+
+      EXEC SQL
+        FETCH C-SQL-CURSOR  -- Noncompliant
+        INTO  :H-COLUMN1
+      END-EXEC
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+      EXEC SQL
+        DECLARE C-SQL-CURSOR CURSOR
+          SELECT COLUMN1
+                ,COLUMN2
+                ,COLUMN3
+            FROM TBLWTABLE
+          WITH UR
+      END-EXEC.
+
+      …
+
+      EXEC SQL
+        FETCH C-SQL-CURSOR
+        INTO  :H-COLUMN1, :H-COLUMN2, :H-COLUMN3
+      END-EXEC
+</pre>
+<p>or</p>
+<pre>
+      EXEC SQL
+        DECLARE C-SQL-CURSOR CURSOR
+          SELECT COLUMN1
+            FROM TBLWTABLE
+          WITH UR
+      END-EXEC.
+
+      …
+
+      EXEC SQL
+        FETCH C-SQL-CURSOR
+        INTO  :H-COLUMN1
+      END-EXEC
+</pre>

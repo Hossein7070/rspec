@@ -1,0 +1,28 @@
+<p>HTML5 introduces the ability to restrict the permissions of content loaded into an &lt;code&gt;iframe&lt;/code&gt;. Simply adding the &lt;code&gt;sandbox&lt;/code&gt; attribute to an &lt;code&gt;iframe&lt;/code&gt; tag limits the &lt;code&gt;iframe&lt;/code&gt; to simply loading the specified contents; no scripts will run, no popups will pop, and so on. You can re-enable additional functions individually by specifying them in the attribute’s value:</p>
+<ul>
+<li>&lt;code&gt;allow-forms&lt;/code&gt; - form submission</li>
+<li>&lt;code&gt;allow-popups&lt;/code&gt; - popups</li>
+<li>&lt;code&gt;allow-scripts&lt;/code&gt; - script execution</li>
+<li>&lt;code&gt;allow-pointer-lock&lt;/code&gt; - access to the "pointer lock" API</li>
+<li>&lt;code&gt;allow-same-origin&lt;/code&gt; - sandboxed content is marked as being from a different domain (even when it’s not). This attribute turns that off so that, for instance, the &lt;code&gt;iframe&lt;/code&gt; content can access its site’s cookies.</li>
+<li>&lt;code&gt;allow-top-navigation&lt;/code&gt; - turns the &lt;code&gt;target&lt;/code&gt; attribute of &lt;code&gt;a&lt;/code&gt; tags back on</li>
+</ul>
+<p>Following the principle of minimum privileges, this rule raises an issue for each &lt;code&gt;iframe&lt;/code&gt; which does not have a &lt;code&gt;sandbox&lt;/code&gt; attribute.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+&lt;iframe src="https://platform.twitter.com/widgets/tweet_button.html"
+        style="border: 0; width:130px; height:20px;"&gt;  &lt;!-- Noncompliant --&gt;
+&lt;/iframe&gt;
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+&lt;iframe sandbox="allow-same-origin allow-scripts allow-popups allow-forms"
+    src="https://platform.twitter.com/widgets/tweet_button.html"
+    style="border: 0; width:130px; height:20px;"&gt;
+&lt;/iframe&gt;
+</pre>
+<h2>See</h2>
+<ul>
+<li><a href="https://www.owasp.org/index.php/Top_10-2017_A3-Sensitive_Data_Exposure">OWASP Top 10 2017 Category A3</a> - Sensitive Data Exposure</li>
+<li><a href="https://www.owasp.org/index.php/Top_10-2017_A7-Cross-Site_Scripting_(XSS)">OWASP Top 10 2017 Category A7</a> - Cross-Site Scripting (XSS)</li>
+</ul>

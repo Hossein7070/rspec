@@ -1,0 +1,31 @@
+<p>Using &lt;code&gt;TOP&lt;/code&gt; in a &lt;code&gt;SELECT&lt;/code&gt; without ordering the results from which the "top" results are chosen will return a seemingly random set of rows, and is surely a mistake.
+The same random behavior also occurs when using &lt;code&gt;TOP&lt;/code&gt; in a &lt;code&gt;DELETE&lt;/code&gt;, &lt;code&gt;INSERT&lt;/code&gt;, &lt;code&gt;UPDATE&lt;/code&gt; and &lt;code&gt;MERGE&lt;/code&gt;.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+SELECT TOP 10 -- Noncompliant selects 10 random rows
+  fname, lname, city
+  FROM people
+  WHERE city IS NOT NULL;
+
+DELETE TOP (10) -- Noncompliant deletes 10 random rows
+  FROM PurchaseOrder
+  WHERE DueDate &lt; '20020701';
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+SELECT TOP 10
+  fname, lname, city
+  FROM people
+  WHERE city IS NOT NULL
+  ORDER BY birthdate;
+
+DELETE
+  FROM PurchaseOrder
+  WHERE OrderID IN (
+    SELECT TOP 10
+      OrderID
+      FROM PurchaseOrder
+      WHERE DueDate &lt; '20020701'
+      ORDER BY DueDate ASC
+  );
+</pre>

@@ -1,0 +1,7 @@
+<p>By default, Hibernate &lt;code&gt;session&lt;/code&gt; flushing is set to &lt;code&gt;FlushMode.AUTO&lt;/code&gt;, and is called from &lt;code&gt;Transaction.commit&lt;/code&gt;, &lt;code&gt;Session.flush&lt;/code&gt; and before some queries are executed. Setting it to &lt;code&gt;FlushMode.COMMIT&lt;/code&gt;, &lt;code&gt;FlushMode.NEVER&lt;/code&gt;, or &lt;code&gt;FlushMode.MANUAL&lt;/code&gt; could mean that parts of your application get stale data, so you should be sure of what you’re doing before you use any of these modes.</p>
+<p>This rule raises an issue when flush mode is explicitly set to any of these modes.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+Session session = sessionFactory.openSession();
+session.setFlushMode(FlushMode.NEVER);  // Noncompliant
+</pre>

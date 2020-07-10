@@ -1,0 +1,27 @@
+<p>After the execution of each SQL statement (other than &lt;code&gt;DECLARE CURSOR&lt;/code&gt;, &lt;code&gt;DECLARE TABLE&lt;/code&gt; and &lt;code&gt;DECLARE VARIABLE&lt;/code&gt;), the value of &lt;code&gt;SQLCODE&lt;/code&gt; or &lt;code&gt;SQLSTATE&lt;/code&gt; should be checked before proceeding. A 0 &lt;code&gt;SQLCODE&lt;/code&gt; value means the statement succeeded, a positive value means success with a warning, and a negative value indicates an error. Proceeding without checking could put your program or your data in a bad state.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+EXEC SQL
+  SELECT name INTO :username FROM user WHERE id = :userid
+END-EXEC.
+
+DISPLAY username.    *&gt; Noncompliant
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+EXEC SQL
+  SELECT name INTO :username FROM user WHERE id = :userid
+END-EXEC.
+
+IF SQLCODE = 0 THEN
+  DISPLAY username
+END-IF.
+</pre>
+<h2>Exceptions</h2>
+<p>When the value of &lt;code&gt;SQLCODE&lt;/code&gt; or &lt;code&gt;SQLSTATE&lt;/code&gt; is not checked but transferred to another variable for later use, no issue is raised.</p>
+<pre>
+EXEC SQL
+  SELECT name INTO :username FROM user WHERE id = :userid
+END-EXEC.
+MOVE SQLCODE TO SQL-RETURN-CODE
+</pre>

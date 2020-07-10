@@ -1,0 +1,22 @@
+<p>The conventional expectation of operators that end with &lt;code&gt;=&lt;/code&gt;, such as &lt;code&gt;+=&lt;/code&gt;, &lt;code&gt;-=&lt;/code&gt;, &lt;code&gt;*=&lt;/code&gt;, and so on, is that the result of the operation will be assigned to the operand on the left-hand side of the operator.</p>
+<p>Define any other behavior and you almost guarantee that the users of your code will misunderstand and therefore misuse your operator.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+func **= (p1:Int, p2:Int) -&gt; Int {   // Noncompliant. Change operator name or update value of first parameter
+    return p1 ** p2
+}
+
+func =&gt; (p1:Int, p2:Int) -&gt; Int {  // Compliant; doesn't end with '='
+    return p1 ** p1 ** p2
+}
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+func **= (inout p1:Int, p2:Int) {
+    p1 = p1 ** p2
+}
+
+func =&gt; (p1:Int, p2:Int) -&gt; Int {
+    return p1 ** p1 ** p2
+}
+</pre>

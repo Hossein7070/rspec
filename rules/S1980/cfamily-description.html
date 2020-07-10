@@ -1,0 +1,25 @@
+<p>While you can perform arithmetic on a &lt;code&gt;time_t&lt;/code&gt; type, you may not get the results you expect from the operation because the way that a time is encoded within the type is unspecified. Therefore there is no safe way to manually perform arithmetic on &lt;code&gt;time_t&lt;/code&gt; variables despite the fact that the ISO C standard defines &lt;code&gt;time_t&lt;/code&gt; as an "arithmetic type". The relevant function calls should be used instead.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+int max_seconds = 30;
+time_t start = time(NULL);
+
+while (time(NULL) &lt; start + max_seconds) {  // Noncompliant
+  //...
+}
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+int max_seconds = 30;
+time_t start = time(NULL);
+time_t now = start;
+
+while (difftime(now, start) &lt; max_seconds) {
+  now = time(NULL);
+  //...
+}
+</pre>
+<h2>See</h2>
+<ul>
+<li><a href="https://www.securecoding.cert.org/confluence/x/VgAV">CERT, MSC05-C.</a> - Do not manipulate &lt;code&gt;time_t&lt;/code&gt; typed values directly</li>
+</ul>

@@ -1,0 +1,96 @@
+<p>C+11 introduced “Uniform initialization”/"list initialization". It is a way to initialize an object from a braced-init-list. This adds a third way to initialize objects in C++ on top of parentheses and equal signs.</p>
+<pre>
+int a{1}; // braces initialization
+int b(1); // parentheses initialization
+int c=1; // equal sign initialization
+</pre>
+<p>“Uniform initialization” was introduced to address the confusion of the many initialization syntaxes in C++ and to give a syntax that, in concept, can be used in all initialization scenarios. It helps to:</p>
+<ul>
+<li>Initialize container in a way that wasn’t possible before:</li>
+</ul>
+<pre>
+// Before
+std::vector&lt;int&gt; v;
+v.push_back(1);
+v.push_back(2);
+// After
+std::vector&lt;int&gt;{1,2,3};
+</pre>
+<ul>
+<li>Avoid narrowing:</li>
+</ul>
+<pre>
+double d=2.5;
+int i{d}; // Compilation error
+</pre>
+<ul>
+<li>Avoid the most vexing parse:</li>
+</ul>
+<pre>
+class A{};
+A a();  // Compilation error declares a function named a that returns A.
+A a{}; // Call A constructor
+</pre>
+<p>That is why&nbsp;“Uniform initialization” should be preferred.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+struct A {
+  A(int i, int j, int z) {
+    ...
+  }
+};
+
+void f() {
+  A a(1,2,3); // Noncompliant
+}
+
+struct B {
+  A a = A(1, 2, 3); // Noncompliant
+};
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+struct A {
+  A(int i, int j, int z) {
+    ...
+  }
+};
+
+void f() {
+  A a{1,2,3};
+}
+
+struct B {
+  A a{1, 2, 3};
+};
+</pre>
+<h2>Exceptions</h2>
+<ul>
+<li>In some situations, “Uniform initialization” has surprising behavior. for example, in constructor overload resolution, “Uniform initialization” prefers the constructor with "std::initializer_list" as a parameter if possible, even if another constructor seems like a better match. Like in the "std::vector" case, you might need to go back to parentheses in order to call the non "intializer_list" constructor:</li>
+</ul>
+<pre>
+vector&lt;int&gt; v1(5, 10); //  5 copies of the value 10
+</pre>
+<ul>
+<li>When "=" is after "auto". This might be needed to enforce deduction to initializer_list:</li>
+</ul>
+<pre>
+auto i1 {1}; // int with the value 1
+auto i2 = {1}; //  std::initializer_list&lt;int&gt; with an element equal to 1
+</pre>
+<ul>
+<li>In single argument cases, "=" is okay:</li>
+</ul>
+<pre>
+int i=39
+</pre>
+<ul>
+<li>When the braces are after the "=":</li>
+</ul>
+<pre>
+vector&lt;int&gt; v = { 1, 2, 4 };
+</pre>
+<h2>See</h2>
+<ul>
+<li><a href="https://github.com/isocpp/CppCoreGuidelines/blob/8e82f0a0d9ba3992af2d61480250e1c577df4a28/CppCoreGuidelines.md#es23-prefer-the—​initializer-syntax">C++ Core Guidelines - ES.23</a>&nbsp;- Prefer the {} initializer syntax</li>
+</ul>

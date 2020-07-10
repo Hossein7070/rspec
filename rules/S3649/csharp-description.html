@@ -1,0 +1,80 @@
+<p>User provided data, such as URL parameters, should always be considered untrusted and tainted. Constructing SQL or SQL-like queries directly from tainted data enables attackers to inject specially crafted values that change the initial meaning of the query itself. Successful database query injection attacks can read, modify, or delete sensitive information from the database and sometimes even shut it down or execute arbitrary operating system commands.</p>
+<p>Typically, the solution is to rely on prepared statements rather than string concatenation, which ensures that user provided data will be properly escaped. Also, the use of database ORMs is generally safe as most implementations rely on prepared statements.
+An other solution is to validate every parameter used to build the query. This can be achieved by transforming string values to primitive types or by validating them against a white list of accepted values.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using WebApplication1.Controllers;
+
+namespace WebApplicationDotNetCore.Controllers
+{
+    public class RSPEC3649SQLiNoncompliant : Controller
+    {
+        private readonly UserAccountContext _context;
+
+        public RSPEC3649SQLiNoncompliant(UserAccountContext context)
+        {
+            _context = context;
+        }
+
+        public IActionResult Authenticate(string user)
+        {
+            string query = "SELECT * FROM Users WHERE Username = '" + user + "'";
+
+            // an attacker can bypass authentication by setting user to this special value
+            // user = "' or 1=1 or ''='";
+
+            var userExists = false;
+            if (_context.Database.ExecuteSqlCommand(query) &gt; 0) // Noncompliant
+            {
+                userExists = true;
+            }
+
+            return Content(userExists ? "success" : "fail");
+        }
+    }
+}
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using WebApplication1.Controllers;
+
+namespace WebApplicationDotNetCore.Controllers
+{
+    public class RSPEC3649SQLiCompliant : Controller
+    {
+        private readonly UserAccountContext _context;
+
+        public RSPEC3649SQLiCompliant(UserAccountContext context)
+        {
+            _context = context;
+        }
+
+        public IActionResult Authenticate(string user)
+        {
+            var query = "SELECT * FROM Users WHERE Username = {0}"; // Safe
+
+            var userExists = false;
+            if  (_context.Database.ExecuteSqlCommand(query, user) &gt; 0)
+            {
+                userExists = true;
+            }
+
+            return Content(userExists ? "success" : "fail");
+        }
+    }
+}
+</pre>
+<h2>See</h2>
+<ul>
+<li>OWASP SQL Injection Prevention <a href="https://cheatsheetseries.owasp.org/cheatsheets/SQL_Injection_Prevention_Cheat_Sheet.html">Cheat Sheet</a></li>
+<li><a href="https://www.owasp.org/index.php/Top_10-2017_A1-Injection">OWASP Top 10 2017 Category A1</a> - Injection</li>
+<li><a href="http://cwe.mitre.org/data/definitions/89">MITRE, CWE-89</a> - Improper Neutralization of Special Elements used in an SQL Command</li>
+<li><a href="http://cwe.mitre.org/data/definitions/20.html">MITRE, CWE-20</a> - Improper Input Validation</li>
+<li><a href="http://cwe.mitre.org/data/definitions/943.html">MITRE, CWE-943</a> - Improper Neutralization of Special Elements in Data Query Logic</li>
+<li><a href="https://www.securecoding.cert.org/confluence/x/PgIRAg">CERT, IDS00-J.</a> - Prevent SQL injection</li>
+<li><a href="https://www.sans.org/top25-software-errors/#cat1">SANS Top 25</a> - Insecure Interaction Between Components</li>
+</ul>

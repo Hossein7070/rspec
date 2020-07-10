@@ -1,0 +1,15 @@
+<p>If a &lt;code&gt;WHERE&lt;/code&gt; clause contains a condition which is redundant in the context of the the rest of the clause, then it can be removed. If it is redundant because it does not match the programmer’s intent, then it’s a bug and the sub-condition should be fixed.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+SELECT name, price
+FROM product
+WHERE price &gt; 15  -- Noncompliant
+  AND price &lt; 100  -- Noncompliant
+  AND price = 50
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+SELECT name, price
+FROM product
+WHERE price = 50
+</pre>

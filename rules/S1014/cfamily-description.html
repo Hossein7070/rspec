@@ -1,0 +1,34 @@
+<p>If the names are ambiguous, the compiler should report the name clash and not generate arbitrary or unexpectedly resolved code. However, this ambiguity may not be obvious to a developer.</p>
+<p>There is also a specific concern that if the member function is virtual, resolving the ambiguity by explicitly referencing the base class in effect removes the virtual behaviour from the function.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+class B1
+{
+public:
+ int32_t count; // Noncompliant
+ void foo ( ); // Noncompliant
+};
+
+class B2
+{
+public:
+  int32_t count; // Noncompliant
+  void foo ( ); // Noncompliant
+};
+
+class D : public B1, public B2
+{
+public:
+  void Bar ( )
+  {
+    ++count; // Is that B1::count or B2::count?
+    foo ( ); // Is that B1::foo() or B2::foo()?
+  }
+};
+</pre>
+<h2>Exceptions</h2>
+<p>For the purposes of this rule, visible function identifiers that form an overload set shall be considered as the same entity.</p>
+<h2>See</h2>
+<ul>
+<li>MISRA C++:2008, 10-2-1 - All accessible entity names within a multiple inheritance hierarchy should be unique.</li>
+</ul>

@@ -1,0 +1,19 @@
+<p>Float data types, such as &lt;code&gt;FLOAT&lt;/code&gt;, &lt;code&gt;DOUBLE PRECISION&lt;/code&gt;, and &lt;code&gt;REAL&lt;/code&gt; cannot have a scale constraint. Trying to specify a scale results in the exception &lt;code&gt;PLS-00510: Float cannot have scale being raised.&lt;/code&gt;</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+DECLARE
+  foo FLOAT(10, 3); -- Noncompliant - raises PLS-00510
+BEGIN
+  NULL;
+END;
+/
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+DECLARE
+  foo FLOAT(10); -- Compliant
+BEGIN
+  NULL;
+END;
+/
+</pre>

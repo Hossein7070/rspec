@@ -1,0 +1,19 @@
+<p>While &lt;code&gt;:&lt;element_type&gt;&lt;/code&gt; and &lt;code&gt;[type="&lt;element_type&gt;"]&lt;/code&gt; can both be used in jQuery to select elements by their type, &lt;code&gt;[type="&lt;element_type&gt;"]&lt;/code&gt; is far faster because it can take advantage of the native DOM &lt;code&gt;querySelectorAll()&lt;/code&gt; method in modern browsers.</p>
+<p>This rule raises an issue when following selectors are used:</p>
+<ul>
+<li>&lt;code&gt;:checkbox&lt;/code&gt;</li>
+<li>&lt;code&gt;:file&lt;/code&gt;</li>
+<li>&lt;code&gt;:image&lt;/code&gt;</li>
+<li>&lt;code&gt;:password&lt;/code&gt;</li>
+<li>&lt;code&gt;:radio&lt;/code&gt;</li>
+<li>&lt;code&gt;:reset&lt;/code&gt;</li>
+<li>&lt;code&gt;:text&lt;/code&gt;</li>
+</ul>
+<h2>Noncompliant Code Example</h2>
+<pre>
+var input = $( "form input:radio" ); // Noncompliant
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+var input = $( "form input[type=radio]" ); // Compliant
+</pre>

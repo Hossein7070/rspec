@@ -1,0 +1,45 @@
+<p>Subtraction of iterators only gives well-defined results if the two iterators point into the same data structure in memory (same array, same object…​).
+This rule also applies to the particular case of pointers.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+void f(std::vector&lt;int&gt; &amp;v1, std::vector&lt;int&gt; &amp;v2) {
+  auto it = std::find(v1.begin(), v1.end(), 42);
+  if (it != v1.end()) {
+    auto index = it - v2.begin(); // Noncompliant, iterators from different containers
+  }
+}
+
+void g(int val){
+  int a[10];
+  for (int &amp;i : a){
+    if (val == i) {
+        auto index = &amp;val - &amp;a[0]; // Noncompliant, &amp;val and &amp;a[0] don't point in the same object
+    }
+  }
+}
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+void f(std::vector&lt;int&gt; &amp;v1) {
+  auto it = std::find(v1.begin(), v1.end(), 42);
+  if (it != v1.end()) {
+    auto index = it - v1.begin(); // Compliant
+  }
+}
+
+void g(int val){
+  int a[10];
+  for (int &amp;i : a){
+    if (val == i) {
+        auto index = &amp;i - &amp;a[0]; // Compliant
+    }
+  }
+}
+</pre>
+<h2>See</h2>
+<ul>
+<li>MISRA C:2004, 17.2</li>
+<li>MISRA C++:2008, 5-0-17</li>
+<li><a href="http://cwe.mitre.org/data/definitions/469.html">MITRE, CWE-469</a> - Use of Pointer Subtraction to Determine Size</li>
+<li><a href="https://www.securecoding.cert.org/confluence/x/LIDp">CERT, ARR36-C.</a> - Do not subtract or compare two pointers that do not refer to the same array</li>
+</ul>

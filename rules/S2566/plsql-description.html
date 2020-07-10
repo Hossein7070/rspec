@@ -1,0 +1,19 @@
+<p>Currently, &lt;code&gt;VARCHAR&lt;/code&gt; and &lt;code&gt;VARCHAR2&lt;/code&gt; are identical data types. But to prevent future changes in behavior, Oracle recommends the use of &lt;code&gt;VARCHAR2&lt;/code&gt;.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+DECLARE
+  var VARCHAR(42);  -- Noncompliant
+BEGIN
+  NULL;
+END;
+/
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+DECLARE
+  var VARCHAR2(42);  -- Noncompliant
+BEGIN
+  NULL;
+END;
+/
+</pre>

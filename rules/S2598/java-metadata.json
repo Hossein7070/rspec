@@ -1,0 +1,35 @@
+{
+  "title": "File uploads should be restricted",
+  "type": "VULNERABILITY",
+  "status": "ready",
+  "remediation": {
+    "func": "Constant/Issue",
+    "constantCost": "20min"
+  },
+  "tags": [
+    "cwe",
+    "sans-top25-insecure",
+    "cert",
+    "owasp-a4"
+  ],
+  "defaultSeverity": "Critical",
+  "ruleSpecification": "RSPEC-2598",
+  "sqKey": "S2598",
+  "scope": "Main",
+  "securityStandards": {
+    "CWE": [
+      434,
+      400
+    ],
+    "OWASP": [
+      "A4"
+    ]
+  },
+  "all_languages": [
+    "java",
+    "javascript"
+  ],
+  "allKeys": [
+    "S2598"
+  ]
+}

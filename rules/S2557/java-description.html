@@ -1,0 +1,21 @@
+<p>The use of unnecessary types makes the eye stumble, and inhibits the smooth reading of code.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+public void doSomething() {
+
+  &lt;String&gt;foo("blah");  // Noncompliant; &lt;String&gt; is inferred
+}
+public void &lt;T&gt; foo(T t) {
+  // ...
+}
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+public void doSomething() {
+
+  foo("blah");
+}
+public void &lt;T&gt; foo(T t) {
+  // ...
+}
+</pre>

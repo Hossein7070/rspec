@@ -1,0 +1,27 @@
+<p>The &lt;code&gt;IntPtr&lt;/code&gt; and &lt;code&gt;UIntPtr&lt;/code&gt; types are used to access unmanaged memory, usually in order to use C or C++ libraries.  If such a pointer is not secured by making it &lt;code&gt;private&lt;/code&gt;, &lt;code&gt;internal&lt;/code&gt; or &lt;code&gt;readonly&lt;/code&gt;, it can lead to a vulnerability allowing access to arbitrary locations.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+using System;
+
+namespace MyLibrary
+{
+  public class MyClass
+  {
+    public IntPtr myPointer;  // Noncompliant
+    protected UIntPtr myOtherPointer; // Noncompliant
+  }
+}
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+using System;
+
+namespace MyLibrary
+{
+  public class MyClass
+  {
+    private IntPtr myPointer;
+    protected readonly UIntPtr myOtherPointer;
+  }
+}
+</pre>

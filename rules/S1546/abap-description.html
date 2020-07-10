@@ -1,0 +1,21 @@
+<p>Every class definition should be commented to explain its goal and how it works. This comment must be located before [or after] the class definition.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+CLASS my_class DEFINITION.
+  ...
+ENDCLASS
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+* here is
+* my comment
+CLASS my_class DEFINITION.
+  ...
+ENDCLASS
+</pre>
+<h2>Exceptions</h2>
+<pre>
+CLASS my_class IMPLEMENTATION.  //Only class DEFINITIONs are checked by this rule
+  ...
+ENDCLASS
+</pre>

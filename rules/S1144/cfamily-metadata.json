@@ -1,0 +1,33 @@
+{
+  "title": "Unused functions and methods should be removed",
+  "type": "CODE_SMELL",
+  "status": "ready",
+  "remediation": {
+    "func": "Constant/Issue",
+    "constantCost": "5min"
+  },
+  "tags": [
+    "based-on-misra",
+    "unused"
+  ],
+  "defaultSeverity": "Major",
+  "ruleSpecification": "RSPEC-1144",
+  "sqKey": "S1144",
+  "scope": "All",
+  "all_languages": [
+    "apex",
+    "cfamily",
+    "csharp",
+    "flex",
+    "java",
+    "kotlin",
+    "php",
+    "python",
+    "scala",
+    "swift",
+    "typescript"
+  ],
+  "allKeys": [
+    "S1144"
+  ]
+}

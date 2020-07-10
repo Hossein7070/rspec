@@ -1,0 +1,54 @@
+<p>A &lt;code&gt;EVALUATE&lt;/code&gt; and a chain of &lt;code&gt;IF&lt;/code&gt;/&lt;code&gt;ELSE IF&lt;/code&gt; statements is evaluated from top to bottom. At most, only one branch will be executed: the first one with a condition that evaluates to &lt;code&gt;true&lt;/code&gt;.</p>
+<p>Therefore, duplicating a condition automatically leads to dead code. Usually, this is due to a copy/paste error. At best, it’s simply dead code and at worst, it’s a bug that is likely to induce further bugs as the code is maintained, and obviously it could lead to unexpected behavior.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+EVALUATE X
+   WHEN 1
+       ...
+   WHEN 5
+       ...
+   WHEN 3
+       ...
+   WHEN 1     *&gt; Noncompliant
+       ...
+END-EVALUATE.
+
+IF X = 1
+  ...
+ELSE
+  IF X = 2
+    ...
+  ELSE
+    IF X = 1    *&gt; Noncompliant
+      ...
+    END-IF
+  END-IF
+END-IF.
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+EVALUATE X
+   WHEN 1
+       ...
+   WHEN 5
+       ...
+   WHEN 3
+       ...
+END-EVALUATE.
+
+IF X = 1
+  ...
+ELSE
+  IF X = 2
+    ...
+  ELSE
+    IF X = 3
+      ...
+    END-IF
+  END-IF
+END-IF.
+</pre>
+<h2>See</h2>
+<ul>
+<li><a href="https://www.securecoding.cert.org/confluence/x/NYA5">CERT, MSC12-C.</a> - Detect and remove code that has no effect or is never executed</li>
+</ul>

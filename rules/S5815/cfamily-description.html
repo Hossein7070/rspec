@@ -1,0 +1,44 @@
+<p>In C, a string is just a buffer of characters, usually using the &lt;code&gt;null&lt;/code&gt; character as a sentinel for the end of the string. Which mean that the developer has to be aware of low level details such as buffer sizes, having an extra character to store the final null character…​ Doing that correctly and consistently is notoriously difficult, and any error can lead to a security vulnerability, for instance giving access to sensitive data, or allowing arbitrary code execution.</p>
+<p>The function &lt;code&gt;char *strncat( char *restrict dest, const char *restrict src, size_t count );&lt;/code&gt; appends the characters of string &lt;code&gt;src&lt;/code&gt; at the end of &lt;code&gt;dest&lt;/code&gt;, but only add &lt;code&gt;count&lt;/code&gt; characters max. &lt;code&gt;dest&lt;/code&gt; will always be null-terminated. The &lt;code&gt;wcsncat&lt;/code&gt; does the same for wide characters, and should be used with the same guidelines.</p>
+<h2>Ask Yourself Whether</h2>
+<ul>
+<li>There is a possibility that either the &lt;code&gt;src&lt;/code&gt; or the &lt;code&gt;dest&lt;/code&gt; pointer is null</li>
+<li>The current string length of &lt;code&gt;dest&lt;/code&gt; plus the current string length of &lt;code&gt;src&lt;/code&gt; plus 1 (for the final null character) is larger than the size of the buffer pointer-to by &lt;code&gt;src&lt;/code&gt;</li>
+<li>There is a possibility that either string is not correctly null-terminated</li>
+</ul>
+<p>There is a risk if you answered yes to any of those questions.</p>
+<h2>Recommended Secure Coding Practices</h2>
+<ul>
+<li>C11 provides, in its annex K, the &lt;code&gt;strncat_s&lt;/code&gt; and the &lt;code&gt;wcsncat_s&lt;/code&gt; that were designed as safer alternative to &lt;code&gt;strncat&lt;/code&gt; and &lt;code&gt;wcsncat&lt;/code&gt;. It’s not recommended to use them in all circumstances, because they introduce a runtime overhead and require to write more code for error handling, but they perform checks that will limit the consequences of calling the function with bad arguments.</li>
+<li>Even if your compiler does not exactly support annex K, you probably have access to similar functions</li>
+<li><p>If you are using &lt;code&gt;strncat&lt;/code&gt; and &lt;code&gt;wsncat&lt;/code&gt; as a safer version of &lt;code&gt;strcat&lt;/code&gt; and &lt;code&gt;wcscat&lt;/code&gt;, you should instead consider &lt;code&gt;strcat_s&lt;/code&gt; and &lt;code&gt;wcscat_s&lt;/code&gt;, because these functions have several shortcomings:</p>
+<ul>
+<li>It’s not easy to detect truncation</li>
+<li>The &lt;code&gt;count&lt;/code&gt; parameter is error prone</li>
+<li>Computing the &lt;code&gt;count&lt;/code&gt; parameter typically requires computing the string length of &lt;code&gt;dest&lt;/code&gt;, at which point other simpler alternative exist</li>
+</ul></li>
+</ul>
+<h2>Sensitive Code Example</h2>
+<pre>
+int f(char *src) {
+  char dest[256];
+  strcpy(dest, "Result: ");
+  strncat(dest, src, sizeof dest); // Sensitive: passing the buffer size instead of the remaining size
+  return doSomethingWith(dest);
+}
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+int f(char *src) {
+  char result[] = "Result: ";
+  char dest[256];
+  strcpy(dest, result);
+  strncat(dest, src, sizeof dest - sizeof result); // Compliant but may silently truncate
+  return doSomethingWith(dest);
+}
+</pre>
+<h2>See</h2>
+<ul>
+<li><a href="http://cwe.mitre.org/data/definitions/120">MITRE, CWE-120</a> - Buffer Copy without Checking Size of Input ('Classic Buffer Overflow')</li>
+<li><a href="https://www.securecoding.cert.org/confluence/x/QwY">CERT, STR07-C.</a> - Use the bounds-checking interfaces for string manipulation</li>
+</ul>

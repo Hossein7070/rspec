@@ -1,0 +1,18 @@
+{
+  "title": "Arguments given to functions should be of an expected type",
+  "type": "CODE_SMELL",
+  "status": "ready",
+  "tags": [
+    "suspicious"
+  ],
+  "defaultSeverity": "Critical",
+  "ruleSpecification": "RSPEC-5655",
+  "sqKey": "S5655",
+  "scope": "All",
+  "all_languages": [
+    "python"
+  ],
+  "allKeys": [
+    "S5655"
+  ]
+}

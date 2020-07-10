@@ -1,0 +1,25 @@
+<p>While it is technically correct to assign to parameters from within function bodies, doing so before the parameter value is read is likely a bug. Instead, initial values of parameters should be, if not treated as &lt;code&gt;final&lt;/code&gt;, then at least read before reassignment.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+int glob = 0;
+void function (int a, bool b) {
+  if (b) {
+    a = glob; // Noncompliant
+  }
+  otherFunction(a);
+}
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+int glob = 0;
+void function (int a bool b) {
+  int c = b ? a : glob;
+  otherFunction(c);
+}
+</pre>
+<h2>Exceptions</h2>
+<p>In C++, pass-by-reference can sometimes be used for "out" parameters (even if using the return value of the function is most of the time a better alternative). Therefore, parameters passed by reference will be ignored by this rule.</p>
+<h2>See</h2>
+<ul>
+<li>MISRA C:2012, 17.8 - A function parameter should not be modified</li>
+</ul>

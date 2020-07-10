@@ -1,0 +1,14 @@
+<p>Shared coding conventions allow teams to collaborate efficiently. This rule checks that paragraph names match a provided regular expression.</p>
+<h2>Noncompliant Code Example</h2>
+<p>With a regular expression of &lt;code&gt;[A-Z-]+&lt;/code&gt;:</p>
+<pre>
+ PROCEDURE DIVISION.
+
+    Do_The_Thing.           *&gt; Noncompliant
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+ PROCEDURE DIVISION.
+
+    DO-THE-THING           *&gt; Noncompliant
+</pre>

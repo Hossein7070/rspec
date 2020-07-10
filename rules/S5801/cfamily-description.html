@@ -1,0 +1,39 @@
+<p>In C, a string is just a buffer of characters, usually using the &lt;code&gt;null&lt;/code&gt; character as a sentinel for the end of the string. Which mean that the developer has to be aware of low level details such as buffer sizes, having an extra character to store the final null character…​ Doing that correctly and consistently is notoriously difficult, and any error can lead to a security vulnerability, for instance giving access to sensitive data, or allowing arbitrary code execution.</p>
+<p>The function &lt;code&gt;char *strcpy(char * restrict dest, const char * restrict src);&lt;/code&gt; copies characters from &lt;code&gt;src&lt;/code&gt; to &lt;code&gt;dest&lt;/code&gt;. The &lt;code&gt;wcscpy&lt;/code&gt; does the same for wide characters, and should be used with the same guidelines.</p>
+<p>Note: the functions &lt;code&gt;strncpy&lt;/code&gt; and &lt;code&gt;wcsncpy&lt;/code&gt; might look like attractive safe replacements for &lt;code&gt;strcpy&lt;/code&gt; and &lt;code&gt;wcscpy&lt;/code&gt;, but they have their own set of issues (see S5816), and you should probably prefer another more adapted alternative.</p>
+<h2>Ask Yourself Whether</h2>
+<ul>
+<li>There is a possibility that either the source or the destination pointers is null</li>
+<li>There is a possibility that the source string is not correctly null-terminated, or that its length (including the final null character) can be larger than the size of the destination buffer.</li>
+<li>There is an overlap between source and destination</li>
+</ul>
+<p>There is a risk if you answered yes to any of those questions.</p>
+<h2>Recommended Secure Coding Practices</h2>
+<ul>
+<li>C11 provides, in its annex K, the &lt;code&gt;strcpy_s&lt;/code&gt; and the &lt;code&gt;wcscpy_s&lt;/code&gt; that were designed as safer alternative to &lt;code&gt;strcpy&lt;/code&gt; and &lt;code&gt;wcscpy&lt;/code&gt;. It’s not recommended to use them in all circumstances, because they introduce a runtime overhead and require to write more code for error handling, but they perform checks that will limit the consequences of calling the function with bad arguments.</li>
+<li>Even if your compiler does not exactly support annex K, you probably have access to similar functions, for example &lt;code&gt;strlcpy&lt;/code&gt; in FreeBSD</li>
+<li>If you are writing C++ code, using &lt;code&gt;std::string&lt;/code&gt; to manipulate strings is much simpler and less error-prone</li>
+</ul>
+<h2>Sensitive Code Example</h2>
+<pre>
+int f(char *src) {
+  char dest[256];
+  strcpy(dest, src); // Sensitive: might overflow
+  return doSomethingWith(dest);
+}
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+int f(char *src) {
+  char *dest = malloc(strlen(src) + 1); // For the final 0
+  strcpy(dest, src); // Compliant: we made sure the buffer is large enough
+  int r= doSomethingWith(dest);
+  free(dest);
+  return r;
+}
+</pre>
+<h2>See</h2>
+<ul>
+<li><a href="http://cwe.mitre.org/data/definitions/120">MITRE, CWE-120</a> - Buffer Copy without Checking Size of Input ('Classic Buffer Overflow')</li>
+<li><a href="https://www.securecoding.cert.org/confluence/x/QwY">CERT, STR07-C.</a> - Use the bounds-checking interfaces for string manipulation</li>
+</ul>

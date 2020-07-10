@@ -1,0 +1,39 @@
+<p>In the constructor of a derived class, accessing &lt;code&gt;this&lt;/code&gt; or &lt;code&gt;super&lt;/code&gt; before &lt;code&gt;super()&lt;/code&gt; is called raises a reference error. &lt;code&gt;super()&lt;/code&gt; should always be called first.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+class Bar {
+}
+
+class Foo extends Bar {
+    constructor() {
+        this.val = 0;   // Noncompliant
+        super();
+    }
+}
+
+class Foobar extends Foo {
+    constructor() {
+        super.val = 1;   // Noncompliant
+        super();
+    }
+}
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+class Bar {
+}
+
+class Foo extends Bar {
+    constructor() {
+        super();
+        this.val = 0;
+    }
+}
+
+class Foobar extends Foo {
+    constructor() {
+        super();
+        super.val = 1;
+    }
+}
+</pre>

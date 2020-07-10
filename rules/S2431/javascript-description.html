@@ -1,0 +1,11 @@
+<p>When an object method is assigned to a variable, it is most likely a mistake: the parentheses have been left off the method invocation. When this is actually done on purpose, it will llikely yield unpredictable results since the method will have been designed to work in a different scope (the scope of the object) than it will execute in (the global scope).</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+var person = new Person("John", "Doe");
+var age = person.getAge;  // Noncompliant; will likely return NaN
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+var person = new Person("John", "Doe");
+var age = person.getAge();
+</pre>

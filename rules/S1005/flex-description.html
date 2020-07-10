@@ -1,0 +1,27 @@
+<p>This is required by IEC 61508, under good programming style.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+function func1() { // Noncompliant - there are two points of exit
+  if (false) {
+    return;
+  }
+}
+
+function func2() { // Noncompliant - there are two points of exit
+  if (a &gt; 0) {
+    return 0;
+  }
+  return -1;
+}
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+function func1() {
+  return;
+}
+
+function func2() {
+}
+
+function func3();
+</pre>

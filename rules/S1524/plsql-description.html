@@ -1,0 +1,42 @@
+<p>Overriding a variable declared in an outer scope can strongly impact the readability, and therefore the maintainability, of a piece of code. Further, it could lead maintainers to introduce bugs because they think they’re using one variable but are really using another.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+SET SERVEROUTPUT ON
+
+DECLARE
+  foo VARCHAR2(42) := 'foo';
+BEGIN
+  DECLARE
+    foo VARCHAR2(42) := 'bar'; -- Noncompliant - this variable hides the one above and should be renamed
+  BEGIN
+    DBMS_OUTPUT.PUT_LINE(foo); -- Displays "bar", which is confusing
+  END;
+
+  DBMS_OUTPUT.PUT_LINE(foo); -- Displays "foo"
+END;
+/
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+SET SERVEROUTPUT ON
+
+DECLARE
+  foo VARCHAR2(42) := 'foo';
+BEGIN
+  DECLARE
+    bar VARCHAR2(42) := 'bar'; -- Compliant
+  BEGIN
+    DBMS_OUTPUT.PUT_LINE(bar); -- Displays "bar"
+  END;
+
+  DBMS_OUTPUT.PUT_LINE(foo); -- Displays "foo"
+END;
+/
+</pre>
+<h2>See</h2>
+<ul>
+<li>MISRA C:2004, 5.2 - Identifiers in an inner scope shall not use the same name as an identifier in an outer scope, and therefore hide that identifier</li>
+<li>MISRA C++:2008, 2-10-2 - Identifiers declared in an inner scope shall not hide an identifier declared in an outer scope</li>
+<li>MISRA C:2012, 5.3 - An identifier declared in an inner scope shall not hide an identifier declared in an outer scope</li>
+<li><a href="https://www.securecoding.cert.org/confluence/x/VwE">CERT, DCL01-C.</a> - Do not reuse variable names in subscopes</li>
+</ul>

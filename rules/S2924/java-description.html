@@ -1,0 +1,30 @@
+<p>While some &lt;code&gt;TestRule&lt;/code&gt; classes have the desired effect without ever being directly referenced by a test, several others do not, and there’s no reason to leave them cluttering up the file if they’re not in use.</p>
+<p>This rule raises an issue when &lt;code&gt;Test&lt;/code&gt; class fields of the following types aren’t used by any of the test methods: &lt;code&gt;TemporaryFolder&lt;/code&gt;, and &lt;code&gt;TestName&lt;/code&gt;.
+This rule also applies to the JUnit 5 equivalent classes: &lt;code&gt;TempDir&lt;/code&gt;, and &lt;code&gt;TestInfo&lt;/code&gt;.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+public class ProjectDefinitionTest {
+
+  @Rule
+  public TemporaryFolder temp = new TemporaryFolder();  // Noncompliant
+
+  @Test
+  public void shouldSetKey() {
+    ProjectDefinition def = ProjectDefinition.create();
+    def.setKey("mykey");
+    assertThat(def.getKey(), is("mykey"));
+  }
+}
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+public class ProjectDefinitionTest {
+
+  @Test
+  public void shouldSetKey() {
+    ProjectDefinition def = ProjectDefinition.create();
+    def.setKey("mykey");
+    assertThat(def.getKey(), is("mykey"));
+  }
+}
+</pre>

@@ -1,0 +1,39 @@
+{
+  "title": "Tabulation characters should not be used",
+  "type": "CODE_SMELL",
+  "status": "ready",
+  "remediation": {
+    "func": "Constant/Issue",
+    "constantCost": "2min"
+  },
+  "tags": [
+    "convention",
+    "psr2"
+  ],
+  "defaultSeverity": "Minor",
+  "ruleSpecification": "RSPEC-105",
+  "sqKey": "S105",
+  "scope": "All",
+  "all_languages": [
+    "abap",
+    "cfamily",
+    "cobol",
+    "csharp",
+    "java",
+    "javascript",
+    "kotlin",
+    "php",
+    "ruby",
+    "scala",
+    "swift",
+    "tsql",
+    "vbnet",
+    "web",
+    "xml"
+  ],
+  "allKeys": [
+    "S105",
+    "TabCharacter",
+    "IllegalTabCheck"
+  ]
+}

@@ -1,0 +1,42 @@
+{
+  "title": "All code should be reachable",
+  "type": "BUG",
+  "status": "ready",
+  "remediation": {
+    "func": "Constant/Issue",
+    "constantCost": "5min"
+  },
+  "tags": [
+    "cwe",
+    "based-on-misra",
+    "unused"
+  ],
+  "defaultSeverity": "Major",
+  "ruleSpecification": "RSPEC-1763",
+  "sqKey": "S1763",
+  "scope": "All",
+  "securityStandards": {
+    "CWE": [
+      561
+    ]
+  },
+  "all_languages": [
+    "apex",
+    "cfamily",
+    "go",
+    "javascript",
+    "kotlin",
+    "php",
+    "plsql",
+    "python",
+    "ruby",
+    "scala",
+    "swift",
+    "tsql"
+  ],
+  "allKeys": [
+    "S1763",
+    "UnreachableCode",
+    "DeadCodeCheck"
+  ]
+}

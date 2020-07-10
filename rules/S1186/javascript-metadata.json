@@ -1,0 +1,35 @@
+{
+  "title": "Functions should not be empty",
+  "type": "CODE_SMELL",
+  "status": "ready",
+  "remediation": {
+    "func": "Constant/Issue",
+    "constantCost": "5min"
+  },
+  "tags": [
+    "suspicious"
+  ],
+  "defaultSeverity": "Critical",
+  "ruleSpecification": "RSPEC-1186",
+  "sqKey": "S1186",
+  "scope": "All",
+  "all_languages": [
+    "apex",
+    "cfamily",
+    "csharp",
+    "flex",
+    "go",
+    "java",
+    "javascript",
+    "kotlin",
+    "php",
+    "python",
+    "ruby",
+    "scala",
+    "swift",
+    "vbnet"
+  ],
+  "allKeys": [
+    "S1186"
+  ]
+}

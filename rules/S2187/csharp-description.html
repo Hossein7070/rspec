@@ -1,0 +1,37 @@
+<p>There’s no point in having a test class without any test methods.This could lead a maintainer to assume a class is covered by tests even though it is not.</p>
+<p>Supported test frameworks are &lt;code&gt;NUnit&lt;/code&gt; and &lt;code&gt;MSTest&lt;/code&gt; (not applicable to &lt;code&gt;xUnit&lt;/code&gt;).
+This rule will raise an issue when any of these conditions are met:</p>
+<ul>
+<li>For <strong>NUnit</strong>, a class is marked with &lt;code&gt;TestFixture&lt;/code&gt; but does not contain any method marked with &lt;code&gt;Test&lt;/code&gt;, &lt;code&gt;TestCase&lt;/code&gt;, &lt;code&gt;TestCaseSource&lt;/code&gt; or &lt;code&gt;Theory&lt;/code&gt;.</li>
+<li>For <strong>MSTest</strong>, a class is marked with &lt;code&gt;TestClass&lt;/code&gt; but does not contain any method marked with &lt;code&gt;TestMethod&lt;/code&gt; or &lt;code&gt;DataTestMethod&lt;/code&gt;.</li>
+</ul>
+<h2>Noncompliant Code Example</h2>
+<pre>
+[TestFixture]
+public class SomeClassTest { } // Noncompliant - no test
+
+[TestClass]
+public class SomeOtherClassTest { } // Noncompliant - no test
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+[TestFixture]
+public class SomeClassTest
+{
+    [Test]
+    public void SomeMethodShouldReturnTrue() { }
+}
+
+[TestClass]
+public class SomeOtherClassTest
+{
+    [TestMethod]
+    public void SomeMethodShouldReturnTrue() { }
+}
+</pre>
+<h2>Exceptions</h2>
+<ul>
+<li>abstract classes</li>
+<li>derived classes that inherit from a base class that does have test methods</li>
+<li>in <strong>MSTest</strong>, classes that contain methods marked with either &lt;code&gt;AssemblyInitialize&lt;/code&gt; or &lt;code&gt;AssemblyCleanup&lt;/code&gt;.</li>
+</ul>

@@ -1,0 +1,20 @@
+<p>Each constructor must first invoke a parent class constructor, but it doesn’t always have to be done explicitly. If the parent class has a reachable, no-args constructor, a call to it will be inserted automatically by the compiler. Thus, calls to &lt;code&gt;super()&lt;/code&gt; can be omitted.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+public class MyClass {
+  private Foo foo;
+
+  public MyClass (Foo foo) {
+    super(); // Noncompliant
+    this.foo = foo;
+  }
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+public class MyClass {
+  private Foo foo;
+
+  public MyClass (Foo foo) {
+    this.foo = foo;
+  }
+</pre>

@@ -1,0 +1,22 @@
+{
+  "title": "Function pointers should not be used as function parameters",
+  "type": "CODE_SMELL",
+  "status": "ready",
+  "remediation": {
+    "func": "Constant/Issue",
+    "constantCost": "5min"
+  },
+  "tags": [
+    "clumsy"
+  ],
+  "defaultSeverity": "Major",
+  "ruleSpecification": "RSPEC-5205",
+  "sqKey": "S5205",
+  "scope": "All",
+  "all_languages": [
+    "cfamily"
+  ],
+  "allKeys": [
+    "S5205"
+  ]
+}

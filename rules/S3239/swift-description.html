@@ -1,0 +1,63 @@
+<p>Conditional execution increases code nesting and decreases readability. When the body of a method or loop ends with code that is conditionally executed, it can be simplified by inverting the condition with a &lt;code&gt;continue&lt;/code&gt; or early &lt;code&gt;return&lt;/code&gt;.</p>
+<p>This rule raises an issue when a method or loop ends with a conditional block containing at least two statements.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+public void conditionalMethod()
+{
+  if (condition) // Noncompliant
+  {
+    doFirstThing();
+    doSecondThing();
+    doThirdThing();
+  }
+}
+
+public void conditionalLoop()
+{
+  for(int i = 0; i &lt; 10; i++)
+  {
+    if (condition)  // Noncompliant
+    {
+      doTheThing();
+      doTheOtherThing();
+    }
+  }
+
+  if (otherCondition) // Compliant
+  {
+    doTheFinalThing();
+  }
+}
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+public void conditionalMethod()
+{
+  if (!condition)
+  {
+    return;
+  }
+  doFirstThing();
+  doSecondThing();
+  doThirdThing();
+}
+
+public void conditionalLoop()
+{
+  for(int i = 0; i &lt; 10; i++)
+  {
+    if (!condition)
+    {
+      continue;
+    }
+
+    doTheThing();
+    doTheOtherThing();
+  }
+
+  if (otherCondition)
+  {
+    doTheFinalThing();
+  }
+}
+</pre>

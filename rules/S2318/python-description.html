@@ -1,0 +1,9 @@
+<p>The forms &lt;code&gt;&lt;&gt;&lt;/code&gt; and &lt;code&gt;!=&lt;/code&gt; are equivalent. But in Python 2.7.3 the &lt;code&gt;&lt;&gt;&lt;/code&gt; form is considered obsolete.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+return a &lt;&gt; b # Noncompliant
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+return a != b
+</pre>

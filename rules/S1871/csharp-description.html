@@ -1,0 +1,62 @@
+<p>Having two &lt;code&gt;cases&lt;/code&gt; in the same &lt;code&gt;switch&lt;/code&gt; statement or branches in the same &lt;code&gt;if&lt;/code&gt; structure with the same implementation is at best duplicate code, and at worst a coding error. If the same logic is truly needed for both instances, then in an &lt;code&gt;if&lt;/code&gt; structure they should be combined, or for a &lt;code&gt;switch&lt;/code&gt;, one should fall through to the other.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+switch (i)
+{
+  case 1:
+    DoFirst();
+    DoSomething();
+    break;
+  case 2:
+    DoSomethingDifferent();
+    break;
+  case 3:  // Noncompliant; duplicates case 1's implementation
+    DoFirst();
+    DoSomething();
+    break;
+  default:
+    DoTheRest();
+}
+
+if (a &gt;= 0 &amp;&amp; a &lt; 10)
+{
+  DoFirst();
+  DoTheThing();
+}
+else if (a &gt;= 10 &amp;&amp; a &lt; 20)
+{
+  DoTheOtherThing();
+}
+else if (a &gt;= 20 &amp;&amp; a &lt; 50)   // Noncompliant; duplicates first condition
+{
+  DoFirst();
+  DoTheThing();
+}
+</pre>
+<h2>Exceptions</h2>
+<p>Blocks in an &lt;code&gt;if&lt;/code&gt; chain that contain a single line of code are ignored, as are blocks in a &lt;code&gt;switch&lt;/code&gt; statement that contain a single line of code with or without a following &lt;code&gt;break&lt;/code&gt;.</p>
+<pre>
+if (a &gt;= 0 &amp;&amp; a &lt; 10)
+{
+  DoTheThing();
+}
+else if (a &gt;= 10 &amp;&amp; a &lt; 20)
+{
+  DoTheOtherThing();
+}
+else if (a &gt;= 20 &amp;&amp; a &lt; 50)    //no issue, usually this is done on purpose to increase the readability
+{
+  DoTheThing();
+}
+</pre>
+<p>But this exception does not apply to &lt;code&gt;if&lt;/code&gt; chains without &lt;code&gt;else&lt;/code&gt;-s, or to &lt;code&gt;switch&lt;/code&gt;-es without default clauses when all branches have the same single line of code. In case of &lt;code&gt;if&lt;/code&gt; chains with &lt;code&gt;else&lt;/code&gt;-s, or of &lt;code&gt;switch&lt;/code&gt;-es with default clauses, rule S3923 raises a bug.</p>
+<pre>
+if(a == 1)
+{
+  doSomething();  //Noncompliant, this might have been done on purpose but probably not
+}
+else if (a == 2)
+{
+  doSomething();
+}
+</pre>

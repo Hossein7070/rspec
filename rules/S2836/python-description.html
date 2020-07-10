@@ -1,0 +1,38 @@
+<p>The &lt;code&gt;else&lt;/code&gt; clause of a loop is skipped when a &lt;code&gt;break&lt;/code&gt; is executed in this loop. In other words, a loop with an &lt;code&gt;else&lt;/code&gt; but no &lt;code&gt;break&lt;/code&gt; statement will always execute the &lt;code&gt;else&lt;/code&gt; part (unless of course an exception is raised or &lt;code&gt;return&lt;/code&gt; is used). If this is what the developer intended, it would be much simpler to have the &lt;code&gt;else&lt;/code&gt; statement removed and its body unindented. Thus having a loop with an &lt;code&gt;else&lt;/code&gt; and no &lt;code&gt;break&lt;/code&gt; is most likely an error.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+from typing import List
+
+def search_first_number_without_break(elements: List[str]):
+    for elt in elements:
+        if elt.isnumeric():
+            return elt
+    else:  # Noncompliant. This will be executed every time
+        raise ValueError("List does not contain any number")
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+from typing import List
+
+def search_first_number_with_break(elements: List[str]):
+    for elt in elements:
+        if elt.isnumeric():
+            break
+    else:
+        raise ValueError("List does not contain any number")
+    return elt
+</pre>
+<p>or</p>
+<pre>
+from typing import List
+
+def search_first_number_without_else(elements: List[str]):
+    for elt in elements:
+        if elt.isnumeric():
+            return elt
+    raise ValueError("List does not contain any number")
+</pre>
+<h2>See</h2>
+<ul>
+<li><a href="https://docs.python.org/3/tutorial/controlflow.html#break-and-continue-statements-and-else-clauses-on-loops">Python documentation - break and continue Statements, and else Clauses on Loops</a></li>
+</ul>

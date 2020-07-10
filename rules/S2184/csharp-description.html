@@ -1,0 +1,28 @@
+<p>When division is performed on &lt;code&gt;int&lt;/code&gt;s, the result will always be an &lt;code&gt;int&lt;/code&gt;. You can assign that result to a &lt;code&gt;double&lt;/code&gt;, &lt;code&gt;float&lt;/code&gt; or &lt;code&gt;decimal&lt;/code&gt; with automatic type conversion, but having started as an &lt;code&gt;int&lt;/code&gt;, the result will likely not be what you expect. If the result of &lt;code&gt;int&lt;/code&gt; division is assigned to a floating-point variable, precision will have been lost before the assignment. Instead, at least one operand should be cast or promoted to the final type before the operation takes place.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+static void Main()
+{
+  decimal dec = 3/2; // Noncompliant
+  Method(3/2); // Noncompliant
+}
+
+static void Method(float f) { }
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+static void Main()
+{
+  decimal dec = (decimal)3/2;
+  Method(3.0F/2);
+}
+
+static void Method(float f) { }
+</pre>
+<h2>See</h2>
+<ul>
+<li><a href="http://cwe.mitre.org/data/definitions/190">MITRE, CWE-190</a> - Integer Overflow or Wraparound</li>
+<li><a href="https://www.securecoding.cert.org/confluence/x/woIyAQ">CERT, NUM50-J.</a> - Convert integers to floating point for floating-point operations</li>
+<li><a href="https://www.securecoding.cert.org/confluence/x/AxE">CERT, INT18-C.</a> - Evaluate integer expressions in a larger size before comparing or assigning to that size</li>
+<li><a href="https://www.sans.org/top25-software-errors/#cat2">SANS Top 25</a> - Risky Resource Management</li>
+</ul>

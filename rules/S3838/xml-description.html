@@ -1,0 +1,38 @@
+<p>Having robust documentation just makes life easier. That applies to XSD’s as well. Each one should include a description of its intended use, and perhaps versioning.</p>
+<p>This rule raises an issue when there’s neither a comment before the &lt;code&gt;&lt;xs:schema&gt;&lt;/code&gt; tag, nor &lt;code&gt;&lt;xsd:annotation&gt;&lt;xsd:documentation&gt;…​&lt;/xsd:documentation&gt;&lt;/xsd:annotation&gt;&lt;/code&gt; just inside the &lt;code&gt;&lt;xs:schema&gt;&lt;/code&gt; element.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+&lt;xs:schema targetNamespace="http://www.codeSamples.com/fruit"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           elementFormDefault="qualified" version="1"&gt;
+  &lt;xs:element name="fruit"&gt;
+    ...
+  &lt;/xs:element&gt;
+&lt;/xs:schema&gt;
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+&lt;-- This schema is intended... --&gt;
+&lt;xs:schema targetNamespace="http://www.codeSamples.com/fruit"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           elementFormDefault="qualified" version="1"&gt;
+  &lt;xs:element name="fruit"&gt;
+    ...
+  &lt;/xs:element&gt;
+&lt;/xs:schema&gt;
+</pre>
+<p>or</p>
+<pre>
+&lt;xs:schema targetNamespace="http://www.codeSamples.com/fruit"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           elementFormDefault="qualified" version="1"&gt;
+  &lt;xsd:annotation&gt;
+    &lt;xsd:documentation&gt;
+      This schema is intended...
+    &lt;/xsd:documentation:
+  &lt;/xsd:annotation&gt;
+  &lt;xs:element name="fruit"&gt;
+    ...
+  &lt;/xs:element&gt;
+&lt;/xs:schema&gt;
+</pre>

@@ -1,0 +1,23 @@
+{
+  "title": "Floats and doubles should not be used as loop counters",
+  "type": "BUG",
+  "status": "ready",
+  "remediation": {
+    "func": "Constant/Issue",
+    "constantCost": "5min"
+  },
+  "tags": [
+    "cert"
+  ],
+  "defaultSeverity": "Minor",
+  "ruleSpecification": "RSPEC-2193",
+  "sqKey": "S2193",
+  "scope": "Main",
+  "all_languages": [
+    "cfamily",
+    "java"
+  ],
+  "allKeys": [
+    "S2193"
+  ]
+}

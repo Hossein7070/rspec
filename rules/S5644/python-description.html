@@ -1,0 +1,66 @@
+<p>Getting, setting and deleting items using square brackets requires the accessed object to have special methods:</p>
+<ul>
+<li>Getting items such as &lt;code&gt;my_variable[key]&lt;/code&gt; requires &lt;code&gt;my_variable&lt;/code&gt; to have the <a href="https://docs.python.org/3/reference/datamodel.html#object">https://docs.python.org/3/reference/datamodel.html#object</a>.<em>getitem</em>[&lt;code&gt;_\_getitem\__&lt;/code&gt;] method, or the <a href="https://docs.python.org/3/reference/datamodel.html#object">https://docs.python.org/3/reference/datamodel.html#object</a>.<em>class_getitem</em>[&lt;code&gt;\__class_getitem\_\_&lt;/code&gt;] method if &lt;code&gt;my_variable&lt;/code&gt; is a class.</li>
+<li>Setting items such as &lt;code&gt;my_variable[key] = 42&lt;/code&gt; requires &lt;code&gt;my_variable&lt;/code&gt; to have the <a href="https://docs.python.org/3/reference/datamodel.html#object">https://docs.python.org/3/reference/datamodel.html#object</a>.<em>setitem</em>[&lt;code&gt;_\_setitem\_\_&lt;/code&gt;] method.</li>
+<li>Deleting items such as &lt;code&gt;del my_variable[key]&lt;/code&gt; requires &lt;code&gt;my_variable&lt;/code&gt; to have the <a href="https://docs.python.org/3/reference/datamodel.html#object">https://docs.python.org/3/reference/datamodel.html#object</a>.<em>delitem</em>[&lt;code&gt;_\_delitem\_\_&lt;/code&gt;] method.</li>
+</ul>
+<p>This rule raises an issue when an item operation is performed on an object which doesn’t have the corresponding method.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+del (1, 2)[0]  # Noncompliant, tuples are immutable
+(1, 2)[0] = 42  # Noncompliant
+(1, 2)[0]
+
+class A:
+    def __init__(self, values):
+        self._values = values
+
+a = A([0,1,2])
+
+a[0]  # Noncompliant
+del a[0]  # Noncompliant
+a[0] = 42  # Noncompliant
+
+class B:
+    pass
+
+B[0]  # Noncompliant
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+del [1, 2][0]  # Lists are mutable
+[1, 2][0] = 42
+[1, 2][0]
+
+class A:
+    def __init__(self, values):
+        self._values = values
+
+    def __getitem__(self, key):
+        return self._values[key]
+
+    def __setitem__(self, key, value):
+        self._values[key] = value
+
+    def __delitem__(self, key):
+        del self._values[key]
+
+a = A([0,1,2])
+
+a[0]
+del a[0]
+a[0] = 42
+
+class B:
+    def __class_getitem__(cls, key):
+        return [0, 1, 2, 3][key]
+
+B[0]
+</pre>
+<h2>See</h2>
+<ul>
+<li><a href="https://docs.python.org/3/reference/datamodel.html#object">https://docs.python.org/3/reference/datamodel.html#object</a>.<em>getitem</em>[Python documentation - _\_getitem\_\_ method]</li>
+<li><a href="https://docs.python.org/3/reference/datamodel.html#object">https://docs.python.org/3/reference/datamodel.html#object</a>.<em>setitem</em>[Python documentation - _\_setitem\_\_ method]</li>
+<li><a href="https://docs.python.org/3/reference/datamodel.html#object">https://docs.python.org/3/reference/datamodel.html#object</a>.<em>delitem</em>[Python documentation - _\_delitem\_\_ method]</li>
+<li><a href="https://docs.python.org/3/reference/datamodel.html#object">https://docs.python.org/3/reference/datamodel.html#object</a>.<em>class_getitem</em>[Python documentation - _\_class_getitem\_\_ method]</li>
+</ul>

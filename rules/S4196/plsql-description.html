@@ -1,0 +1,22 @@
+<p>Marking a parameter for output means that callers will expect its value to be updated with a result from the execution of the procedure. Failing to update the parameter before the procedure returns is surely an error.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+CREATE OR REPLACE PROCEDURE greet(
+  name     IN  VARCHAR2,
+  greeting OUT VARCHAR2) -- Noncompliant
+AS
+  message VARCHAR2(45);
+BEGIN
+  SELECT 'Hello ' || RTRIM(name) INTO message FROM DUAL;
+END;
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+CREATE OR REPLACE PROCEDURE greet(
+  name     IN  VARCHAR2,
+  greeting OUT VARCHAR2)
+AS
+BEGIN
+  SELECT 'Hello ' || RTRIM(name) INTO greeting FROM DUAL;
+END;
+</pre>

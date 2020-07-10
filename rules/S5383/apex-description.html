@@ -1,0 +1,27 @@
+<p>SOQL queries might return too many results and exceed the <a href="https://developer.salesforce.com/docs/atlas.en-us.apexcode.meta/apexcode/apex_gov_limits.htm#total_heap_size_limit_desc">maximum heap size</a>. To avoid this issue the best solution is to use SOQL for loops, i.e. for loops with inline an SOQL query. The loop will then chunk efficiently the query’s results by calling "query" and "queryMore" methods.</p>
+<p>This rule raises an issue when an SOQL query is executed and later a for loop iterates over its result.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+public class mySOQLLoop {
+    public static void myFunction() {
+        Task[] tasks = [Select Id, subject from Task];
+        for (Task task: tasks) {
+            // ...
+        }
+    }
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+public class mySOQLLoop {
+    public static void myFunction() {
+        for (Task task: [Select Id, subject from Task]) {
+            // ...
+        }
+    }
+</pre>
+<h2>Exceptions</h2>
+<p>No issue will be raised when &lt;code&gt;LIMIT X&lt;/code&gt; is used where &lt;code&gt;X&lt;/code&gt; is a number less than or equal to 200. In this case adding a &lt;code&gt;for&lt;/code&gt; loop will not improve the performance.</p>
+<h2>See</h2>
+<ul>
+<li><a href="https://developer.salesforce.com/docs/atlas.en-us.apexcode.meta/apexcode/langCon_apex_loops_for_SOQL.htm">SOQL For Loops</a></li>
+</ul>

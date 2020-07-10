@@ -1,0 +1,33 @@
+<p>The format used to write a record to a file should be cleared before each use. Otherwise stale data left in the format from previous records may be saved into the current record if it does not have data for all the fields in the format.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+C                   IF        X &lt;&gt; Y
+...
+C                   ENDIF
+C                   WRITE     RECFMT
+</pre>
+<pre>
+/free
+  if x &lt;&gt; y;
+   ...
+  endif;
+  write recfmt;
+/end-free
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+C                   CLEAR                   RECFMT
+C                   IF        X &lt;&gt; Y
+...
+C                   ENDIF
+C                   WRITE     RECFMT
+</pre>
+<pre>
+/free
+  clear recfmt;
+  if x &lt;&gt; y;
+   ...
+  endif;
+  write recfmt;
+/end-free
+</pre>

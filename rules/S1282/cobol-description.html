@@ -1,0 +1,19 @@
+<p>Having several levels of nested SQL SELECT statements makes the code difficult to read and should therefore be avoided.</p>
+<h2>Noncompliant Code Example</h2>
+<p>With an allowed nesting level of 2:</p>
+<pre>
+*&gt; Non-Compliant
+EXEC SQL
+  SELECT * FROM my_table1 WHERE
+    my_column1 IN
+      (SELECT my_column2 FROM my_table2
+        WHERE my_column3 IN
+          (SELECT my_column4 FROM my_table3))
+END-EXEC.
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+EXEC SQL
+  SELECT * FROM my_table
+END-EXEC.
+</pre>

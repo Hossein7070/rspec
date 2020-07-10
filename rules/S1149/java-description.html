@@ -1,0 +1,23 @@
+<p>Early classes of the Java API, such as &lt;code&gt;Vector&lt;/code&gt;, &lt;code&gt;Hashtable&lt;/code&gt; and &lt;code&gt;StringBuffer&lt;/code&gt;, were synchronized to make them thread-safe. Unfortunately, synchronization has a big negative impact on performance, even when using these collections from a single thread.</p>
+<p>It is better to use their new unsynchronized replacements:</p>
+<ul>
+<li>&lt;code&gt;ArrayList&lt;/code&gt; or &lt;code&gt;LinkedList&lt;/code&gt; instead of &lt;code&gt;Vector&lt;/code&gt;</li>
+<li>&lt;code&gt;Deque&lt;/code&gt; instead of &lt;code&gt;Stack&lt;/code&gt;</li>
+<li>&lt;code&gt;HashMap&lt;/code&gt; instead of &lt;code&gt;Hashtable&lt;/code&gt;</li>
+<li>&lt;code&gt;StringBuilder&lt;/code&gt; instead of &lt;code&gt;StringBuffer&lt;/code&gt;</li>
+</ul>
+<p>Even when used in synchronized context, you should think twice before using it, since it’s usage can be tricky. If you are confident the usage is legitimate, you can safely ignore this warning.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+Vector cats = new Vector();
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+ArrayList cats = new ArrayList();
+</pre>
+<h2>Exceptions</h2>
+<p>Use of those synchronized classes is ignored in the signatures of overriding methods.</p>
+<pre>
+@Override
+public Vector getCats() {...}
+</pre>

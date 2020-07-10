@@ -1,0 +1,25 @@
+<p>&lt;code&gt;instanceof&lt;/code&gt; operators that always return &lt;code&gt;true&lt;/code&gt; or &lt;code&gt;false&lt;/code&gt; are either useless or the result of a misunderstanding which could lead to unexpected behavior in production.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+public boolean isSuitable(Integer param) {
+...
+  String name = null;
+
+  if (name instanceof String) { // Noncompliant; always false since name is null
+    //...
+  }
+
+  if(param instanceof Number) {  // Noncompliant; always true unless param is null, because param is an Integer
+    doSomething();
+  }
+...
+}
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+public boolean isSuitable(Integer param) {
+...
+  doSomething();
+...
+}
+</pre>

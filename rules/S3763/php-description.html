@@ -1,0 +1,14 @@
+<p>Directives in the php.ini files can be of type &lt;code&gt;boolean&lt;/code&gt;, &lt;code&gt;integer&lt;/code&gt; or &lt;code&gt;string&lt;/code&gt;.
+For &lt;code&gt;boolean&lt;/code&gt; acceptable values are &lt;code&gt;0&lt;/code&gt;, &lt;code&gt;1&lt;/code&gt;, &lt;code&gt;true&lt;/code&gt;, &lt;code&gt;false&lt;/code&gt;, &lt;code&gt;yes&lt;/code&gt;, &lt;code&gt;no&lt;/code&gt;, &lt;code&gt;on&lt;/code&gt; and &lt;code&gt;off&lt;/code&gt;.
+For &lt;code&gt;integers&lt;/code&gt; they can be qualified with &lt;code&gt;k&lt;/code&gt;, &lt;code&gt;m&lt;/code&gt; or &lt;code&gt;g&lt;/code&gt;. E.g. 16k means 16000.
+The complete list of directive is at <a href="http://php.net/manual/en/ini.list.php">http://php.net/manual/en/ini.list.php</a></p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+allow_url_include = 42; Noncompliant, should be a boolean
+max_execution_time = "1024"; Noncompliant, should be an integer
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+allow_url_include = false
+max_execution_time = 1024
+</pre>

@@ -1,0 +1,26 @@
+<p>In single-threaded environments, the use of &lt;code&gt;this&lt;/code&gt; in constructors is normal, and expected. But in multi-threaded environments, it could expose partially-constructed objects to other threads, and should be used with caution.</p>
+<p>The classic example is a class with a &lt;code&gt;static&lt;/code&gt; list of its instances. If the constructor stores &lt;code&gt;this&lt;/code&gt; in the list, another thread could access the object before it’s fully-formed. Even when the storage of &lt;code&gt;this&lt;/code&gt; is the last instruction in the constructor, there’s still a danger if the class is not &lt;code&gt;final&lt;/code&gt;. In that case, the initialization of subclasses won’t be complete before &lt;code&gt;this&lt;/code&gt; is exposed.</p>
+<p>This rule raises an issue when &lt;code&gt;this&lt;/code&gt; is assigned to any globally-visible object in a constructor, and when it is passed to the method of another object in a constructor</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+public class Monument
+{
+  public static readonly List&lt;Monument&gt; ALL_MONUMENTS = new List&lt;Monument&gt;();
+  // ...
+
+  public Monument(string location, ...)
+  {
+    ALL_MONUMENTS.Add(this);  // Noncompliant; passed to a method of another object
+
+    this.location = location;
+    // ...
+  }
+}
+</pre>
+<h2>Exceptions</h2>
+<p>This rule ignores instances of assigning &lt;code&gt;this&lt;/code&gt; directly to a &lt;code&gt;static&lt;/code&gt; field of the same class because that case is covered by S3010.</p>
+<h2>See</h2>
+<ul>
+<li><a href="https://www.securecoding.cert.org/confluence/x/aAD1AQ">CERT, TSM01-J.</a> - Do not let the this reference escape during object construction</li>
+<li><a href="https://www.securecoding.cert.org/confluence/x/7ABQAg">CERT, TSM03-J.</a> - Do not publish partially initialized objects</li>
+</ul>

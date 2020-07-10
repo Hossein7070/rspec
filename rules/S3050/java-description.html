@@ -1,0 +1,51 @@
+<p>Singletons that aren’t actually singletons become problems instead. To make sure a singleton isn’t instantiable, make sure all constructors are &lt;code&gt;private&lt;/code&gt;. If the singleton doesn’t have any constructors then add a &lt;code&gt;private&lt;/code&gt; no-args constructor to override the default constructor.</p>
+<p>This rule raises an issue when a class that holds a &lt;code&gt;public static final&lt;/code&gt; instance of itself has non-&lt;code&gt;private&lt;/code&gt; constructors or no constructor.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+public class Highlander implements Immortal {  // Noncompliant; no constructor; default, public constructor generated
+  public static final Highlander INSTANCE = new Highlander();
+
+  public void eliminateRival(Immortal immortal) {
+    // ...
+  }
+}
+
+public class Kurgan implements Immortal {
+  public static final Kurgan INSTANCE = new Kurgan();
+
+  Kurgan() {  // Noncompliant; should be private
+  }
+
+  public void eliminateRival(Immortal immortal) {
+    // ...
+  }
+}
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+public class Highlander implements Immortal {
+  public static final Highlander INSTANCE = new Highlander;
+
+  private Highlander() {
+  }
+
+  public void eliminateRival(Immortal immortal) {
+    // ...
+  }
+}
+
+public class Kurgan implements Immortal {
+  public static final Kurgan INSTANCE = new Kurgan;
+
+  private Kurgan() {
+  }
+
+  public void eliminateRival(Immortal immortal) {
+    // ...
+  }
+}
+</pre>
+<h2>See</h2>
+<ul>
+<li><a href="https://www.securecoding.cert.org/confluence/x/SQJqAQ">CERT MSC07-J.</a> - Prevent multiple instantiations of singleton objects</li>
+</ul>

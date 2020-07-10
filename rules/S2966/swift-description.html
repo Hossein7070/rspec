@@ -1,0 +1,21 @@
+<p>The point of declaring an optional variable is to make explicit the fact that it might contain no valid value, i.e. &lt;code&gt;nil&lt;/code&gt;. Force-unwrapping an optional will lead to a runtime error if the optional does contain &lt;code&gt;nil&lt;/code&gt;. Even if the value is tested first, it’s still considered a bad practice to use force-unwrapping. Instead, optional binding or optional chaining should be used.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+var greeting: String?
+
+// ...
+println( \(greeting!))  // Noncompliant; could cause a runtime error
+
+if greeting != nil {
+  println( \(greeting!))  // Noncompliant; better but still not great
+}
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+var greeting: String?
+
+// ...
+if let howdy = greeting {
+  println(howdy)
+}
+</pre>

@@ -1,0 +1,30 @@
+<p>In general, the clause &lt;code&gt;INDEXED BY&lt;/code&gt; should be used whenever possible when handling COBOL tables. If it’s not possible, then avoid using a numeric display variable to access the table’s elements. Instead, use a &lt;code&gt;BINARY&lt;/code&gt;/&lt;code&gt;COMP&lt;/code&gt; variable, which the processor can handle more efficiently.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+       01 SUBS PIC 9(5).
+       01 INVENTORY-RECORD.
+          05 Field-A PIC X OCCURS 10000 TIMES.
+       ...
+       PERFORM VARYING SUBS FROM 1 BY 1 UNTIL SUBS &gt; 10000
+         MOVE ITEM1 TO Field-A (SUBS)      *&gt; Noncompliant
+       END-PERFORM.
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+       01 SUBS PIC 9(5) COMP.
+       01 INVENTORY-RECORD.
+          05 Field-A PIC X OCCURS 10000 TIMES.
+       ...
+       PERFORM VARYING SUBS FROM 1 BY 1 UNTIL SUBS &gt; 10000
+         MOVE ITEM1 TO Field-A (SUBS)
+       END-PERFORM.
+</pre>
+<p>or</p>
+<pre>
+       01 INVENTORY-RECORD.
+          05 Field-A PIC X OCCURS 10000 TIMES INDEXED BY IDX1.
+       ...
+       PERFORM VARYING IDX1 FROM 1 BY 1 UNTIL IDX1 &gt; 10000
+         MOVE ITEM1 TO Field-A (IDX1)
+       END-PERFORM.
+</pre>

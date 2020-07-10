@@ -1,0 +1,10 @@
+<p>When using the Backbone.js framework, the array of models inside a collection, &lt;code&gt;collection.models&lt;/code&gt;, should not be accessed directly. Doing so bypasses the listeners set on the collection and could put your application in a bad state.</p>
+<p>Instead, use &lt;code&gt;get&lt;/code&gt;, &lt;code&gt;at&lt;/code&gt; or the underscore methods.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+myCollection.models.forEach(function (model) { });
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+myCollection.forEach(function (model) {  });
+</pre>

@@ -1,0 +1,21 @@
+<p>The local variables in a &lt;code&gt;Static&lt;/code&gt; &lt;code&gt;Sub&lt;/code&gt; or &lt;code&gt;Function&lt;/code&gt; are preserved between calls (meaning that these variables have the same lifetime as the owning module of their procedure). Static procedures should be avoided because they are difficult to test, and can result in unexpected behavior.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+Private Static Function Foo() As Single
+  Dim val As Single   ' val retains its value between invocations
+
+  val = val + 1
+  Foo = val
+
+End Function
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+Private Function Foo() As Single
+  Dim val As Single
+
+  val = val + 1
+  Foo = val
+
+End Function
+</pre>

@@ -1,0 +1,34 @@
+<p>A Spring &lt;code&gt;@Controller&lt;/code&gt; that uses &lt;code&gt;@SessionAttributes&lt;/code&gt; is designed to handle a stateful / multi-post form. Such &lt;code&gt;@Controller&lt;/code&gt;s use the specified &lt;code&gt;@SessionAttributes&lt;/code&gt; to store data on the server between requests. That data should be cleaned up when the session is over, but unless &lt;code&gt;setComplete()&lt;/code&gt; is called on the &lt;code&gt;SessionStatus&lt;/code&gt; object from a &lt;code&gt;@RequestMapping&lt;/code&gt; method, neither Spring nor the JVM will know it’s time to do that. Note that the &lt;code&gt;SessionStatus&lt;/code&gt; object must be passed to that method as a parameter.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+@Controller
+@SessionAttributes("hello")  // Noncompliant; this doesn't get cleaned up
+public class HelloWorld {
+
+  @RequestMapping("/greet", method = GET)
+  public String greet(String greetee) {
+
+    return "Hello " + greetee;
+  }
+}
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+@Controller
+@SessionAttributes("hello")
+public class HelloWorld {
+
+  @RequestMapping("/greet", method = GET)
+  public String greet(String greetee) {
+
+    return "Hello " + greetee;
+  }
+
+  @RequestMapping("/goodbye", method = POST)
+  public String goodbye(SessionStatus status) {
+    //...
+    status.setComplete();
+  }
+
+}
+</pre>

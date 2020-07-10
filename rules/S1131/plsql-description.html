@@ -1,0 +1,14 @@
+<p>Trailing whitespaces are simply useless and should not stay in code. They may generate noise when comparing different versions of the same file.</p>
+<p>If you encounter issues from this rule, this probably means that you are not using an automated code formatter - which you should if you have the opportunity to do so.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+DECLARE
+  -- The following line has many trailing whitespaces
+  foo VARCHAR2(42) := 'a
+b';
+BEGIN
+  -- Will misleadingly show 3, counting only the characters 'a', 'b', and the line terminator, but none of the trailing whitespaces
+  DBMS_OUTPUT.PUT_LINE(LENGTH(foo));
+END;
+/
+</pre>

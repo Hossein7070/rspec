@@ -1,0 +1,35 @@
+<p>Before initialization, both automatic variables and allocated memory contain junk data. Attempting to read or use uninitialized automatic variables or memory can cause unexpected results. Therefore variables and memory should always be initialized before being read.</p>
+<p>Note that this rule applies to memory obtained through &lt;code&gt;alloc&lt;/code&gt;, &lt;code&gt;malloc&lt;/code&gt;, &lt;code&gt;realloc&lt;/code&gt;, &lt;code&gt;valloc&lt;/code&gt; and &lt;code&gt;reallocf&lt;/code&gt;.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+int fun(int i) {
+  int a; // currently contains garbage value
+  char *buf = malloc(sizeof(char) * 21); // currently contains garbage value
+
+  if (a &gt; i )  // Noncompliant; a uninitialized
+  {
+    return strlen(buf); // Noncompliant; strlen reads its argument
+  }
+  return i;
+}
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+int fun(int i) {
+  int a = 0;
+  char *buf = cmalloc(sizeof(char) * 21); // calloc 0-initializes the allocated memory
+
+  if (a &gt; i )
+  {
+    return strlen(buf); // returns 0;
+  }
+  return i;
+}
+</pre>
+<h2>See</h2>
+<ul>
+<li><a href="https://www.securecoding.cert.org/confluence/x/4gE">CERT, EXP33-C.</a> - Do not read uninitialized memory</li>
+<li><a href="https://www.securecoding.cert.org/confluence/x/hoAyAQ">CERT, EXP53-CPP.</a> - Do not read uninitialized memory</li>
+<li><a href="http://cwe.mitre.org/data/definitions/119.html">MITRE, CWE-119</a> - Improper Restriction of Operations within the Bounds of a Memory Buffer</li>
+<li><a href="http://cwe.mitre.org/data/definitions/665.html">MITRE, CWE-665</a> - Improper Initialization</li>
+</ul>

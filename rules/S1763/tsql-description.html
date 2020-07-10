@@ -1,0 +1,27 @@
+<p>Jump statements (&lt;code&gt;BREAK&lt;/code&gt;, &lt;code&gt;CONTINUE&lt;/code&gt;, &lt;code&gt;RETURN&lt;/code&gt;, &lt;code&gt;GOTO&lt;/code&gt;, and &lt;code&gt;THROW&lt;/code&gt;), move control flow out of the current code block. So any statements that come after a jump are dead code.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+CREATE PROCEDURE
+    AS
+BEGIN
+  ...
+  RETURN -- Noncompliant, remove following statements
+
+  PRINT 'End'
+END
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+CREATE PROCEDURE
+    AS
+BEGIN
+  ...
+  RETURN
+END
+</pre>
+<h2>See</h2>
+<ul>
+<li><a href="http://cwe.mitre.org/data/definitions/561.html">MITRE, CWE-561</a> - Dead Code</li>
+<li><a href="https://www.securecoding.cert.org/confluence/x/uQCSBg">CERT, MSC56-J.</a> - Detect and remove superfluous code and values</li>
+<li><a href="https://www.securecoding.cert.org/confluence/x/NYA5">CERT, MSC12-C.</a> - Detect and remove code that has no effect or is never executed</li>
+</ul>

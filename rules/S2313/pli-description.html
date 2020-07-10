@@ -1,0 +1,29 @@
+<p>For better readability, &lt;code&gt;END&lt;/code&gt; statements must have the same indentation level as their matching opening &lt;code&gt;PROCEDURE&lt;/code&gt;, &lt;code&gt;SELECT&lt;/code&gt;, and &lt;code&gt;DO&lt;/code&gt; statements.</p>
+<p>This rule does not verify the alignment of the compound statements &lt;code&gt;DO …​ END;&lt;/code&gt; (type 1) and &lt;code&gt;BEGIN …​ END;&lt;/code&gt;. They are mostly used together with the &lt;code&gt;IF&lt;/code&gt; and &lt;code&gt;ON&lt;/code&gt; statements and are subject to different indentation rules.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+foo: proc options(main);
+  declare i fixed decimal init (0);
+
+  do i = 0 to 9;
+    if i = 0 then /* The do was forgotten here */
+      put list ('Initialization...');
+      put list ('i = 0');
+      end; /* Non-Compliant - should be aligned with the DO statement */
+  end; /* Non-Compliant - should be aligned with the PROCEDURE statement */
+
+/* The procedure's end seems to be missing */
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+foo: proc options(main);
+  declare i fixed decimal init (0);
+
+  do i = 0 to 9;
+    if i = 0 then do;
+      put list ('Initialization...');
+      put list ('i = 0');
+    end; /* This end's alignment is not verified by this rule */
+  end; /* Compliant */
+end; /* Compliant */
+</pre>

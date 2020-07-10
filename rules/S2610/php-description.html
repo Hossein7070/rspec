@@ -1,0 +1,11 @@
+<p>Programs that execute OS commands may potentially open the door to an attacker by doing so. To minimize the risk, such commands should be executed with the lowest possible privileges.</p>
+<p>This rule raises an issue for each OS command and file access.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+chdir("/"); // Noncompliant
+</pre>
+<h2>See</h2>
+<ul>
+<li><a href="http://cwe.mitre.org/data/definitions/250">MITRE CWE-250</a> - Execution with Unnecessary Privileges</li>
+<li><a href="https://www.sans.org/top25-software-errors/#cat3">SANS Top 25</a> - Porous Defenses</li>
+</ul>

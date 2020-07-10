@@ -1,0 +1,32 @@
+{
+  "title": "Requesting dangerous Android permissions is security-sensitive",
+  "type": "SECURITY_HOTSPOT",
+  "status": "ready",
+  "remediation": {
+    "func": "Linear",
+    "linearDesc": "5min",
+    "linearFactor": null
+  },
+  "tags": [
+    "cwe",
+    "android",
+    "privacy"
+  ],
+  "defaultSeverity": "Major",
+  "ruleSpecification": "RSPEC-5604",
+  "sqKey": "S5604",
+  "scope": "All",
+  "securityStandards": {
+    "CWE": [
+      250,
+      359
+    ]
+  },
+  "all_languages": [
+    "javascript",
+    "xml"
+  ],
+  "allKeys": [
+    "S5604"
+  ]
+}

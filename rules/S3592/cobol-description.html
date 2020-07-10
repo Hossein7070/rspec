@@ -1,0 +1,27 @@
+<p>88-level variables, also known as "condition name" variables, represent possible values of the "conditional variables" they’re tied to. Because a condition name can be used to test the value of its conditional variable without any other contextual references to the conditional variable being tested, it makes the code easier to understand if the name of the 88-level variable references its conditional variable.</p>
+<p>This rule raises an issue when the name of an 88-level variable does not start with the first characters of the name of its conditional variable.</p>
+<h2>Noncompliant Code Example</h2>
+<p>With the default minimum of 3:</p>
+<pre>
+01 COLOR PIC X.
+  88 YELLOW VALUE 'Y'. *&gt; Noncompliant
+  88 GREEN VALUE 'G'. *&gt; Noncompliant
+  88 RED VALUE 'R'. *&gt; Noncompliant
+
+* ...
+IF GREEN  *&gt; What does this mean?
+* ...
+END-IF
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+01 COLOR PIC X.
+  88 COL-YELLOW VALUE 'Y'.
+  88 COL-GREEN VALUE 'G'.
+  88 COL-RED VALUE 'R'.
+
+* ...
+IF COL-GREEN
+* ...
+END-IF
+</pre>

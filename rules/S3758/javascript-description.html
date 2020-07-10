@@ -1,0 +1,36 @@
+<p>In a Zen-like manner, &lt;code&gt;NaN&lt;/code&gt; isn’t equal to anything, even itself. So comparisons (&lt;code&gt;&gt;, &lt;, &gt;=, ⇐&lt;/code&gt;) where one operand is &lt;code&gt;NaN&lt;/code&gt; or evaluates to &lt;code&gt;NaN&lt;/code&gt; always return &lt;code&gt;false&lt;/code&gt;. Specifically, &lt;code&gt;undefined&lt;/code&gt; and objects that cannot be converted to numbers evaluate to &lt;code&gt;NaN&lt;/code&gt; when used in numerical comparisons.</p>
+<p>This rule raises an issue when there is at least one path through the code where one of the operands to a comparison is &lt;code&gt;NaN&lt;/code&gt;, &lt;code&gt;undefined&lt;/code&gt; or an &lt;code&gt;Object&lt;/code&gt; which cannot be converted to a number.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+var x;  // x is currently "undefined"
+if (someCondition()) {
+  x = 42;
+}
+
+if (42 &gt; x) {  // Noncompliant; "x" might still be "undefined"
+  doSomething();
+}
+
+var obj = {prop: 42};
+if (obj &gt; 24) { // Noncompliant
+  doSomething();
+}
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+var x;
+if (someCondition()) {
+  x = 42;
+} else {
+  x = foo();
+}
+
+if (42 &gt; x) {
+  doSomething();
+}
+
+var obj = {prop: 42};
+if (obj.prop &gt; 24) {
+  doSomething();
+}
+</pre>

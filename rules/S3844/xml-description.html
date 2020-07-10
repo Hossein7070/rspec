@@ -1,0 +1,20 @@
+<p>Having multiple prefixes for the same namespace is highly likely to confuse users and maintainers of the schema.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+&lt;xs:schema targetNamespace="http://www.codeSamples.com/fruit"
+           elementFormDefault="qualified" version="1"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           xmlns:animal="http://www.codeSamples.com/animal"
+           xmlns:beast="http://www.codeSamples.com/animal"&gt;    &lt;!-- Noncompliant --&gt;
+  ...
+&lt;/xs:schema&gt;
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+&lt;xs:schema targetNamespace="http://www.codeSamples.com/fruit"
+           elementFormDefault="qualified" version="1"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           xmlns:animal="http://www.codeSamples.com/animal"&gt;
+  ...
+&lt;/xs:schema&gt;
+</pre>

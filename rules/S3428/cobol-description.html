@@ -1,0 +1,8 @@
+<p>According to the IBM documentation,</p>
+<p>bq. The Enterprise COBOL compiler now uses the Language Environment STACK storage work area for several functions, including &lt;code&gt;UPPER-CASE&lt;/code&gt;, &lt;code&gt;LOWER-CASE&lt;/code&gt;, and &lt;code&gt;NATIONAL-OF&lt;/code&gt;. If the STACK is allocated below the 16-MB line and a large DSA (Dynamic Save Area) is needed, an insufficient storage error might occur.</p>
+<p>To aid in migrations to IBM Enterprise COBOL 5.x, this rule raises an issue when &lt;code&gt;UPPER-CASE&lt;/code&gt;, &lt;code&gt;LOWER-CASE&lt;/code&gt;, or &lt;code&gt;NATIONAL-OF&lt;/code&gt; is used.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+        MOVE FUNCTION UPPER-CASE(FIRST-NAME) to FIRST-NAME2.  *&gt; Noncompliant
+        MOVE FUNCTION LOWER-CASE(FIRST-NAME) to FIRST-NAME2.  *&gt; Noncompliant
+</pre>

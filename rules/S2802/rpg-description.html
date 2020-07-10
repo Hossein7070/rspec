@@ -1,0 +1,16 @@
+<p>There’s no need to repeat the program name in the free-format definition of an external program.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+DCL-PR PGM001 EXTPGM('PGM001');
+END-PR;
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+DCL-PR PGM001 EXTPGM ;
+END-PR;
+</pre>
+<p>or if the program is renamed</p>
+<pre>
+DCL-PR TheProgram EXTPGM('PGM001');
+END-PR;
+</pre>

@@ -1,0 +1,39 @@
+<p>Copybooks should be used only to share data definitions or logic. The following keywords relate to the nature or structure of a COBOL program, and should be defined directly in the source code of the COBOL program:</p>
+<ul>
+<li>&lt;code&gt;IDENTIFICATION DIVISION.&lt;/code&gt;</li>
+<li>&lt;code&gt;PROGRAM-ID xxxxxxxx.&lt;/code&gt;</li>
+<li>&lt;code&gt;AUTHOR. yyyyyyyyyyy.&lt;/code&gt;</li>
+<li>&lt;code&gt;INSTALLATION.  zzzzzz.&lt;/code&gt;</li>
+<li>&lt;code&gt;DATE-WRITTEN. zzzzzz.&lt;/code&gt;</li>
+<li>&lt;code&gt;DATE-COMPILED. zzzzzz.&lt;/code&gt;</li>
+<li>&lt;code&gt;ENVIRONNEMENT DIVISION.&lt;/code&gt;</li>
+<li>&lt;code&gt;CONFIGURATION SECTION.&lt;/code&gt;</li>
+<li>&lt;code&gt;SOURCE-COMPUTER. xxxxxx.&lt;/code&gt;</li>
+<li>&lt;code&gt;OBJECT-COMPUTER. xxxxxx.&lt;/code&gt;</li>
+<li>&lt;code&gt;SPECIAL-NAMES. DECIMAL-POINT IS COMMA.&lt;/code&gt;</li>
+<li>&lt;code&gt;I-O CONTROL.&lt;/code&gt;</li>
+<li>&lt;code&gt;FILE-CONTROL.&lt;/code&gt;</li>
+<li>&lt;code&gt;SELECT …&lt;/code&gt;</li>
+<li>&lt;code&gt;DATA DIVISION.&lt;/code&gt;</li>
+<li>&lt;code&gt;FILE SECTION.&lt;/code&gt;</li>
+<li>&lt;code&gt;WORKING-STORAGE SECTION.&lt;/code&gt;</li>
+<li>&lt;code&gt;SCREEN.&lt;/code&gt;</li>
+<li>&lt;code&gt;REPORT.&lt;/code&gt;</li>
+<li>&lt;code&gt;INPUT-OUTPUT SECTION.&lt;/code&gt;</li>
+<li>&lt;code&gt;LINKAGE SECTION.&lt;/code&gt;</li>
+<li>&lt;code&gt;PROCEDURE DIVISION.&lt;/code&gt;</li>
+</ul>
+<h2>Noncompliant Code Example</h2>
+<pre>
+LINKAGE SECTION.
+COPY CSCEMOD1.
+MOVE A TO B
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+LINKAGE SECTION.
+COPY CSCEMOD1.
+PROCEDURE DIVISION
+COPY CSCEMOD2.
+MOVE A TO B
+</pre>

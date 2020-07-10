@@ -1,0 +1,26 @@
+<p>Simply implementing &lt;code&gt;Cloneable&lt;/code&gt;  without also overriding &lt;code&gt;Object.clone()&lt;/code&gt; does not necessarily make the class cloneable. While the &lt;code&gt;Cloneable&lt;/code&gt; interface does not include a &lt;code&gt;clone&lt;/code&gt; method, it is required by convention, and ensures true cloneability. Otherwise the default JVM &lt;code&gt;clone&lt;/code&gt; will be used, which copies primitive values and object references from the source to the target. I.e. without overriding &lt;code&gt;clone&lt;/code&gt;, any cloned instances will potentially share members with the source instance.</p>
+<p>Removing the &lt;code&gt;Cloneable&lt;/code&gt; implementation and providing a good copy constructor is another viable (some say preferable) way of allowing a class to be copied.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+class Team implements Cloneable {  // Noncompliant
+  private Person coach;
+  private List&lt;Person&gt; players;
+  public void addPlayer(Person p) {...}
+  public Person getCoach() {...}
+}
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+class Team implements Cloneable {
+  private Person coach;
+  private List&lt;Person&gt; players;
+  public void addPlayer(Person p) { ... }
+  public Person getCoach() { ... }
+
+  @Override
+  public Object clone() {
+    Team clone = (Team) super.clone();
+    //...
+  }
+}
+</pre>

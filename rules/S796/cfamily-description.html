@@ -1,0 +1,11 @@
+<p>The use of an undefined escape sequence leads to undefined behavior. The defined escape sequences (ISO/IEC 14882:2003 [1] §2.13.2) are: &lt;code&gt;\n&lt;/code&gt;, &lt;code&gt;\t&lt;/code&gt;, &lt;code&gt;\v&lt;/code&gt;, &lt;code&gt;\b&lt;/code&gt;, &lt;code&gt;\r&lt;/code&gt;, &lt;code&gt;\f&lt;/code&gt;, &lt;code&gt;\a&lt;/code&gt;, &lt;code&gt;\\&lt;/code&gt;, &lt;code&gt;\?&lt;/code&gt;, &lt;code&gt;\'&lt;/code&gt;, &lt;code&gt;\"&lt;/code&gt;, &lt;code&gt;\&lt;Octal Number&gt;&lt;/code&gt;, and &lt;code&gt;\x&lt;Hexadecimal Number&gt;&lt;/code&gt;.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+const char_t a[ 2 ] = "\k";   // Noncompliant
+const char_t b[ 2 ] = "\b";   // Compliant
+</pre>
+<h2>See</h2>
+<ul>
+<li>MISRA C:2004, 4.1 - Only those escape sequences that are defined in ISO C standard shall be used.</li>
+<li>MISRA C++:2008, 2-13-1 - Only those escape sequences that are defined in ISO/IEC 14882:2003 shall be used.</li>
+</ul>

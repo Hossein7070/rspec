@@ -1,0 +1,29 @@
+{
+  "title": "Class variable fields should not have public accessibility",
+  "type": "CODE_SMELL",
+  "status": "ready",
+  "remediation": {
+    "func": "Constant/Issue",
+    "constantCost": "10min"
+  },
+  "tags": [
+    "cwe"
+  ],
+  "defaultSeverity": "Minor",
+  "ruleSpecification": "RSPEC-1104",
+  "sqKey": "ClassVariableVisibilityCheck",
+  "scope": "Main",
+  "securityStandards": {
+    "CWE": [
+      493
+    ]
+  },
+  "all_languages": [
+    "csharp",
+    "java"
+  ],
+  "allKeys": [
+    "S1104",
+    "ClassVariableVisibilityCheck"
+  ]
+}

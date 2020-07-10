@@ -1,0 +1,24 @@
+<p>Originally JavaScript didn’t support &lt;code&gt;class&lt;/code&gt;es, and class-like behavior had to be kludged using things like &lt;code&gt;prototype&lt;/code&gt; assignments for "class" functions. Fortunately, ECMAScript 2015 added classes, so any lingering &lt;code&gt;prototype&lt;/code&gt; uses should be converted to true &lt;code&gt;class&lt;/code&gt;es. The new syntax is more expressive and clearer, especially to those with experience in other languages.</p>
+<p>Specifically, with ES2015, you should simply declare a &lt;code&gt;class&lt;/code&gt; and define its methods inside the class declaration.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+function MyNonClass(initializerArgs = []) {
+  this._values = [...initializerArgs];
+}
+
+MyNonClass.prototype.doSomething = function () {  // Noncompliant
+  // ...
+}
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+class MyClass {
+  constructor(initializerArgs = []) {
+    this._values = [...initializerArgs];
+  }
+
+  doSomething() {
+    //...
+  }
+}
+</pre>

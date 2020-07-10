@@ -1,0 +1,15 @@
+<p>&lt;code&gt;transient&lt;/code&gt; is used to mark fields in a &lt;code&gt;Serializable&lt;/code&gt; class which will not be written out to file (or stream). In a class that does not implement &lt;code&gt;Serializable&lt;/code&gt;, this modifier is simply wasted keystrokes, and should be removed.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+class Vegetable {  // does not implement Serializable
+  private transient Season ripe;  // Noncompliant
+  // ...
+}
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+class Vegetable {
+  private Season ripe;
+  // ...
+}
+</pre>

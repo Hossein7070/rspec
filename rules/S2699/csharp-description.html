@@ -1,0 +1,28 @@
+<p>A test case without assertions ensures only that no exceptions are thrown. Beyond basic runnability, it ensures nothing about the behavior of the code under test.</p>
+<p>This rule raises an exception when no assertions from any of the following frameworks are found in a test:</p>
+<ul>
+<li>&lt;code&gt;MSTest&lt;/code&gt;</li>
+<li>&lt;code&gt;NUnit&lt;/code&gt;</li>
+<li>&lt;code&gt;XUnit&lt;/code&gt;</li>
+<li>&lt;code&gt;FluentAssertions&lt;/code&gt; (4.x and 5.x)</li>
+<li>&lt;code&gt;NSubstitute&lt;/code&gt;</li>
+</ul>
+<h2>Noncompliant Code Example</h2>
+<pre>
+[TestMethod]
+public void MyMethod_WhenSomething_ExpectsSomething()
+{
+    var myClass = new Class();
+    var result = myClass.GetFoo();
+}
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+[TestMethod]
+public void MyMethod_WhenSomething_ExpectsSomething()
+{
+    var myClass = new Class();
+    var result = myClass.GetFoo();
+    Assert.IsTrue(result);
+}
+</pre>

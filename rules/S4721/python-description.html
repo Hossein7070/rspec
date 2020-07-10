@@ -1,0 +1,94 @@
+<p>Arbitrary OS commands can be executed by an attacker when:</p>
+<ul>
+<li>The OS command name to execute is user-controlled.</li>
+<li>A shell is spawn rather than a new process, in this case shell meta-chars can be used (when parameters are user-controlled for instance) to inject OS commands.</li>
+<li>The executable is searched in the directories specified by the PATH variable (which can contain user-controlled or malicious directories).</li>
+</ul>
+<h2>Ask Yourself Whether</h2>
+<ul>
+<li>OS command name or parameters are user-controlled.</li>
+<li>The relative path of the OS command is specified.</li>
+<li>OS commands are not executed in an isolated/sandboxed environment.</li>
+<li>OS command are executed with high privileges.</li>
+</ul>
+<p>There is a risk if you answered yes to any of those questions.</p>
+<h2>Recommended Secure Coding Practices</h2>
+<ul>
+<li>User-controlled inputs should not be used, for any reasons, to build a dynamically OS command (command name or even parameters when shell is used).</li>
+<li>Fully qualified/absolute path should be used to specify the OS command to execute.</li>
+<li>If possible, set the lowest privileges to the new process/shell in which commands are executed.</li>
+<li>If possible, execute the OS commands in an isolated environment.</li>
+</ul>
+<h2>Sensitive Code Example</h2>
+<p>Python 3</p>
+<pre>
+subprocess.run(cmd, shell=True)  # Sensitive
+subprocess.Popen(cmd, shell=True)  # Sensitive
+subprocess.call(cmd, shell=True)  # Sensitive
+subprocess.check_call(cmd, shell=True)  # Sensitive
+subprocess.check_output(cmd, shell=True)  # Sensitive
+os.system(cmd)  # Sensitive: a shell is always spawn
+</pre>
+<p>Python 2</p>
+<pre>
+cmd = "when a string is passed through these function, a shell is spawn"
+(_, child_stdout, _) = os.popen2(cmd)  # Sensitive
+(_, child_stdout, _) = os.popen3(cmd)  # Sensitive
+(_, child_stdout) = os.popen4(cmd)  # Sensitive
+
+
+(child_stdout, _) = popen2.popen2(cmd)  # Sensitive
+(child_stdout, _, _) = popen2.popen3(cmd)  # Sensitive
+(child_stdout, _) = popen2.popen4(cmd)  # Sensitive
+</pre>
+<h2>Compliant Solution</h2>
+<p>Python 3</p>
+<pre>
+# by default shell=False, a shell is not spawn
+subprocess.run(cmd)  # Compliant
+subprocess.Popen(cmd)  # Compliant
+subprocess.call(cmd)  # Compliant
+subprocess.check_call(cmd)  # Compliant
+subprocess.check_output(cmd)  # Compliant
+
+# always in a subprocess:
+os.spawnl(mode, path, *cmd)  # Compliant
+os.spawnle(mode, path, *cmd, env)  # Compliant
+os.spawnlp(mode, file, *cmd)  # Compliant
+os.spawnlpe(mode, file, *cmd, env)  # Compliant
+os.spawnv(mode, path, cmd)  # Compliant
+os.spawnve(mode, path, cmd, env)  # Compliant
+os.spawnvp(mode, file, cmd)  # Compliant
+os.spawnvpe(mode, file, cmd, env)  # Compliant
+
+(child_stdout) = os.popen(cmd, mode, 1)  # Compliant
+(_, output) = subprocess.getstatusoutput(cmd)  # Compliant
+out = subprocess.getoutput(cmd)  # Compliant
+os.startfile(path)  # Compliant
+os.execl(path, *cmd)  # Compliant
+os.execle(path, *cmd, env)  # Compliant
+os.execlp(file, *cmd)  # Compliant
+os.execlpe(file, *cmd, env)  # Compliant
+os.execv(path, cmd)  # Compliant
+os.execve(path, cmd, env)  # Compliant
+os.execvp(file, cmd)  # Compliant
+os.execvpe(file, cmd, env)  # Compliant
+</pre>
+<p>Python 2</p>
+<pre>
+cmdsargs = ("use", "a", "sequence", "to", "directly", "start", "a", "subprocess")
+
+(_, child_stdout) = os.popen2(cmdsargs)  # Compliant
+(_, child_stdout, _) = os.popen3(cmdsargs)  # Compliant
+(_, child_stdout) = os.popen4(cmdsargs)  # Compliant
+
+(child_stdout, _) = popen2.popen2(cmdsargs)  # Compliant
+(child_stdout, _, _) = popen2.popen3(cmdsargs)  # Compliant
+(child_stdout, _) = popen2.popen4(cmdsargs)  # Compliant
+</pre>
+<h2>See</h2>
+<ul>
+<li><a href="https://www.owasp.org/index.php/Top_10-2017_A1-Injection">OWASP Top 10 2017 Category A1</a> - Injection</li>
+<li><a href="http://cwe.mitre.org/data/definitions/78">MITRE, CWE-78</a> - Improper Neutralization of Special Elements used in an OS Command</li>
+<li><a href="https://www.sans.org/top25-software-errors/#cat1">SANS Top 25</a> - Insecure Interaction Between Components</li>
+</ul>

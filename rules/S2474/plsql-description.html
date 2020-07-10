@@ -1,0 +1,53 @@
+<p>Labeled blocks are useful, especially when the code is badly indented, to help maintainers match the beginning and ending of each block. When blocks are nested, labeling them can improve the code’s readability. This rule detects nested block which do not have a start label.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+BEGIN -- Compliant, this is not a nested block
+  NULL;
+END;
+/
+
+BEGIN
+  BEGIN -- Noncompliant; this nested block has no label
+    NULL;
+  END;
+END;
+/
+
+BEGIN
+  BEGIN -- Noncompliant; this nested block has only an end label
+    NULL;
+  END myBlockLabel1;
+
+  &lt;&lt;myBlockLabel2&gt;&gt; -- Compliant
+  BEGIN
+    NULL;
+  END;
+END;
+/
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+BEGIN
+  NULL;
+END;
+/
+
+BEGIN
+  BEGIN myBlockLabel0
+    NULL;
+  END myBlockLabel0;
+END;
+/
+
+BEGIN
+  BEGIN myBlockLabel1
+    NULL;
+  END myBlockLabel1;
+
+  &lt;&lt;myBlockLabel2&gt;&gt;
+  BEGIN
+    NULL;
+  END;
+END;
+/
+</pre>

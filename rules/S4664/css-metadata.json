@@ -1,0 +1,20 @@
+{
+  "title": "Selectors of lower specificity should come before overriding selectors of higher specificity",
+  "type": "CODE_SMELL",
+  "status": "ready",
+  "remediation": {
+    "func": "Constant/Issue",
+    "constantCost": "5min"
+  },
+  "tags": [],
+  "defaultSeverity": "Critical",
+  "ruleSpecification": "RSPEC-4664",
+  "sqKey": "S4664",
+  "scope": "Main",
+  "all_languages": [
+    "css"
+  ],
+  "allKeys": [
+    "S4664"
+  ]
+}

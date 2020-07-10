@@ -1,0 +1,92 @@
+<p>AssertJ contains many assertions methods specific to common types. Both versions will test the same things, but the dedicated one will provide a better error message, simplifying the debugging process.</p>
+<p>This rule reports an issue when an assertion can be simplified to a dedicated one.</p>
+<p>The array below gives a non-exhaustive list of assertion reported by the rule. Code behaving similarly, or with a negation will also be reported.
+||Original||Dedicated||
+||&nbsp;Related to Object||&nbsp;||
+|&lt;code&gt;assertThat(getObject()).isEqualTo(null)&lt;/code&gt;|&lt;code&gt;assertThat(getObject()).isNull()&lt;/code&gt;|
+|&lt;code&gt;assertThat(getBoolean()).isEqualTo(true)&lt;/code&gt;|&lt;code&gt;assertThat(getBoolean()).isTrue()&lt;/code&gt;|
+|&lt;code&gt;assertThat(getBoolean()).isEqualTo(false)&lt;/code&gt;|&lt;code&gt;assertThat(getBoolean()).isFalse()&lt;/code&gt;|
+|&lt;code&gt;assertThat(x.equals(y)).isTrue()&lt;/code&gt;|&lt;code&gt;assertThat(x).isEqualTo(y)&lt;/code&gt;|
+|&lt;code&gt;assertThat(x == y).isTrue()&lt;/code&gt;|&lt;code&gt;assertThat(x).isSameAs(y)&lt;/code&gt;|
+|&lt;code&gt;assertThat(x == null).isTrue()&lt;/code&gt;|&lt;code&gt;assertThat(x).isNull()&lt;/code&gt;|
+|&lt;code&gt;assertThat(x.toString()).isEqualTo(y)&lt;/code&gt;|&lt;code&gt;assertThat(x).hasToString(y)&lt;/code&gt;|
+|&lt;code&gt;assertThat(x.hashCode()).isEqualTo(y.hashCode())&lt;/code&gt;|&lt;code&gt;assertThat(x).hasSameHashCodeAs(y));&lt;/code&gt;|
+|&lt;code&gt;assertThat(getObject() instanceof MyClass).isTrue()&lt;/code&gt;|&lt;code&gt;assertThat(getObject()).isInstanceOf(MyClass.class)&lt;/code&gt;|
+|&lt;code&gt;assertThat(x.compareTo(y)).isEqualTo(0)&lt;/code&gt;|&lt;code&gt;assertThat(x).isEqualByComparingTo(y)&lt;/code&gt;|
+|&lt;code&gt;assertThat(x &gt;= y).isGreaterThanOrEqualTo(0)&lt;/code&gt;|&lt;code&gt;assertThat(x).isGreaterThanOrEqualTo(y)&lt;/code&gt;|
+|&lt;code&gt;assertThat(x &gt; y).isPositive()&lt;/code&gt;|&lt;code&gt;assertThat(x).isGreaterThan(y)&lt;/code&gt;|
+|&lt;code&gt;assertThat(x ⇐ y).isNotPositive()&lt;/code&gt;|&lt;code&gt;assertThat(x).isLessThanOrEqualTo(y)&lt;/code&gt;|
+|&lt;code&gt;assertThat(x &lt; y).isTrue()&lt;/code&gt;|&lt;code&gt;assertThat(x).isLessThan(y)&lt;/code&gt;|
+||Related to &lt;code&gt;String&lt;/code&gt;||&nbsp;||
+|&lt;code&gt;assertThat(getString().isEmpty()).isTrue()&lt;/code&gt;|&lt;code&gt;assertThat(getString()).isEmpty()&lt;/code&gt;|
+|&lt;code&gt;assertThat(&lt;/code&gt;&lt;code&gt;getString&lt;/code&gt;&lt;code&gt;()).hasSize(0)&lt;/code&gt;|&lt;code&gt;assertThat(&lt;/code&gt;&lt;code&gt;getString&lt;/code&gt;&lt;code&gt;()).isEmpty()&lt;/code&gt;|
+|&lt;code&gt;assertThat(getString().equals(expected)).isTrue()&lt;/code&gt;|&lt;code&gt;assertThat(getString()).isEqualTo(expected)&lt;/code&gt;|
+|&lt;code&gt;assertThat(getString().equalsIgnoreCase(expected)).isTrue()&lt;/code&gt;|&lt;code&gt;assertThat(getString()).isEqualToIgnoringCase(expected)&lt;/code&gt;|
+|&lt;code&gt;assertThat(getString().contains(expected)).isTrue()&lt;/code&gt;|&lt;code&gt;assertThat(getString()).contains(expected)&lt;/code&gt;|
+|&lt;code&gt;assertThat(getString().startsWith(expected)).isTrue()&lt;/code&gt;|&lt;code&gt;assertThat(getString()).startsWith(expected)&lt;/code&gt;|
+|&lt;code&gt;assertThat(getString().endsWith(expected)).isTrue()&lt;/code&gt;|&lt;code&gt;assertThat(getString()).endsWith(expected)&lt;/code&gt;|
+|&lt;code&gt;assertThat(getString().matches(expected)).isTrue()&lt;/code&gt;|&lt;code&gt;assertThat(getString()).matches(expected)&lt;/code&gt;|
+|&lt;code&gt;assertThat(getString().trim()).isEmpty()&lt;/code&gt;|&lt;code&gt;assertThat(getString()).isBlank()&lt;/code&gt;|
+|&lt;code&gt;assertThat(getString().length()).isEqualTo(length)&lt;/code&gt;|&lt;code&gt;assertThat(getString()).hasSize(length)&lt;/code&gt;|
+|&lt;code&gt;assertThat(getString().length()).hasSize(expected.length())&lt;/code&gt;|&lt;code&gt;assertThat(getString()).hasSameSizeAs(expected)&lt;/code&gt;|
+||&nbsp;Related to &lt;code&gt;File&lt;/code&gt;||&nbsp;||
+|&lt;code&gt;assertThat(getFile()).hasSize(0)&lt;/code&gt;|&lt;code&gt;assertThat(getFile()).isEmpty()&lt;/code&gt;|
+|&lt;code&gt;assertThat(getFile().length()).isZero()&lt;/code&gt;|&lt;code&gt;assertThat(getFile()).isEmpty()&lt;/code&gt;|
+|&lt;code&gt;assertThat(getFile().length()).isEqualTo(length)&lt;/code&gt;|&lt;code&gt;assertThat(getFile()).hasSize(length)&lt;/code&gt;|
+|&lt;code&gt;assertThat(getFile().canRead()).isTrue()&lt;/code&gt;|&lt;code&gt;assertThat(getFile()).canRead()&lt;/code&gt;|
+|&lt;code&gt;assertThat(getFile().canWrite()).isTrue()&lt;/code&gt;|&lt;code&gt;assertThat(getFile()).canWrite()&lt;/code&gt;|
+|&lt;code&gt;assertThat(getFile().exists()).isTrue()&lt;/code&gt;|&lt;code&gt;assertThat(getFile()).exists()&lt;/code&gt;|
+|&lt;code&gt;assertThat(getFile().getName()).isEqualTo(name)&lt;/code&gt;|&lt;code&gt;assertThat(getFile()).hasName(name)&lt;/code&gt;|
+|&lt;code&gt;assertThat(getFile().getParent()).isEqualTo(pathname)&lt;/code&gt;|&lt;code&gt;assertThat(getFile()).hasParent(pathname)&lt;/code&gt;|
+|&lt;code&gt;assertThat(getFile().getParentFile()).isNull()&lt;/code&gt;|&lt;code&gt;assertThat(getFile()).hasNoParent()&lt;/code&gt;|
+|&lt;code&gt;assertThat(getFile().isAbsolute()).isTrue()&lt;/code&gt;|&lt;code&gt;assertThat(getFile()).isAbsolute()&lt;/code&gt;|
+|&lt;code&gt;assertThat(getFile().isAbsolute()).isFalse()&lt;/code&gt;|&lt;code&gt;assertThat(getFile()).isRelative()&lt;/code&gt;|
+|&lt;code&gt;assertThat(getFile().isDirectory()).isTrue()&lt;/code&gt;|&lt;code&gt;assertThat(getFile()).isDirectory()&lt;/code&gt;|
+|&lt;code&gt;assertThat(getFile().isFile()).isTrue()&lt;/code&gt;|&lt;code&gt;assertThat(getFile()).isFile()&lt;/code&gt;|
+|&lt;code&gt;assertThat(getFile().list()).isEmpty()&lt;/code&gt;|&lt;code&gt;assertThat(getFile()).isEmptyDirectory()&lt;/code&gt;|
+||&nbsp;Related to &lt;code&gt;Path&lt;/code&gt;||&nbsp;||
+|&lt;code&gt;assertThat(getPath().startsWith(path)).isTrue()&lt;/code&gt;|&lt;code&gt;assertThat(getPath()).startsWithRaw(path)&lt;/code&gt;|
+|&lt;code&gt;assertThat(getPath().endsWith(path)).isTrue()&lt;/code&gt;|&lt;code&gt;assertThat(getPath()).endsWithRaw(path)&lt;/code&gt;|
+|&lt;code&gt;assertThat(getPath().getParent()).isEqualTo(name)&lt;/code&gt;|&lt;code&gt;assertThat(getPath()).hasParentRaw(name)&lt;/code&gt;|
+|&lt;code&gt;assertThat(getPath().getParent()).isNull()&lt;/code&gt;|&lt;code&gt;assertThat(getPath()).hasNoParentRaw()&lt;/code&gt;|
+|&lt;code&gt;assertThat(getPath().isAbsolute()).isTrue()&lt;/code&gt;|&lt;code&gt;assertThat(getPath()).isAbsolute()&lt;/code&gt;|
+|&lt;code&gt;assertThat(getPath().isAbsolute()).isFalse()&lt;/code&gt;|&lt;code&gt;assertThat(getPath()).isRelative()&lt;/code&gt;|
+||&nbsp;Related to &lt;code&gt;Array&lt;/code&gt;||&nbsp;||
+|&lt;code&gt;assertThat(getArray().length).isZero()&lt;/code&gt;|&lt;code&gt;assertThat(getArray()).isEmpty()&lt;/code&gt;|
+|&lt;code&gt;assertThat(getArray().length).isEqualTo(length)&lt;/code&gt;|&lt;code&gt;assertThat(getArray()).hasSize(length)&lt;/code&gt;|
+|&lt;code&gt;assertThat(getArray().length).isEqualTo(anotherArray.length)&lt;/code&gt;|&lt;code&gt;assertThat(getArray()).hasSameSizeAs(getAnotherArray())&lt;/code&gt;|
+|&lt;code&gt;assertThat(getArray().length).isLessThanOrEqualTo(expression)&lt;/code&gt;|&lt;code&gt;assertThat(getArray()).hasSizeLessThanOrEqualTo(expression)&lt;/code&gt;|
+|&lt;code&gt;assertThat(getArray().length).isLessThan(expression)&lt;/code&gt;|&lt;code&gt;assertThat(getArray()).hasSizeLessThan(expression)&lt;/code&gt;|
+|&lt;code&gt;assertThat(getArray().length).isGreaterThan(expression)&lt;/code&gt;|&lt;code&gt;assertThat(getArray()).hasSizeGreaterThan(expression)&lt;/code&gt;|
+|&lt;code&gt;assertThat(getArray().length).isGreaterThanOrEqualTo(expression)&lt;/code&gt;|&lt;code&gt;assertThat(getArray()).hasSizeGreaterThanOrEqualTo(expression)&lt;/code&gt;|
+||&nbsp;Related to &lt;code&gt;Collection&lt;/code&gt;||&nbsp;||
+|&lt;code&gt;assertThat(getCollection().isEmpty()).isTrue()&lt;/code&gt;|&lt;code&gt;assertThat(getCollection()).isEmpty()&lt;/code&gt;|
+|&lt;code&gt;assertThat(getCollection().size()).isZero()&lt;/code&gt;|&lt;code&gt;assertThat(getCollection()).isEmpty()&lt;/code&gt;|
+|&lt;code&gt;assertThat(getCollection().contains(something)).isTrue()&lt;/code&gt;|&lt;code&gt;assertThat(getCollection()).contains(something)&lt;/code&gt;|
+|&lt;code&gt;assertThat(getCollection().containsAll(otherCollection)).isTrue()&lt;/code&gt;|&lt;code&gt;assertThat(getCollection()).containsAll(otherCollection)&lt;/code&gt;|
+||&nbsp;Related to &lt;code&gt;Map&lt;/code&gt;||&nbsp;||
+|&lt;code&gt;assertThat(getMap().size()).isEqualTo(otherMap().size()&lt;/code&gt;|&lt;code&gt;assertThat(getMap()).hasSameSizeAs(otherMap())&lt;/code&gt;|
+|&lt;code&gt;assertThat(getMap().containsKey(key)).isTrue()&lt;/code&gt;|&lt;code&gt;assertThat(getMap()).containsKey(key)&lt;/code&gt;|
+|&lt;code&gt;assertThat(getMap().containsValue(value)).isTrue()&lt;/code&gt;|&lt;code&gt;assertThat(getMap()).containsValue(value)&lt;/code&gt;|
+|&lt;code&gt;assertThat(getMap().get(key)).isEqualTo(value)&lt;/code&gt;|&lt;code&gt;assertThat(getMap()).containsEntry(key, value)&lt;/code&gt;|
+|| Related to &lt;code&gt;Optional&lt;/code&gt;|| ||
+|&lt;code&gt;assertThat(getOptional().isPresent()).isTrue()&lt;/code&gt;|&lt;code&gt;assertThat(getOptional()).isPresent()&lt;/code&gt;|
+|&lt;code&gt;assertThat(getOptional().get()).isEqualTo(something)&lt;/code&gt;|&lt;code&gt;assertThat(getOptional()).contains(something)&lt;/code&gt;|
+|&lt;code&gt;assertThat(getOptional().get()).isSameAs(something)&lt;/code&gt;|&lt;code&gt;assertThat(getOptional()).containsSame(something)&lt;/code&gt;|</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+assertThat(getObject()).isEqualTo(null); // Noncompliant
+assertThat(getObject()).isNotEqualTo(null); // Noncompliant - not listed above but also supported
+
+assertThat(getString().trim()).isEmpty();
+assertThat(getFile().canRead()).isTrue();
+assertThat(getPath().getParent()).isNull();
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+assertThat(getObject()).isNull();
+
+assertThat(getString()).isBlank();
+assertThat(getFile()).canRead();
+assertThat(getPath()).hasNoParentRaw();
+</pre>

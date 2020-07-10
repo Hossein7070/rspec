@@ -1,0 +1,20 @@
+<p>For better readability, do not put more than one statement on a single line.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+SET SERVEROUTPUT ON
+
+BEGIN
+  DBMS_OUTPUT.PUT_LINE('Hello!'); DBMS_OUTPUT.PUT_LINE('This is unreadable!'); -- Noncompliant
+END;
+/
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+SET SERVEROUTPUT ON
+
+BEGIN
+  DBMS_OUTPUT.PUT_LINE('Hello!');
+  DBMS_OUTPUT.PUT_LINE('This is much better!');
+END;
+/
+</pre>

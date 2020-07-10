@@ -1,0 +1,35 @@
+<p>For better readability, and to prevent the &lt;code&gt;PLS-00312: a positional parameter association may not follow a named association&lt;/code&gt; exception from being raised, do not mix named and positional argument invocations.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+SET SERVEROUTPUT ON
+
+DECLARE
+  PROCEDURE sub(op1 PLS_INTEGER, op2 PLS_INTEGER) AS
+  BEGIN
+    DBMS_OUTPUT.PUT_LINE('Sub = ' || (op1 - op2));
+  END;
+BEGIN
+
+  sub(10, op2 =&gt; 2); -- Noncompliant
+  sub(op1 =&gt; 10, 2); -- Noncompliant - raises PLS-00312: a positional parameter association may not follow a named association
+
+END;
+/
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+SET SERVEROUTPUT ON
+
+DECLARE
+  PROCEDURE sub(op1 PLS_INTEGER, op2 PLS_INTEGER) AS
+  BEGIN
+    DBMS_OUTPUT.PUT_LINE('Sub = ' || (op1 - op2));
+  END;
+BEGIN
+
+  sub(10, 2); -- Compliant
+  sub(op1 =&gt; 10, op2 =&gt; 2); -- Compliant
+
+END;
+/
+</pre>

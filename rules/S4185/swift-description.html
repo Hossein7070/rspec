@@ -1,0 +1,24 @@
+<p>It is often considered good practice at the end of an override to invoke &lt;code&gt;super&lt;/code&gt;, but there are cases where according to the Apple developer documentation this should not be done.</p>
+<ul>
+<li>&lt;code&gt;updateLayer&lt;/code&gt; - optimize the rendering of your view</li>
+<li>&lt;code&gt;loadView&lt;/code&gt; - provide a &lt;code&gt;view&lt;/code&gt; when &lt;code&gt;view&lt;/code&gt; is &lt;code&gt;nil&lt;/code&gt;</li>
+<li>&lt;code&gt;providePlaceholder&lt;/code&gt; - provide a placeholder for a document returned by the Document Picker but not yet stored locally</li>
+</ul>
+<p>In all cases, these are actions that should happen once and only once. Subsequently invoking &lt;code&gt;super&lt;/code&gt; would see your desired result replaced (at best) by less specialized results.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+class VC: UIMyViewController {
+  override func loadView() {
+    // ...
+    super.loadView()
+  }
+}
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+class VC: UIMyViewController {
+  override func loadView() {
+    // ...
+  }
+}
+</pre>

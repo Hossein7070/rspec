@@ -1,0 +1,21 @@
+<pre>
+class String
+{
+private:
+  char* pData_;
+public:
+  String(const char* value = NULL);
+                                            //to convert String in char*
+  operator char*() const;      //Violation
+  operator const char*()const; //Ok ...
+};
+
+inline String::operator char*() const {
+  return(pData_);    // violation, this method return a handle
+}
+inline String::operator const char*() const
+{
+  return (pData_);     //ok
+}
+</pre>
+<p>This rule is useful to avoid not wished modifications</p>

@@ -1,0 +1,47 @@
+<p>The &lt;code&gt;catch&lt;/code&gt; block of a checked exception "E" may be hidden because the corresponding &lt;code&gt;try&lt;/code&gt; block only throws exceptions derived from E.
+These derived exceptions are handled in dedicated &lt;code&gt;catch&lt;/code&gt; blocks prior to the &lt;code&gt;catch&lt;/code&gt; block of the base exception E.</p>
+<p>The &lt;code&gt;catch&lt;/code&gt; block of E is unreachable and should be considered dead code. It should be removed, or the entire try-catch structure should be refactored.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+public class HiddenCatchBlock {
+
+  public static class CustomException extends Exception {
+  }
+
+  public static class CustomDerivedException extends CustomException {
+  }
+
+  public static void main(String[] args) {
+    try {
+      throwCustomDerivedException();
+    } catch(CustomDerivedException e) {
+      // ...
+    } catch(CustomException e) { // Noncompliant; this code is unreachable
+      // ...
+    }
+  }
+
+  private static void throwCustomDerivedException() throws CustomDerivedException {
+    throw new CustomDerivedException();
+  }
+}
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+public class HiddenCatchBlock {
+
+  public static class CustomException extends Exception {
+  }
+
+  public static class CustomDerivedException extends CustomException {
+  }
+
+  public static void main(String[] args) {
+    try {
+      throwCustomDerivedException();
+    } catch(CustomDerivedException e) { // Compliant; try-catch block is "catching" only the Exception that can be thrown in the "try"
+      //...
+    }
+  }
+}
+</pre>

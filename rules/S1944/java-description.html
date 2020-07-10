@@ -1,0 +1,41 @@
+<p>Inappropriate casts are errors that will lead to bugs as the members are accessed. This includes casts from one unrelated type to another, as well as untested casts down an inheritance hierarchy.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+public class S1944 {
+
+  public static void main(String[] args) {
+    List&lt;String&gt; list = (List&lt;String&gt;) getAttributes(); // Noncompliant; List&lt;Integer&gt; return by getAttributes() is not be casted to List&lt;String&gt;
+    String s = list.get(0); // java.lang.ClassCastException will be raised here
+  }
+
+  private static List&lt;?&gt; getAttributes() {
+    List&lt;Integer&gt; result = new ArrayList&lt;&gt;();
+    result.add(0);
+    return result;
+  }
+
+}
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+public class S1944 {
+
+  public static void main(String[] args) {
+    List&lt;Integer&gt; list = (List&lt;Integer&gt;) getAttributes(); // Compliant
+    String s = String.valueOf(list.get(0));
+  }
+
+  private static List&lt;?&gt; getAttributes() {
+    List&lt;Integer&gt; result = new ArrayList&lt;&gt;();
+    result.add(0);
+    return result;
+  }
+
+}
+</pre>
+<h2>See</h2>
+<ul>
+<li><a href="https://www.securecoding.cert.org/confluence/x/tgAV">CERT, EXP36-C.</a> - Do not cast pointers into more strictly aligned pointer types</li>
+<li><a href="http://cwe.mitre.org/data/definitions/588.html">MITRE, CWE-588</a> - Attempt to Access Child of a Non-structure Pointer</li>
+<li><a href="http://cwe.mitre.org/data/definitions/704.html">MITRE, CWE-704</a> - Incorrect Type Conversion or Cast</li>
+</ul>

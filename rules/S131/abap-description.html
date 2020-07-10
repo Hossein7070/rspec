@@ -1,0 +1,35 @@
+<p>The requirement for an &lt;code&gt;OTHERS&lt;/code&gt; clause is defensive programming. The clause should either take appropriate action, or contain a suitable comment as to why no action is taken.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+CASE SY-INDEX.   // Noncompliant; missing WHEN OTHERS clause
+  WHEN ONE.
+    WRITE  'One'.
+  WHEN 2.
+    WRITE   'Two'.
+ENDCASE.
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+CASE SY-INDEX.
+  WHEN ONE.
+    WRITE  'One'.
+  WHEN 2.
+    WRITE   'Two'.
+  WHEN OTHERS. // Compliant
+    WRITE 'Unexpected result'
+ENDCASE.
+
+CASE SY-INDEX.
+  WHEN OTHERS.   // Compliant
+    WRITE 'Unexpected result'
+  WHEN ONE.
+    WRITE  'One'.
+  WHEN 2.
+    WRITE   'Two'.
+ENDCASE.
+</pre>
+<h2>See</h2>
+<ul>
+<li><a href="http://cwe.mitre.org/data/definitions/478.html">MITRE, CWE-478</a> - Missing Default Case in Switch Statement</li>
+<li><a href="https://www.securecoding.cert.org/confluence/x/YgE">CERT, MSC01-C.</a> - Strive for logical completeness</li>
+</ul>

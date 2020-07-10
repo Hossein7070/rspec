@@ -1,0 +1,28 @@
+<p>The complexity of an expression is defined by the number of &lt;code&gt;AND&lt;/code&gt;, &lt;code&gt;OR&lt;/code&gt;.
+A single expression’s complexity should not become too high to keep the code readable.</p>
+<h2>Noncompliant Code Example</h2>
+<p>With the default threshold value of 3</p>
+<pre>
+C                   IF        (condition1 AND condition2)
+C                             OR (condition2 AND condition2)
+C                             OR (condition3 AND condition4)
+</pre>
+<pre>
+ /free
+   IF A=X OR A=Y AND A=Z AND B=Y OR B=Z;
+        ...
+   ENDIF;
+ /end-free
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+C                   IF        (condition1 AND condition2)
+C                             OR MyComplexCondition()
+</pre>
+<pre>
+ /free
+   IF A=X OR MyComplexCondition() OR B=Z;
+        ...
+   ENDIF;
+ /end-free
+</pre>

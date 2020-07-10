@@ -1,0 +1,24 @@
+{
+  "title": "Null checks should not be used with \"TypeOf Is\"",
+  "type": "CODE_SMELL",
+  "status": "ready",
+  "remediation": {
+    "func": "Constant/Issue",
+    "constantCost": "5min"
+  },
+  "tags": [
+    "redundant"
+  ],
+  "defaultSeverity": "Minor",
+  "ruleSpecification": "RSPEC-4201",
+  "sqKey": "S4201",
+  "scope": "All",
+  "all_languages": [
+    "csharp",
+    "java",
+    "vbnet"
+  ],
+  "allKeys": [
+    "S4201"
+  ]
+}

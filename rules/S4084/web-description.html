@@ -1,0 +1,20 @@
+<p>In order to make your site usable by as many people as possible, subtitles should be provided for videos.</p>
+<p>This rule raises an issue when a &lt;code&gt;video&lt;/code&gt; does not include at least one &lt;code&gt;&lt;track/&gt;&lt;/code&gt; tag with the &lt;code&gt;kind&lt;/code&gt; attribute set to &lt;code&gt;captions&lt;/code&gt;, or &lt;code&gt;descriptions&lt;/code&gt; or at the very least &lt;code&gt;subtitles&lt;/code&gt;.
+Note that the &lt;code&gt;subtitles&lt;/code&gt; kind is not meant for accessibility but for translation. The kind &lt;code&gt;captions&lt;/code&gt; targets people with hearing impairment, whereas &lt;code&gt;descriptions&lt;/code&gt; targets people with vision impairment.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+&lt;video id="video" controls preload="metadata"&gt;
+   &lt;source src="resources/myvideo.mp4" type="video/mp4"&gt;
+   &lt;source src="resources/myvideo.webm" type="video/webm"&gt;
+&lt;/video&gt;
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+&lt;video id="video" controls preload="metadata"&gt;
+   &lt;source src="resources/myvideo.mp4" type="video/mp4"&gt;
+   &lt;source src="resources/myvideo.webm" type="video/webm"&gt;
+   &lt;track label="English" kind="captions" srclang="en" src="resources/myvideo-en.vtt" default&gt;
+   &lt;track label="Deutsch" kind="captions" srclang="de" src="resources/myvideo-de.vtt"&gt;
+   &lt;track label="Español" kind="captions" srclang="es" src="resources/myvideo-es.vtt"&gt;
+&lt;/video&gt;
+</pre>

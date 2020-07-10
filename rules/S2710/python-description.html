@@ -1,0 +1,23 @@
+<p>By convention, the first argument to class methods, i.e. methods decorated with &lt;code&gt;@classmethod&lt;/code&gt;, is named &lt;code&gt;cls&lt;/code&gt; as a representation and a reminder that the argument is the class itself. Name the argument something else, and you stand a good chance of confusing both users and maintainers of the code. It might also indicate that the &lt;code&gt;cls&lt;/code&gt; parameter was forgotten, in which case calling the method will most probably fail. This rule also applies to methods &lt;code&gt;_\_init_subclass\__&lt;/code&gt;, &lt;code&gt;\__class_getitem\__&lt;/code&gt; and &lt;code&gt;\__new\_\_&lt;/code&gt; as their first argument is always the class instead of "self".</p>
+<p>By default this rule accepts &lt;code&gt;cls&lt;/code&gt; and &lt;code&gt;mcs&lt;/code&gt;, which is sometime used in metaclasses, as valid names for class parameters. You can set your own list of accepted names via the parameter &lt;code&gt;classParameterNames&lt;/code&gt;.</p>
+<p>This rule raises an issue when the first parameter of a class method is not an accepted name.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+class Rectangle(object):
+
+  @classmethod
+  def area(bob, height, width):  #Noncompliant
+    return height * width
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+class Rectangle(object):
+
+  @classmethod
+  def area(cls, height, width):
+    return height * width
+</pre>
+<h2>See</h2>
+<ul>
+<li>PEP8 - <a href="https://www.python.org/dev/peps/pep-0008/#function-and-method-arguments">Function and Method Arguments</a></li>
+</ul>

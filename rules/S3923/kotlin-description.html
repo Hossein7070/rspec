@@ -1,0 +1,25 @@
+<p>Having all branches in a &lt;code&gt;when&lt;/code&gt; or &lt;code&gt;if&lt;/code&gt; chain with the same implementation is an error. Either a copy-paste error was made and something different should be executed, or there shouldn’t be a &lt;code&gt;when&lt;/code&gt;/&lt;code&gt;if&lt;/code&gt; chain at all.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+if (b == 0) {  // Noncompliant
+     doOneMoreThing()
+} else {
+     doOneMoreThing()
+}
+
+when (i) {  // Noncompliant
+    1 -&gt; doSomething()
+    2 -&gt; doSomething()
+    3 -&gt; doSomething()
+    else -&gt; doSomething()
+}
+</pre>
+<h2>Exceptions</h2>
+<p>This rule does not apply to &lt;code&gt;if&lt;/code&gt; chains without &lt;code&gt;else&lt;/code&gt;-s, or to &lt;code&gt;when&lt;/code&gt;-es without &lt;code&gt;else&lt;/code&gt; clauses.</p>
+<pre>
+if (b == 0) {
+    doOneMoreThing()
+} else if (b == 1) {
+    doOneMoreThing()
+}
+</pre>

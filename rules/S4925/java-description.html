@@ -1,0 +1,48 @@
+<p>In the past, it was required to load a JDBC driver before creating a &lt;code&gt;java.sql.Connection&lt;/code&gt;. Nowadays, when using JDBC 4.0 drivers, this is no longer required and &lt;code&gt;Class.forName()&lt;/code&gt; can be safely removed because JDBC 4.0 (JDK 6) drivers available in the classpath are automatically loaded.</p>
+<p>This rule raises an issue when &lt;code&gt;Class.forName()&lt;/code&gt; is used with one of the following values:</p>
+<ul>
+<li>&lt;code&gt;com.mysql.jdbc.Driver&lt;/code&gt;</li>
+<li>&lt;code&gt;oracle.jdbc.driver.OracleDriver&lt;/code&gt;</li>
+<li>&lt;code&gt;com.ibm.db2.jdbc.app.DB2Driver&lt;/code&gt;</li>
+<li>&lt;code&gt;com.ibm.db2.jdbc.net.DB2Driver&lt;/code&gt;</li>
+<li>&lt;code&gt;com.sybase.jdbc.SybDriver&lt;/code&gt;</li>
+<li>&lt;code&gt;com.sybase.jdbc2.jdbc.SybDriver&lt;/code&gt;</li>
+<li>&lt;code&gt;com.teradata.jdbc.TeraDriver&lt;/code&gt;</li>
+<li>&lt;code&gt;com.microsoft.sqlserver.jdbc.SQLServerDriver&lt;/code&gt;</li>
+<li>&lt;code&gt;org.postgresql.Driver&lt;/code&gt;</li>
+<li>&lt;code&gt;sun.jdbc.odbc.JdbcOdbcDriver&lt;/code&gt;</li>
+<li>&lt;code&gt;org.hsqldb.jdbc.JDBCDriver&lt;/code&gt;</li>
+<li>&lt;code&gt;org.h2.Driver&lt;/code&gt;</li>
+<li>&lt;code&gt;org.firebirdsql.jdbc.FBDriver&lt;/code&gt;</li>
+<li>&lt;code&gt;net.sourceforge.jtds.jdbc.Driver&lt;/code&gt;</li>
+</ul>
+<h2>Noncompliant Code Example</h2>
+<pre>
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+
+public class Demo {
+  private static final String DRIVER_CLASS_NAME = "org.postgresql.Driver";
+  private final Connection connection;
+
+  public Demo(String serverURI) throws SQLException, ClassNotFoundException {
+    Class.forName(DRIVER_CLASS_NAME); // Noncompliant; no longer required to load the JDBC Driver using Class.forName()
+    connection = DriverManager.getConnection(serverURI);
+  }
+}
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+
+public class Demo {
+    private final Connection connection;
+
+    public Demo(String serverURI) throws SQLException {
+        connection = DriverManager.getConnection(serverURI);
+    }
+}
+</pre>

@@ -1,0 +1,23 @@
+<p>Most COBOL environments do not support recursive &lt;code&gt;PERFORM&lt;/code&gt; calls, since they can cause unpredictable results. This rule raises an issue when recursive &lt;code&gt;PERFORM&lt;/code&gt; calls are used.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+PARAGRAPH1.
+  PERFORM PARAGRAPH2.
+
+PARAGRAPH2.
+  PERFORM PARAGRAPH3.
+
+PARAGRAPH3.
+  PERFORM PARAGRAPH1.
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+PARAGRAPH1.
+  PERFORM PARAGRAPH2.
+
+PARAGRAPH2.
+  PERFORM PARAGRAPH3.
+
+PARAGRAPH3.
+  DISPLAY "THIS IS PARAGRAPH3".
+</pre>

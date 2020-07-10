@@ -1,0 +1,12 @@
+<p>It can be useful to use in-code notation to suppress issues, but when those suppressions are no longer relevant they become a potential source of confusion and should be removed.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+@SuppressWarnings("squid:S4174") // Noncompliant
+public void doSomething() {
+  final int LOCAL = 42;  // S4174 is about naming of local constants but there's nothing wrong here
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+public void doSomething() {
+  final int LOCAL = 42;  // S4174 is about naming of local constants but there's nothing wrong here
+</pre>

@@ -1,0 +1,10 @@
+<p>During dictionary use, it is normal that you might want to replace the value associated with one of the dictionary’s keys. But do so during the initial definition of a dictionary, and you’ve probably made an error.</p>
+<p>This rule raises an issue when the same key is used multiple times in the initial definition of a dictionary.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+fruit = {"apple":4, "pear":6, "quince":29, "apple": 8}  # Noncompliant; "apple" is used in positions 0 and 3
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+fruit = {"apple":4, "pear":6, "quince":29, "potato": 8}
+</pre>

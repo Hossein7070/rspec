@@ -1,0 +1,9 @@
+<p>Cookies without fixed lifetimes or expiration dates are known as non-persistent, or "session" cookies, meaning they last only as long as the browser session, and poof away when the browser closes. Cookies with expiration dates, "persistent" cookies, are stored/persisted until those dates.</p>
+<p>Non-persistent cookies should be used for the management of logged-in sessions on web sites. To make a cookie non-persistent, simply omit the &lt;code&gt;expires&lt;/code&gt; attribute.</p>
+<p>This rule raises an issue when &lt;code&gt;expires&lt;/code&gt; is set for a session cookie, either programmatically or via configuration, such as &lt;code&gt;session.cookie_lifetime&lt;/code&gt;.</p>
+<h2>See</h2>
+<ul>
+<li><a href="https://www.owasp.org/index.php/Top_10-2017_A7-Cross-Site_Scripting_(XSS)">OWASP Top 10 2017 Category A7</a> - Cross-Site Scripting (XSS)</li>
+<li><a href="https://www.owasp.org/index.php/Session_Management_Cheat_Sheet#Expire_and_Max-Age_Attributes">OWASP, Session Management Cheat Sheet</a> - Expire and Max-Age Attributes</li>
+<li>Derived from FindSecBugs rule <a href="https://find-sec-bugs.github.io/bugs.htm#COOKIE_PERSISTENT">COOKIE_PERSISTENT</a></li>
+</ul>

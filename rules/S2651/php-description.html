@@ -1,0 +1,34 @@
+<p>In PHP 5.4, &lt;code&gt;break&lt;/code&gt; and &lt;code&gt;continue&lt;/code&gt; no longer accept arguments that require computation. Static arguments are still okay except for zero (&lt;code&gt;0&lt;/code&gt;).</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+$i = 0;
+$break = 1;
+while (++$i) {
+  switch ($i) {
+  case 5:
+    // ...
+    break $break;  // Noncompliant
+  case 10:
+    // ...
+    break $break + 1;  // Noncompliant
+    default:
+        break $break;  // Noncompliant
+    }
+}
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+$i = 0;
+while (++$i) {
+  switch ($i) {
+  case 5:
+    // ...
+    break 1;
+  case 10:
+    // ...
+    break 2;
+    default:
+        break;
+    }
+}
+</pre>

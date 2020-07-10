@@ -1,0 +1,28 @@
+<p>Identifiers declared&nbsp;with <a href="https://www.ibm.com/support/knowledgecenter/en/SSY2V3_5.1.0/com.ibm.ent.pl1.zos.doc/lr/value.html">&lt;code&gt;STATIC&lt;/code&gt;</a> and &lt;code&gt;INIT&lt;/code&gt; are initialized only once and may be later modified.&nbsp;Modifying such an identifier will fail at runtime when a CICS application is <a href="https://www.ibm.com/support/knowledgecenter/en/SSGMGV_3.1.0/com.ibm.cics.ts31.doc/dfhp3/dfhp3r3.htm">executed as reentrant</a>. It is safer to declare the value as <a href="https://www.ibm.com/support/knowledgecenter/en/SSY2V3_5.1.0/com.ibm.ent.pl1.zos.doc/lr/value.html">a named constant</a> (using the keyword &lt;code&gt;VALUE&lt;/code&gt;) because any modification will be reported at compilation time.</p>
+<p>This rule raises an issue when an identifier is declared as &lt;code&gt;STATIC&lt;/code&gt; with &lt;code&gt;INIT&lt;/code&gt; or &lt;code&gt;INITIAL&lt;/code&gt; and has one of the following types:</p>
+<ul>
+<li>CHARACTER/CHAR</li>
+<li>BINARY/BIN</li>
+<li>DECIMAL/DEC</li>
+<li>FLOAT</li>
+<li>POINTER/PTR</li>
+<li>OFFSET</li>
+</ul>
+<h2>Noncompliant Code Example</h2>
+<pre>
+dcl returnCodeOk fixed bin(15) static init (00); /* Noncompliant */
+/* or */
+dcl actions char(05) init('12345') static; /* Noncompliant */
+dcl actions_in char(01);
+....
+valid_action = (verify(action_in, actions) = 0);
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+dcl returnCodeOk fixed bin(15) value (00);
+/* or */
+dcl actions char(05) value('12345');
+dcl actions_in char(01);
+....
+valid_action = (verify(action_in, actions) = 0);
+</pre>

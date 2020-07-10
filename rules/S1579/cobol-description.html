@@ -1,0 +1,18 @@
+<p>Shared coding conventions allow teams to collaborate efficiently. This rule checks that file-code names conform to a specified regular expression.</p>
+<h2>Noncompliant Code Example</h2>
+<p>Given a pattern of &lt;code&gt;FC-.*&lt;/code&gt;:</p>
+<pre>
+ INPUT-OUTPUT SECTION.
+ FILE-CONTROL.
+
+     SELECT Y27MVTS       ASSIGN  TO     S1        &gt;Noncompliant; S1 doesn't match "FC-.*" pattern
+                          FILE STATUS IS S1.
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+ INPUT-OUTPUT SECTION.
+ FILE-CONTROL.
+
+     SELECT Y27MVTS     ASSIGN  TO     FC-S1     &gt;OK as FC-S1 matches "FC-.*" pattern
+                          FILE STATUS IS FS-S1.
+</pre>

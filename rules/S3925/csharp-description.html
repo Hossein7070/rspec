@@ -1,0 +1,87 @@
+<p>The &lt;code&gt;ISerializable&lt;/code&gt; interface is the mechanism to control the type serialization process. If not implemented correctly this could result in an invalid serialization and hard to detect bugs.</p>
+<p>This rules raises an issue on types that implement &lt;code&gt;ISerializable&lt;/code&gt; without following the serialization pattern recommended by Microsoft.</p>
+<p>Specifically this rule checks for these problems:</p>
+<ul>
+<li>The &lt;code&gt;System.SerializableAttribute&lt;/code&gt; attribute is missing.</li>
+<li>Non-serializable fields are not marked with the &lt;code&gt;System.NonSerializedAttribute&lt;/code&gt; attribute.</li>
+<li>There is no serialization constructor.</li>
+<li>An unsealed type has a serialization constructor that is not &lt;code&gt;protected&lt;/code&gt;.</li>
+<li>A sealed type has a serialization constructor that is not &lt;code&gt;private&lt;/code&gt;.</li>
+<li>An unsealed type has a &lt;code&gt;ISerializable.GetObjectData&lt;/code&gt; that is not both &lt;code&gt;public&lt;/code&gt; and &lt;code&gt;virtual&lt;/code&gt;.</li>
+<li>A derived type has a serialization constructor that does not call the &lt;code&gt;base&lt;/code&gt; constructor.</li>
+<li>A derived type has a &lt;code&gt;ISerializable.GetObjectData&lt;/code&gt; method that does not call the &lt;code&gt;base&lt;/code&gt; method.</li>
+<li>A derived type has serializable fields but the &lt;code&gt;ISerializable.GetObjectData&lt;/code&gt; method is not overridden.</li>
+</ul>
+<h2>Noncompliant Code Example</h2>
+<pre>
+public class Foo : ISerializable // Noncompliant the [Serializable] attribute is missing
+{
+}
+</pre>
+<p>or</p>
+<pre>
+public class Bar
+{
+}
+
+[Serializable]
+public class Foo : ISerializable // Noncompliant the serialization constructor is missing
+{
+    private readonly Bar bar; // Noncompliant the field is not marked with [NonSerialized]
+}
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+public class Bar
+{
+}
+
+[Serializable]
+public class Foo : ISerializable
+{
+    [NonSerialized]
+    private readonly Bar bar;
+
+    public Foo()
+    {
+        // ...
+    }
+
+    protected Foo(SerializationInfo info, StreamingContext context)
+    {
+        // ...
+    }
+
+    public virtual void GetObjectData(SerializationInfo info, StreamingContext context)
+    {
+        // ...
+    }
+}
+
+[Serializable]
+public sealed class SubFoo : Foo
+{
+    private int val;
+
+    public SubFoo()
+    {
+        // ...
+    }
+
+    private SubFoo(SerializationInfo info, StreamingContext context)
+        : base(info, context)
+    {
+        // ...
+    }
+
+    public override void GetObjectData(SerializationInfo info, StreamingContext context)
+    {
+        base.GetObjectData(info, context);
+        // ...
+    }
+}
+</pre>
+<h2>Exceptions</h2>
+<ul>
+<li>Classes in test projects are not checked.</li>
+</ul>

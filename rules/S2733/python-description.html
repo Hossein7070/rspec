@@ -1,0 +1,9 @@
+<p>The &lt;code&gt;<em>exit</em>&lt;/code&gt; method is invoked with four arguments: self, type, value and traceback. Leave one of these out of the method declaration and the result will be a &lt;code&gt;TypeError&lt;/code&gt; at runtime.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+class MyClass:
+   def __enter__(self):
+       pass
+   def __exit__(self, exc_type, exc_val):  # Noncompliant
+       pass
+</pre>

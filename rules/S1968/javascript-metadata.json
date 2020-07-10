@@ -1,0 +1,28 @@
+{
+  "title": "Compared operands should be comparable",
+  "type": "BUG",
+  "status": "ready",
+  "remediation": {
+    "func": "Constant/Issue",
+    "constantCost": "30min"
+  },
+  "tags": [],
+  "defaultSeverity": "Major",
+  "ruleSpecification": "RSPEC-1968",
+  "sqKey": "S1968",
+  "scope": "Main",
+  "all_languages": [
+    "cfamily",
+    "cobol",
+    "csharp",
+    "java",
+    "javascript",
+    "php",
+    "rpg",
+    "swift",
+    "vbnet"
+  ],
+  "allKeys": [
+    "S1968"
+  ]
+}

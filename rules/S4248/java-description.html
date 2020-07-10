@@ -1,0 +1,39 @@
+<p>The &lt;code&gt;java.util.regex.Pattern.compile()&lt;/code&gt; methods have a significant performance cost, and therefore should be used sensibly.
+Moreover they are the only mechanism available to create instances of the Pattern class, which are necessary to do any pattern matching using regular expressions. Unfortunately that can be hidden behind convenience methods like &lt;code&gt;String.matches()&lt;/code&gt; or &lt;code&gt;String.split()&lt;/code&gt;.
+It is therefore somewhat easy to inadvertently repeatedly compile the same regular expression at great performance cost with no valid reason.</p>
+<p>This rule raises an issue when:</p>
+<ul>
+<li>A &lt;code&gt;Pattern&lt;/code&gt; is compiled from a &lt;code&gt;String&lt;/code&gt; literal or constant and is not stored in a static final reference.</li>
+<li>&lt;code&gt;String.matches&lt;/code&gt;, &lt;code&gt;String.split&lt;/code&gt;, &lt;code&gt;String.replaceAll&lt;/code&gt; or &lt;code&gt;String.replaceFirst&lt;/code&gt; are invoked with a &lt;code&gt;String&lt;/code&gt; literal or constant. In which case the code should be refactored to use a &lt;code&gt;java.util.regex.Pattern&lt;/code&gt; while respecting the previous rule.</li>
+</ul>
+<h2>Noncompliant Code Example</h2>
+<pre>
+public void doingSomething(String stringToMatch) {
+  Pattern regex = Pattern.compile("myRegex");  // Noncompliant
+  Matcher matcher = regex.matcher("s");
+  // ...
+  if (stringToMatch.matches("myRegex2")) {  // Noncompliant
+    // ...
+  }
+}
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+private static final Pattern myRegex = Pattern.compile("myRegex");
+private static final Pattern myRegex2 = Pattern.compile("myRegex2");
+
+public void doingSomething(String stringToMatch) {
+  Matcher matcher = myRegex.matcher("s");
+  // ...
+  if (myRegex2.matcher(stringToMatch).matches()) {
+    // ...
+  }
+}
+</pre>
+<h2>Exceptions</h2>
+<p>&lt;code&gt;String.split&lt;/code&gt; doesn’t create a regex when the string passed as argument meets either of these 2 conditions:</p>
+<ul>
+<li>It is a one-char String and this character is not one of the RegEx’s meta characters ".$|()[{^?*+\"</li>
+<li>It is a two-char String and the first char is the backslash and the second is not the ascii digit or ascii letter.</li>
+</ul>
+<p>In which case no issue will be raised.</p>

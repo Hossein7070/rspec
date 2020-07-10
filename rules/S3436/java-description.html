@@ -1,0 +1,23 @@
+<p>According to the documentation,
+bq. A program may produce unpredictable results if it attempts to distinguish two references to equal values of a value-based class, whether directly via reference equality or indirectly via an appeal to synchronization…​</p>
+<p>This is because value-based classes are intended to be wrappers for value types, which will be primitive-like collections of data (similar to &lt;code&gt;struct&lt;/code&gt;s in other languages) that will come in future versions of Java.</p>
+<p>{quote} Instances of a value-based class …​</p>
+<ul>
+<li>do not have accessible constructors, but are instead instantiated through factory methods which make no committment as to the identity of returned instances;
+{quote}</li>
+</ul>
+<p>Which means that you can’t be sure you’re the only one trying to lock on any given instance of a value-based class, opening your code up to contention and deadlock issues.</p>
+<p>Under Java 8 breaking this rule may not actually break your code, but there are no guarantees of the behavior beyond that.</p>
+<p>This rule raises an issue when a known value-based class is used for synchronization. That includes all the classes in the &lt;code&gt;java.time&lt;/code&gt; package except &lt;code&gt;Clock&lt;/code&gt;; the date classes for alternate calendars, &lt;code&gt;HijrahDate&lt;/code&gt;, &lt;code&gt;JapaneseDate&lt;/code&gt;, &lt;code&gt;MinguoDate&lt;/code&gt;, &lt;code&gt;ThaiBuddhistDate&lt;/code&gt;; and the optional classes: &lt;code&gt;Optional&lt;/code&gt;, &lt;code&gt;OptionalDouble&lt;/code&gt;, &lt;code&gt;OptionalLong&lt;/code&gt;, &lt;code&gt;OptionalInt&lt;/code&gt;.</p>
+<p><strong>Note</strong> that this rule is automatically disabled when the project’s &lt;code&gt;sonar.java.source&lt;/code&gt; is lower than &lt;code&gt;8&lt;/code&gt;.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+Optional&lt;Foo&gt; fOpt = doSomething();
+synchronized (fOpt) {  // Noncompliant
+  // ...
+}
+</pre>
+<h2>See</h2>
+<ul>
+<li><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/doc-files/ValueBased.html">Value-based classes</a></li>
+</ul>

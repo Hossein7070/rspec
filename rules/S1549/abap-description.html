@@ -1,0 +1,23 @@
+<p>Every macro should be commented to explain its goal and how it works. This comment can be located just before or after the macro definition.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+DEFINE my_macro.
+  ...
+END-OF-DEFINITION.
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+* here is
+* my comment
+DEFINE my_macro.
+  ...
+END-OF-DEFINITION.
+</pre>
+<p>or</p>
+<pre>
+DEFINE my_macro.
+* here is
+* my comment
+  ...
+END-OF-DEFINITION.
+</pre>

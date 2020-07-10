@@ -1,0 +1,14 @@
+<h2>Noncompliant Code Example</h2>
+<pre>
+SELECT *
+       FROM persons
+       INTO newyorkers
+       WHERE city = 'NEW YORK'
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+SELECT firstname, lastname
+       FROM persons
+       INTO newyorkers
+       WHERE city = 'NEW YORK'
+</pre>

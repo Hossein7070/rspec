@@ -1,0 +1,24 @@
+{
+  "title": "\"INSERT\" statements should explicitly list the columns to be set",
+  "type": "CODE_SMELL",
+  "status": "ready",
+  "remediation": {
+    "func": "Constant/Issue",
+    "constantCost": "10min"
+  },
+  "tags": [
+    "sql"
+  ],
+  "defaultSeverity": "Critical",
+  "ruleSpecification": "RSPEC-1745",
+  "sqKey": "S1745",
+  "scope": "Main",
+  "all_languages": [
+    "cobol",
+    "plsql",
+    "tsql"
+  ],
+  "allKeys": [
+    "S1745"
+  ]
+}

@@ -1,0 +1,10 @@
+<p>When using the Backbone.js framework, the internal hash containing the model’s state, &lt;code&gt;model.attributes&lt;/code&gt;, should not be accessed directly. Doing so bypasses the listeners set on the model and could put your application in a bad state.</p>
+<p>Instead, you should use &lt;code&gt;set&lt;/code&gt; to update, &lt;code&gt;get&lt;/code&gt; to read, and &lt;code&gt;_.clone(model.attributes)&lt;/code&gt; to obtain a copy.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+myModel.attributes.someAttribute = 1;
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+myModel.set({ someAttribute: 1 });
+</pre>

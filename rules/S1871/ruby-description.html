@@ -1,0 +1,47 @@
+<p>Having two &lt;code&gt;when&lt;/code&gt; clauses in a &lt;code&gt;case&lt;/code&gt; statement or two branches in an &lt;code&gt;if&lt;/code&gt; chain with the same implementation is at best duplicate code, and at worst a coding error. If the same logic is truly needed for both instances, then in an &lt;code&gt;if&lt;/code&gt; chain they should be combined, or for a &lt;code&gt;case&lt;/code&gt;, duplicates should be refactored.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+case i
+  when 1
+    doFirstThing()
+    doSomething()
+  when 2
+    doSomethingDifferent()
+  when 3 # Noncompliant; duplicates case 1's implementation
+    doFirstThing()
+    doSomething()
+  else
+    doTheRest()
+end
+
+if a &gt;= 0 &amp;&amp; a &lt; 10
+  doFirstThing()
+  doTheThing()
+elsif a &gt;= 10 &amp;&amp; a &lt; 20
+  doTheOtherThing()
+elsif a &gt;= 20 &amp;&amp; a &lt; 50
+  doFirstThing()
+  doTheThing()   # Noncompliant; duplicates first condition
+else
+  doTheRest()
+end
+</pre>
+<h2>Exceptions</h2>
+<p>Blocks in an &lt;code&gt;if&lt;/code&gt; chain that contain a single line of code are ignored, as are blocks in a &lt;code&gt;case&lt;/code&gt; statement that contain a single line of code.</p>
+<pre>
+if a ==
+  doSomething()  # no issue, usually this is done on purpose to increase the readability
+elsif a == 2
+  doSomethingElse()
+else
+  doSomething()
+end
+</pre>
+<p>But this exception does not apply to &lt;code&gt;if&lt;/code&gt; chains without &lt;code&gt;else&lt;/code&gt;-s, or to &lt;code&gt;case&lt;/code&gt;-es without &lt;code&gt;else&lt;/code&gt; clauses when all branches have the same single line of code. In case of &lt;code&gt;if&lt;/code&gt; chains with &lt;code&gt;else&lt;/code&gt;-s, or of &lt;code&gt;case&lt;/code&gt;-es with &lt;code&gt;else&lt;/code&gt; clauses, rule S3923 raises a bug.</p>
+<pre>
+if a == 1
+  doSomething()  # Noncompliant, this might have been done on purpose but probably not
+elsif a == 2
+  doSomething()
+end
+</pre>

@@ -1,0 +1,20 @@
+<p>Jump statements, such as &lt;code&gt;return&lt;/code&gt;, &lt;code&gt;goto&lt;/code&gt;, and &lt;code&gt;continue&lt;/code&gt; let you change the default flow of program execution, but jump statements that direct the control flow to the original direction are just a waste of keystrokes.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+function foo($p) {
+  $i = $p;
+  while ($i &gt; 0) {
+    $i--;
+    continue; // Noncompliant
+  }
+}
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+function foo($p) {
+  $i = $p;
+  while ($i &gt; 0) {
+    $i--;
+  }
+}
+</pre>

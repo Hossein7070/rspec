@@ -1,0 +1,31 @@
+<p>Deserializing objects is security-sensitive. For example, it has led in the past to the following vulnerabilities:</p>
+<ul>
+<li><a href="https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2012-4406">CVE-2012-4406</a>: OpenStack Object Storage: arbitrary code execution via a crafted pickle object</li>
+<li><a href="https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2017-2809">CVE-2017-2809</a>: Ansible Vault: arbitrary code execution via a crafted yaml</li>
+<li><a href="http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2018-1000058">CVE-2018-1000058</a>: OpenStack Object Storage: arbitrary code execution via a crafted yaml</li>
+</ul>
+<p>Object deserialization from an untrusted source can lead to unexpected code execution. Deserialization takes a stream of bits and turns it into an object. If the stream contains the type of object you expect, all is well. But if you’re deserializing untrusted input, and an attacker has inserted some other type of object, you’re in trouble. Why? There are a few different attack scenarios, but a widely-documented one goes like this: untrusted YAML content is deserialized using the unsafe &lt;code&gt;load&lt;/code&gt; function form PyYAML library. &lt;code&gt;PyYAML.load&lt;/code&gt; function could be easily exploited to call any Python function including system command.</p>
+<h2>Ask Yourself Whether</h2>
+<ul>
+<li>an attacker could have tampered with the source provided to the deserialization function</li>
+<li>you are using an unsafe deserialization function</li>
+</ul>
+<p>You are at risk if you answered yes to any of those questions.</p>
+<h2>Recommended Secure Coding Practices</h2>
+<p>To prevent insecure deserialization, it is recommended to:</p>
+<ul>
+<li>Use safe libraries that do not allow code execution at deserialization.</li>
+<li>Not communicate with the outside world using serialized objects</li>
+<li><p>Limit access to the serialized source</p>
+<ul>
+<li>if it is a file, restrict the access to it.</li>
+<li>if it comes from the network, restrict who has access to the process, such as with a Firewall or by authenticating the sender first.</li>
+</ul></li>
+</ul>
+<h2>See</h2>
+<ul>
+<li><a href="https://www.owasp.org/index.php/Deserialization_of_untrusted_data">OWASP - Deserialization of untrusted data</a></li>
+<li><a href="https://www.owasp.org/index.php/Top_10-2017_A8-Insecure_Deserialization">OWASP Top 10 2017 Category A8</a> - Insecure Deserialization</li>
+<li><a href="https://cwe.mitre.org/data/definitions/502.html">MITRE, CWE-502</a> - Deserialization of Untrusted Data</li>
+<li>Derived from FindSecBugs rule <a href="https://find-sec-bugs.github.io/bugs.htm#OBJECT_DESERIALIZATION">OBJECT_DESERIALIZATION </a></li>
+</ul>

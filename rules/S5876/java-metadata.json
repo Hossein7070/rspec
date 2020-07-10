@@ -1,0 +1,31 @@
+{
+  "title": "A new session should be created during user authentication",
+  "type": "VULNERABILITY",
+  "status": "ready",
+  "remediation": {
+    "func": "Constant/Issue",
+    "constantCost": null
+  },
+  "tags": [
+    "cwe",
+    "owasp-a2"
+  ],
+  "defaultSeverity": "Critical",
+  "ruleSpecification": "RSPEC-5876",
+  "sqKey": "S5876",
+  "scope": "All",
+  "securityStandards": {
+    "CWE": [
+      384
+    ],
+    "OWASP": [
+      "A2"
+    ]
+  },
+  "all_languages": [
+    "java"
+  ],
+  "allKeys": [
+    "S5876"
+  ]
+}

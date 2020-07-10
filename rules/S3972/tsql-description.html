@@ -1,0 +1,27 @@
+<p>Code is clearest when each statement has its own line. Nonetheless, it is a common pattern to combine on the same line an &lt;code&gt;IF&lt;/code&gt; and its resulting <em>then</em> statement. However, when an &lt;code&gt;IF&lt;/code&gt; is placed on the same line as the closing &lt;code&gt;END&lt;/code&gt; from a preceding &lt;code&gt;ELSE&lt;/code&gt; or &lt;code&gt;ELSE IF&lt;/code&gt;, it is either an error - &lt;code&gt;ELSE&lt;/code&gt; is missing - or the invitation to a future error as maintainers fail to understand that the two statements are unconnected.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+IF (condition1) BEGIN
+  EXEC something
+END IF (condition2) BEGIN  -- Noncompliant
+  EXEC something
+END
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+IF (condition1) BEGIN
+  EXEC something
+END ELSE IF (condition2) BEGIN
+  EXEC something
+END
+</pre>
+<p>Or</p>
+<pre>
+IF (condition1) BEGIN
+  EXEC something
+END
+
+IF (condition2) BEGIN
+  EXEC something
+END
+</pre>

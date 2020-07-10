@@ -1,0 +1,11 @@
+<p>The use of parentheses, even those not required to enforce a desired order of operations, can clarify the intent behind a piece of code. But redundant pairs of parentheses could be misleading, and should be removed.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+ CHECK (SY-SUBRC NE 0). "compliant even if ignored by compiler
+ IF ((SY-SUBRC EQ 0)). "Noncompliant
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+ CHECK (SY-SUBRC NE 0).
+ IF (SY-SUBRC EQ 0).
+</pre>

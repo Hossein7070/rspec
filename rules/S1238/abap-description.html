@@ -1,0 +1,9 @@
+<p>Passing parameters by reference instead of by value avoids the overhead of making a copy. Passing arguments via copy should only be done when it is technically mandated, as it is for example with RFC function modules.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+PERFORM subr USING a1 a2 a3 a4 a5.
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+PERFORM subr CHANGING a1 a2 a3 a4 a5.
+</pre>

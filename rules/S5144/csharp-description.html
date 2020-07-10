@@ -1,0 +1,87 @@
+<p>User provided data, such as URL parameters, POST data payloads, or cookies, should always be considered untrusted and tainted. A remote server making requests to URLs based on tainted data could enable attackers to make arbitrary requests to the internal network or to the local file system.</p>
+<p>The problem could be mitigated in any of the following ways:</p>
+<ul>
+<li>Validate the user provided data based on a whitelist and reject input not matching.</li>
+<li>Redesign the application to not send requests based on user provided data.</li>
+</ul>
+<h2>Noncompliant Code Example</h2>
+<pre>
+using System.IO;
+using System.Net;
+using Microsoft.AspNetCore.Mvc;
+
+namespace WebApplicationDotNetCore.Controllers
+{
+    public class RSPEC5144SSRFNoncompliantController : Controller
+    {
+        public IActionResult Index()
+        {
+            return View();
+        }
+
+        public IActionResult ReadContentOfURL(string url)
+        {
+            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url); // Noncompliant
+
+            HttpWebResponse response = (HttpWebResponse)request.GetResponse();
+            Stream dataStream = response.GetResponseStream();
+            StreamReader reader = new StreamReader(dataStream);
+            string responseFromServer = reader.ReadToEnd();
+
+            reader.Close();
+            dataStream.Close();
+            response.Close();
+            return Content(responseFromServer);
+        }
+    }
+}
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+using System.Linq;
+using System.IO;
+using System.Net;
+using Microsoft.AspNetCore.Mvc;
+
+namespace WebApplicationDotNetCore.Controllers
+{
+    public class RSPEC5144SSRFCompliantController : Controller
+    {
+        public IActionResult Index()
+        {
+            return View();
+        }
+
+        private readonly string[] whiteList = { "https://www.sonarsource.com" };
+
+        public IActionResult ReadContentOfURL(string url)
+        {
+            // Match the incoming URL against a whitelist
+            if (!whiteList.Contains(url))
+            {
+                return BadRequest();
+            }
+
+            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url); // Noncompliant
+
+            HttpWebResponse response = (HttpWebResponse)request.GetResponse();
+            Stream dataStream = response.GetResponseStream();
+            StreamReader reader = new StreamReader(dataStream);
+            string responseFromServer = reader.ReadToEnd();
+
+            reader.Close();
+            dataStream.Close();
+            response.Close();
+            return Content(responseFromServer);
+        }
+    }
+}
+</pre>
+<h2>See</h2>
+<ul>
+<li><a href="https://www.owasp.org/index.php/Server_Side_Request_Forgery">OWASP Attack Category</a> - Server Side Request Forgery</li>
+<li><a href="https://www.owasp.org/index.php/Top_10-2017_A5-Broken_Access_Control">OWASP Top 10 2017 Category A5</a> - Broken Access Control</li>
+<li><a href="https://cwe.mitre.org/data/definitions/918.html">MITRE, CWE-918</a> - Server-Side Request Forgery (SSRF)</li>
+<li><a href="https://cwe.mitre.org/data/definitions/641.html">MITRE, CWE-641</a> - Improper Restriction of Names for Files and Other Resources</li>
+<li><a href="https://www.sans.org/top25-software-errors/#cat2">SANS Top 25</a> - Risky Resource Management</li>
+</ul>

@@ -1,0 +1,44 @@
+<p>Each function and procedure parameter name must match a given regular expression.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+DECLARE
+  FUNCTION myfunction2(parameter_ PLS_INTEGER) RETURN PLS_INTEGER; -- Noncompliant
+
+  PROCEDURE myprocedure2(parameter_ PLS_INTEGER); -- Noncompliant
+
+  FUNCTION myfunction2(parameter_ PLS_INTEGER) RETURN PLS_INTEGER AS -- Noncompliant
+  BEGIN
+    RETURN 42;
+  END;
+
+  PROCEDURE myprocedure2(parameter_ PLS_INTEGER) AS -- Noncompliant
+  BEGIN
+    NULL;
+  END;
+BEGIN
+  NULL;
+END;
+/
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+DECLARE
+  FUNCTION myfunction1(parameter PLS_INTEGER) RETURN PLS_INTEGER; -- Compliant
+
+  PROCEDURE myprocedure1(parameter PLS_INTEGER); -- Compliant
+
+  FUNCTION myfunction1(parameter PLS_INTEGER) RETURN PLS_INTEGER AS -- Compliant
+  BEGIN
+    RETURN 42;
+  END;
+
+  PROCEDURE myprocedure1(parameter PLS_INTEGER) AS -- Compliant
+  BEGIN
+    NULL;
+  END;
+
+BEGIN
+  NULL;
+END;
+/
+</pre>

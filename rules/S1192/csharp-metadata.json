@@ -1,0 +1,37 @@
+{
+  "title": "String literals should not be duplicated",
+  "type": "CODE_SMELL",
+  "status": "ready",
+  "remediation": {
+    "func": "Constant/Issue",
+    "constantCost": "10min"
+  },
+  "tags": [
+    "design"
+  ],
+  "defaultSeverity": "Minor",
+  "ruleSpecification": "RSPEC-1192",
+  "sqKey": "S1192",
+  "scope": "Main",
+  "all_languages": [
+    "abap",
+    "apex",
+    "cobol",
+    "csharp",
+    "go",
+    "java",
+    "javascript",
+    "kotlin",
+    "php",
+    "plsql",
+    "python",
+    "rpg",
+    "ruby",
+    "scala",
+    "swift",
+    "tsql"
+  ],
+  "allKeys": [
+    "S1192"
+  ]
+}

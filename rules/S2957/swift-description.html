@@ -1,0 +1,11 @@
+<p>When a closure contains only a &lt;code&gt;return&lt;/code&gt; statement, the &lt;code&gt;return&lt;/code&gt; itself can be omitted.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+someList.sort { a, b in
+  return a &gt; b
+}
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+someList.sort { a, b in a &gt; b }
+</pre>

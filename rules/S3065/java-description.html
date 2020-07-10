@@ -1,0 +1,32 @@
+<p>When using &lt;code&gt;Math.min()&lt;/code&gt; and &lt;code&gt;Math.max()&lt;/code&gt; together for bounds checking, it’s important to feed the right operands to each method. &lt;code&gt;Math.min()&lt;/code&gt; should be used with the <strong>upper</strong> end of the range being checked, and &lt;code&gt;Math.max()&lt;/code&gt; should be used with the <strong>lower</strong> end of the range. Get it backwards, and the result will always be the same end of the range.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+  private static final int UPPER = 20;
+  private static final int LOWER = 0;
+
+  public int doRangeCheck(int num) {    // Let's say num = 12
+    int result = Math.min(LOWER, num);  // result = 0
+    return Math.max(UPPER, result);     // Noncompliant; result is now 20: even though 12 was in the range
+  }
+</pre>
+<h2>Compliant Solution</h2>
+<p>Swapping method &lt;code&gt;min()&lt;/code&gt; and &lt;code&gt;max()&lt;/code&gt; invocations without changing parameters.</p>
+<pre>
+  private static final int UPPER = 20;
+  private static final int LOWER = 0;
+
+  public int doRangeCheck(int num) {    // Let's say num = 12
+    int result = Math.max(LOWER, num);  // result = 12
+    return Math.min(UPPER, result);     // Compliant; result is still 12
+  }
+</pre>
+<p>or swapping bounds &lt;code&gt;UPPER&lt;/code&gt; and &lt;code&gt;LOWER&lt;/code&gt; used as parameters without changing the invoked methods.</p>
+<pre>
+  private static final int UPPER = 20;
+  private static final int LOWER = 0;
+
+  public int doRangeCheck(int num) {    // Let's say num = 12
+    int result = Math.min(UPPER, num);  // result = 12
+    return Math.max(LOWER, result);     // Compliant; result is still 12
+  }
+</pre>

@@ -1,0 +1,13 @@
+<p>A cache is a long-lived object that holds references to shorter-lived objects. To prevent a cache from growing indefinitely, old objects the cache should be removed when they’re no longer used. This can be done with the use of soft references, which allow the garbage collector to remove unused cache entries when memory needs to be freed.</p>
+<p>This rule raises an issue when a &lt;code&gt;static&lt;/code&gt; collection does not use &lt;code&gt;SoftReference&lt;/code&gt;.</p>
+<p><strong>Note</strong> that this rule is automatically disabled when the project’s &lt;code&gt;sonar.java.source&lt;/code&gt; is lower than 7.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+public class MyClass {
+  private static List&lt;MyClass&gt; cache = new ArrayList&lt;&gt;();  // Noncompliant
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+public class MyClass {
+  private static List&lt;SoftReference&lt;MyClass&gt;&gt; cache = new ArrayList&lt;&gt;();
+</pre>

@@ -1,0 +1,21 @@
+<p>Using an empty driver table in a &lt;code&gt;SELECT&lt;/code&gt;/&lt;code&gt;FOR ALL ENTRIES&lt;/code&gt; table has a very important side effect: the complete &lt;code&gt;WHERE&lt;/code&gt; clause is not taken into account because a &lt;code&gt;NO WHERE&lt;/code&gt; condition is generated. Thus a full table scan is unexpectedly executed.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+SELECT carrid , connid , seatsocc FROM flights
+INTO TABLE seatsocc_tab
+FOR ALL ENTRIES IN conn_tab  " Noncompliant; conn_tab may be empty.
+WHERE carrid = conn_tab-carrid
+AND connid = conn_tab-connid.
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+IF conn_tab is not initial.
+  ...
+  SELECT carrid , connid , seatsocc FROM flights
+  INTO TABLE seatsocc_tab
+  FOR ALL ENTRIES IN conn_tab
+  WHERE carrid = conn_tab-carrid
+  AND connid = conn_tab-connid
+  ...
+ENDIF.
+</pre>

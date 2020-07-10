@@ -1,0 +1,9 @@
+<p>To prevent portability issues &lt;code&gt;!=&lt;/code&gt;, &lt;code&gt;!&gt;&lt;/code&gt; and &lt;code&gt;!<a href="#/code> operators should be replaced by the ANSI standard operators: <code><></code>">&lt;code&gt;⇐&lt;/code&gt; or &lt;code</a>=&lt;/code&gt;.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+SELECT C1 FROM S1TESTMD WHERE BIRTHDATE != 2000
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+SELECT C1 FROM S1TESTMD WHERE BIRTHDATE &lt;&gt; 2000
+</pre>

@@ -1,0 +1,23 @@
+<p>The difference between &lt;code&gt;private&lt;/code&gt; and &lt;code&gt;protected&lt;/code&gt; visibility is that child classes can see and use &lt;code&gt;protected&lt;/code&gt; members, but they cannot see &lt;code&gt;private&lt;/code&gt; ones. Since a &lt;code&gt;sealed&lt;/code&gt; class cannot have children, marking its members &lt;code&gt;protected&lt;/code&gt; is confusingly pointless.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+public sealed class MySealedClass
+{
+    protected string name = "Fred";  // Noncompliant
+    protected void SetName(string name) // Noncompliant
+    {
+        // ...
+    }
+}
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+public sealed class MySealedClass
+{
+    private string name = "Fred";
+    public void SetName(string name)
+    {
+        // ...
+    }
+}
+</pre>

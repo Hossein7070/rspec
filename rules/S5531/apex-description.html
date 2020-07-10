@@ -1,0 +1,29 @@
+<p>Asserts should only be used in test code. Salesforce provide better ways to handle errors:</p>
+<ul>
+<li><a href="https://developer.salesforce.com/docs/atlas.en-us.apexcode.meta/apexcode/apex_triggers_exceptions.htm">Trigger Exceptions</a></li>
+<li><a href="https://developer.salesforce.com/blogs/2017/09/error-handling-best-practices-lightning-apex.html">Error Handling Best Practices for Lightning and Apex</a></li>
+</ul>
+<p>Classes containing test code, including test helper methods, should always have the &lt;code&gt;@isTest&lt;/code&gt; annotation. There is a <a href="https://help.salesforce.com/articleView?id=000314162&amp;language=en_US&amp;type=1&amp;mode=1">limit to the amount of code</a> an organization can upload into Salesforce. Test code does not count towards this limit, and test code is recognized via the &lt;code&gt;@isTest&lt;/code&gt; annotation.</p>
+<p>This rule raises an issue when methods &lt;code&gt;System.assert&lt;/code&gt;, &lt;code&gt;System.assertEquals&lt;/code&gt; or &lt;code&gt;System.assertNotEquals&lt;/code&gt; are called in a class which is not annotated with &lt;code&gt;@isTest&lt;/code&gt;.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+class ApexTests {
+    private static void testHelper(Task task) {
+        System.assert("expected subject", task.subject, "task has not the expected subject");  // Noncompliant
+    }
+}
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+@isTest
+class ApexTests {
+    private static void testHelper(Task task) {
+        System.assert("expected subject", task.subject, "task has not the expected subject");
+    }
+}
+</pre>
+<h2>See</h2>
+<ul>
+<li><a href="https://help.salesforce.com/articleView?id=000314162&amp;language=en_US&amp;type=1&amp;mode=1">Increase Apex code character limit</a></li>
+<li><a href="https://developer.salesforce.com/docs/atlas.en-us.apexcode.meta/apexcode/apex_testing_utility_classes.htm">Common Test Utility Classes for Test Data Creation</a></li>
+</ul>

@@ -1,0 +1,43 @@
+<p>User provided data, such as URL parameters, should always be considered untrusted and tainted. Constructing XPath expressions directly from tainted data enables attackers to inject specially crafted values that changes the initial meaning of the expression itself. Successful XPath injection attacks can read sensitive information from XML documents.</p>
+<h2>Noncompliant Code Example</h2>
+<p>Standard xml module (<a href="https://docs.python.org/3/library/xml.etree.elementtree.html">xml.etree.ElementTree</a>) is not recommended:
+- it <a href="https://docs.python.org/3/library/xml.etree.elementtree.html#xpath-support">provides a limited support of xpath</a> expressions
+- to parse <a href="https://docs.python.org/3.9/library/xml.html#xml-vulnerabilities">untrusted xml for other security reasons</a>
+- does not have a way to <a href="https://wiki.sei.cmu.edu/confluence/display/java/IDS53-J.+Prevent+XPath+Injection">parameterized xpath expressions</a></p>
+<pre>
+from flask import request
+import xml.etree.ElementTree as ET
+
+tree = ET.parse('users.xml')
+root = tree.getroot()
+
+@app.route('/user')
+def user_location():
+    username = request.args['username']
+    query = "./users/user/[@name='"+username+"']/location"
+    elmts = root.findall(query) # Noncompliant
+    return 'Location %s' % list(elmts)
+</pre>
+<h2>Compliant Solution</h2>
+<p><a href="https://lxml.de/xpathxslt.html">lxml</a> module:</p>
+<pre>
+from flask import request
+from lxml import etree
+
+parser = etree.XMLParser(resolve_entities=False)
+tree = etree.parse('users.xml', parser)
+root = tree.getroot()
+
+@app.route('/user')
+def user_location():
+    username = request.args['username']
+    query = "/collection/users/user[@name = $paramname]/location/text()"
+    elmts = root.xpath(query, paramname = username)
+    return 'Location %s' % list(elmts)
+</pre>
+<h2>See</h2>
+<ul>
+<li><a href="https://www.owasp.org/index.php/Top_10-2017_A1-Injection">OWASP Top 10 2017 Category A1</a> - Injection</li>
+<li><a href="http://cwe.mitre.org/data/definitions/643">MITRE, CWE-643</a> - Improper Neutralization of Data within XPath Expressions</li>
+<li><a href="https://www.securecoding.cert.org/confluence/x/BwLEAw">CERT, IDS53-J.</a> - Prevent XPath Injection</li>
+</ul>

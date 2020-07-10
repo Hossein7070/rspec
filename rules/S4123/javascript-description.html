@@ -1,0 +1,15 @@
+<p>It is possible to use &lt;code&gt;await&lt;/code&gt; on values which are not &lt;code&gt;Promise&lt;/code&gt;s, but it’s useless and misleading. The point of &lt;code&gt;await&lt;/code&gt; is to pause execution until the &lt;code&gt;Promise&lt;/code&gt;'s asynchronous code has run to completion. With anything other than a &lt;code&gt;Promise&lt;/code&gt;, there’s nothing to wait for.</p>
+<p>This rule raises an issue when an &lt;code&gt;await&lt;/code&gt;ed value is guaranteed not to be a &lt;code&gt;Promise&lt;/code&gt;.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+let x = 42;
+await x; // Noncompliant
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+let x = new Promise(resolve =&gt; resolve(42));
+await x;
+
+let y = p ? 42 : new Promise(resolve =&gt; resolve(42));
+await y;
+</pre>

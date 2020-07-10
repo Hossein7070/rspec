@@ -1,0 +1,18 @@
+<p>When an SWT &lt;code&gt;Image&lt;/code&gt; accesses a file directly, it holds the file handle for the life of the image. Do this many times, and the OS may run out of available file handles. At minimum, SWT &lt;code&gt;Image&lt;/code&gt;s which directly access files should not be &lt;code&gt;static&lt;/code&gt;. At best, they should access their files through &lt;code&gt;ImageDescriptors&lt;/code&gt;, which do not hold open file handles.</p>
+<p>This rule looks for &lt;code&gt;org.eclipse.swt.graphics.Image&lt;/code&gt;s which both directly access a file on the file path and are &lt;code&gt;static&lt;/code&gt;.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+import org.eclipse.swt.graphics.Image;
+
+public class MyView {
+  static Image myImage = new Image("path/to/file.png"); // Noncompliant
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+import org.eclipse.swt.graphics.Image;
+import org.eclipse.jface.resource.ImageDescriptor;
+
+public class MyView {
+  static ImageDescription myDescriptor = ImageDescriptor.createFromFile("path/to/file.png");  // Doesn't hold file handle open
+  Image myImage = myDescriptor.getImage();
+</pre>

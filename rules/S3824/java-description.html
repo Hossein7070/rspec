@@ -1,0 +1,17 @@
+<p>It’s a common pattern to test the result of a &lt;code&gt;java.util.Map.get()&lt;/code&gt; against &lt;code&gt;null&lt;/code&gt; before proceeding with adding or changing the value in the map. However the &lt;code&gt;java.util.Map&lt;/code&gt; API offers a significantly better alternative in the form of the &lt;code&gt;computeIfPresent()&lt;/code&gt; and &lt;code&gt;computeIfAbsent()&lt;/code&gt; methods. Using these instead leads to cleaner and more readable code.</p>
+<p><strong>Note</strong> that this rule is automatically disabled when the project’s &lt;code&gt;sonar.java.source&lt;/code&gt; is not 8.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+V value = map.get(key);
+if (value == null) {  // Noncompliant
+  value = V.createFor(key);
+  if (value != null) {
+    map.put(key, value);
+  }
+}
+return value;
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+return map.computeIfAbsent(key, k -&gt; V.createFor(k));
+</pre>

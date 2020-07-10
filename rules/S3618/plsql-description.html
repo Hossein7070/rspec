@@ -1,0 +1,28 @@
+<p>Any insert which omits a value for a &lt;code&gt;NOT NULL&lt;/code&gt; column in a database table will be automatically rejected by the database unless a default value has been specified for the column.</p>
+<p><strong>Noteworthy</strong>
+This rule raises issues only when a <strong>Data Dictionary</strong> is provided during the analysis. See&nbsp;https://docs.sonarqube.org/display/PLUG/Data+Dictionary</p>
+<h2>Noncompliant Code Example</h2>
+<p>With the table &lt;code&gt;MY_TABLE&lt;/code&gt; having a &lt;code&gt;NOT NULL&lt;/code&gt; column &lt;code&gt;N2&lt;/code&gt; without default value and a &lt;code&gt;NOT NULL&lt;/code&gt; column &lt;code&gt;N3&lt;/code&gt; with default value:</p>
+<pre>
+  INSERT INTO MY_TABLE  -- Noncompliant; N2 value omitted
+  (
+    N1
+  )
+  VALUES
+  (
+    1
+  )
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+  INSERT INTO MY_TABLE  -- Compliant even though N3 value not supplied
+  (
+    N1,
+    N2
+  )
+  VALUES
+  (
+    1,
+    'Paul'
+  )
+</pre>

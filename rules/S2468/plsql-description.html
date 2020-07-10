@@ -1,0 +1,11 @@
+<p>Because &lt;code&gt;RESULT_CACHE&lt;/code&gt;-enabled functions increase memory consumption, one should double-check that the gain in performances is significant, and avoid over-using this feature in general.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+CREATE FUNCTION myFastFunction RETURN PLS_INTEGER RESULT_CACHE AS -- Noncompliant
+BEGIN
+  RETURN 42;
+END;
+/
+
+DROP FUNCTION myFastFunction;
+</pre>

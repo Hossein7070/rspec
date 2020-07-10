@@ -1,0 +1,35 @@
+<p>Because &lt;code&gt;Object&lt;/code&gt; implements &lt;code&gt;hashCode&lt;/code&gt;, any Java class can be put into a hash structure. However, classes that define &lt;code&gt;equals(Object)&lt;/code&gt; but not &lt;code&gt;hashCode()&lt;/code&gt; aren’t truly hash-able because instances that are equivalent according to the &lt;code&gt;equals&lt;/code&gt; method can return different hashes.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+public class Student {  // no hashCode() method; not hash-able
+  // ...
+
+  public boolean equals(Object o) {
+    // ...
+  }
+}
+
+public class School {
+  private Map&lt;Student, Integer&gt; studentBody = // okay so far
+          new HashTable&lt;Student, Integer&gt;(); // Noncompliant
+
+  // ...
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+public class Student {  // has hashCode() method; hash-able
+  // ...
+
+  public boolean equals(Object o) {
+    // ...
+  }
+  public int hashCode() {
+    // ...
+  }
+}
+
+public class School {
+  private Map&lt;Student, Integer&gt; studentBody = new HashTable&lt;Student, Integer&gt;();
+
+  // ...
+</pre>

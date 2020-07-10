@@ -1,0 +1,31 @@
+<p>An exception (including &lt;code&gt;reject&lt;/code&gt;) thrown by a promise will not be caught be a nesting &lt;code&gt;try&lt;/code&gt; block, due to the asynchronous nature of execution. Instead, use &lt;code&gt;catch&lt;/code&gt; method of &lt;code&gt;Promise&lt;/code&gt; or wrap it inside &lt;code&gt;await&lt;/code&gt; expression.</p>
+<p>Rule reports &lt;code&gt;try-catch&lt;/code&gt; statements containing nothing else but call(s) to a function returning &lt;code&gt;Promise&lt;/code&gt; (thus it’s less likely that &lt;code&gt;catch&lt;/code&gt; is intended to catch something else than &lt;code&gt;Promise&lt;/code&gt; rejection).</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+function runPromise() {
+  return Promise.reject("rejection reason");
+}
+
+function foo() {
+  try { // Noncompliant, the catch clause of the 'try' will not be executed for the code inside promise
+    runPromise();
+  } catch (e) {
+    console.log("Failed to run promise", e);
+  }
+}
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+function foo() {
+  runPromise().catch(e =&gt; console.log("Failed to run promise", e));
+}
+
+// or
+async function foo() {
+  try {
+    await runPromise();
+  } catch (e) {
+    console.log("Failed to run promise", e);
+  }
+}
+</pre>

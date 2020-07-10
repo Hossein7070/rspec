@@ -1,0 +1,16 @@
+<p>The rules for method resolution are complex and perhaps not properly understood by all coders. The &lt;code&gt;params&lt;/code&gt; keyword can make method declarations overlap in non-obvious ways, so that slight changes in the argument types of an invocation can resolve to different methods.</p>
+<p>This rule raises an issue when an invocation resolves to a method declaration with &lt;code&gt;params&lt;/code&gt;, but could also resolve to another non-&lt;code&gt;params&lt;/code&gt; method too.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+public class MyClass
+{
+    private void Format(string a, params object[] b) { }
+
+    private void Format(object a, object b, object c) { }
+}
+
+// ...
+MyClass myClass = new MyClass();
+
+myClass.Format("", null, null); // Noncompliant, resolves to the first Format with params, but was that intended?
+</pre>

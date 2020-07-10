@@ -1,0 +1,9 @@
+<p>When using Backbone.js, the use of &lt;code&gt;has&lt;/code&gt; to check attribute existence is clearer and more readable than the use of &lt;code&gt;get&lt;/code&gt;, and is therefore preferred.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+if (myModel.get('myProperty')) { ... }
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+if (myModel.has('myProperty') { ... }
+</pre>

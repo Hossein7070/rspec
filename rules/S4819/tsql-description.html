@@ -1,0 +1,51 @@
+<p>&lt;code&gt;NOCOUNT&lt;/code&gt; is by default deactivated (OFF) at server level. It means by default, the server will send to the client the number of rows affected by the SQL query executed which is, in most cases, useless because no one will read this information.
+Deactivating this feature will save some network traffic and improve the execution performance of stored procedures and triggers that’s why it is recommended to define &lt;code&gt;SET NOCOUNT ON&lt;/code&gt; at the beginning of the definition of &lt;code&gt;PROCEDURE&lt;/code&gt;s and &lt;code&gt;TRIGGER&lt;/code&gt;s, before any query is processed.
+This rule raises an issue when &lt;code&gt;NOCOUNT&lt;/code&gt; is not set or is set to OFF between the beginning of the &lt;code&gt;PROCEDURE&lt;/code&gt; (or &lt;code&gt;TRIGGER&lt;/code&gt;) definition and the first statement that is not a &lt;code&gt;SET&lt;/code&gt;, &lt;code&gt;IF&lt;/code&gt; or &lt;code&gt;DECLARE&lt;/code&gt;.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+CREATE PROCEDURE dbo.MyProc
+AS
+BEGIN
+  DECLARE @var INT;
+  SET NOCOUNT OFF; -- Noncompliant; deactivate NOCOUNT
+  SELECT COUNT(*) FROM MY_TABLE
+END;
+</pre>
+<pre>
+CREATE PROCEDURE dbo.MyProc
+AS
+BEGIN
+  -- Noncompliant; SET NOCOUNT is not specified so behaviour of the procedure execution is based on server configuration (OFF by default)
+  SELECT COUNT(*) FROM MY_TABLE
+END;
+</pre>
+<pre>
+CREATE PROCEDURE dbo.MyProc
+AS
+BEGIN
+  SELECT COUNT(*) FROM MY_TABLE
+  SET NOCOUNT ON -- Noncompliant; SET NOCOUNT is set after select statement
+END;
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+CREATE PROCEDURE dbo.MyProc(@debug  INT)
+AS
+BEGIN
+  DECLARE @var INT;
+  IF @debug = 0
+    BEGIN
+      SET NOCOUNT ON;
+    END
+  SELECT COUNT(*) FROM MY_TABLE
+END;
+</pre>
+<pre>
+CREATE TRIGGER MyTrigger ON MyTable
+AFTER INSERT
+AS
+BEGIN
+  SET NOCOUNT ON;
+  [...]
+END;
+</pre>

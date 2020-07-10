@@ -1,0 +1,16 @@
+<p>PHP 5.3 introduces <a href="http://www.php.net/namespaces">namespaces</a> to the language. Use of this mechanism should be preferred to &lt;code&gt;include&lt;/code&gt; or &lt;code&gt;include_once&lt;/code&gt; or &lt;code&gt;require&lt;/code&gt; or &lt;code&gt;require_once&lt;/code&gt; because it solves two common problems:</p>
+<ul>
+<li>it avoids name collisions</li>
+<li>it provides the ability to create alias which improve readability of the code</li>
+</ul>
+<p>Starting from its version 8, Drupal is relying on namespaces to be compliant with <a href="https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-4-autoloader.md">PSR-4 standard</a>. Drupal’s modules should be compliant with PSR-4 standard and therefore should no longer rely on &lt;code&gt;include&lt;/code&gt; or &lt;code&gt;include_once&lt;/code&gt; or &lt;code&gt;require&lt;/code&gt; or &lt;code&gt;require_once&lt;/code&gt; functions.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+require_once('./modules/vegetable/src/Entity/Tomato.php');
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+use Drupal\vegetable\Entity\Tomato
+</pre>
+<h2>Exceptions</h2>
+<p>This rule doesn’t raise issues on &lt;code&gt;autoload.php&lt;/code&gt; or &lt;code&gt;ScriptHandler.php&lt;/code&gt; files.</p>

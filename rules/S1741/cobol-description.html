@@ -1,0 +1,13 @@
+<p>Since ANSI SQL-92, explicit joins using the &lt;code&gt;JOIN&lt;/code&gt; keyword have been possible, and are preferred. Therefore table joins should be done with help of the one of the following clauses: &lt;code&gt;JOIN&lt;/code&gt;, &lt;code&gt;INNER  JOIN&lt;/code&gt;, &lt;code&gt;LEFT OUTER  JOIN&lt;/code&gt;, &lt;code&gt;RIGHT OUTER JOIN&lt;/code&gt;, and &lt;code&gt;FULL OUTER  JOIN&lt;/code&gt;. The old way to join tables is deprecated and should not be used anymore.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+SELECT *
+FROM PARTS, PRODUCTS
+WHERE PARTS.PROD = PRODUCTS.PROD
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+SELECT *
+FROM PARTS
+INNER JOIN PRODUCTS ON PARTS.PROD = PRODUCTS.PROD
+</pre>

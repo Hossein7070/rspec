@@ -1,0 +1,55 @@
+<p>The &lt;code&gt;java.util.function&lt;/code&gt; package provides a large array of functional interface definitions for use in lambda expressions and method references. In general it is recommended to use the more specialised form to avoid auto-boxing. For instance &lt;code&gt;IntFunction&lt;Foo&gt;&lt;/code&gt; should be preferred over &lt;code&gt;Function&lt;Integer, Foo&gt;&lt;/code&gt;.</p>
+<p>This rule raises an issue when any of the following substitution is possible:
+||Current Interface||Preferred Interface||
+|&lt;code&gt;Function&lt;Integer, R&gt;&lt;/code&gt;|&lt;code&gt;IntFunction&lt;R&gt;&lt;/code&gt;|
+|&lt;code&gt;Function&lt;Long, R&gt;&lt;/code&gt;|&lt;code&gt;LongFunction&lt;R&gt;&lt;/code&gt;|
+|&lt;code&gt;Function&lt;Double, R&gt;&lt;/code&gt;|&lt;code&gt;DoubleFunction&lt;R&gt;&lt;/code&gt;|
+|&lt;code&gt;Function&lt;Double,Integer&gt;&lt;/code&gt; | &lt;code&gt;DoubleToIntFunction&lt;/code&gt; |
+|&lt;code&gt;Function&lt;Double,Long&gt;&lt;/code&gt; | &lt;code&gt;DoubleToLongFunction&lt;/code&gt; |
+|&lt;code&gt;Function&lt;Long,Double&gt;&lt;/code&gt; | &lt;code&gt;LongToDoubleFunction&lt;/code&gt; |
+|&lt;code&gt;Function&lt;Long,Integer&gt;&lt;/code&gt; | &lt;code&gt;LongToIntFunction&lt;/code&gt;|
+|&lt;code&gt;Function&lt;R,Integer&gt;&lt;/code&gt; | &lt;code&gt;ToIntFunction&lt;R&gt;&lt;/code&gt;|
+|&lt;code&gt;Function&lt;R,Long&gt;&lt;/code&gt; | &lt;code&gt;ToLongFunction&lt;R&gt;&lt;/code&gt;|
+|&lt;code&gt;Function&lt;R,Double&gt;&lt;/code&gt; | &lt;code&gt;ToDoubleFunction&lt;R&gt;&lt;/code&gt;|
+|&lt;code&gt;Function&lt;T,T&gt;&lt;/code&gt; | &lt;code&gt;UnaryOperator&lt;T&gt;&lt;/code&gt; |
+|&lt;code&gt;BiFunction&lt;T,T,T&gt;&lt;/code&gt; | &lt;code&gt;BinaryOperator&lt;T&gt;&lt;/code&gt; |
+|&lt;code&gt;Consumer&lt;Integer&gt;&lt;/code&gt;|&lt;code&gt;IntConsumer&lt;/code&gt;|
+|&lt;code&gt;Consumer&lt;Double&gt;&lt;/code&gt;|&lt;code&gt;DoubleConsumer&lt;/code&gt;|
+|&lt;code&gt;Consumer&lt;Long&gt;&lt;/code&gt;|&lt;code&gt;LongConsumer&lt;/code&gt;|
+|&lt;code&gt;BiConsumer&lt;T,Integer&gt;&lt;/code&gt; | &lt;code&gt;ObjIntConsumer&lt;T&gt;&lt;/code&gt;|
+|&lt;code&gt;BiConsumer&lt;T,Long&gt;&lt;/code&gt; | &lt;code&gt;ObjLongConsumer&lt;T&gt;&lt;/code&gt;|
+|&lt;code&gt;BiConsumer&lt;T,Double&gt;&lt;/code&gt; | &lt;code&gt;ObjDoubleConsumer&lt;T&gt;&lt;/code&gt;|
+|&lt;code&gt;Predicate&lt;Integer&gt;&lt;/code&gt;|&lt;code&gt;IntPredicate&lt;/code&gt;|
+|&lt;code&gt;Predicate&lt;Double&gt;&lt;/code&gt;|&lt;code&gt;DoublePredicate&lt;/code&gt;|
+|&lt;code&gt;Predicate&lt;Long&gt;&lt;/code&gt;|&lt;code&gt;LongPredicate&lt;/code&gt;|
+|&lt;code&gt;Supplier&lt;Integer&gt;&lt;/code&gt;|&lt;code&gt;IntSupplier&lt;/code&gt;|
+|&lt;code&gt;Supplier&lt;Double&gt;&lt;/code&gt;|&lt;code&gt;DoubleSupplier&lt;/code&gt;|
+|&lt;code&gt;Supplier&lt;Long&gt;&lt;/code&gt;|&lt;code&gt;LongSupplier&lt;/code&gt;|
+|&lt;code&gt;Supplier&lt;Boolean&gt;&lt;/code&gt; | &lt;code&gt;BooleanSupplier&lt;/code&gt;|
+|&lt;code&gt;UnaryOperator&lt;Integer&gt;&lt;/code&gt;|&lt;code&gt;IntUnaryOperator&lt;/code&gt;|
+|&lt;code&gt;UnaryOperator&lt;Double&gt;&lt;/code&gt;|&lt;code&gt;DoubleUnaryOperator&lt;/code&gt;|
+|&lt;code&gt;UnaryOperator&lt;Long&gt;&lt;/code&gt;|&lt;code&gt;LongUnaryOperator&lt;/code&gt;|
+|&lt;code&gt;BinaryOperator&lt;Integer&gt;&lt;/code&gt; | &lt;code&gt;IntBinaryOperator&lt;/code&gt;|
+|&lt;code&gt;BinaryOperator&lt;Long&gt;&lt;/code&gt; | &lt;code&gt;LongBinaryOperator&lt;/code&gt;|
+|&lt;code&gt;BinaryOperator&lt;Double&gt;&lt;/code&gt; | &lt;code&gt;DoubleBinaryOperator&lt;/code&gt;|
+|&lt;code&gt;Function&lt;T, Boolean&gt;&lt;/code&gt; | &lt;code&gt;Predicate&lt;T&gt;&lt;/code&gt;|
+|&lt;code&gt;BiFunction&lt;T,U,Boolean&gt;&lt;/code&gt; | &lt;code&gt;BiPredicate&lt;T,U&gt;&lt;/code&gt;|</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+public class Foo implements Supplier&lt;Integer&gt; {  // Noncompliant
+    @Override
+    public Integer get() {
+      // ...
+    }
+}
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+public class Foo implements IntSupplier {
+
+  @Override
+  public int getAsInt() {
+    // ...
+  }
+}
+</pre>

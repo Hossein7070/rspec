@@ -1,0 +1,14 @@
+<p>Aligning opening and ending words of statements is critical to keep the code readable, especially when blocks contain nested statements.</p>
+<p>For &lt;code&gt;IF&lt;/code&gt; statements, this rule also checks the alignment of the &lt;code&gt;ELSE&lt;/code&gt; word.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+IF SOME-STATUS = 1
+  DISPLAY something
+      END-IF.  *&gt; Noncompliant
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+IF SOME-STATUS = 1
+  DISPLAY something
+END-IF.
+</pre>

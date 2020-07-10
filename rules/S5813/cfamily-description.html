@@ -1,0 +1,36 @@
+<p>In C, a string is just a buffer of characters, usually using the &lt;code&gt;null&lt;/code&gt; character as a sentinel for the end of the string. Which mean that the developer has to be aware of low level details such as buffer sizes, having an extra character to store the final null character…​ Doing that correctly and consistently is notoriously difficult, and any error can lead to a security vulnerability, for instance giving access to sensitive data, or allowing arbitrary code execution.</p>
+<p>The function &lt;code&gt;char *strlen(char * restrict s);&lt;/code&gt; measures the length of the string &lt;code&gt;s&lt;/code&gt; (excluding the final null character). The &lt;code&gt;wcslen&lt;/code&gt; does the same for wide characters, and should be used with the same guidelines.</p>
+<h2>Ask Yourself Whether</h2>
+<ul>
+<li>There is a possibility that the pointer is null</li>
+<li>There is a possibility that the string is not correctly null-terminated</li>
+</ul>
+<p>There is a risk if you answered yes to any of those questions.</p>
+<h2>Recommended Secure Coding Practices</h2>
+<ul>
+<li>C11 provides, in its annex K, the &lt;code&gt;strlen_s&lt;/code&gt; and the &lt;code&gt;wcslen_s&lt;/code&gt; that were designed as safer alternative to &lt;code&gt;strlen&lt;/code&gt; and &lt;code&gt;wcslen&lt;/code&gt;. It’s not recommended to use them in all circumstances, because they introduce a runtime overhead and require to write more code for error handling, but they perform checks that will limit the consequences of calling the function with bad arguments.</li>
+<li>Even if your compiler does not exactly support annex K, you probably have access to similar functions</li>
+<li>If you are writing C++ code, using &lt;code&gt;std::string&lt;/code&gt; to manipulate strings is much simpler and less error-prone</li>
+</ul>
+<h2>Sensitive Code Example</h2>
+<pre>
+int f(char *src) {
+  char dest[256];
+  strncpy(dest, src, sizeof dest); // Truncation may happen
+  return strlen(dest); // Sensitive: "dest" will not be null-terminated if truncation happened
+}
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+int f(char *src) {
+  char dest[256];
+  strncpy(dest, src, sizeof dest); // Truncation may happen
+  dest[sizeof dest - 1] = 0;
+  return strlen(dest); // Compliant: "dest" is guaranteed to be null-terminated
+}
+</pre>
+<h2>See</h2>
+<ul>
+<li><a href="http://cwe.mitre.org/data/definitions/120">MITRE, CWE-120</a> - Buffer Copy without Checking Size of Input ('Classic Buffer Overflow')</li>
+<li><a href="https://www.securecoding.cert.org/confluence/x/QwY">CERT, STR07-C.</a> - Use the bounds-checking interfaces for string manipulation</li>
+</ul>

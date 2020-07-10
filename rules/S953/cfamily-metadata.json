@@ -1,0 +1,22 @@
+{
+  "title": "Unions should not be used",
+  "type": "CODE_SMELL",
+  "status": "ready",
+  "remediation": {
+    "func": "Constant/Issue",
+    "constantCost": "15min"
+  },
+  "tags": [
+    "based-on-misra"
+  ],
+  "defaultSeverity": "Critical",
+  "ruleSpecification": "RSPEC-953",
+  "sqKey": "Union",
+  "scope": "Main",
+  "all_languages": [
+    "cfamily"
+  ],
+  "allKeys": [
+    "Union"
+  ]
+}

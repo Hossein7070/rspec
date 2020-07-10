@@ -1,0 +1,28 @@
+<p>This rule applies whenever an &lt;code&gt;If&lt;/code&gt; statement is followed by one or more &lt;code&gt;ElseIf&lt;/code&gt; statements; the final &lt;code&gt;ElseIf&lt;/code&gt; should be followed by an &lt;code&gt;Else&lt;/code&gt; statement.</p>
+<p>The requirement for a final &lt;code&gt;Else&lt;/code&gt; statement is defensive programming.
+The &lt;code&gt;Else&lt;/code&gt; statement should either take appropriate action or contain a suitable comment as to why no action is taken. This is consistent with the requirement to have a final &lt;code&gt;Case Else&lt;/code&gt; clause in a &lt;code&gt;Select Case&lt;/code&gt; statement.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+If x = 0 Then
+    DoSomething()
+ElseIf x = 1 Then
+    DoSomethingElse()
+End If
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+If x = 0 Then
+    DoSomething()
+ElseIf x = 1 Then
+    DoSomethingElse()
+Else
+    Throw New ArgumentException("...")
+End If
+</pre>
+<h2>Exceptions</h2>
+<p>None</p>
+<h2>See</h2>
+<ul>
+<li><a href="https://www.securecoding.cert.org/confluence/x/YgE">CERT, MSC01-C.</a> - Strive for logical completeness</li>
+<li><a href="https://www.securecoding.cert.org/confluence/x/PQHRAw">CERT, MSC57-J.</a> - Strive for logical completeness</li>
+</ul>

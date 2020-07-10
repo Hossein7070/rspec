@@ -1,0 +1,16 @@
+<p>An assertion is a piece of code that’s used during development when the compilation debug mode is activated. It allows a program to check itself as it runs. When an assertion is true, that means everything is operating as expected.</p>
+<p>In non-debug mode, all &lt;code&gt;Debug.Assert&lt;/code&gt; are automatically left out. So, by contract, the boolean expressions that are evaluated by those assertions must absolutely not contain any side effects. Otherwise, when leaving the Debug mode, the functional behavior of the application is not the same anymore.</p>
+<p>The rule will raise if the method name starts with any of the following &lt;code&gt;remove&lt;/code&gt;, &lt;code&gt;delete&lt;/code&gt;, &lt;code&gt;add&lt;/code&gt;, &lt;code&gt;pop&lt;/code&gt;, &lt;code&gt;update&lt;/code&gt;, &lt;code&gt;retain&lt;/code&gt;, &lt;code&gt;insert&lt;/code&gt;, &lt;code&gt;push&lt;/code&gt;, &lt;code&gt;append&lt;/code&gt;, &lt;code&gt;clear&lt;/code&gt;, &lt;code&gt;dequeue&lt;/code&gt;, &lt;code&gt;enqueue&lt;/code&gt;, &lt;code&gt;dispose&lt;/code&gt;, &lt;code&gt;put&lt;/code&gt;, or &lt;code&gt;set&lt;/code&gt;, although &lt;code&gt;SetEquals&lt;/code&gt; will be ignored.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+Debug.Assert(list.Remove("dog"));
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+bool result = list.Remove("dog");
+Debug.Assert(result);
+</pre>
+<h2>See</h2>
+<ul>
+<li><a href="https://www.securecoding.cert.org/confluence/x/vwG7AQ">CERT, EXP06-J.</a> - Expressions used in assertions must not produce side effects</li>
+</ul>

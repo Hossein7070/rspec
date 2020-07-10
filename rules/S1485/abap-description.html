@@ -1,0 +1,14 @@
+<p>&lt;code&gt;DATA BEGIN OF …​ OCCURS&lt;/code&gt; has been deprecated and will eventually be removed. All usages should be replaced.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+DATA BEGIN OF itab OCCURS n. "Noncompliant
+  ...
+DATA END OF itab [VALID BETWEEN intlim1 AND intlim2].
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+DATA BEGIN OF wa.
+       ...
+DATA END OF wa.
+DATA itab LIKE TABLE OF wa.
+</pre>

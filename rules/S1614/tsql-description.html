@@ -1,0 +1,34 @@
+<p>Tables without primary keys are largely unusable in a relational database because they cannot be joined to. A primary key should be specified at table creation to guarantee that all its records have primary key values.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+CREATE TABLE employee
+(
+  employee_id INTEGER NOT NULL,
+  first_name VARCHAR(42) NOT NULL,
+  last_name VARCHAR(42) NOT NULL
+);
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+CREATE TABLE employee
+(
+  employee_id INTEGER NOT NULL PRIMARY KEY,
+  first_name VARCHAR(42) NOT NULL,
+  last_name VARCHAR(42) NOT NULL
+);
+</pre>
+<pre>
+CREATE TABLE employee
+(
+  employee_id INTEGER NOT NULL,
+  first_name VARCHAR(42) NOT NULL,
+  last_name VARCHAR(42) NOT NULL,
+  CONSTRAINT PK_Employee PRIMARY KEY (employee_id)
+);
+</pre>
+<h2>Exceptions</h2>
+<p>No issue is reported on temporary tables as they are often used to manipulate data and do not always require a primary key.
+Example:</p>
+<pre>
+CREATE TABLE #EmployeeName (last_name VARCHAR(42) NOT NULL); -- Compliant
+</pre>

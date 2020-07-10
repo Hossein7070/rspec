@@ -1,0 +1,20 @@
+{
+  "title": "Debugger statements should not be used",
+  "type": "VULNERABILITY",
+  "status": "ready",
+  "remediation": {
+    "func": "Constant/Issue",
+    "constantCost": "5min"
+  },
+  "tags": [],
+  "defaultSeverity": "Minor",
+  "ruleSpecification": "RSPEC-1525",
+  "sqKey": "S1525",
+  "scope": "Main",
+  "all_languages": [
+    "javascript"
+  ],
+  "allKeys": [
+    "S1525"
+  ]
+}

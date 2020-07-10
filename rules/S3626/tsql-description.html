@@ -1,0 +1,25 @@
+<p>Jump statements, such as &lt;code&gt;RETURN&lt;/code&gt; and &lt;code&gt;CONTINUE&lt;/code&gt; let you change the default flow of program execution, but jump statements that direct the control flow to the original direction are just a waste of keystrokes.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+CREATE PROCEDURE MyProc
+AS
+  DECLARE @return_status int = 0;
+  WHILE @return_status = 0
+  BEGIN
+    EXEC @return_status = something;
+    CONTINUE; -- Noncompliant
+  END;
+  RETURN; -- Noncompliant
+GO
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+CREATE PROCEDURE MyProc
+AS
+  DECLARE @return_status int = 0;
+  WHILE @return_status = 0
+  BEGIN
+    EXEC @return_status = something;
+  END;
+GO
+</pre>

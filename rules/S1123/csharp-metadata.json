@@ -1,0 +1,25 @@
+{
+  "title": "\"Obsolete\" attributes should include explanations",
+  "type": "CODE_SMELL",
+  "status": "ready",
+  "remediation": {
+    "func": "Constant/Issue",
+    "constantCost": "5min"
+  },
+  "tags": [
+    "obsolete",
+    "bad-practice"
+  ],
+  "defaultSeverity": "Major",
+  "ruleSpecification": "RSPEC-1123",
+  "sqKey": "S1123",
+  "scope": "All",
+  "all_languages": [
+    "cfamily",
+    "csharp",
+    "java"
+  ],
+  "allKeys": [
+    "S1123"
+  ]
+}

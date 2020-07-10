@@ -1,0 +1,45 @@
+<p>&lt;code&gt;setjmp.h&lt;/code&gt; functions allow the normal function mechanisms to be bypassed and should be used only with extreme caution, if at all.</p>
+<p>Calling &lt;code&gt;setjmp&lt;/code&gt; saves the program environment into the buffer passed into the call. Later calling &lt;code&gt;longjmp&lt;/code&gt; returns execution to the point at which &lt;code&gt;setjmp&lt;/code&gt; was called and restores the context that was saved into the buffer. But the values of non-volatile local variables after &lt;code&gt;longjmp&lt;/code&gt; are indeterminate. Additionally invoking &lt;code&gt;longjmp&lt;/code&gt; from a nested signal handler is undefined, as is &lt;code&gt;longjmp&lt;/code&gt;ing back to a method that has already completed execution.</p>
+<p>This rule flags all instances of &lt;code&gt;setjmp&lt;/code&gt;, &lt;code&gt;_setjmp&lt;/code&gt;, &lt;code&gt;longjmp&lt;/code&gt;, &lt;code&gt;_longjmp&lt;/code&gt;, &lt;code&gt;sigsetjmp&lt;/code&gt;, &lt;code&gt;siglongjmp&lt;/code&gt; and &lt;code&gt;&lt;setjmp.h&gt;&lt;/code&gt;.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+#include &lt;setjmp.h&gt;  // Noncompliant
+
+jmp_buf buf;
+
+int main(int argc, char* argv[]) {
+  int i = setjmp(buf);  // Noncompliant
+  if (i == 0) { // value of i was assigned after env was saved &amp; will be indeterminate after longjmp();
+    // normal execution
+  } else {
+    // recover
+  }
+}
+
+//...
+
+void fun() {
+  //...
+  longjmp(buf, 1);  // Noncompliant
+}
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+int main(int argc, char* argv[]) {
+  // normal execution
+}
+
+//...
+
+void fun() {
+  //...
+}
+</pre>
+<h2>See</h2>
+<ul>
+<li>MISRA C:2004, 20.7 - The setjmp macro and the longjmp function shall not be used.</li>
+<li>MISRA C++:2008, 17-0-5 - The setjmp macro and the longjmp function shall not be used.</li>
+<li>MISRA C:2012, 21.4 - The standard header file &lt;setjmp.h&gt; shall not be used</li>
+<li><a href="https://www.securecoding.cert.org/confluence/x/rgCMAg">CERT, MSC22-C.</a> - Use the setjmp(), longjmp() facility securely</li>
+<li><a href="https://www.securecoding.cert.org/confluence/x/Kgc">CERT, ERR52-CPP.</a> - Do not use setjmp() or longjmp()</li>
+</ul>

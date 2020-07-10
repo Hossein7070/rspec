@@ -1,0 +1,12 @@
+<p>The function &lt;code&gt;strerror&lt;/code&gt; returns a buffer that is only valid until the next call to &lt;code&gt;strerror&lt;/code&gt;. In a multithreaded environment, you don’t know when this next call will happen, which makes this function dangerous to call. You should use thread-safe alternatives, such as <a href="https://en.cppreference.com/w/c/string/byte/strerror">&lt;code&gt;strerror_s&lt;/code&gt;</a> or &lt;code&gt;strerror_r&lt;/code&gt;.</p>
+<p>Note that &lt;code&gt;strerror_s&lt;/code&gt; is defined in annex K of C11, so to have access to it, you need a standard library that supports it (this can be tested with the macro &lt;code&gt;<em>STDC_LIB_EXT1_&lt;/code&gt;_), and you need to enable it by defining the macro &lt;code&gt;}}&lt;/code&gt;_&lt;code&gt;&lt;code&gt;_STDC_WANT_LIB_EXT1</em>&lt;/code&gt; before including &lt;code&gt;&lt;string.h&gt;&lt;/code&gt;.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+char *msg = strerror(errno);{code}
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+size_t size = strerrorlen_s(errno);
+char *msg = malloc(size);
+strerror_s(msg, size);{code}
+</pre>

@@ -1,0 +1,13 @@
+<p>While &lt;code&gt;null&lt;/code&gt; is technically a valid &lt;code&gt;Boolean&lt;/code&gt; value, that fact, and the distinction between &lt;code&gt;Boolean&lt;/code&gt; and &lt;code&gt;boolean&lt;/code&gt; is easy to forget. So returning &lt;code&gt;null&lt;/code&gt; from a &lt;code&gt;Boolean&lt;/code&gt; method is likely to cause problems with callers' code.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+public Boolean isUsable() {
+  // ...
+  return null;  // Noncompliant
+}
+</pre>
+<h2>See</h2>
+<ul>
+<li><a href="http://cwe.mitre.org/data/definitions/476.html">MITRE CWE-476</a> - NULL Pointer Dereference</li>
+<li><a href="https://www.securecoding.cert.org/confluence/x/ZwDOAQ">CERT, EXP01-J.</a> - Do not use a null in a case where an object is required</li>
+</ul>

@@ -1,0 +1,22 @@
+{
+  "title": "Standard C++ headers should be used",
+  "type": "CODE_SMELL",
+  "status": "ready",
+  "remediation": {
+    "func": "Constant/Issue",
+    "constantCost": "20min"
+  },
+  "tags": [
+    "obsolete"
+  ],
+  "defaultSeverity": "Major",
+  "ruleSpecification": "RSPEC-2305",
+  "sqKey": "PPNonStandardInclude",
+  "scope": "Main",
+  "all_languages": [
+    "cfamily"
+  ],
+  "allKeys": [
+    "PPNonStandardInclude"
+  ]
+}

@@ -1,0 +1,50 @@
+<p>Having two branches in an &lt;code&gt;IF&lt;/code&gt;/&lt;code&gt;ELSE IF&lt;/code&gt; chain with the same implementation is at best duplicate code, and at worst a coding error.
+If the same logic is truly needed for both instances, then in an &lt;code&gt;IF&lt;/code&gt; chain they should be combined.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+IF @SortOrder = 1
+  BEGIN
+    SET @SortOrder = 0
+    SELECT LastName FROM Employees ORDER BY LastName
+  END
+ELSE IF @SortOrder = 2
+  BEGIN
+    SET @SortOrder = 0
+    SELECT LastName FROM Employees ORDER BY LastName -- Noncompliant
+  END
+ELSE
+  BEGIN
+    SET @SortOrder = -1
+    SELECT LastName FROM Employees
+  END
+GO
+</pre>
+<h2>Exceptions</h2>
+<p>Branches in an &lt;code&gt;IF&lt;/code&gt;/&lt;code&gt;ELSE IF&lt;/code&gt; chain with implementation that contains a single line of code are ignored.</p>
+<pre>
+IF @SortOrder = 1
+  BEGIN
+    SELECT LastName FROM Employees ORDER BY LastName
+  END
+ELSE IF @SortOrder = 2
+  BEGIN
+    SELECT LastName FROM Employees
+  END
+ELSE
+  BEGIN
+    SELECT LastName FROM Employees ORDER BY LastName -- No issue, usually this is done on purpose to increase the readability
+  END
+GO
+</pre>
+<p>But this exception does not apply to &lt;code&gt;IF&lt;/code&gt; chains without &lt;code&gt;ELSE&lt;/code&gt;-s when all branches have the same single line of code. In case of &lt;code&gt;IF&lt;/code&gt; chains with &lt;code&gt;ELSE&lt;/code&gt;-s rule S3923 raises a bug.</p>
+<pre>
+IF @SortOrder = 1    -- Noncompliant, this might have been done on purpose but probably not
+  BEGIN
+    SELECT LastName FROM Employees ORDER BY LastName
+  END
+ELSE IF @SortOrder = 2
+  BEGIN
+    SELECT LastName FROM Employees ORDER BY LastName
+  END
+GO
+</pre>

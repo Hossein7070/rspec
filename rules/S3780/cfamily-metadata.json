@@ -1,0 +1,20 @@
+{
+  "title": "Class members should not be const references to string",
+  "type": "BUG",
+  "status": "ready",
+  "remediation": {
+    "func": "Constant/Issue",
+    "constantCost": "15min"
+  },
+  "tags": [],
+  "defaultSeverity": "Major",
+  "ruleSpecification": "RSPEC-3780",
+  "sqKey": "S3780",
+  "scope": "All",
+  "all_languages": [
+    "cfamily"
+  ],
+  "allKeys": [
+    "S3780"
+  ]
+}

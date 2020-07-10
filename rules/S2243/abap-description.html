@@ -1,0 +1,18 @@
+<p>&lt;code&gt;SELECT&lt;/code&gt; with &lt;code&gt;JOIN&lt;/code&gt; always performs better than nested selects.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+SELECT * FROM SPFL INTO SPFLI_WA.
+  SELECT * FROM SFLOGHT INTO SFLIGHT_WA
+    WHERE CARRID = SPFLI_WA-CARRID
+    AND CONNID = SPFLIGHT_WA_CONNID.
+  ENDSELECT.
+ENDSELECT.
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+SELECT * INTO WA
+  FROM SPFLI AS P INNER JOIN SFLIGHT AS F
+    ON P~CARRID = F~CARRID AND
+        P~CONNID = F~CONNID.
+END-SELECT.
+</pre>

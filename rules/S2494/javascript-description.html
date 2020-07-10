@@ -1,0 +1,10 @@
+<p>The meaning of a boolean parameter may seem perfectly clear when you first write a method call, but that meaning is likely to fade for you over time, and could be completely opaque to those who come behind you.</p>
+<p>Instead, object literals should be used.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+widget.repaint(false);  // Noncompliant; does this mean never repaint?
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+widget.repaint({immediate: false});
+</pre>

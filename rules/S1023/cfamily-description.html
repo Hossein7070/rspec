@@ -1,0 +1,49 @@
+<p>An abstract class represents the interface part of a hierarchy. Invoking the copy constructor from the top of such a hierarchy bypasses the underlying implementation resulting in only the base sub-objects being copied.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+class B1
+{
+public:
+  B1 ( );
+  B1 &amp; operator= ( B1 const &amp; rhs ); // Noncompliant
+};
+
+class D1 : public B1
+{
+public:
+  D1 &amp; operator= ( D1 const &amp; rhs );
+private:
+  int32_t member;
+};
+
+void f1( B1 &amp; b1, B1 &amp; b2 )
+{
+  b1 = b2; // operator in B1 will be called: field "member" will not be copied
+}
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+class B1
+{
+public:
+  B1 ( );
+  protected B1 &amp; operator= ( B1 const &amp; rhs ); // Compliant
+};
+
+class D1 : public B1
+{
+public:
+  D1 &amp; operator= ( D1 const &amp; rhs );
+private:
+  int32_t member;
+};
+
+void f1( B1 &amp; b1, B1 &amp; b2 )
+{
+  b1 = b2; // Compiler error will be reported
+}
+</pre>
+<h2>See</h2>
+<ul>
+<li>MISRA C++:2008, 12-8-2 - The copy assignment operator shall be declared protected or private in an abstract class.</li>
+</ul>

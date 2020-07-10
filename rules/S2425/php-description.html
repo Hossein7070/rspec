@@ -1,0 +1,11 @@
+<p>&lt;code&gt;sizeof()&lt;/code&gt; is an alias of &lt;code&gt;count()&lt;/code&gt; so the two offer the same results, but &lt;code&gt;sizeof()&lt;/code&gt; has a different meaning in other languages and may confuse developers who are new to PHP.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+$fruit=("apple","pear","raspberry","gooseberry","red currant");
+echo sizeof($fruit);  // Noncompliant
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+$fruit=("apple","pear","raspberry","gooseberry","red currant");
+echo count($fruit);
+</pre>

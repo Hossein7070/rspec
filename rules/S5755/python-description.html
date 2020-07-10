@@ -1,0 +1,27 @@
+<p>Accessing a non-existing member on an object will raise in most case an &lt;code&gt;AttributeError&lt;/code&gt; exception.</p>
+<p>This rule raises an issue when a non-existing member is accessed on a class instance and nothing indicates that this was expected.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+def access_attribute():
+    x = 42
+    return x.isnumeric()  # Noncompliant
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+def access_attribute():
+    x = "42"
+    return x.isnumeric()
+</pre>
+<h2>Exceptions</h2>
+<p>No issue will be raised:</p>
+<ul>
+<li>in &lt;code&gt;try …​ except&lt;/code&gt; blocks when &lt;code&gt;AttributeError&lt;/code&gt; is caught.</li>
+<li>in &lt;code&gt;if hasattr(…​)&lt;/code&gt; blocks.</li>
+<li>when the accessed object has methods &lt;code&gt;_\_getattribute\__&lt;/code&gt; or &lt;code&gt;\__getattr\_\_&lt;/code&gt;. These methods will override the default attribute access behavior.</li>
+<li>when a class or its parent classes use &lt;code&gt;setattr&lt;/code&gt;. This can be used to add dynamically members to the class, even if it is not recommended.</li>
+</ul>
+<p>You can also disable any issue for a given class by adding it to this rule’s ignoredClassesForMemberValidation property.</p>
+<h2>See</h2>
+<ul>
+<li><a href="https://youtu.be/NiSqG6s8skA">The Magic of Attribute Access - by Petr Viktorin - EuroPython Conference 2014</a></li>
+</ul>

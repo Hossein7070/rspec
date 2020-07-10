@@ -1,0 +1,30 @@
+{
+  "title": "Blocks should be synchronized on \"private final\" fields",
+  "type": "BUG",
+  "status": "ready",
+  "remediation": {
+    "func": "Constant/Issue",
+    "constantCost": "15min"
+  },
+  "tags": [
+    "cwe",
+    "multi-threading",
+    "cert"
+  ],
+  "defaultSeverity": "Major",
+  "ruleSpecification": "RSPEC-2445",
+  "sqKey": "S2445",
+  "scope": "All",
+  "securityStandards": {
+    "CWE": [
+      412,
+      413
+    ]
+  },
+  "all_languages": [
+    "java"
+  ],
+  "allKeys": [
+    "S2445"
+  ]
+}

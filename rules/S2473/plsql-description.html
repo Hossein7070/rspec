@@ -1,0 +1,19 @@
+<p>Some types cannot be constrained, and attempting to do so results in the exception &lt;code&gt;PLS-00566: type name "…​" cannot be constrained&lt;/code&gt; being raised.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+DECLARE
+  foo BLOB(42); -- Noncompliant - raises PLS-00566: type name "BLOB" cannot be constrained
+BEGIN
+  NULL;
+END;
+/
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+DECLARE
+  foo BLOB;
+BEGIN
+  NULL;
+END;
+/
+</pre>

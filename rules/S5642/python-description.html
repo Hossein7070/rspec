@@ -1,0 +1,62 @@
+<p>Operators &lt;code&gt;in&lt;/code&gt; and &lt;code&gt;not in&lt;/code&gt;, also called <a href="https://docs.python.org/3/reference/expressions.html#membership-test-operations">"membership test operators"</a>, require that the right operand supports membership protocol.</p>
+<p>In order to support this membership protocol a user-defined class should implement at least one of the following methods: &lt;code&gt;_\_contains\__&lt;/code&gt;, &lt;code&gt;\__iter\__&lt;/code&gt;, &lt;code&gt;\__getitem\_\_&lt;/code&gt;.</p>
+<p>This rule raises an issue when operators &lt;code&gt;in&lt;/code&gt; and &lt;code&gt;not in&lt;/code&gt; are called with a right operand not supporting membership protocol.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+myint = 42
+
+if 42 in myint:  # Noncompliant. Integers don't support membership protocol
+    pass
+
+class A:
+    def __init__(self, values):
+        self._values = values
+
+if "mystring" in A(["mystring"]):  # Noncompliant. Class A doesn't support membership protocol
+    pass
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+mylist = [42]
+
+if 42 in mylist:
+    pass
+
+class MyContains:
+    def __init__(self, values):
+        self._values = values
+
+    def __contains__(self, value):
+        return value in self._values
+
+if "mystring" in MyContains(["mystring"]):  # Noncompliant. Class A don't support membership protocol
+    pass
+
+# OR
+
+class MyIterable:
+    def __init__(self, values):
+        self._values = values
+
+    def __iter__(self):
+        return iter(self._values)
+
+if "mystring" in MyIterable(["mystring"]):  # Noncompliant. Class A don't support membership protocol
+    pass
+
+# OR
+
+class MyGetItem:
+    def __init__(self, values):
+        self._values = values
+
+    def __getitem__(self, key):
+        return self._values[key]
+
+if "mystring" in MyGetItem(["mystring"]):  # Noncompliant. Class A don't support membership protocol
+    pass
+</pre>
+<h2>See</h2>
+<ul>
+<li><a href="https://docs.python.org/3/reference/expressions.html#membership-test-operations">Python documentation - Membership test operations</a></li>
+</ul>

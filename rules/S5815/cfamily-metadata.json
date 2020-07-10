@@ -1,0 +1,27 @@
+{
+  "title": "Using \"strncat\" or \"wcsncat\" is security-sensitive",
+  "type": "SECURITY_HOTSPOT",
+  "status": "ready",
+  "remediation": {
+    "func": "Constant/Issue",
+    "constantCost": "20min"
+  },
+  "tags": [
+    "cwe"
+  ],
+  "defaultSeverity": "Major",
+  "ruleSpecification": "RSPEC-5815",
+  "sqKey": "S5815",
+  "scope": "Main",
+  "securityStandards": {
+    "CWE": [
+      120
+    ]
+  },
+  "all_languages": [
+    "cfamily"
+  ],
+  "allKeys": [
+    "S5815"
+  ]
+}

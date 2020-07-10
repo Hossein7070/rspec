@@ -1,0 +1,23 @@
+<p>Using the &lt;code&gt;this&lt;/code&gt; keyword inside the scope of an object to refer to the object’s properties and methods yields cleaner, clearer code, and helps avoid confusion when there are variables or functions outside the object scope with the same or similar names.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+function Person(name, birthdate) {
+  this.name = name;
+  this.birthdate = birthdate;
+
+  get name() {
+    return name; // Noncompliant
+  }
+}
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+function Person(name, birthdate) {
+  this.name = name;
+  this.birthdate = birthdate;
+
+  get name() {
+    return this.name;
+  }
+}
+</pre>

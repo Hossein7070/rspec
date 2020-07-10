@@ -1,0 +1,29 @@
+<p>Most built-in bitwise operators (&lt;code&gt;~&lt;/code&gt;, &lt;code&gt;&gt;&gt;&lt;/code&gt;, &lt;code&gt;&gt;&gt;=&lt;/code&gt;, &lt;code&gt;&amp;&lt;/code&gt;, &lt;code&gt;&amp;=&lt;/code&gt;, &lt;code&gt;^&lt;/code&gt;, &lt;code&gt;^=&lt;/code&gt;, &lt;code&gt;|&lt;/code&gt;, and &lt;code&gt;|=&lt;/code&gt;) have implementation-dependent results when performed on signed operands, and bitwise left shift (&lt;code&gt;&lt;&lt;&lt;/code&gt; and &lt;code&gt;&lt;⇐&lt;/code&gt;) has undefined behavior when performed on negative operands. Therefore bitwise operations should not be performed on signed operands.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+if ( ( uint16_a &amp; int16_b ) == 0x1234U )
+if ( ~int16_a == 0x1234U )
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+if ( ( uint16_a | uint16_b ) == 0x1234U )
+if ( ~uint16_a == 0x1234U )
+</pre>
+<h2>Exceptions</h2>
+<p>When used as bit flags, it is acceptable to use preprocessor macros as arguments to the &amp; and | operators even if the value is not explicitly declared as unsigned.</p>
+<pre>
+fd = open(file_name, UO_WRONLY | UO_CREAT | UO_EXCL | UO_TRUNC, 0600);
+</pre>
+<p>If the right-side operand to a shift operator is known at compile time, it is acceptable for the value to be represented with a signed type provided it is positive.</p>
+<pre>
+#define SHIFT 24
+foo = 15u &gt;&gt; SHIFT;
+</pre>
+<h2>See</h2>
+<ul>
+<li>MISRA C:2004, 12.7 - Bitwise operators shall not be applied to operands whose underlying type is signed</li>
+<li>MISRA C++:2008, 5-0-21 - Bitwise operators shall only be applied to operands of unsigned underlying type</li>
+<li>MISRA C:2012, 10.1 - Operands shall not be of an inappropriate essential type</li>
+<li><a href="https://www.securecoding.cert.org/confluence/x/BoAD">CERT, INT13-C.</a> - Use bitwise operators only on unsigned operands</li>
+<li><a href="http://cwe.mitre.org/data/definitions/682.html">MITRE, CWE-682</a> - Incorrect Calculation</li>
+</ul>

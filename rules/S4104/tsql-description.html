@@ -1,0 +1,44 @@
+<p>&lt;code&gt;COALESCE&lt;/code&gt; and &lt;code&gt;IIF&lt;/code&gt; (which evaluate to &lt;code&gt;CASE&lt;/code&gt; expressions under the covers), as well as &lt;code&gt;CASE&lt;/code&gt; input expressions should not be used with subqueries because the subquery will be evaluated once for each option in the expression, and each evaluation could return different results depending on the isolation level. To ensure consistent results, use the &lt;code&gt;SNAPSHOT ISOLATION&lt;/code&gt; isolation level. To ensure consistent results <em>and</em> better performance, move the subquery out of the expression.</p>
+<p>Note it is also an option to replace &lt;code&gt;COALESCE&lt;/code&gt; with &lt;code&gt;ISNULL&lt;/code&gt;.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+...
+COALESCE((SELECT a FROM b WHERE c) , 1)  -- Noncompliant
+...
+</pre>
+<pre>
+...
+CASE
+WHEN (SELECT COUNT(*) FROM A) &gt; 0 THEN (SELECT COUNT(*) FROM A) + 42
+...
+ELSE otherExpression
+END
+...
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+SET @a = SELECT a FROM b WHERE c
+...
+COALESCE(@a, 1)
+...
+</pre>
+<p>or</p>
+<pre>
+SET TRANSACTION ISOLATION LEVEL SNAPSHOT
+BEGIN TRANSACTION
+...
+COALESCE((SELECT a FROM b WHERE c) , 1)
+...
+</pre>
+<pre>
+...
+
+SET @a = SELECT COUNT(*) FROM A
+
+CASE
+WHEN @a &gt; 0 THEN @a + 42
+...
+ELSE otherExpression
+END
+...
+</pre>

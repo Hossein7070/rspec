@@ -1,0 +1,47 @@
+<p>Java 7 introduced the try-with-resources statement, which guarantees that the resource in question will be closed. Since the new syntax is closer to bullet-proof, it should be preferred over the older &lt;code&gt;try&lt;/code&gt;/&lt;code&gt;catch&lt;/code&gt;/&lt;code&gt;finally&lt;/code&gt; version.</p>
+<p>This rule checks that &lt;code&gt;close&lt;/code&gt;-able resources are opened in a try-with-resources statement.</p>
+<p><strong>Note</strong> that this rule is automatically disabled when the project’s &lt;code&gt;sonar.java.source&lt;/code&gt; is lower than &lt;code&gt;7&lt;/code&gt;.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+FileReader fr = null;
+BufferedReader br = null;
+try {
+  fr = new FileReader(fileName);
+  br = new BufferedReader(fr);
+  return br.readLine();
+} catch (...) {
+} finally {
+  if (br != null) {
+    try {
+      br.close();
+    } catch(IOException e){...}
+  }
+  if (fr != null ) {
+    try {
+      br.close();
+    } catch(IOException e){...}
+  }
+}
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+try (
+    FileReader fr = new FileReader(fileName);
+    BufferedReader br = new BufferedReader(fr)
+  ) {
+  return br.readLine();
+}
+catch (...) {}
+</pre>
+<p>or</p>
+<pre>
+try (BufferedReader br =
+        new BufferedReader(new FileReader(fileName))) { // no need to name intermediate resources if you don't want to
+  return br.readLine();
+}
+catch (...) {}
+</pre>
+<h2>See</h2>
+<ul>
+<li><a href="https://www.securecoding.cert.org/confluence/x/MACfBg">CERT, ERR54-J.</a> - Use a try-with-resources statement to safely handle closeable resources</li>
+</ul>

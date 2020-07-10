@@ -1,0 +1,12 @@
+<p>While rare, memory leaks can still occur in Java, and &lt;code&gt;static&lt;/code&gt; collections are a classic source. This is because &lt;code&gt;static&lt;/code&gt; class variables hang around for the life of a program. Unless the contents are diligently managed, items added to the collection shortly after start up will still be there in the collection - and in memory - until shutdown. Thus, you should be very certain that &lt;code&gt;static&lt;/code&gt; collections are both required and well-managed.</p>
+<p>This rule raises an issue on each &lt;code&gt;static&lt;/code&gt; collection.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+public class MyClass {
+  private static Map &lt;String, Thingy&gt; lookup = new HashMap&lt;&gt;();  // Noncompliant
+</pre>
+<h2>Exceptions</h2>
+<p>This rule ignores &lt;code&gt;WeakHashMap&lt;/code&gt;s, because according to the JavaDocs:
+bq. An entry in a &lt;code&gt;WeakHashMap&lt;/code&gt; will automatically be removed when its key is no longer in ordinary use. More precisely, the presence of a mapping for a given key will not prevent the key from being discarded by the garbage collector…​ When a key has been discarded its entry is effectively removed from the map…​
+However, it is important to note:
+bq. The value objects in a &lt;code&gt;WeakHashMap&lt;/code&gt; are held by ordinary strong references. Thus care should be taken to ensure that value objects do not strongly refer to their own keys, either directly or indirectly, since that will prevent the keys from being discarded.</p>

@@ -1,0 +1,22 @@
+{
+  "title": "\"#include\" directives should be followed by either <filename> or \"filename\" sequences",
+  "type": "BUG",
+  "status": "ready",
+  "remediation": {
+    "func": "Constant/Issue",
+    "constantCost": "10min"
+  },
+  "tags": [
+    "based-on-misra"
+  ],
+  "defaultSeverity": "Major",
+  "ruleSpecification": "RSPEC-956",
+  "sqKey": "PPBadIncludeForm",
+  "scope": "Main",
+  "all_languages": [
+    "cfamily"
+  ],
+  "allKeys": [
+    "PPBadIncludeForm"
+  ]
+}

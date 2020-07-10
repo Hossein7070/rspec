@@ -1,0 +1,28 @@
+{
+  "title": "\"nonnull\" pointers should not be set to null",
+  "type": "BUG",
+  "status": "ready",
+  "remediation": {
+    "func": "Constant/Issue",
+    "constantCost": "15min"
+  },
+  "tags": [
+    "cwe"
+  ],
+  "defaultSeverity": "Minor",
+  "ruleSpecification": "RSPEC-2637",
+  "sqKey": "S2637",
+  "scope": "Main",
+  "securityStandards": {
+    "CWE": [
+      476
+    ]
+  },
+  "all_languages": [
+    "cfamily",
+    "java"
+  ],
+  "allKeys": [
+    "S2637"
+  ]
+}

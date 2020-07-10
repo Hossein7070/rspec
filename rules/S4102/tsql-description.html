@@ -1,0 +1,30 @@
+<p>When you add a new constraint to a table, (&lt;code&gt;ALTER TABLE …​ ADD CONSTRAINT …​&lt;/code&gt;), &lt;code&gt;WITH CHECK&lt;/code&gt; is assumed by default, and existing data are automatically validated.</p>
+<p>But when you disable/enable an existing constraint, &lt;code&gt;WITH NOCHECK&lt;/code&gt; is assumed by default, and existing data are no longer trusted. In this case you will face an integrity issue that prevents some rows from being updated, and a performance issue because the query optimizer cannot trust this constraint anymore.</p>
+<p>Of course, &lt;code&gt;WITH CHECK&lt;/code&gt; is obviously preferred, but if &lt;code&gt;NOCHECK&lt;/code&gt; behavior is desired, it should not be selected by omission, but specified explicitly because &lt;code&gt;WITH NOCHECK&lt;/code&gt; has such a significant impact. By making &lt;code&gt;NOCHECK&lt;/code&gt; explicit, the developer documents that this behavior has been selected on purpose.</p>
+<p>Note: You can list the existing constraints that are in an untrusted state using:
+&lt;code&gt;SELECT * FROM sys.foreign_keys WHERE is_not_trusted = 1;&lt;/code&gt;
+&lt;code&gt;SELECT * FROM sys.check_constraints WHERE is_not_trusted = 1;&lt;/code&gt;</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+-- Create a trusted constraint
+ALTER TABLE users ADD CONSTRAINT max_age CHECK (age &lt; 200) ;
+
+-- Disable the constraint
+ALTER TABLE users NOCHECK CONSTRAINT max_age;
+
+-- Enable the constraint
+ALTER TABLE users CHECK CONSTRAINT max_age; -- Noncompliant, 'WITH NOCHECK' is the default mode, but is it really intentional?
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+-- Create a trusted constraint
+ALTER TABLE users ADD CONSTRAINT max_age CHECK (age &lt; 200) ;
+
+-- Disable the constraint
+ALTER TABLE users NOCHECK CONSTRAINT max_age;
+
+-- Enable the constraint
+ALTER TABLE users WITH CHECK CHECK CONSTRAINT max_age;
+-- OR
+ALTER TABLE users WITH NOCHECK CHECK CONSTRAINT max_age;
+</pre>

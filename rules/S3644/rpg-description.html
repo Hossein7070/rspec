@@ -1,0 +1,14 @@
+<p>If an &lt;code&gt;IN&lt;/code&gt; or &lt;code&gt;EXISTS&lt;/code&gt; subquery pulls data from the same table(s) involved in the outer SQL statement, there’s usually little justification for not simply moving the subquery conditions up into the main statement. Similarly subquery conditions that reference only columns from the outer query should also be "promoted". Doing so will improve readability and likely performance as well, depending on the optimizer.</p>
+<p>In very complex situations this may not be possible or might make the SQL statement unnecessarily complicated. But in general, this should be preferred.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+SELECT name
+FROM product
+WHERE id IN (SELECT id FROM product WHERE discount IS NULL)  -- Noncompliant
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+SELECT name
+FROM product
+WHERE discount IS NULL
+</pre>

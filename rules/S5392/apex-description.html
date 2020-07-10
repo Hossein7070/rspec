@@ -1,0 +1,45 @@
+<p>SOQL queries, just as SQL queries, are sensitive to injection attacks. An injection attack happens when a user controlled value is inserted in a query without proper sanitization. This enables attackers to access sensitive information or even perform unauthorized data modification.</p>
+<p>This rule raises an issue when one of the methods &lt;code&gt;Database.query&lt;/code&gt;, &lt;code&gt;Database.countQuery&lt;/code&gt; is called with a string which was build by:</p>
+<ul>
+<li>calling &lt;code&gt;String.format&lt;/code&gt;</li>
+<li>concatenation (string + string)</li>
+<li>calling &lt;code&gt;String.replace&lt;/code&gt;, &lt;code&gt;String.replaceAll&lt;/code&gt;, &lt;code&gt;String.replaceFirst&lt;/code&gt;</li>
+</ul>
+<p>AND the strings provided were not hardcoded nor sanitized by &lt;code&gt;string.escapeSingleQuotes&lt;/code&gt;</p>
+<h2>Ask Yourself Whether</h2>
+<ul>
+<li>The SOQL query is built using string formatting technics, such as concatenating variables.</li>
+<li>Some of the values are coming from an untrusted source and are not sanitized.</li>
+</ul>
+<p>There is a risk if you answered yes to any of those questions.</p>
+<h2>Recommended Secure Coding Practices</h2>
+<ul>
+<li>Use static queries with bind variables whenever possible. This is the best way to prevent SOQL injections. Even when there is no injection possible it will at least make code review easier.</li>
+<li>If you really have to use dynamic queries, sanitize all values with while-listing, type-casting or &lt;code&gt;string.escapeSingleQuotes()&lt;/code&gt;. See the links below for examples.</li>
+</ul>
+<h2>Sensitive Code Example</h2>
+<pre>
+public class My {
+    public getContact(String firstname) {
+        String query = 'SELECT id FROM Contact WHERE firstname =\''+firstname+'\'';
+        return Database.execute(query);  // Sensitive
+    }
+}
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+public class My {
+    public getContactSafe(String firstname) {
+        String query = 'SELECT id FROM Contact WHERE firstname =\''+String.escapeSingleQuotes(firstname)+'\'';
+        return Database.execute(query);  // Compliant
+    }
+}
+</pre>
+<h2>See</h2>
+<ul>
+<li><a href="https://trailhead.salesforce.com/en/content/learn/modules/secdev_injection_vulnerabilities/secdev_inject_prevent_soql_injection">Prevent SOQL Injection in Your Code</a></li>
+<li><a href="https://www.owasp.org/index.php/Top_10-2017_A1-Injection">OWASP Top 10 2017 Category A1</a> - Injection</li>
+<li><a href="http://cwe.mitre.org/data/definitions/20.html">MITRE, CWE-20</a> - Improper Input Validation</li>
+<li><a href="http://cwe.mitre.org/data/definitions/943.html">MITRE, CWE-943</a> - Improper Neutralization of Special Elements in Data Query Logic</li>
+<li><a href="https://www.sans.org/top25-software-errors/#cat1">SANS Top 25</a> - Insecure Interaction Between Components</li>
+</ul>

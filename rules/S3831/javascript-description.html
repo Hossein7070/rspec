@@ -1,0 +1,16 @@
+<p>A class declaration also creates a variable with the same name. It is possible to change the value of that variable but this is most likely an error. Even in the best-case scenario, where this is intentional, this is very confusing and should be avoided.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+class Foo { }
+Foo = 0; // Noncompliant
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+let Foo = class { }
+Foo = 0;
+</pre>
+<p>or</p>
+<pre>
+let Foo = class Foo { }
+Foo = 0;
+</pre>

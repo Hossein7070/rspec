@@ -1,0 +1,17 @@
+<p>Shared naming conventions make it possible for a team to collaborate efficiently. Following the established convention of single-letter type parameter names helps users and maintainers of your code quickly see the difference between a type parameter and a poorly named class.</p>
+<p>This rule check that all type parameter names match a provided regular expression. The following code snippets use the default regular expression.</p>
+<h2>Noncompliant Code Example</h2>
+<p>With the default regular expression &lt;code&gt;^[A-Z]$&lt;/code&gt;:</p>
+<pre>
+public class MyClass&lt;TYPE&gt; {    // Noncompliant
+  func method&lt;TYPE&gt;(t : TYPE) { // Noncompliant
+  }
+}
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+public class MyClass&lt;T&gt; {
+  func method&lt;T&gt;(t : T) {
+  }
+}
+</pre>

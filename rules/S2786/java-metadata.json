@@ -1,0 +1,22 @@
+{
+  "title": "Nested \"enum\"s should not be declared static",
+  "type": "CODE_SMELL",
+  "status": "ready",
+  "remediation": {
+    "func": "Constant/Issue",
+    "constantCost": "2min"
+  },
+  "tags": [
+    "clumsy"
+  ],
+  "defaultSeverity": "Minor",
+  "ruleSpecification": "RSPEC-2786",
+  "sqKey": "S2786",
+  "scope": "All",
+  "all_languages": [
+    "java"
+  ],
+  "allKeys": [
+    "S2786"
+  ]
+}

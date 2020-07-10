@@ -1,0 +1,36 @@
+<p>Mixing (non-const) &lt;code&gt;public&lt;/code&gt; and &lt;code&gt;private&lt;/code&gt; data members is a bad practice because it causes confusion about the intention of the class:</p>
+<ul>
+<li>If the class is a collection of loosely related values, all the data members should be &lt;code&gt;public&lt;/code&gt;.</li>
+<li>On the other hand, if the class is trying to maintain an invariant, all the data members should be &lt;code&gt;private&lt;/code&gt;.</li>
+</ul>
+<p>If we mix data members with different levels of accessibility, the purpose of the class is muddled.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+class MyClass // Noncompliant
+{
+public:
+  int firstNumber1() const { return firstNumber; }
+  void setFirstNumber(int firstNumber) { this-&gt;firstNumber = firstNumber; }
+  int secondNumber = 2;
+  const int constNumber = 0; // const data members are fine
+private:
+  int firstNumber = 1;
+};
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+class MyClass // Depending on the case, the solution might be different. Here, since this class does not enforce any invariant, we make all the data members public
+{
+public:
+  int firstNumber;
+  int secondNumber;
+  const int constNumber = 0;
+};
+</pre>
+<h2>Exceptions</h2>
+<p>Since &lt;code&gt;const&lt;/code&gt; data members cannot be modified, it’s not breaking encapsulation to make a const value public, even in a class that enforces an invariant.</p>
+<h2>See</h2>
+<ul>
+<li><a href="https://github.com/isocpp/CppCoreGuidelines/blob/036324/CppCoreGuidelines.md#c134-ensure-all-non-const-data-members-have-the-same-access-level">C++ Core Guidelines C.134</a>: Ensure all non-const data members have the same access level</li>
+<li><a href="https://github.com/isocpp/CppCoreGuidelines/blob/036324/CppCoreGuidelines.md#c9-minimize-exposure-of-members">C++ Core Guidelines C.9</a>: Minimize exposure of members</li>
+</ul>
